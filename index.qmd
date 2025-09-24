@@ -1,103 +1,113 @@
 # Wstęp {.unnumbered}
 
-Wielowymiarowa analiza danych stanowi jeden z filarów współczesnej statystyki i
-eksploracji danych, oferując metody pozwalające zrozumieć strukturę i
-zależności w zbiorach danych, w których każda obserwacja jest opisana wieloma
-zmiennymi jednocześnie. W dobie powszechnego dostępu do danych oraz rosnącego
-zapotrzebowania na ich zaawansowaną analizę, umiejętność stosowania metod
-wielowymiarowych staje się nieodzowna zarówno w badaniach naukowych, jak i w
-analizie danych stosowanej w przemyśle, finansach, biologii, medycynie czy
-naukach społecznych.
+Wielowymiarowa analiza danych stanowi jeden z filarów współczesnej
+statystyki i eksploracji danych, oferując metody pozwalające zrozumieć
+strukturę i zależności w zbiorach danych, w których każda obserwacja
+jest opisana wieloma zmiennymi jednocześnie. W dobie powszechnego
+dostępu do danych oraz rosnącego zapotrzebowania na ich zaawansowaną
+analizę, umiejętność stosowania metod wielowymiarowych staje się
+nieodzowna zarówno w badaniach naukowych, jak i w analizie danych
+stosowanej w przemyśle, finansach, biologii, medycynie czy naukach
+społecznych.
 
-Niniejsza książka została opracowana z myślą o dwóch kierunkach kształcenia
-akademickiego: *matematyce* oraz *inżynierii i analizie danych*. Jej celem jest
-zapewnienie solidnych podstaw teoretycznych oraz praktycznych umiejętności
-niezbędnych do stosowania metod wielowymiarowych w rzeczywistych problemach
-badawczych i aplikacyjnych. Zakres tematyczny książki został dobrany tak, aby
-uwzględniać zarówno klasyczne metody statystyczne, jak i techniki
-wykorzystywane we współczesnej analizie danych.
+Niniejsza książka została opracowana z myślą o dwóch kierunkach
+kształcenia akademickiego: *matematyce* oraz *inżynierii i analizie
+danych*. Jej celem jest zapewnienie solidnych podstaw teoretycznych oraz
+praktycznych umiejętności niezbędnych do stosowania metod
+wielowymiarowych w rzeczywistych problemach badawczych i aplikacyjnych.
+Zakres tematyczny książki został dobrany tak, aby uwzględniać zarówno
+klasyczne metody statystyczne, jak i techniki wykorzystywane we
+wspsółczesnej analizie danych.
 
 W pierwszej części książki omówione zostaną testy wielowymiarowe, które
-stanowią rozszerzenie klasycznych metod statystycznych na przypadki, w których
-każda obserwacja opisana jest wieloma zmiennymi. Szczególna uwaga zostanie
-poświęcona testowi Hotellinga T², będącemu odpowiednikiem testu t dla wielu
-zmiennych, oraz analizie wariancji dla wielu zmiennych (MANOVA), pozwalającej
-na badanie różnic między grupami z uwzględnieniem współzależności zmiennych.
-Celem tej części będzie zrozumienie podstaw inferencji w przestrzeni
-wielowymiarowej i interpretacji wyników testów z uwzględnieniem macierzy
-kowariancji.
+stanowią rozszerzenie klasycznych metod statystycznych na przypadki, w
+których każda obserwacja opisana jest wieloma zmiennymi. Szczególna
+uwaga zostanie poświęcona testowi Hotellinga T², będącemu odpowiednikiem
+testu t dla wielu zmiennych, oraz analizie wariancji dla wielu zmiennych
+(MANOVA), pozwalającej na badanie różnic między grupami z uwzględnieniem
+współzależności zmiennych. Celem tej części będzie zrozumienie podstaw
+inferencji w przestrzeni wielowymiarowej i interpretacji wyników testów
+z uwzględnieniem macierzy kowariancji.
 
-Następnie przedstawiona zostanie analiza kanoniczna, która służy do badania
-zależności pomiędzy dwoma zestawami zmiennych. Czytelnik pozna konstrukcję
-zmiennych kanonicznych, sposoby ich interpretacji oraz znaczenie wag i
-korelacji kanonicznych. Analiza ta ma kluczowe znaczenie wszędzie tam, gdzie
-celem jest znalezienie skorelowanych struktur w dwóch grupach cech, np. w
-badaniach biologicznych, społecznych lub psychometrycznych.
+Następnie przedstawiona zostanie analiza kanoniczna, która służy do
+badania zależności pomiędzy dwoma zestawami zmiennych. Czytelnik pozna
+konstrukcję zmiennych kanonicznych, sposoby ich interpretacji oraz
+znaczenie wag i korelacji kanonicznych. Analiza ta ma kluczowe znaczenie
+wszędzie tam, gdzie celem jest znalezienie skorelowanych struktur w
+dwóch grupach cech, np. w badaniach biologicznych, społecznych lub
+psychometrycznych.
 
 Kolejna część książki będzie poświęcona analizie czynnikowej (FA), która
-umożliwia modelowanie współzmienności zestawu zmiennych za pomocą mniejszej
-liczby zmiennych ukrytych, zwanych czynnikami. Przedstawione zostaną metody
-estymacji, kryteria wyboru liczby czynników oraz techniki rotacji, które służą
-lepszej interpretacji wyników. Analiza czynnikowa jest często stosowana w
-badaniach ankietowych i psychometrycznych, ale znajduje również zastosowanie w
-analizie danych ekonomicznych i marketingowych.
+umożliwia modelowanie współzmienności zestawu zmiennych za pomocą
+mniejszej liczby zmiennych ukrytych, zwanych czynnikami. Przedstawione
+zostaną metody estymacji, kryteria wyboru liczby czynników oraz techniki
+rotacji, które służą lepszej interpretacji wyników. Analiza czynnikowa
+jest często stosowana w badaniach ankietowych i psychometrycznych, ale
+znajduje również zastosowanie w analizie danych ekonomicznych i
+marketingowych.
 
-W dalszej kolejności wprowadzony zostanie model ścieżkowy oraz jego uogólnienie
-w postaci modeli równań strukturalnych (SEM). Modele te pozwalają na
-modelowanie zarówno obserwowalnych, jak i ukrytych zmiennych oraz relacji
-przyczynowych pomiędzy nimi. Czytelnik pozna strukturę modelu ścieżkowego,
-pojęcie identyfikowalności, miary dopasowania oraz techniki estymacji
-parametrów. Modele SEM są obecnie szeroko stosowane w naukach społecznych,
-biologii, psychologii i ekonomii.
+W dalszej kolejności wprowadzony zostanie model ścieżkowy oraz jego
+uogólnienie w postaci modeli równań strukturalnych (SEM). Modele te
+pozwalają na modelowanie zarówno obserwowalnych, jak i ukrytych
+zmiennych oraz relacji przyczynowych pomiędzy nimi. Czytelnik pozna
+strukturę modelu ścieżkowego, pojęcie identyfikowalności, miary
+dopasowania oraz techniki estymacji parametrów. Modele SEM są obecnie
+szeroko stosowane w naukach społecznych, biologii, psychologii i
+ekonomii.
 
-Następnie omówione zostaną metody redukcji wymiarowości, których celem jest
-uproszczenie reprezentacji danych bez utraty istotnej informacji. Kluczową
-techniką będzie analiza składowych głównych (PCA), która pozwala na znalezienie
-nowych osi zmienności w danych. Kolejno zaprezentowana zostanie analiza
-niezależnych składowych (ICA), która poszukuje składników statystycznie
-niezależnych, co jest szczególnie użyteczne w analizie sygnałów. Obie metody
-znajdą zastosowanie zarówno w przygotowaniu danych, jak i w ich eksploracji.
+Następnie omówione zostaną metody redukcji wymiarowości, których celem
+jest uproszczenie reprezentacji danych bez utraty istotnej informacji.
+Kluczową techniką będzie analiza składowych głównych (PCA), która
+pozwala na znalezienie nowych osi zmienności w danych. Kolejno
+zaprezentowana zostanie analiza niezależnych składowych (ICA), która
+poszukuje składników statystycznie niezależnych, co jest szczególnie
+użyteczne w analizie sygnałów. Obie metody znajdą zastosowanie zarówno w
+przygotowaniu danych, jak i w ich eksploracji.
 
-Kolejna część książki poświęcona będzie metodom skalowania wielowymiarowego
-(Multidimensional Scaling, MDS), które umożliwiają odwzorowanie relacji
-odległościowych pomiędzy obiektami w przestrzeni o mniejszym wymiarze. Wariant
-metric zakłada zachowanie rzeczywistych wartości odległości, natomiast
-non-metric koncentruje się na porządku dystansów. Metody te pozwalają uzyskać
-intuicyjne wizualizacje struktur danych, szczególnie przydatne w psychologii,
-socjologii czy analizie rynku.
+Kolejna część książki poświęcona będzie metodom skalowania
+wielowymiarowego (Multidimensional Scaling, MDS), które umożliwiają
+odwzorowanie relacji odległościowych pomiędzy obiektami w przestrzeni o
+mniejszym wymiarze. Wariant metric zakłada zachowanie rzeczywistych
+wartości odległości, natomiast non-metric koncentruje się na porządku
+dystansów. Metody te pozwalają uzyskać intuicyjne wizualizacje struktur
+danych, szczególnie przydatne w psychologii, socjologii czy analizie
+rynku.
 
-W uzupełnieniu do klasycznych technik przedstawione zostaną nieliniowe metody
-redukcji wymiarowości, takie jak t-distributed Stochastic Neighbor Embedding
-(t-SNE) oraz Uniform Manifold Approximation and Projection (UMAP). Obie
-techniki pozwalają na odwzorowanie skomplikowanych struktur danych w
-przestrzeniach dwu- lub trójwymiarowych, zachowując lokalne sąsiedztwa. Choć są
-to metody przede wszystkim eksploracyjne i wizualizacyjne, ich wartość w
-analizie dużych zbiorów danych jest trudna do przecenienia.
+W uzupełnieniu do klasycznych technik przedstawione zostaną nieliniowe
+metody redukcji wymiarowości, takie jak t-distributed Stochastic
+Neighbor Embedding (t-SNE) oraz Uniform Manifold Approximation and
+Projection (UMAP). Obie techniki pozwalają na odwzorowanie
+skomplikowanych struktur danych w przestrzeniach dwu- lub
+trójwymiarowych, zachowując lokalne sąsiedztwa. Choć są to metody przede
+wszystkim eksploracyjne i wizualizacyjne, ich wartość w analizie dużych
+zbiorów danych jest trudna do przecenienia.
 
-Następnie przedstawiona zostanie analiza skupień, której celem jest odkrywanie
-naturalnych grup w zbiorze danych. Omówione zostaną zarówno metody
-hierarchiczne, jak i niehierarchiczne, w tym popularna metoda k-średnich.
-Poruszona zostanie problematyka doboru liczby skupień oraz oceny stabilności i
-jakości otrzymanych rozwiązań. Analiza skupień znajduje zastosowanie w
-segmentacji rynku, biologii molekularnej, diagnostyce medycznej i wielu innych
-dziedzinach.
+Następnie przedstawiona zostanie analiza skupień, której celem jest
+odkrywanie naturalnych grup w zbiorze danych. Omówione zostaną zarówno
+metody hierarchiczne, jak i niehierarchiczne, w tym popularna metoda
+k-średnich. Poruszona zostanie problematyka doboru liczby skupień oraz
+oceny stabilności i jakości otrzymanych rozwiązań. Analiza skupień
+znajduje zastosowanie w segmentacji rynku, biologii molekularnej,
+diagnostyce medycznej i wielu innych dziedzinach.
 
-Kolejna część książki poświęcona będzie analizie korespondencji, stosowanej do
-eksploracji związków pomiędzy zmiennymi jakościowymi przedstawionymi w postaci
-tablicy kontyngencji. Przedstawiona zostanie zarówno analiza korespondencji
-prosta (dla dwóch zmiennych), jak i złożona (dla więcej niż dwóch). Omówione
-zostaną interpretacja map percepcyjnych, odwzorowanie profili oraz związki z
-metodami takimi jak PCA czy MDS.
+Kolejna część książki poświęcona będzie analizie korespondencji,
+stosowanej do eksploracji związków pomiędzy zmiennymi jakościowymi
+przedstawionymi w postaci tablicy kontyngencji. Przedstawiona zostanie
+zarówno analiza korespondencji prosta (dla dwóch zmiennych), jak i
+złożona (dla więcej niż dwóch). Omówione zostaną interpretacja map
+percepcyjnych, odwzorowanie profili oraz związki z metodami takimi jak
+PCA czy MDS.
 
-Ostatni rozdział poświęcony będzie analizie log-liniowej, która umożliwia
-modelowanie częstości w tablicach wielodzielczych na podstawie interakcji
-pomiędzy zmiennymi kategorycznymi. Zostaną zaprezentowane modele pełne i
-uproszczone, zasady testowania złożoności modeli oraz interpretacji parametrów.
-Analiza log-liniowa jest szczególnie przydatna przy badaniu wielowymiarowych
-zależności między zmiennymi kategorycznymi w badaniach społecznych, medycznych
-oraz w analizie zachowań konsumenckich.
+Ostatni rozdział poświęcony będzie analizie log-liniowej, która
+umożliwia modelowanie częstości w tablicach wielodzielczych na podstawie
+interakcji pomiędzy zmiennymi kategorycznymi. Zostaną zaprezentowane
+modele pełne i uproszczone, zasady testowania złożoności modeli oraz
+interpretacji parametrów. Analiza log-liniowa jest szczególnie przydatna
+przy badaniu wielowymiarowych zależności między zmiennymi kategorycznymi
+w badaniach społecznych, medycznych oraz w analizie zachowań
+konsumenckich.
 
-Wszystkie metody zostaną zilustrowane przykładami praktycznymi, realizowanymi w
-języku R. Pozwoli to Czytelnikowi nie tylko zrozumieć teoretyczne podstawy
-omawianych technik, ale także nabyć umiejętność ich stosowania w praktyce
-analitycznej.
+Wszystkie metody zostaną zilustrowane przykładami praktycznymi,
+realizowanymi w języku R. Pozwoli to Czytelnikowi nie tylko zrozumieć
+teoretyczne podstawy omawianych technik, ale także nabyć umiejętność ich
+stosowania w praktyce analitycznej.

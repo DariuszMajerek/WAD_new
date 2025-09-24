@@ -1,52 +1,52 @@
 ---
 output: html_document
+number-sections: false
 editor_options: 
   chunk_output_type: console
 ---
 
 # Testy wielowymiarowe
 
-W tradycyjnej analizie statystycznej często koncentrujemy się na
-porównywaniu grup ze względu na jedną zmienną – np. porównujemy średni
-wzrost kobiet i mężczyzn, wykorzystując test t-Studenta. Jednak w
-rzeczywistości badawczej rzadko interesuje nas tylko jedna cecha.
-Przykładowo, porównując grupy pacjentów, możemy jednocześnie rozważać
-poziom ciśnienia, cholesterolu i BMI. Albo, analizując dane
-socjologiczne, chcemy porównać grupy pod względem dochodów,
-wykształcenia i poziomu zadowolenia z życia.
+W tradycyjnej analizie statystycznej często koncentrujemy się na porównywaniu
+grup ze względu na jedną zmienną – np. porównujemy średni wzrost kobiet i
+mężczyzn, wykorzystując test t-Studenta. Jednak w rzeczywistości badawczej
+rzadko interesuje nas tylko jedna cecha. Przykładowo, porównując grupy
+pacjentów, możemy jednocześnie rozważać poziom ciśnienia, cholesterolu i BMI.
+Albo, analizując dane socjologiczne, chcemy porównać grupy pod względem
+dochodów, wykształcenia i poziomu zadowolenia z życia.
 
-Użycie wielu testów jednowymiarowych wydaje się kuszące – testujemy
-każdą zmienną osobno. Jednak prowadzi to do trzech istotnych problemów:
+Użycie wielu testów jednowymiarowych wydaje się kuszące – testujemy każdą
+zmienną osobno. Jednak prowadzi to do trzech istotnych problemów:
 
-1.  **Wzrost błędu I rodzaju** - jeżeli wykonujemy $p$ niezależnych
-    testów na poziomie istotności $\alpha$, to prawdopodobieństwo
-    przynajmniej jednego błędnego odrzucenia hipotezy zerowej gwałtownie
-    rośnie. Przykładowo, przy $p = 10$ testach i $\alpha = 0.05$, mamy:
+1.  **Wzrost błędu I rodzaju** - jeżeli wykonujemy $p$ niezależnych testów na
+    poziomie istotności $\alpha$, to prawdopodobieństwo przynajmniej jednego
+    błędnego odrzucenia hipotezy zerowej gwałtownie rośnie. Przykładowo, przy
+    $p = 10$ testach i $\alpha = 0.05$, mamy:
 
-\begin{equation}
+$$
 \mathbb{P}(\text{co najmniej jeden błąd I rodzaju}) = 1 - (1 - \alpha)^p = 1 - 0.95^{10} \approx 0.40
-\end{equation}
+$$
 
-2.  **Ignorowanie współzależności między zmiennymi** - testy
-    jednowymiarowe traktują każdą zmienną niezależnie. W rzeczywistości
-    cechy są często skorelowane – np. masa ciała i poziom cholesterolu.
-    Pominięcie tych zależności zubaża analizę.
+2.  **Ignorowanie współzależności między zmiennymi** - testy jednowymiarowe
+    traktują każdą zmienną niezależnie. W rzeczywistości cechy są często
+    skorelowane – np. masa ciała i poziom cholesterolu. Pominięcie tych
+    zależności zubaża analizę.
 
-3.  **Mniejsza moc testów** - test wielowymiarowy może wykryć ogólną
-    różnicę między grupami nawet wtedy, gdy żadna z pojedynczych
-    zmiennych nie wykazuje istotnej różnicy.
+3.  **Mniejsza moc testów** - test wielowymiarowy może wykryć ogólną różnicę
+    między grupami nawet wtedy, gdy żadna z pojedynczych zmiennych nie wykazuje
+    istotnej różnicy.
 
-Powyższe problemy uzasadniają potrzebę stosowania testów
-wielowymiarowych – uwzględniających strukturę współzmienności między
-cechami oraz pozwalających na testowanie hipotez dotyczących całych
-wektorów średnich.
+Powyższe problemy uzasadniają potrzebę stosowania testów wielowymiarowych –
+uwzględniających strukturę współzmienności między cechami oraz pozwalających na
+testowanie hipotez dotyczących całych wektorów średnich.
 
 ```{r}
+#| fig-align: "center"
 library(MASS)
 library(tidyverse)
 library(ellipse)
-library(latex2exp)
 library(plotly)
+library(latex2exp)
 
 # Parametry rozkładu
 set.seed(123)
@@ -78,17 +78,19 @@ ellipse_mu <- as.data.frame(ellipse(S / n, centre = x_bar, level = 0.95))
 
 
 # Wykres
+df_bar <- data.frame(X1 = x_bar[1], X2 = x_bar[2])
+
+# Wykres
 p <- ggplot(data, aes(x = X1, y = X2)) +
   geom_point(alpha = 0.3, size = 1) +
   geom_path(data = ellipse_mu, aes(x = X1, y = X2), color = "red", linewidth = 1) +
   geom_vline(xintercept = ci_x1, linetype = "dashed", color = "blue") +
   geom_hline(yintercept = ci_x2, linetype = "dashed", color = "darkgreen") +
-  geom_point(aes(x = x_bar[1], y = x_bar[2]), color = "black", size = 2) +
+  geom_point(data = df_bar, aes(x = X1, y = X2), color = "black", size = 2) +
   labs(
     title = "95% przedział i elipsa ufności dla średnich",
     x = "X1", y = "X2"
   ) +
-  # coord_fixed() +
   theme_minimal()
 
 ggplotly(p, width = 500, height = 400)
@@ -97,60 +99,56 @@ ggplotly(p, width = 500, height = 400)
 # Test Hotellinga dla znanej macierzy kowariancji
 
 Rozważmy próbkę
-$\boldsymbol{x}_1, \boldsymbol{x}_2, \ldots, \boldsymbol{x}_n \sim \mathcal{N}_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})$,
-gdzie $\boldsymbol{\Sigma}$ jest znana. Oznacza to, że mamy do czynienia
-z ciągiem niezależnych losowych wektorów $\boldsymbol{x}_i$, z których
-każdy ma ten sam wielowymiarowy rozkład normalny o wymiarze $p$,
-średniej $\boldsymbol{\mu}$ i macierzy kowariancji
-$\boldsymbol{\Sigma}$. Każdy wektor $\boldsymbol{x}_i$ można
-interpretować jako punkt w przestrzeni $\mathbb{R}^p$, opisujący $p$
-cech (zmiennych) dla jednej obserwacji. Formalnie jest to wektor
-kolumnowy postaci
-$\boldsymbol{x}_i = [x_{i1}, x_{i2}, \ldots, x_{ip}]^\top$, gdzie indeks
-$i$ numeruje jednostki (np. osoby, obiekty pomiaru), a indeksy
-$j = 1, \ldots, p$ odpowiadają poszczególnym zmiennym. Wektor ten
-traktowany jest jako zmienna losowa, ponieważ jego wartości są wynikiem
-losowego procesu generującego dane. Rozkład
-$\mathcal{N}_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ jest
-wielowymiarową wersją rozkładu normalnego. Opisuje on sytuację, w której
-każda kombinacja liniowa zmiennych losowych w $\boldsymbol{x}_i$ również
-ma rozkład normalny, a funkcja gęstości prawdopodobieństwa ma postać
-zależną od wartości wektora średnich oraz struktury kowariancji. Jest to
-fundamentalne założenie w klasycznej analizie statystycznej, pozwalające
-na stosowanie wielu narzędzi statystycznych.
+$\boldsymbol{y}_1, \boldsymbol{y}_2, \ldots, \boldsymbol{y}_n \sim \mathcal{N}_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})$,
+gdzie $\boldsymbol{\Sigma}$ jest znana. Oznacza to, że mamy do czynienia z
+ciągiem niezależnych losowych wektorów $\boldsymbol{y}_i$, z których każdy ma
+ten sam wielowymiarowy rozkład normalny o wymiarze $p$, średniej
+$\boldsymbol{\mu}$ i macierzy kowariancji $\boldsymbol{\Sigma}$. Każdy wektor
+$\boldsymbol{y}_i$ można interpretować jako punkt w przestrzeni $\mathbb{R}^p$,
+opisujący $p$ cech (zmiennych) dla jednej obserwacji. Formalnie jest to wektor
+kolumnowy postaci $\boldsymbol{y}_i = [y_{i1}, y_{i2}, \ldots, y_{ip}]^\top$,
+gdzie indeks $i$ numeruje jednostki (np. osoby, obiekty pomiaru), a indeksy
+$j = 1, \ldots, p$ odpowiadają poszczególnym zmiennym. Wektor ten traktowany
+jest jako zmienna losowa, ponieważ jego wartości są wynikiem losowego procesu
+generującego dane. Rozkład
+$\mathcal{N}_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ jest wielowymiarową
+wersją rozkładu normalnego. Opisuje on sytuację, w której każda kombinacja
+liniowa zmiennych losowych w $\boldsymbol{y}_i$ również ma rozkład normalny, a
+funkcja gęstości prawdopodobieństwa ma postać zależną od wartości wektora
+średnich oraz struktury kowariancji. Jest to fundamentalne założenie w
+klasycznej analizie statystycznej, pozwalające na stosowanie wielu narzędzi
+statystycznych.
 
-Parametr $\boldsymbol{\mu} = [\mu_1, \mu_2, \ldots, \mu_p]^\top$ to
-wektor wartości oczekiwanych każdej z analizowanych zmiennych. Oznacza
-on przeciętny poziom zmiennej $x_{ij}$ w populacji dla każdej cechy $j$.
-Jest to parametr istotny z punktu widzenia testowania hipotez, ponieważ
-wiele testów statystycznych dotyczy właśnie równości lub różnic wektorów
-średnich między grupami.
+Parametr $\boldsymbol{\mu} = [\mu_1, \mu_2, \ldots, \mu_p]^\top$ to wektor
+wartości oczekiwanych każdej z analizowanych zmiennych. Oznacza on przeciętny
+poziom zmiennej $y_{ij}$ w populacji dla każdej cechy $j$. Jest to parametr
+istotny z punktu widzenia testowania hipotez, ponieważ wiele testów
+statystycznych dotyczy właśnie równości lub różnic wektorów średnich między
+grupami.
 
 Z kolei macierz $\boldsymbol{\Sigma}$ to dodatnio określona, symetryczna
 macierz kowariancji o wymiarach $p \times p$. Jej elementy $\sigma_{jj}$
-opisują wariancje poszczególnych zmiennych, natomiast elementy poza
-główną przekątną $\sigma_{jk}$ (dla $j \ne k$) opisują kowariancje,
-czyli współzmienność pomiędzy zmiennymi $x_{ij}$ i $x_{ik}$. W analizie
-wielowymiarowej uwzględnienie tych zależności między cechami jest
-kluczowe, ponieważ pozwala lepiej zrozumieć strukturę danych i dokonywać
-bardziej trafnych wniosków statystycznych.
+opisują wariancje poszczególnych zmiennych, natomiast elementy poza główną
+przekątną $\sigma_{jk}$ (dla $j \ne k$) opisują kowariancje, czyli
+współzmienność pomiędzy zmiennymi $y_{ij}$ i $y_{ik}$. W analizie
+wielowymiarowej uwzględnienie tych zależności między cechami jest kluczowe,
+ponieważ pozwala lepiej zrozumieć strukturę danych i dokonywać bardziej
+trafnych wniosków statystycznych.
 
-O próbie $\boldsymbol{x}_1, \ldots, \boldsymbol{x}_n$ zakładamy, że
-wszystkie obserwacje są niezależne oraz pochodzą z tego samego rozkładu.
-Oznacza to, że mamy do czynienia z próbą losową, niezależną o
-identycznych rozkładach (i.i.d.), co jest podstawowym założeniem wielu
-testów i metod estymacji. Całą próbkę można przedstawić jako macierz
-danych o wymiarach $n \times p$, w której wiersze odpowiadają
-jednostkom, a kolumny cechom.
+O próbie $\boldsymbol{y}_1, \ldots, \boldsymbol{y}_n$ zakładamy, że wszystkie
+obserwacje są niezależne oraz pochodzą z tego samego rozkładu. Oznacza to, że
+mamy do czynienia z próbą losową, niezależną o identycznych rozkładach
+(i.i.d.), co jest podstawowym założeniem wielu testów i metod estymacji. Całą
+próbkę można przedstawić jako macierz danych o wymiarach $n \times p$, w której
+wiersze odpowiadają jednostkom, a kolumny cechom.
 
-W przypadku, gdy macierz kowariancji $\boldsymbol{\Sigma}$ jest znana,
-możemy zastosować uproszczone wersje testów statystycznych, takie jak
-klasyczny test Hotellinga $T^2$ dla jednej próby. Jest to jednak
-sytuacja czysto teoretyczna, ponieważ w praktyce $\boldsymbol{\Sigma}$
-musi być zazwyczaj estymowana na podstawie danych. Pomimo tego,
-przypadek znanej macierzy jest użyteczny do budowania intuicji,
-zrozumienia ról poszczególnych parametrów i wyprowadzania własności
-statystyk testowych.
+W przypadku, gdy macierz kowariancji $\boldsymbol{\Sigma}$ jest znana, możemy
+zastosować uproszczone wersje testów statystycznych, takie jak klasyczny test
+Hotellinga $T^2$ dla jednej próby. Jest to jednak sytuacja czysto teoretyczna,
+ponieważ w praktyce $\boldsymbol{\Sigma}$ musi być zazwyczaj estymowana na
+podstawie danych. Pomimo tego, przypadek znanej macierzy jest użyteczny do
+budowania intuicji, zrozumienia ról poszczególnych parametrów i wyprowadzania
+własności statystyk testowych.
 
 Chcemy przetestować hipotezę:
 
@@ -161,12 +159,11 @@ $$
 Statystyka testowa opiera się na uogólnionej odległości Mahalanobisa:
 
 $$
-T^2 = n (\bar{\boldsymbol{x}} - \boldsymbol{\mu}_0)^T \boldsymbol{\Sigma}^{-1} (\bar{\boldsymbol{x}} - \boldsymbol{\mu}_0)
+T^2 = n (\bar{\boldsymbol{y}} - \boldsymbol{\mu}_0)^T \boldsymbol{\Sigma}^{-1} (\bar{\boldsymbol{y}} - \boldsymbol{\mu}_0)
 $$
 
-Pod warunkiem spełnienia $H_0$, statystyka $T^2 \sim \chi^2_p$. Zatem
-możemy porównać wartość $T^2$ z odpowiednim kwantylem rozkładu
-chi-kwadrat.
+Pod warunkiem spełnienia $H_0$, statystyka $T^2 \sim \chi^2_p$. Zatem możemy
+porównać wartość $T^2$ z odpowiednim kwantylem rozkładu chi-kwadrat.
 
 ::: {#exm-1}
 ## Test Hotellinga $T^2$ dla znanej macierzy kowariancji
@@ -191,7 +188,7 @@ sprintf('p-value=%.3f', pchisq(T2, df = 2, lower.tail = FALSE))
 # Test Hotellinga $T^2$ dla nieznanej kowariancji
 
 W przypadku, gdy próbka
-$\boldsymbol{x}_1, \ldots, \boldsymbol{x}_n \sim \mathcal{N}_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})$,
+$\boldsymbol{y}_1, \ldots, \boldsymbol{y}_n \sim \mathcal{N}_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})$,
 a macierz kowariancji $\boldsymbol{\Sigma}$ nie jest znana i musi być
 estymowana z danych, testujemy hipotezę:
 
@@ -202,51 +199,29 @@ $$
 przy pomocy statystyki Hotellinga:
 
 $$
-T^2 = n (\bar{\boldsymbol{x}} - \boldsymbol{\mu}_0)^\top \mathbf{S}^{-1} (\bar{\boldsymbol{x}} - \boldsymbol{\mu}_0)
+T^2 = n (\bar{\boldsymbol{y}} - \boldsymbol{\mu}_0)^\top \mathbf{S}^{-1} (\bar{\boldsymbol{y}} - \boldsymbol{\mu}_0)
 $$
 
-W przeciwieństwie do przypadku znanej macierzy kowariancji, statystyka
-$T^2$ **nie ma rozkładu chi-kwadrat**. W rzeczywistości jej rozkład pod
-warunkiem prawdziwości hipotezy zerowej określany jest jako **rozkład
-Hotellinga**, który stanowi przypadek szczególny rozkładu beta drugiego
-rodzaju (ang. *beta type II distribution*)[^multi_tests-1]. Jest to
-rozkład znacznie mniej intuicyjny i trudniejszy w praktycznym
-zastosowaniu.
+W przeciwieństwie do przypadku znanej macierzy kowariancji, statystyka $T^2$
+**nie ma rozkładu chi-kwadrat**. W rzeczywistości jej rozkład pod warunkiem
+prawdziwości hipotezy zerowej określany jest jako **rozkład Hotellinga**, który
+stanowi przypadek szczególny rozkładu beta drugiego rodzaju (ang. *beta type II
+distribution*)[^multi_tests-1]. Jest to rozkład znacznie mniej intuicyjny i
+trudniejszy w praktycznym zastosowaniu.
 
-[^multi_tests-1]: Rozkład **beta drugiego rodzaju** (ang. *Beta type II
-    distribution*), znany także jako rozkład **beta-prime**, jest
-    ciągłym rozkładem prawdopodobieństwa definiowanym dla dodatnich
-    wartości. Rozkład beta II o parametrach $a > 0$, $b > 0$ i skali
-    $\theta > 0$ ma funkcję gęstości postaci: $$
-    f(x) = \frac{1}{\theta} \cdot \frac{(x/\theta)^{a - 1}}{(1 + x/\theta)^{a + b}} \cdot \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)}, \quad x > 0
-    $$ gdzie $\Gamma(\cdot)$ oznacza funkcję gamma Eulera. Wartość
-    oczekiwana istnieje tylko dla $b > 1$ i wynosi: $$
-    \mathbb{E}(X) = \theta \cdot \frac{a}{b - 1}
-    $$ a wariancja istnieje tylko dla $b > 2$ i wynosi: $$
-    \operatorname{Var}(X) = \theta^2 \cdot \frac{a(a + b - 1)}{(b - 2)(b - 1)^2}
-    $$
-
-Aby umożliwić testowanie hipotez z wykorzystaniem znanych tablic lub
-funkcji w programach statystycznych, Hotelling wykazał, że statystykę
-$T^2$ można przekształcić do postaci mającej **rozkład F-Fishera**:
-
-$$
+Aby umożliwić testowanie hipotez z wykorzystaniem znanych tablic lub funkcji w
+programach statystycznych, Hotelling wykazał, że statystykę $T^2$ można
+przekształcić do postaci mającej **rozkład F-Fishera**: $$
 F = \frac{(n - p)}{p(n - 1)} T^2 \sim F_{p, n - p}
-$$
-
-albo równoważnie:
-
-$$
+$$ albo równoważnie: $$
 T^2 \sim \frac{p(n - 1)}{n - p} F_{p, n - p}
-$$
-
-Z powyższej relacji wynika, że testowanie hipotezy $H_0$ przy pomocy
-statystyki Hotellinga można sprowadzić do standardowego testu $F$. Z
-tego względu mówi się, że statystyka Hotellinga ma **rozkład Hotellinga
-T^2^**, który w rzeczywistości jest funkcją rozkładu $F$. Dla dużych
-liczności $n$, rozkład statystyki $T^2$ zbliża się do rozkładu
-$\chi^2_p$, czyli chi-kwadrat o $p$ stopniach swobody, co często
-wykorzystywane jest jako przybliżenie asymptotyczne.
+$$ Z powyższej relacji wynika, że testowanie hipotezy $H_0$ przy pomocy
+statystyki Hotellinga można sprowadzić do standardowego testu $F$. Z tego
+względu mówi się, że statystyka Hotellinga ma **rozkład Hotellinga T^2^**,
+który w rzeczywistości jest funkcją rozkładu $F$. Dla dużych liczności $n$,
+rozkład statystyki $T^2$ zbliża się do rozkładu $\chi^2_p$, czyli chi-kwadrat o
+$p$ stopniach swobody, co często wykorzystywane jest jako przybliżenie
+asymptotyczne.
 
 ::: {#exm-2}
 ## Test Hotellinga $T^2$ dla nieznanej macierzy kowariancji
@@ -263,6 +238,19 @@ HotellingsT2(Y1, mu=muH0)
 ```
 :::
 
+[^multi_tests-1]: Rozkład **beta drugiego rodzaju** (ang. *Beta type II
+    distribution*), znany także jako rozkład **beta-prime**, jest ciągłym
+    rozkładem prawdopodobieństwa definiowanym dla dodatnich wartości. Rozkład
+    beta II o parametrach $a > 0$, $b > 0$ i skali $\theta > 0$ ma funkcję
+    gęstości postaci: $$
+    f(x) = \frac{1}{\theta} \cdot \frac{(x/\theta)^{a - 1}}{(1 + x/\theta)^{a + b}} \cdot \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)}, \quad x > 0
+    $$ gdzie $\Gamma(\cdot)$ oznacza funkcję gamma Eulera. Wartość oczekiwana
+    istnieje tylko dla $b > 1$ i wynosi: $$
+    \mathbb{E}(X) = \theta \cdot \frac{a}{b - 1}
+    $$ a wariancja istnieje tylko dla $b > 2$ i wynosi: $$
+    \operatorname{Var}(X) = \theta^2 \cdot \frac{a(a + b - 1)}{(b - 2)(b - 1)^2}
+    $$
+
 # Test Hotellinga do porównania dwóch grup
 
 Rozważmy dwa niezależne zbiory obserwacji:
@@ -270,11 +258,10 @@ Rozważmy dwa niezależne zbiory obserwacji:
 -   $\boldsymbol{y}_{1,1}, \boldsymbol{y}_{1,2}, \ldots, \boldsymbol{y}_{1,n_1} \sim \mathcal{N}_p(\boldsymbol{\mu}_1, \boldsymbol{\Sigma}_1)$,
 -   $\boldsymbol{y}_{2,1}, \boldsymbol{y}_{2,2}, \ldots, \boldsymbol{y}_{2,n_2} \sim \mathcal{N}_p(\boldsymbol{\mu}_2, \boldsymbol{\Sigma}_2)$
 
-gdzie $\boldsymbol{y}_{k,i} \in \mathbb{R}^p$ są wektorami cech dla
-$k$-tej grupy ($k = 1,2$) i $i$-tej obserwacji, $\boldsymbol{\mu}_1$ i
+gdzie $\boldsymbol{y}_{k,i} \in \mathbb{R}^p$ są wektorami cech dla $k$-tej
+grupy ($k = 1,2$) i $i$-tej obserwacji, $\boldsymbol{\mu}_1$ i
 $\boldsymbol{\mu}_2$ to wektory średnich populacyjnych, a
-$\boldsymbol{\Sigma}_1$, $\boldsymbol{\Sigma}_2$ to macierze
-kowariancji.
+$\boldsymbol{\Sigma}_1$, $\boldsymbol{\Sigma}_2$ to macierze kowariancji.
 
 Testujemy hipotezę:
 
@@ -290,12 +277,11 @@ $$
 -   Obserwacje w każdej grupie pochodzą z rozkładu **wielowymiarowego
     normalnego**;
 -   **Macierze kowariancji są równe**
-    $\boldsymbol{\Sigma}_1 = \boldsymbol{\Sigma}_2 = \boldsymbol{\Sigma}$.
-    Jest to kluczowe założenie umożliwiające zbudowanie wspólnego
-    estymatora kowariancji i zastosowanie rozkładu $T^2$ Hotellinga.
-    Choć może być ono naruszone w praktyce, to dla dużych prób test
-    zachowuje swoje właściwości asymptotyczne
-    [@rencher1998multivariate].
+    $\boldsymbol{\Sigma}_1 = \boldsymbol{\Sigma}_2 = \boldsymbol{\Sigma}$. Jest
+    to kluczowe założenie umożliwiające zbudowanie wspólnego estymatora
+    kowariancji i zastosowanie rozkładu $T^2$ Hotellinga. Choć może być ono
+    naruszone w praktyce, to dla dużych prób test zachowuje swoje właściwości
+    asymptotyczne [@rencher1998multivariate].
 
 Wektory średnich z próby wyrażamy jako:
 
@@ -304,8 +290,8 @@ $$
 \bar{\boldsymbol{y}}_2 = \frac{1}{n_2} \sum_{i=1}^{n_2} \boldsymbol{y}_{2,i}
 $$
 
-Nieobciążonym estymatorem macierzy kowariancji ($\boldsymbol{\Sigma}$)
-jest tzw. **połączony estymator kowariancji**:
+Nieobciążonym estymatorem macierzy kowariancji ($\boldsymbol{\Sigma}$) jest
+tzw. **połączony estymator kowariancji**:
 
 $$
 \mathbf{S} =
@@ -320,8 +306,9 @@ $$
 
 Zatem:
 
-$$\mathbf{S} = \frac{\mathbf{W}_1 + \mathbf{W}_2}{n_1 + n_2 - 2}$$
-gdzie: $$
+$$
+\mathbf{S} = \frac{\mathbf{W}_1 + \mathbf{W}_2}{n_1 + n_2 - 2}
+$$ gdzie: $$
 \mathbf{W}_1 = \sum_{i=1}^{n_1} (\boldsymbol{y}_{1,i} - \bar{\boldsymbol{y}}_1)(\boldsymbol{y}_{1,i} - \bar{\boldsymbol{y}}_1)^\top = (n_1 - 1)\mathbf{S}_1
 $$
 
@@ -333,28 +320,18 @@ $$
 T^2 = \frac{n_1 n_2}{n_1 + n_2} (\bar{\boldsymbol{y}}_1 - \bar{\boldsymbol{y}}_2)^\top \mathbf{S}^{-1} (\bar{\boldsymbol{y}}_1 - \bar{\boldsymbol{y}}_2)
 $$
 
-A gdy $H_0$ jest prawdziwa, to po przekształceniu:
-
-$$
+A gdy $H_0$ jest prawdziwa, to po przekształceniu: $$
 F = \frac{(n_1 + n_2 - p - 1)}{p(n_1 + n_2 - 2)} T^2 \sim F_{p, n_1 + n_2 - p - 1}
 $$
 
-Alternatywnie, można zapisać, że:
-
-$$
+Alternatywnie, można zapisać, że: $$
 T^2 \sim \frac{p(n_1 + n_2 - 2)}{n_1 + n_2 - p - 1} F_{p, n_1 + n_2 - p - 1}
 $$
 
-Hipotezę zerową $H_0: \boldsymbol{\mu}_1 = \boldsymbol{\mu}_2$ odrzucamy
-na poziomie istotności $\alpha$, jeśli:
-
-$$
+Hipotezę zerową $H_0: \boldsymbol{\mu}_1 = \boldsymbol{\mu}_2$ odrzucamy na
+poziomie istotności $\alpha$, jeśli: $$
 T^2 > T^2_{\alpha, p, n_1 + n_2 - 2}
-$$
-
-lub równoważnie:
-
-$$
+$$ lub równoważnie: $$
 F > F_{\alpha, p, n_1 + n_2 - p - 1}
 $$
 
@@ -363,32 +340,20 @@ $n_1 + n_2 - 2 > p$, czyli liczba stopni swobody w estymacji wspólnej
 kowariancji była większa niż wymiar przestrzeni cech.
 
 ::: callout-note
-W praktyce istotne jest, aby przed zastosowaniem testu $T^2$ Hotellinga
-dla dwóch prób zweryfikować założenie o równości macierzy kowariancji —
-np. za pomocą testu Boxa. Test M Boxa (ang. *Box’s M test*) służy do
-statystycznej weryfikacji hipotezy równości macierzy kowariancji w wielu
-grupach.
+W praktyce istotne jest, aby przed zastosowaniem testu $T^2$ Hotellinga dla
+dwóch prób zweryfikować założenie o równości macierzy kowariancji — np. za
+pomocą testu Boxa. Test M Boxa (ang. *Box’s M test*) służy do statystycznej
+weryfikacji hipotezy równości macierzy kowariancji w wielu grupach.
 
-Załóżmy, że mamy $G$ niezależnych prób z wielowymiarowego rozkładu
-normalnego:
+Załóżmy, że mamy $G$ niezależnych prób z wielowymiarowego rozkładu normalnego:
 
 $$
-\boldsymbol{X}_{g} \sim \mathcal{N}_p(\boldsymbol{\mu}_g, \boldsymbol{\Sigma}_g), \quad g = 1, \ldots, G
-$$
-
-Testujemy hipotezę:
-
-$$
+\boldsymbol{y}_{g} \sim \mathcal{N}_p(\boldsymbol{\mu}_g, \boldsymbol{\Sigma}_g), \quad g = 1, \ldots, G
+$$ Testujemy hipotezę: $$
 H_0: \boldsymbol{\Sigma}_1 = \boldsymbol{\Sigma}_2 = \ldots = \boldsymbol{\Sigma}_G = \boldsymbol{\Sigma}
-$$
-
-przeciwko alternatywie:
-
-$$
+$$ przeciwko alternatywie: $$
 H_1: \exists\, g, h: \boldsymbol{\Sigma}_g \ne \boldsymbol{\Sigma}_h
-$$
-
-Niech
+$$ Niech
 
 -   $\mathbf{S}_g$ – macierz kowariancji w grupie $g$,
 -   $n_g$ – liczba obserwacji w grupie $g$,
@@ -396,53 +361,35 @@ Niech
 
 $$
 \mathbf{S}_p = \frac{1}{N - G} \sum_{g=1}^G (n_g - 1)\mathbf{S}_g
-$$
-
-gdzie $N = \sum_{g=1}^G n_g$ – łączna liczba obserwacji. Wówczas,
-statystyka testowa Boxa ma postać:
-
-$$
+$$ gdzie $N = \sum_{g=1}^G n_g$ – łączna liczba obserwacji. Wówczas, statystyka
+testowa Boxa ma postać: $$
 M = (N - G) \cdot \ln|\mathbf{S}_p| - \sum_{g=1}^G (n_g - 1) \cdot \ln|\mathbf{S}_g|
-$$
-
-Poprawka na skończoną próbkę prowadzi do statystyki:
-
-$$
+$$ Poprawka na skończoną próbkę prowadzi do statystyki: $$
 C = \left(1 - c\right) \cdot M
-$$
-
-gdzie:
-
-$$
+$$ gdzie: $$
 c = \frac{1}{3(p + 1)(G - 1)} \left[ \sum_{g=1}^G \frac{1}{n_g - 1} - \frac{1}{N - G} \right]
-$$
-
-Statystyka $C$ jest asymptotycznie zbierzna do rozkładu
+$$ Statystyka $C$ jest asymptotycznie zbierzna do rozkładu
 $\chi^2\left(\frac{p}{2}(p + 1)(G - 1)\right)$ liczbą stopni swobody.
 
-Hipotezę $H_0$ o równości macierzy kowariancji odrzuca się, jeśli:
-
-$$
+Hipotezę $H_0$ o równości macierzy kowariancji odrzuca się, jeśli: $$
 C > \chi^2_{1 - \alpha, df}
-$$
-
-lub gdy $p$ testu jest mniejsza od poziomu istotności $\alpha$.
+$$ lub gdy $p$ testu jest mniejsza od poziomu istotności $\alpha$.
 
 **Uwagi praktyczne**
 
--   Test M Boxa jest wrażliwy na odchylenia od normalności – jeśli dane
-    nie są zbliżone do normalnych, test może dawać mylące wyniki.
--   W dużych próbach nawet drobne różnice między macierzami kowariancji
-    mogą prowadzić do odrzucenia $H_0$, choć nie mają istotnego wpływu
-    praktycznego.
--   W małych próbach test może być niestabilny – zaleca się ostrożność
-    przy interpretacji.
+-   Test M Boxa jest wrażliwy na odchylenia od normalności – jeśli dane nie są
+    zbliżone do normalnych, test może dawać mylące wyniki.
+-   W dużych próbach nawet drobne różnice między macierzami kowariancji mogą
+    prowadzić do odrzucenia $H_0$, choć nie mają istotnego wpływu praktycznego.
+-   W małych próbach test może być niestabilny – zaleca się ostrożność przy
+    interpretacji.
 :::
 
 ::: {#exm-3}
 ## Porównanie dwóch grup za pomocą testu $T^2$ Hotellinga
 
 ```{r}
+#| fig-align: "center"
 library(MASS)
 # Parametry symulacji
 set.seed(44)
@@ -530,10 +477,9 @@ library(ICSNP)
 HotellingsT2(rbind(Y1, Y2)~factor(c(rep(1, n1), rep(2, n2))))
 ```
 
-W analizowanym przykładzie zdefiniowaliśmy macierze kowariancji
-identycznie ale w rzeczywistości należałoby testować hipotezę o równości
-macierzy kowariancji. Tylko dla celów ćwiczeniowych pokażę jak to
-zrobić.
+W analizowanym przykładzie zdefiniowaliśmy macierze kowariancji identycznie ale
+w rzeczywistości należałoby testować hipotezę o równości macierzy kowariancji.
+Tylko dla celów ćwiczeniowych pokażę jak to zrobić.
 
 ```{r}
 # Test Boxa na równość macierzy kowariancji
@@ -544,36 +490,469 @@ boxM(rbind(Y1, Y2), factor(c(rep(1, n1), rep(2, n2))))
 library(rstatix)
 box_m(df_all[,-3], df_all[,3])
 ```
-
 :::
 
 ::: callout-tip
+W sytuacji, gdy założenie o równości macierzy kowariancji jest naruszone, można
+stosować alternatywne metody, takie jak:
 
-W sytuacji, gdy założenie o równości macierzy kowariancji jest naruszone, można stosować alternatywne metody, takie jak:
-
-- Testy permutacyjne (`Hotelling::hotelling.test(Y~Group, perm = TRUE, B = 5000)`).
-- Uogólniony test Hotellinga - test James (ang. *James's second-order test*) lub czasami nazywany również testem *Welch-type Hotelling test* (`Hotelling::hotelling.test(Y~Group, var.equal = FALSE)`).
-- W przypadku danych charakteryzujących się dużą liczbą zmiennych w stosunku do liczby obserwacji, można rozważyć użycie estymatora Jamesa-Steina do stabilizaji macierzy kowariancji (`Hotelling::hotelling.test(Y~Group, shrinkage = TRUE)`).
+-   Testy permutacyjne
+    (`Hotelling::hotelling.test(Y~Group, perm = TRUE, B = 5000)`).
+-   Uogólniony test Hotellinga - test Jamesa (ang. *James's second-order test*)
+    lub czasami nazywany również testem *Welch-type Hotelling test*
+    (`Hotelling::hotelling.test(Y~Group, var.equal = FALSE)`).
+-   W przypadku danych charakteryzujących się dużą liczbą zmiennych w stosunku
+    do liczby obserwacji, można rozważyć użycie estymatora Jamesa-Steina do
+    stabilizaji macierzy kowariancji
+    (`Hotelling::hotelling.test(Y~Group, shrinkage = TRUE)`).
 :::
 
-# Wprowadzenie do MANOVA
+::: callout-note
+Odrzucenie hipotezy zerowej $H_0: \boldsymbol{\mu}_1 = \boldsymbol{\mu}_2$ w
+teście Hotellinga $T^2$ oznacza, że mamy statystycznie istotny dowód na to, iż
+**rozkłady średnich wektorów dwóch populacji wielowymiarowych różnią się**,
+biorąc pod uwagę współzmienność między zmiennymi. W kontekście zastosowań
+praktycznych, oznacza to, że przynajmniej jedna zmienna (lub kombinacja
+zmiennych) odróżnia grupy, nawet jeśli nie da się tego wykazać za pomocą testów
+jednowymiarowych.
 
-W przypadku porównywania więcej niż dwóch grup nie możemy już stosować
-testu Hotellinga. Odpowiednikiem testu ANOVA w przestrzeni
-wielowymiarowej jest **MANOVA** – analiza wariancji dla wielu zmiennych.
-Testujemy hipotezę:
+W sytuacji, gdy mamy dane wielowymiarowe $\boldsymbol{y}_{gi} \in \mathbb{R}^p$
+z dwóch niezależnych grup ($g = 1,2$), testujemy:
 
 $$
-H_0: \boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 = \ldots = \boldsymbol{\mu}_g
+H_0: \boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 \quad \text{vs} \quad H_1: \boldsymbol{\mu}_1 \neq \boldsymbol{\mu}_2.
 $$
-gdzie $g$ to liczba grup. Szczegóły konstrukcji testów Wilksa,
-Lawleya-Hotellinga czy Roy’a zostaną przedstawione w dalszych wykładach.
 
-## Podsumowanie
+Odrzucenie $H_0$ sugeruje, że istnieje różnica pomiędzy średnimi wektorami, ale
+**nie musi oznaczać**, że którakolwiek ze średnich poszczególnych zmiennych
+$\mu_{1j}, \mu_{2j}$ różni się istotnie — zwłaszcza jeśli uwzględnimy korelacje
+między zmiennymi.
 
-Testy wielowymiarowe pozwalają na kompleksowe testowanie hipotez
-dotyczących wektorów średnich. Stanowią naturalne rozszerzenie
-klasycznych testów jednowymiarowych i eliminują błędy wynikające z
-wielokrotnego testowania oraz nieuwzględniania współzależności między
-cechami. W kolejnych częściach wykładu rozwiniemy tematykę MANOVA oraz
-testów dla bardziej złożonych struktur danych.
+Testy jednowymiarowe ignorują te współzależności, dlatego mogą nie wykazać
+istotnych różnic, mimo że ogólny profil wielowymiarowy się różni. Innymi słowy,
+może nie istnieć żadna istotna różnica w poszczególnych zmiennych, ale pewna
+kombinacja liniowa tych zmiennych pozwala na rozróżnienie grup.
+
+Rozważmy kombinację liniową:
+
+$$
+z = \boldsymbol{a}^\top \boldsymbol{y},
+$$
+
+gdzie $\boldsymbol{a} \in \mathbb{R}^p$ to niezerowy wektor wag. Wówczas $z$
+jest jednowymiarową zmienną losową będącą projekcją obserwacji $\boldsymbol{y}$
+na kierunek $\boldsymbol{a}$.
+
+Jeśli hipoteza $H_0: \boldsymbol{\mu}_1 = \boldsymbol{\mu}_2$ jest fałszywa, to
+istnieje taki wektor $\boldsymbol{a}$, dla którego:
+
+$$
+H_0: \boldsymbol{a}^\top \boldsymbol{\mu}_1 = \boldsymbol{a}^\top \boldsymbol{\mu}_2
+$$
+
+zostanie odrzucona w teście jednowymiarowym. Dla takiej kombinacji liniowej
+możemy zdefiniować statystykę $t$-Studenta:
+
+$$
+t(\boldsymbol{a}) = \frac{\bar{z}_1 - \bar{z}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right) s_z^2}},
+$$
+
+gdzie:
+
+-   $\bar{z}_g = \boldsymbol{a}^\top \bar{\boldsymbol{y}}_g$ – średnia z
+    projekcji grupy $g$,
+-   $s_z^2$ – nieobciążony estymator wariancji $z$, czyli:
+
+$$
+s_z^2 = \boldsymbol{a}^\top \mathbf{S} \boldsymbol{a},
+$$
+
+a $\mathbf{S}$ to wspólna macierz kowariancji.
+
+Stąd pełna postać statystyki:
+
+$$
+t(\boldsymbol{a}) = \frac{\boldsymbol{a}^\top (\bar{\boldsymbol{y}}_1 - \bar{\boldsymbol{y}}_2)}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right) \boldsymbol{a}^\top \mathbf{S} \boldsymbol{a}}}.
+$$
+
+Ponieważ statystyka $t(\boldsymbol{a})$ może być zarówno dodatnia, jak i
+ujemna, stosuje się często jej kwadrat jako miarę istotności:
+
+$$
+T^2 = t^2(\boldsymbol{a}).
+$$
+
+Statystyka Hotellinga $T^2$ przyjmuje postać:
+
+$$
+T^2 = \frac{n_1 n_2}{n_1 + n_2} (\bar{\boldsymbol{y}}_1 - \bar{\boldsymbol{y}}_2)^\top \mathbf{S}^{-1} (\bar{\boldsymbol{y}}_1 - \bar{\boldsymbol{y}}_2).
+$$
+
+Jest to forma uogólnionej odległości Mahalanobisa między średnimi wektorami.
+Można pokazać, że **istnieje taki wektor** $\boldsymbol{a}$, który
+maksymalizuje różnicę $t(\boldsymbol{a})$ — to tzw. **funkcja
+dyskryminacyjna**:
+
+$$
+\boldsymbol{a} = \mathbf{S}^{-1} (\bar{\boldsymbol{y}}_1 - \bar{\boldsymbol{y}}_2).
+$$
+
+Dla tej wartości wektora $\boldsymbol{a}$, statystyka $T^2$ przyjmuje
+największą wartość i jest najbardziej czuła na różnice między grupami.
+
+Odrzucenie $H_0$ oznacza więc, że w przestrzeni $\mathbb{R}^p$ istnieje
+kierunek $\boldsymbol{a}$, dla którego grupy mają różne średnie projekcje. To
+otwiera drogę do:
+
+-   konstrukcji funkcji dyskryminacyjnych (jak w analizie dyskryminacyjnej),
+-   identyfikacji zmiennych lub ich kombinacji odpowiedzialnych za różnicę,
+-   dalszych analiz jednowymiarowych dla projekcji
+    $z = \boldsymbol{a}^\top \boldsymbol{y}$.
+
+```{r}
+#| fig-align: "center"
+library(gridExtra)  # dla strzałki jako warstwy
+
+set.seed(42)
+
+# Parametry
+n1 <- n2 <- 100
+mu1 <- c(0, 0)
+mu2 <- c(1.5, 0.5)
+Sigma <- matrix(c(1, 0.8, 0.8, 1), ncol = 2)
+
+# Dane
+Y1 <- mvrnorm(n1, mu1, Sigma)
+Y2 <- mvrnorm(n2, mu2, Sigma)
+
+# Średnie
+y1_bar <- colMeans(Y1)
+y2_bar <- colMeans(Y2)
+
+# Estymacja wspólnej kowariancji
+S_pooled <- ((n1 - 1) * cov(Y1) + (n2 - 1) * cov(Y2)) / (n1 + n2 - 2)
+
+# Kierunek dyskryminacyjny a
+diff <- y1_bar - y2_bar
+a <- solve(S_pooled, diff)
+a_norm <- a / sqrt(sum(a^2))  # normalizacja
+
+# Punkt startowy strzałki (środek między średnimi)
+origin <- (y1_bar + y2_bar) / 2
+scale <- 3  # długość strzałki
+arrow_end <- origin + scale * a_norm
+
+# Ramka danych do wykresu
+df <- rbind(
+  data.frame(X1 = Y1[,1], X2 = Y1[,2], Grupa = "Grupa 1"),
+  data.frame(X1 = Y2[,1], X2 = Y2[,2], Grupa = "Grupa 2")
+)
+
+# Wektory średnich i strzałka
+means_df <- data.frame(rbind(y1_bar, y2_bar))
+colnames(means_df) <- c("X1", "X2")
+means_df$Grupa <- c("Grupa 1", "Grupa 2")  # te same etykiety co w danych punktów
+
+arrow_df <- data.frame(
+  x = origin[1],
+  y = origin[2],
+  xend = arrow_end[1],
+  yend = arrow_end[2]
+)
+
+# Wykres
+ggplot(df, aes(x = X1, y = X2, color = Grupa)) +
+  geom_point(alpha = 0.5) +
+  geom_point(data = means_df, aes(x = X1, y = X2),
+             size = 4, shape = 16, show.legend = FALSE) +  # średnie tym samym kolorem; bez legendy
+  geom_segment(data = arrow_df, 
+               aes(x = x, y = y, xend = xend, yend = yend),
+               arrow = arrow(length = unit(0.25, "cm")), color = "black", size = 1, show.legend = FALSE) +
+  labs(
+    title = latex2exp::TeX(r"(Ilustracja kierunku dyskryminacyjnego $a = S^{-1} (\bar{y}_1 - \bar{y}_2)$)"),
+    x = latex2exp::TeX(r"($X_1$)"),
+    y = latex2exp::TeX(r"($X_2$)")
+  ) +
+  coord_equal() +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+:::
+
+
+# MANOVA
+
+W analizie jednoczynnikowej ANOVA celem jest porównanie średnich jednej zmiennej zależnej (zmiennej odpowiedzi) pomiędzy kilkoma grupami. Jeśli jednak posiadamy więcej niż jedną zmienną odpowiedzi, sensownym krokiem jest uwzględnienie ich współzależności w ramach modelu jednoczesnego. W takiej sytuacji zastosowanie znajduje *wielowymiarowa analiza wariancji*, czyli MANOVA (ang. *Multivariate Analysis of Variance*). MANOVA pozwala na jednoczesne porównywanie wektorów średnich pomiędzy grupami przy uwzględnieniu współzależności między zmiennymi. W odróżnieniu od wielu oddzielnych testów ANOVA, MANOVA uwzględnia strukturę kowariancji, co zwiększa moc testów oraz kontroluje łączny błąd pierwszego rodzaju (ang. *familywise error rate*).
+
+## Założenia i testowane hipotezy
+
+Zakłada się, że obserwacje są niezależne i pochodzą z wielowymiarowego rozkładu normalnego w każdej grupie, tj.:
+
+$$
+\boldsymbol{y}_{ij} \sim \mathcal{N}_p(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}), \quad i = 1, \dots, g,\ j = 1, \dots, n_i,
+$$
+
+gdzie:
+
+* $\boldsymbol{y}_{ij} \in \mathbb{R}^p$ — wektor obserwacji w grupie $i$,
+* $\boldsymbol{\mu}_i$ — wektor średnich dla grupy $i$,
+* $\boldsymbol{\Sigma}$ — wspólna macierz kowariancji we wszystkich grupach (założenie homogeniczności).
+
+Testowana jest hipoteza zerowa:
+
+$$
+H_0: \boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 = \dots = \boldsymbol{\mu}_g
+$$
+
+wobec alternatywy:
+
+$$
+H_1: \exists\ i,j\ \text{takie, że}\ \boldsymbol{\mu}_i \ne \boldsymbol{\mu}_j.
+$$
+
+Model MANOVA opiera się na kilku fundamentalnych założeniach dotyczących danych, których spełnienie warunkuje poprawność i wiarygodność uzyskanych wyników. Ich naruszenie może prowadzić do fałszywych wniosków, zbyt dużej liczby odrzuceń hipotezy zerowej lub do błędnych ocen efektów czynników. Poniżej przedstawiono szczegółowo każde z tych założeń.
+
+- Pierwszym kluczowym założeniem jest odpowiednia **wielkość próby**. Przyjmuje się, że liczba obserwacji w każdej grupie (komórce) powinna przekraczać liczbę zmiennych zależnych, które są jednocześnie analizowane. To praktyczne zalecenie pozwala uniknąć problemów z oszacowaniem macierzy kowariancji i zapewnia dostateczną moc statystyczną.
+- Kolejnym istotnym założeniem jest **niezależność obserwacji**. Oznacza to, że każda jednostka obserwacyjna (np. osoba) powinna przynależeć wyłącznie do jednej grupy. Obserwacje wewnątrz i pomiędzy grupami nie mogą być ze sobą powiązane. W szczególności, model MANOVA nie jest odpowiedni dla danych z pomiarami powtarzanymi u tych samych obiektów. Dobór próby powinien być dokonany w sposób losowy, bez systematycznych zależności.
+- Trzecim wymogiem jest **brak obserwacji odstających**, zarówno w sensie jednowymiarowym (dla każdej zmiennej z osobna), jak i wielowymiarowym (dla kombinacji wszystkich zmiennych zależnych). Obserwacje odstające mogą silnie zniekształcać wartości średnich i macierzy kowariancji, przez co wyniki MANOVA stają się niestabilne.
+- Fundamentalnym założeniem MANOVA jest **wielowymiarowa normalność rozkładu** danych w każdej z grup. Oznacza to, że wektor zmiennych zależnych w każdej grupie powinien mieć rozkład wielowymiarowy normalny. W R można zastosować funkcję `mshapiro_test()` z pakietu `rstatix`, aby przeprowadzić test Shapiro–Wilka dla sprawdzenia normalności wielowymiarowej.
+- Kolejne założenie dotyczy **braku współliniowości**. Oczekuje się, że zmienne zależne będą ze sobą skorelowane w umiarkowany sposób, ale nie nadmiernie. Wartości współczynników korelacji przekraczające $r = 0,90$ są uznawane za niepożądane i mogą powodować problemy numeryczne oraz błędną interpretację wyników. Jak podają Tabachnick i Fidell (2012), zmienne powinny wnosić unikalne informacje do modelu.
+- Ważnym wymogiem jest również **liniowość zależności między zmiennymi zależnymi w każdej grupie**. Oznacza to, że zależności pomiędzy każdą parą zmiennych muszą być dobrze opisane przez funkcję liniową — jest to konieczne, aby poprawnie oszacować strukturę kowariancji.
+- Dla poprawnego działania MANOVA zakłada się także **jednorodność wariancji** dla każdej zmiennej zależnej między grupami. Można to testować za pomocą testu Levene’a. Nieistotny wynik testu Levene’a sugeruje, że wariancje są porównywalne w grupach.
+- Ostatnie, ale bardzo istotne, jest założenie o **jednorodności macierzy kowariancji (homogeniczności macierzy wariancji–kowariancji)** pomiędzy grupami. Oznacza to, że struktura współzależności między zmiennymi powinna być podobna w każdej grupie. Weryfikację tego założenia umożliwia test Boxa (Box’s M test), który stanowi wielowymiarowy odpowiednik testu Levene’a. Ze względu na dużą czułość testu Boxa na odstępstwa od założeń, przyjmuje się konserwatywny poziom istotności $\alpha = 0,001$ dla weryfikacji jego wyniku.
+
+
+## Konstrukcja modelu i statystyki testowe
+
+Podobnie jak w jednowymiarowym przypadku, w MANOVA analizuje się rozkład wariancji całkowitej na wariancję międzygrupową i wewnątrzgrupową, ale w postaci macierzy kowariancji:
+
+* **Macierz wariancji międzygrupowej (ang. *between-group SSCP*):**
+
+$$
+\mathbf{B} = \sum_{i=1}^{g} n_i (\bar{\boldsymbol{y}}_i - \bar{\boldsymbol{y}})(\bar{\boldsymbol{y}}_i - \bar{\boldsymbol{y}})^\top
+$$
+
+* **Macierz wariancji wewnątrzgrupowej (ang. *within-group SSCP*):**
+
+$$
+\mathbf{W} = \sum_{i=1}^{g} \sum_{j=1}^{n_i} (\boldsymbol{y}_{ij} - \bar{\boldsymbol{y}}_i)(\boldsymbol{y}_{ij} - \bar{\boldsymbol{y}}_i)^\top
+$$
+
+Macierz wariancji całkowitej to: $\mathbf{T} = \mathbf{B} + \mathbf{W}$.
+
+W celu przeprowadzenia testu MANOVA, wykorzystuje się statystyki oparte na stosunku macierzy:
+
+$$
+\mathbf{W}^{-1} \mathbf{B}
+$$
+
+Najczęściej spotykane statystyki testowe to:
+
+* **Wilks’ Lambda:**
+
+$$
+\Lambda = \frac{\det(\mathbf{W})}{\det(\mathbf{B} + \mathbf{W})}
+$$
+
+* **Statystyka Pillai-Bartletta (Trace):**
+
+$$
+V = \mathrm{tr}\left[(\mathbf{B} + \mathbf{W})^{-1} \mathbf{B}\right]
+$$
+
+* **Statystyka Hotellinga–Lawleya (Trace):**
+
+$$
+T = \mathrm{tr}(\mathbf{W}^{-1} \mathbf{B})
+$$
+
+* **Największy pierwiastek Roy’a:**
+
+$$
+\theta_{\text{max}} = \text{największa wartość własna}\ (\mathbf{W}^{-1} \mathbf{B})
+$$
+
+Wybór konkretnej statystyki zależy od liczebności prób, wymiaru przestrzeni i liczby grup. W praktyce **Wilks’ Lambda** jest najczęściej stosowana.
+
+::: {#exm-4}
+
+Na poziomie istotności $\alpha=0.05$ zweryfikuj hipotezę, że czynnik grupujący
+(`Group`) istotnie różnicuje zmienne `Actions` i `Thoughts` jednocześnie.
+
+```{r}
+library(gtsummary)
+library(rstatix)
+library(easystats)
+library(gt)
+dane <- rio::import("data/OCD.dat")
+```
+
+**Statystyki opisowe grup**
+
+```{r}
+dane %>% 
+  tbl_summary(by = Group,
+              statistic = list(where(is.numeric) ~ "{mean} ({sd})"),
+              type = list(Actions ~ "continuous"),
+              digits = list(everything() ~ 2))
+p <- dane %>% 
+  select(-Group) %>% 
+  correlation()
+
+p %>% print_html()
+```
+
+W kontekście zmiennej Actions widzimy najwyższy poziom w grupie No treatment,
+natomiast najniższy w grupie BT. Dla zmiennej Thoughts najwyższy poziom
+osiągnięto w grupie BT a najniższy w grupie CBT. Grupy różnią się również
+zmiennością obu cech. Związek pomiędzy zmiennymi Actions i Thoughts jest niemal
+niezauważalny. Korelacja pomiędzy tymi cechami jest nieistotnie różna od zera.
+
+```{r}
+#| fig-align: "center"
+dane %>% 
+  pivot_longer(cols = -Group) %>% 
+  ggplot(aes(x = Group, y = value, fill = name)) +
+  geom_boxplot() +
+  geom_jitter() +
+  labs(fill = "Variable", y = "Response") +
+  theme_minimal()
+```
+
+Powyższe wykresy potwierdzają znaczne różnice pomiędzy grupami w kontekście
+analizowanych cech.
+
+**Założenia**
+
+```{r}
+dane %>% 
+  group_split(Group) %>% 
+  map_df(~mshapiro_test(.x[,2:3])) %>% 
+  mutate(Group = dane %>% 
+           group_keys(Group) %>% 
+           pull(Group),
+         .before = statistic) %>%
+  gt() %>% 
+  fmt_number(columns = is.double, decimals = 3)
+```
+
+Jedynie w grupie No treatment nie jest zachowana wielowymiarowa normalność
+rozkładu analizowanych cech. Można też przeprowadzić testy normalności
+poszczególnych zmiennych, ale należy pamiętać, że brak podstaw do odrzucenia
+hipotezy o normalności brzegowych zmiennych nie jest warunkiem dostatecznym, a
+jedynie koniecznym.
+
+```{r}
+dane %>% 
+  group_by(Group) %>% 
+  shapiro_test(Actions) %>% 
+  gt() %>%
+  fmt_number(columns = is.double, decimals = 3)
+dane %>% 
+  group_by(Group) %>% 
+  shapiro_test(Thoughts) %>% 
+  gt() %>%
+  fmt_number(columns = is.double, decimals = 3)
+```
+
+Podobnie jak w przypadku wielowymiarowym brak normalności zarysował się w
+grupie No treatment i to tylko dla zmiennej Thoughts. Teraz przechodzimy do
+testowania jednorodności kowariancji.
+
+```{r}
+box_m(dane[,2:3], dane$Group)  %>% 
+  gt() %>%
+  fmt_number(columns = is.double, decimals = 3)
+```
+
+Na podstawie powyższego testu można stwierdzić, iż nie ma podstaw do odrzucenia
+hipotezy o jednorodności macierzy kowariancji.
+
+```{r}
+dane %>% 
+  group_by(Group) %>% 
+  identify_outliers(Actions) 
+dane %>% 
+  group_by(Group) %>% 
+  identify_outliers(Thoughts) %>% 
+  gt() %>%
+  fmt_number(columns = is.double, decimals = 3)
+which(dane$Actions == 4 & dane$Thoughts == 20)
+dane %>% 
+  group_by(Group) %>% 
+  mahalanobis_distance() %>% 
+  filter(is.outlier==TRUE)
+```
+
+Istnieje jedna obserwacja odstająca w grupie No treatment (obserwacja nr 26).
+Test wielowymiarowy nie wykrył żadnego elementu odstającego.
+
+Pomimo niespełnienia założenia o wielowymiarowej normalności cech w grupach,
+zastosujemy test MANOVA.
+
+**Manova**
+
+```{r}
+mod <- manova(cbind(Actions, Thoughts)~Group, data = dane)
+Manova(mod) %>% 
+  parameters() %>%
+  print_html()
+Manova(mod, test = "Wilk") %>% 
+  parameters() %>% 
+  print_html()
+Manova(mod, test = "Roy") %>% 
+  parameters() %>% 
+  print_html()
+Manova(mod, test = "Hotelling") %>% 
+  parameters() %>% 
+  print_html()
+
+# model bez obserawcji odstającej
+mod2 <- manova(cbind(Actions, Thoughts)~Group, data = dane[-26,])
+Manova(mod2) %>% 
+  parameters() %>%
+  print_html()
+```
+
+Analizują wszystkie rodzaje testów Manova, widzimy, że jedynie test
+Hotellinga-Laweya nie daje podstaw do odrzucenia hipotezy o równości wektorów
+średnich. Natomiast ponieważ co najmniej jeden z nich wskazał istotność różnic,
+to przyjmujemy, że są podstawy aby odrzucić hipotezę o równości wektorów
+średnich pomiędzy grupami. Test wykluczający obserwację odstającą również każe
+odrzucić hipotezę $H_0$.
+
+Przeprowadzimy zatem analizę brzegową.
+
+```{r}
+dane %>% 
+  pivot_longer(cols = -Group) %>% 
+  group_by(name) %>% 
+  anova_test(value~Group) %>% 
+  gt() %>%
+  fmt_number(columns = is.double, decimals = 3)
+```
+
+Analiza brzegowa pokazuje ciekawy wynik, mianowicie, dla żadnej z analizowanych
+cech testy brzegowe nie wykazały istotnych różnic. To pokazuje jak ważne jest
+stosowanie testów wielowymiarowych w kontekście porównań grup.
+
+**Post-hoc**
+
+Ponieważ testy brzegowe ANOVA nie wykazały różnic, to testów post-hoc nie
+powinno się wykonywać, ale dla celów ćwiczeniowych pokażę jak je wykonać.
+
+```{r}
+pwc <- dane %>% 
+  pivot_longer(cols = -Group) %>% 
+  group_by(name) %>% 
+  games_howell_test(value~Group)
+pwc %>% 
+  select(-.y.) %>% 
+  gt() %>%
+  fmt_number(columns = is.double, decimals = 3)
+```
+
+Testy post-hoc potwierdzają wyniki testów brzegowych ANOVA, ponieważ brakuje
+różnic pomiędzy poziomami zmiennych grupujących.
+
+:::
