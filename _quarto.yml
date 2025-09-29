@@ -26,6 +26,7 @@ book:
   chapters:
     - index.qmd
     - multi_tests.qmd
+    - cca.qmd
     - references.qmd
 
 bibliography: references.bib

@@ -159,7 +159,7 @@ $$
 Statystyka testowa opiera się na uogólnionej odległości Mahalanobisa:
 
 $$
-T^2 = n (\bar{\boldsymbol{y}} - \boldsymbol{\mu}_0)^T \boldsymbol{\Sigma}^{-1} (\bar{\boldsymbol{y}} - \boldsymbol{\mu}_0)
+T^2 = n (\bar{\boldsymbol{y}} - \boldsymbol{\mu}_0)^\top \boldsymbol{\Sigma}^{-1} (\bar{\boldsymbol{y}} - \boldsymbol{\mu}_0)
 $$
 
 Pod warunkiem spełnienia $H_0$, statystyka $T^2 \sim \chi^2_p$. Zatem możemy
@@ -679,14 +679,23 @@ ggplot(df, aes(x = X1, y = X2, color = Grupa)) +
 ```
 :::
 
-
 # MANOVA
 
-W analizie jednoczynnikowej ANOVA celem jest porównanie średnich jednej zmiennej zależnej (zmiennej odpowiedzi) pomiędzy kilkoma grupami. Jeśli jednak posiadamy więcej niż jedną zmienną odpowiedzi, sensownym krokiem jest uwzględnienie ich współzależności w ramach modelu jednoczesnego. W takiej sytuacji zastosowanie znajduje *wielowymiarowa analiza wariancji*, czyli MANOVA (ang. *Multivariate Analysis of Variance*). MANOVA pozwala na jednoczesne porównywanie wektorów średnich pomiędzy grupami przy uwzględnieniu współzależności między zmiennymi. W odróżnieniu od wielu oddzielnych testów ANOVA, MANOVA uwzględnia strukturę kowariancji, co zwiększa moc testów oraz kontroluje łączny błąd pierwszego rodzaju (ang. *familywise error rate*).
+W analizie jednoczynnikowej ANOVA celem jest porównanie średnich jednej
+zmiennej zależnej (zmiennej odpowiedzi) pomiędzy kilkoma grupami. Jeśli jednak
+posiadamy więcej niż jedną zmienną odpowiedzi, sensownym krokiem jest
+uwzględnienie ich współzależności w ramach modelu jednoczesnego. W takiej
+sytuacji zastosowanie znajduje *wielowymiarowa analiza wariancji*, czyli MANOVA
+(ang. *Multivariate Analysis of Variance*). MANOVA pozwala na jednoczesne
+porównywanie wektorów średnich pomiędzy grupami przy uwzględnieniu
+współzależności między zmiennymi. W odróżnieniu od wielu oddzielnych testów
+ANOVA, MANOVA uwzględnia strukturę kowariancji, co zwiększa moc testów oraz
+kontroluje łączny błąd pierwszego rodzaju (ang. *familywise error rate*).
 
 ## Założenia i testowane hipotezy
 
-Zakłada się, że obserwacje są niezależne i pochodzą z wielowymiarowego rozkładu normalnego w każdej grupie, tj.:
+Zakłada się, że obserwacje są niezależne i pochodzą z wielowymiarowego rozkładu
+normalnego w każdej grupie, tj.:
 
 $$
 \boldsymbol{y}_{ij} \sim \mathcal{N}_p(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}), \quad i = 1, \dots, g,\ j = 1, \dots, n_i,
@@ -694,9 +703,10 @@ $$
 
 gdzie:
 
-* $\boldsymbol{y}_{ij} \in \mathbb{R}^p$ — wektor obserwacji w grupie $i$,
-* $\boldsymbol{\mu}_i$ — wektor średnich dla grupy $i$,
-* $\boldsymbol{\Sigma}$ — wspólna macierz kowariancji we wszystkich grupach (założenie homogeniczności).
+-   $\boldsymbol{y}_{ij} \in \mathbb{R}^p$ — wektor obserwacji w grupie $i$,
+-   $\boldsymbol{\mu}_i$ — wektor średnich dla grupy $i$,
+-   $\boldsymbol{\Sigma}$ — wspólna macierz kowariancji we wszystkich grupach
+    (założenie homogeniczności).
 
 Testowana jest hipoteza zerowa:
 
@@ -710,29 +720,70 @@ $$
 H_1: \exists\ i,j\ \text{takie, że}\ \boldsymbol{\mu}_i \ne \boldsymbol{\mu}_j.
 $$
 
-Model MANOVA opiera się na kilku fundamentalnych założeniach dotyczących danych, których spełnienie warunkuje poprawność i wiarygodność uzyskanych wyników. Ich naruszenie może prowadzić do fałszywych wniosków, zbyt dużej liczby odrzuceń hipotezy zerowej lub do błędnych ocen efektów czynników. Poniżej przedstawiono szczegółowo każde z tych założeń.
+Model MANOVA opiera się na kilku fundamentalnych założeniach dotyczących
+danych, których spełnienie warunkuje poprawność i wiarygodność uzyskanych
+wyników. Ich naruszenie może prowadzić do fałszywych wniosków, zbyt dużej
+liczby odrzuceń hipotezy zerowej lub do błędnych ocen efektów czynników.
+Poniżej przedstawiono szczegółowo każde z tych założeń.
 
-- Pierwszym kluczowym założeniem jest odpowiednia **wielkość próby**. Przyjmuje się, że liczba obserwacji w każdej grupie (komórce) powinna przekraczać liczbę zmiennych zależnych, które są jednocześnie analizowane. To praktyczne zalecenie pozwala uniknąć problemów z oszacowaniem macierzy kowariancji i zapewnia dostateczną moc statystyczną.
-- Kolejnym istotnym założeniem jest **niezależność obserwacji**. Oznacza to, że każda jednostka obserwacyjna (np. osoba) powinna przynależeć wyłącznie do jednej grupy. Obserwacje wewnątrz i pomiędzy grupami nie mogą być ze sobą powiązane. W szczególności, model MANOVA nie jest odpowiedni dla danych z pomiarami powtarzanymi u tych samych obiektów. Dobór próby powinien być dokonany w sposób losowy, bez systematycznych zależności.
-- Trzecim wymogiem jest **brak obserwacji odstających**, zarówno w sensie jednowymiarowym (dla każdej zmiennej z osobna), jak i wielowymiarowym (dla kombinacji wszystkich zmiennych zależnych). Obserwacje odstające mogą silnie zniekształcać wartości średnich i macierzy kowariancji, przez co wyniki MANOVA stają się niestabilne.
-- Fundamentalnym założeniem MANOVA jest **wielowymiarowa normalność rozkładu** danych w każdej z grup. Oznacza to, że wektor zmiennych zależnych w każdej grupie powinien mieć rozkład wielowymiarowy normalny. W R można zastosować funkcję `mshapiro_test()` z pakietu `rstatix`, aby przeprowadzić test Shapiro–Wilka dla sprawdzenia normalności wielowymiarowej.
-- Kolejne założenie dotyczy **braku współliniowości**. Oczekuje się, że zmienne zależne będą ze sobą skorelowane w umiarkowany sposób, ale nie nadmiernie. Wartości współczynników korelacji przekraczające $r = 0,90$ są uznawane za niepożądane i mogą powodować problemy numeryczne oraz błędną interpretację wyników. Jak podają Tabachnick i Fidell (2012), zmienne powinny wnosić unikalne informacje do modelu.
-- Ważnym wymogiem jest również **liniowość zależności między zmiennymi zależnymi w każdej grupie**. Oznacza to, że zależności pomiędzy każdą parą zmiennych muszą być dobrze opisane przez funkcję liniową — jest to konieczne, aby poprawnie oszacować strukturę kowariancji.
-- Dla poprawnego działania MANOVA zakłada się także **jednorodność wariancji** dla każdej zmiennej zależnej między grupami. Można to testować za pomocą testu Levene’a. Nieistotny wynik testu Levene’a sugeruje, że wariancje są porównywalne w grupach.
-- Ostatnie, ale bardzo istotne, jest założenie o **jednorodności macierzy kowariancji (homogeniczności macierzy wariancji–kowariancji)** pomiędzy grupami. Oznacza to, że struktura współzależności między zmiennymi powinna być podobna w każdej grupie. Weryfikację tego założenia umożliwia test Boxa (Box’s M test), który stanowi wielowymiarowy odpowiednik testu Levene’a. Ze względu na dużą czułość testu Boxa na odstępstwa od założeń, przyjmuje się konserwatywny poziom istotności $\alpha = 0,001$ dla weryfikacji jego wyniku.
-
+-   Pierwszym kluczowym założeniem jest odpowiednia **wielkość próby**.
+    Przyjmuje się, że liczba obserwacji w każdej grupie (komórce) powinna
+    przekraczać liczbę zmiennych zależnych, które są jednocześnie analizowane.
+    To praktyczne zalecenie pozwala uniknąć problemów z oszacowaniem macierzy
+    kowariancji i zapewnia dostateczną moc statystyczną.
+-   Kolejnym istotnym założeniem jest **niezależność obserwacji**. Oznacza to,
+    że każda jednostka obserwacyjna (np. osoba) powinna przynależeć wyłącznie
+    do jednej grupy. Obserwacje wewnątrz i pomiędzy grupami nie mogą być ze
+    sobą powiązane. W szczególności, model MANOVA nie jest odpowiedni dla
+    danych z pomiarami powtarzanymi u tych samych obiektów. Dobór próby
+    powinien być dokonany w sposób losowy, bez systematycznych zależności.
+-   Trzecim wymogiem jest **brak obserwacji odstających**, zarówno w sensie
+    jednowymiarowym (dla każdej zmiennej z osobna), jak i wielowymiarowym (dla
+    kombinacji wszystkich zmiennych zależnych). Obserwacje odstające mogą
+    silnie zniekształcać wartości średnich i macierzy kowariancji, przez co
+    wyniki MANOVA stają się niestabilne.
+-   Fundamentalnym założeniem MANOVA jest **wielowymiarowa normalność
+    rozkładu** danych w każdej z grup. Oznacza to, że wektor zmiennych
+    zależnych w każdej grupie powinien mieć rozkład wielowymiarowy normalny. W
+    R można zastosować funkcję `mshapiro_test()` z pakietu `rstatix`, aby
+    przeprowadzić test Shapiro–Wilka dla sprawdzenia normalności
+    wielowymiarowej.
+-   Kolejne założenie dotyczy **braku współliniowości**. Oczekuje się, że
+    zmienne zależne będą ze sobą skorelowane w umiarkowany sposób, ale nie
+    nadmiernie. Wartości współczynników korelacji przekraczające $r = 0,90$ są
+    uznawane za niepożądane i mogą powodować problemy numeryczne oraz błędną
+    interpretację wyników. Jak podają Tabachnick i Fidell (2012), zmienne
+    powinny wnosić unikalne informacje do modelu.
+-   Ważnym wymogiem jest również **liniowość zależności między zmiennymi
+    zależnymi w każdej grupie**. Oznacza to, że zależności pomiędzy każdą parą
+    zmiennych muszą być dobrze opisane przez funkcję liniową — jest to
+    konieczne, aby poprawnie oszacować strukturę kowariancji.
+-   Dla poprawnego działania MANOVA zakłada się także **jednorodność
+    wariancji** dla każdej zmiennej zależnej między grupami. Można to testować
+    za pomocą testu Levene’a. Nieistotny wynik testu Levene’a sugeruje, że
+    wariancje są porównywalne w grupach.
+-   Ostatnie, ale bardzo istotne, jest założenie o **jednorodności macierzy
+    kowariancji (homogeniczności macierzy wariancji–kowariancji)** pomiędzy
+    grupami. Oznacza to, że struktura współzależności między zmiennymi powinna
+    być podobna w każdej grupie. Weryfikację tego założenia umożliwia test Boxa
+    (Box’s M test), który stanowi wielowymiarowy odpowiednik testu Levene’a. Ze
+    względu na dużą czułość testu Boxa na odstępstwa od założeń, przyjmuje się
+    konserwatywny poziom istotności $\alpha = 0,001$ dla weryfikacji jego
+    wyniku.
 
 ## Konstrukcja modelu i statystyki testowe
 
-Podobnie jak w jednowymiarowym przypadku, w MANOVA analizuje się rozkład wariancji całkowitej na wariancję międzygrupową i wewnątrzgrupową, ale w postaci macierzy kowariancji:
+Podobnie jak w jednowymiarowym przypadku, w MANOVA analizuje się rozkład
+wariancji całkowitej na wariancję międzygrupową i wewnątrzgrupową, ale w
+postaci macierzy kowariancji:
 
-* **Macierz wariancji międzygrupowej (ang. *between-group SSCP*):**
+-   **Macierz wariancji międzygrupowej (ang. *between-group SSCP*):**
 
 $$
 \mathbf{B} = \sum_{i=1}^{g} n_i (\bar{\boldsymbol{y}}_i - \bar{\boldsymbol{y}})(\bar{\boldsymbol{y}}_i - \bar{\boldsymbol{y}})^\top
 $$
 
-* **Macierz wariancji wewnątrzgrupowej (ang. *within-group SSCP*):**
+-   **Macierz wariancji wewnątrzgrupowej (ang. *within-group SSCP*):**
 
 $$
 \mathbf{W} = \sum_{i=1}^{g} \sum_{j=1}^{n_i} (\boldsymbol{y}_{ij} - \bar{\boldsymbol{y}}_i)(\boldsymbol{y}_{ij} - \bar{\boldsymbol{y}}_i)^\top
@@ -740,7 +791,8 @@ $$
 
 Macierz wariancji całkowitej to: $\mathbf{T} = \mathbf{B} + \mathbf{W}$.
 
-W celu przeprowadzenia testu MANOVA, wykorzystuje się statystyki oparte na stosunku macierzy:
+W celu przeprowadzenia testu MANOVA, wykorzystuje się statystyki oparte na
+stosunku macierzy:
 
 $$
 \mathbf{W}^{-1} \mathbf{B}
@@ -748,34 +800,34 @@ $$
 
 Najczęściej spotykane statystyki testowe to:
 
-* **Wilks’ Lambda:**
+-   **Wilks’ Lambda:**
 
 $$
 \Lambda = \frac{\det(\mathbf{W})}{\det(\mathbf{B} + \mathbf{W})}
 $$
 
-* **Statystyka Pillai-Bartletta (Trace):**
+-   **Statystyka Pillai-Bartletta (Trace):**
 
 $$
 V = \mathrm{tr}\left[(\mathbf{B} + \mathbf{W})^{-1} \mathbf{B}\right]
 $$
 
-* **Statystyka Hotellinga–Lawleya (Trace):**
+-   **Statystyka Hotellinga–Lawleya (Trace):**
 
 $$
 T = \mathrm{tr}(\mathbf{W}^{-1} \mathbf{B})
 $$
 
-* **Największy pierwiastek Roy’a:**
+-   **Największy pierwiastek Roy’a:**
 
 $$
 \theta_{\text{max}} = \text{największa wartość własna}\ (\mathbf{W}^{-1} \mathbf{B})
 $$
 
-Wybór konkretnej statystyki zależy od liczebności prób, wymiaru przestrzeni i liczby grup. W praktyce **Wilks’ Lambda** jest najczęściej stosowana.
+Wybór konkretnej statystyki zależy od liczebności prób, wymiaru przestrzeni i
+liczby grup. W praktyce **Wilks’ Lambda** jest najczęściej stosowana.
 
 ::: {#exm-4}
-
 Na poziomie istotności $\alpha=0.05$ zweryfikuj hipotezę, że czynnik grupujący
 (`Group`) istotnie różnicuje zmienne `Actions` i `Thoughts` jednocześnie.
 
@@ -954,5 +1006,4 @@ pwc %>%
 
 Testy post-hoc potwierdzają wyniki testów brzegowych ANOVA, ponieważ brakuje
 różnic pomiędzy poziomami zmiennych grupujących.
-
 :::

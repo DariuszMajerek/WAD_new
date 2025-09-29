@@ -14,7 +14,7 @@
     "href": "multi_tests.html",
     "title": "Testy wielowymiarowe",
     "section": "",
-    "text": "Test Hotellinga dla znanej macierzy kowariancji\nW tradycyjnej analizie statystycznej często koncentrujemy się na porównywaniu grup ze względu na jedną zmienną – np. porównujemy średni wzrost kobiet i mężczyzn, wykorzystując test t-Studenta. Jednak w rzeczywistości badawczej rzadko interesuje nas tylko jedna cecha. Przykładowo, porównując grupy pacjentów, możemy jednocześnie rozważać poziom ciśnienia, cholesterolu i BMI. Albo, analizując dane socjologiczne, chcemy porównać grupy pod względem dochodów, wykształcenia i poziomu zadowolenia z życia.\nUżycie wielu testów jednowymiarowych wydaje się kuszące – testujemy każdą zmienną osobno. Jednak prowadzi to do trzech istotnych problemów:\n\\[\n\\mathbb{P}(\\text{co najmniej jeden błąd I rodzaju}) = 1 - (1 - \\alpha)^p = 1 - 0.95^{10} \\approx 0.40\n\\]\nPowyższe problemy uzasadniają potrzebę stosowania testów wielowymiarowych – uwzględniających strukturę współzmienności między cechami oraz pozwalających na testowanie hipotez dotyczących całych wektorów średnich.\nRozważmy próbkę \\(\\boldsymbol{y}_1, \\boldsymbol{y}_2, \\ldots, \\boldsymbol{y}_n \\sim \\mathcal{N}_p(\\boldsymbol{\\mu}, \\boldsymbol{\\Sigma})\\), gdzie \\(\\boldsymbol{\\Sigma}\\) jest znana. Oznacza to, że mamy do czynienia z ciągiem niezależnych losowych wektorów \\(\\boldsymbol{y}_i\\), z których każdy ma ten sam wielowymiarowy rozkład normalny o wymiarze \\(p\\), średniej \\(\\boldsymbol{\\mu}\\) i macierzy kowariancji \\(\\boldsymbol{\\Sigma}\\). Każdy wektor \\(\\boldsymbol{y}_i\\) można interpretować jako punkt w przestrzeni \\(\\mathbb{R}^p\\), opisujący \\(p\\) cech (zmiennych) dla jednej obserwacji. Formalnie jest to wektor kolumnowy postaci \\(\\boldsymbol{y}_i = [y_{i1}, y_{i2}, \\ldots, y_{ip}]^\\top\\), gdzie indeks \\(i\\) numeruje jednostki (np. osoby, obiekty pomiaru), a indeksy \\(j = 1, \\ldots, p\\) odpowiadają poszczególnym zmiennym. Wektor ten traktowany jest jako zmienna losowa, ponieważ jego wartości są wynikiem losowego procesu generującego dane. Rozkład \\(\\mathcal{N}_p(\\boldsymbol{\\mu}, \\boldsymbol{\\Sigma})\\) jest wielowymiarową wersją rozkładu normalnego. Opisuje on sytuację, w której każda kombinacja liniowa zmiennych losowych w \\(\\boldsymbol{y}_i\\) również ma rozkład normalny, a funkcja gęstości prawdopodobieństwa ma postać zależną od wartości wektora średnich oraz struktury kowariancji. Jest to fundamentalne założenie w klasycznej analizie statystycznej, pozwalające na stosowanie wielu narzędzi statystycznych.\nParametr \\(\\boldsymbol{\\mu} = [\\mu_1, \\mu_2, \\ldots, \\mu_p]^\\top\\) to wektor wartości oczekiwanych każdej z analizowanych zmiennych. Oznacza on przeciętny poziom zmiennej \\(y_{ij}\\) w populacji dla każdej cechy \\(j\\). Jest to parametr istotny z punktu widzenia testowania hipotez, ponieważ wiele testów statystycznych dotyczy właśnie równości lub różnic wektorów średnich między grupami.\nZ kolei macierz \\(\\boldsymbol{\\Sigma}\\) to dodatnio określona, symetryczna macierz kowariancji o wymiarach \\(p \\times p\\). Jej elementy \\(\\sigma_{jj}\\) opisują wariancje poszczególnych zmiennych, natomiast elementy poza główną przekątną \\(\\sigma_{jk}\\) (dla \\(j \\ne k\\)) opisują kowariancje, czyli współzmienność pomiędzy zmiennymi \\(y_{ij}\\) i \\(y_{ik}\\). W analizie wielowymiarowej uwzględnienie tych zależności między cechami jest kluczowe, ponieważ pozwala lepiej zrozumieć strukturę danych i dokonywać bardziej trafnych wniosków statystycznych.\nO próbie \\(\\boldsymbol{y}_1, \\ldots, \\boldsymbol{y}_n\\) zakładamy, że wszystkie obserwacje są niezależne oraz pochodzą z tego samego rozkładu. Oznacza to, że mamy do czynienia z próbą losową, niezależną o identycznych rozkładach (i.i.d.), co jest podstawowym założeniem wielu testów i metod estymacji. Całą próbkę można przedstawić jako macierz danych o wymiarach \\(n \\times p\\), w której wiersze odpowiadają jednostkom, a kolumny cechom.\nW przypadku, gdy macierz kowariancji \\(\\boldsymbol{\\Sigma}\\) jest znana, możemy zastosować uproszczone wersje testów statystycznych, takie jak klasyczny test Hotellinga \\(T^2\\) dla jednej próby. Jest to jednak sytuacja czysto teoretyczna, ponieważ w praktyce \\(\\boldsymbol{\\Sigma}\\) musi być zazwyczaj estymowana na podstawie danych. Pomimo tego, przypadek znanej macierzy jest użyteczny do budowania intuicji, zrozumienia ról poszczególnych parametrów i wyprowadzania własności statystyk testowych.\nChcemy przetestować hipotezę:\n\\[\nH_0: \\boldsymbol{\\mu} = \\boldsymbol{\\mu}_0 \\quad \\text{vs} \\quad H_1: \\boldsymbol{\\mu} \\neq \\boldsymbol{\\mu}_0\n\\]\nStatystyka testowa opiera się na uogólnionej odległości Mahalanobisa:\n\\[\nT^2 = n (\\bar{\\boldsymbol{y}} - \\boldsymbol{\\mu}_0)^T \\boldsymbol{\\Sigma}^{-1} (\\bar{\\boldsymbol{y}} - \\boldsymbol{\\mu}_0)\n\\]\nPod warunkiem spełnienia \\(H_0\\), statystyka \\(T^2 \\sim \\chi^2_p\\). Zatem możemy porównać wartość \\(T^2\\) z odpowiednim kwantylem rozkładu chi-kwadrat.",
+    "text": "Test Hotellinga dla znanej macierzy kowariancji\nW tradycyjnej analizie statystycznej często koncentrujemy się na porównywaniu grup ze względu na jedną zmienną – np. porównujemy średni wzrost kobiet i mężczyzn, wykorzystując test t-Studenta. Jednak w rzeczywistości badawczej rzadko interesuje nas tylko jedna cecha. Przykładowo, porównując grupy pacjentów, możemy jednocześnie rozważać poziom ciśnienia, cholesterolu i BMI. Albo, analizując dane socjologiczne, chcemy porównać grupy pod względem dochodów, wykształcenia i poziomu zadowolenia z życia.\nUżycie wielu testów jednowymiarowych wydaje się kuszące – testujemy każdą zmienną osobno. Jednak prowadzi to do trzech istotnych problemów:\n\\[\n\\mathbb{P}(\\text{co najmniej jeden błąd I rodzaju}) = 1 - (1 - \\alpha)^p = 1 - 0.95^{10} \\approx 0.40\n\\]\nPowyższe problemy uzasadniają potrzebę stosowania testów wielowymiarowych – uwzględniających strukturę współzmienności między cechami oraz pozwalających na testowanie hipotez dotyczących całych wektorów średnich.\nRozważmy próbkę \\(\\boldsymbol{y}_1, \\boldsymbol{y}_2, \\ldots, \\boldsymbol{y}_n \\sim \\mathcal{N}_p(\\boldsymbol{\\mu}, \\boldsymbol{\\Sigma})\\), gdzie \\(\\boldsymbol{\\Sigma}\\) jest znana. Oznacza to, że mamy do czynienia z ciągiem niezależnych losowych wektorów \\(\\boldsymbol{y}_i\\), z których każdy ma ten sam wielowymiarowy rozkład normalny o wymiarze \\(p\\), średniej \\(\\boldsymbol{\\mu}\\) i macierzy kowariancji \\(\\boldsymbol{\\Sigma}\\). Każdy wektor \\(\\boldsymbol{y}_i\\) można interpretować jako punkt w przestrzeni \\(\\mathbb{R}^p\\), opisujący \\(p\\) cech (zmiennych) dla jednej obserwacji. Formalnie jest to wektor kolumnowy postaci \\(\\boldsymbol{y}_i = [y_{i1}, y_{i2}, \\ldots, y_{ip}]^\\top\\), gdzie indeks \\(i\\) numeruje jednostki (np. osoby, obiekty pomiaru), a indeksy \\(j = 1, \\ldots, p\\) odpowiadają poszczególnym zmiennym. Wektor ten traktowany jest jako zmienna losowa, ponieważ jego wartości są wynikiem losowego procesu generującego dane. Rozkład \\(\\mathcal{N}_p(\\boldsymbol{\\mu}, \\boldsymbol{\\Sigma})\\) jest wielowymiarową wersją rozkładu normalnego. Opisuje on sytuację, w której każda kombinacja liniowa zmiennych losowych w \\(\\boldsymbol{y}_i\\) również ma rozkład normalny, a funkcja gęstości prawdopodobieństwa ma postać zależną od wartości wektora średnich oraz struktury kowariancji. Jest to fundamentalne założenie w klasycznej analizie statystycznej, pozwalające na stosowanie wielu narzędzi statystycznych.\nParametr \\(\\boldsymbol{\\mu} = [\\mu_1, \\mu_2, \\ldots, \\mu_p]^\\top\\) to wektor wartości oczekiwanych każdej z analizowanych zmiennych. Oznacza on przeciętny poziom zmiennej \\(y_{ij}\\) w populacji dla każdej cechy \\(j\\). Jest to parametr istotny z punktu widzenia testowania hipotez, ponieważ wiele testów statystycznych dotyczy właśnie równości lub różnic wektorów średnich między grupami.\nZ kolei macierz \\(\\boldsymbol{\\Sigma}\\) to dodatnio określona, symetryczna macierz kowariancji o wymiarach \\(p \\times p\\). Jej elementy \\(\\sigma_{jj}\\) opisują wariancje poszczególnych zmiennych, natomiast elementy poza główną przekątną \\(\\sigma_{jk}\\) (dla \\(j \\ne k\\)) opisują kowariancje, czyli współzmienność pomiędzy zmiennymi \\(y_{ij}\\) i \\(y_{ik}\\). W analizie wielowymiarowej uwzględnienie tych zależności między cechami jest kluczowe, ponieważ pozwala lepiej zrozumieć strukturę danych i dokonywać bardziej trafnych wniosków statystycznych.\nO próbie \\(\\boldsymbol{y}_1, \\ldots, \\boldsymbol{y}_n\\) zakładamy, że wszystkie obserwacje są niezależne oraz pochodzą z tego samego rozkładu. Oznacza to, że mamy do czynienia z próbą losową, niezależną o identycznych rozkładach (i.i.d.), co jest podstawowym założeniem wielu testów i metod estymacji. Całą próbkę można przedstawić jako macierz danych o wymiarach \\(n \\times p\\), w której wiersze odpowiadają jednostkom, a kolumny cechom.\nW przypadku, gdy macierz kowariancji \\(\\boldsymbol{\\Sigma}\\) jest znana, możemy zastosować uproszczone wersje testów statystycznych, takie jak klasyczny test Hotellinga \\(T^2\\) dla jednej próby. Jest to jednak sytuacja czysto teoretyczna, ponieważ w praktyce \\(\\boldsymbol{\\Sigma}\\) musi być zazwyczaj estymowana na podstawie danych. Pomimo tego, przypadek znanej macierzy jest użyteczny do budowania intuicji, zrozumienia ról poszczególnych parametrów i wyprowadzania własności statystyk testowych.\nChcemy przetestować hipotezę:\n\\[\nH_0: \\boldsymbol{\\mu} = \\boldsymbol{\\mu}_0 \\quad \\text{vs} \\quad H_1: \\boldsymbol{\\mu} \\neq \\boldsymbol{\\mu}_0\n\\]\nStatystyka testowa opiera się na uogólnionej odległości Mahalanobisa:\n\\[\nT^2 = n (\\bar{\\boldsymbol{y}} - \\boldsymbol{\\mu}_0)^\\top \\boldsymbol{\\Sigma}^{-1} (\\bar{\\boldsymbol{y}} - \\boldsymbol{\\mu}_0)\n\\]\nPod warunkiem spełnienia \\(H_0\\), statystyka \\(T^2 \\sim \\chi^2_p\\). Zatem możemy porównać wartość \\(T^2\\) z odpowiednim kwantylem rozkładu chi-kwadrat.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Testy wielowymiarowe</span>"
     ]
@@ -57,6 +57,176 @@
     "text": "Rencher, Alvin C. 1998. Multivariate Statistical Inference and\nApplications. Vol. 635. Wiley New York.",
     "crumbs": [
       "References"
+    ]
+  },
+  {
+    "objectID": "cca.html",
+    "href": "cca.html",
+    "title": "Analiza kanoniczna",
+    "section": "",
+    "text": "Przypomnienie z algebry 😉\nAnaliza kanoniczna (ang. Canonical Correlation Analysis, CCA) jest klasyczną techniką statystyczną służącą do badania związków pomiędzy dwoma zestawami zmiennych wielowymiarowych. Jej podstawowym celem jest znalezienie takich kombinacji liniowych zmiennych z obu zestawów, które maksymalizują wzajemną korelację – są to tzw. kanoniczne zmienne lub kanoniczne składniki. Technika ta została wprowadzona przez Harolda Hotellinga w roku 1936, a więc w okresie intensywnego rozwoju metod statystycznych opartych na algebrze macierzy.\nW tym samym czasie powstawały także inne fundamenty analizy wielowymiarowej, takie jak analiza składowych głównych (PCA) czy dyskryminacja liniowa (LDA)1. Analiza kanoniczna stanowi zatem jeden z filarów klasycznej statystyki wielowymiarowej i do dziś pozostaje istotnym narzędziem eksploracji i modelowania złożonych zależności.\nW odróżnieniu od regresji wielorakiej, która przewiduje zestaw zmiennych zależnych na podstawie zestawu predyktorów, analiza kanoniczna traktuje obie grupy zmiennych symetrycznie – nie zakłada istnienia wyraźnego kierunku przyczynowego. Dlatego stosuje się ją w sytuacjach, gdy celem jest ogólna analiza współzależności pomiędzy dwoma zbiorami zmiennych, a nie przewidywanie jednego zestawu na podstawie drugiego.\nTypowe zastosowania analizy kanonicznej obejmują:\nNa potrzeby definicji modeli kanonicznego potrzebne będą nam pewne twierdzenia z zakresu algebry.\nOto matematyczna definicja modelu CCA oraz dowód istnienia rozwiązania, sformułowana ściśle w duchu Twojego tekstu:",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#sformułowanie-problemu-własnego",
+    "href": "cca.html#sformułowanie-problemu-własnego",
+    "title": "Analiza kanoniczna",
+    "section": "Sformułowanie problemu własnego",
+    "text": "Sformułowanie problemu własnego\nPrzekształćmy zmienne \\[\nc=\\Sigma_{XX}^{1/2}a,\\quad d=\\Sigma_{YY}^{1/2}b.\n\\]\nWówczas \\[\n\\rho(a,b)=\\frac{c^\\top\\Sigma_{XX}^{-1/2}\\Sigma_{XY}\\Sigma_{YY}^{-1/2}d}{\\sqrt{c^\\top c}\\sqrt{d^\\top d}}.\n\\]\nZ lematu Cauchy’ego–Buniakowskiego–Schwarza mamy \\[\n\\left|c^\\top \\mathbf{M} d\\right| \\le\n\\bigl(c^\\top \\mathbf{M}\\mathbf{M}^\\top c\\bigr)^{1/2}\\bigl(d^\\top d\\bigr)^{1/2},\n\\quad \\text{gdzie }\\mathbf{M}=\\Sigma_{XX}^{-1/2}\\Sigma_{XY}\\Sigma_{YY}^{-1/2}.\n\\tag{5.1}\\]\nZatem \\[\n\\rho(a,b)^2 \\le\n\\frac{c^\\top\\mathbf{M}\\mathbf{M}^\\top c}{c^\\top c}.\n\\]\nPonieważ \\(\\mathbf{M}\\mathbf{M}^\\top=\\Sigma_{XX}^{-1/2}\\Sigma_{XY}\\Sigma_{YY}^{-1}\\Sigma_{YX}\\Sigma_{XX}^{-1/2}\\) jest macierzą symetryczną dodatnio określoną, z lematu Rayleigha–Ritza otrzymujemy \\[\n\\max_{c\\neq 0}\\frac{c^\\top\\mathbf{M}\\mathbf{M}^\\top c}{c^\\top c}=\\lambda_1,\n\\] gdzie \\(\\lambda_1\\) to największa wartość własna tej macierzy, osiągana dla \\(c=e_1\\) – jej wektora własnego.\nJeśli \\[\nd \\propto \\Sigma_{YY}^{-1/2}\\Sigma_{YX}\\Sigma_{XX}^{-1/2}e_1\n\\] to Równanie 5.1 staje się równością.\nWracając do oryginalnych współczynników \\[\na_1=\\Sigma_{XX}^{-1/2}e_1,\\quad\nb_1\\propto \\Sigma_{YY}^{-1/2}\\Sigma_{YX}\\Sigma_{XX}^{-1/2}e_1.\n\\]\nPierwsza korelacja kanoniczna wynosi wówczas \\[\n\\rho_1=\\sqrt{\\lambda_1}.\n\\]\nAnalogicznie dla kolejnych par, przy założeniu \\(c\\perp e_1,\\dots,e_{k-1}\\), mamy \\[\n\\rho_k=\\sqrt{\\lambda_k},\n\\] gdzie \\(\\lambda_k\\) to kolejne wartości własne macierzy \\(\\Sigma_{XX}^{-1/2}\\Sigma_{XY}\\Sigma_{YY}^{-1}\\Sigma_{YX}\\Sigma_{XX}^{-1/2}\\), a odpowiadające im wektory własne \\(e_k\\) definiują kolejne wektory kanoniczne \\[\nU_k=e_k^\\top\\Sigma_{XX}^{-1/2}X,\\quad\nV_k=f_k^\\top\\Sigma_{YY}^{-1/2}Y,\\quad\nf_k\\propto \\Sigma_{YY}^{-1/2}\\Sigma_{YX}\\Sigma_{XX}^{-1/2}e_k.\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#własności-rozwiązań",
+    "href": "cca.html#własności-rozwiązań",
+    "title": "Analiza kanoniczna",
+    "section": "Własności rozwiązań",
+    "text": "Własności rozwiązań\nDla każdej pary \\((U_k,V_k)\\) zachodzi \\[\n\\mathrm{Var}(U_k)=\\mathrm{Var}(V_k)=1,\\quad\n\\mathrm{Cov}(U_k,U_l)=\\mathrm{Cov}(V_k,V_l)=\\mathrm{Cov}(U_k,V_l)=0\\quad (k\\neq l).\n\\]\n\n\n\n\n\n\nDowód powyższych równości\n\n\n\nDla danej pary wektorów kanonicznych mamy\n\\[\nU_k = a_k^\\top X = e_k^\\top \\Sigma_{XX}^{-1/2} X,\n    \\qquad\n    V_k = b_k^\\top Y = f_k^\\top \\Sigma_{YY}^{-1/2} Y,\n\\] gdzie:\n\n\n\\(e_k\\) jest ortonormalnym6 wektorem własnym macierzy \\(\\Sigma_{XX}^{-1/2} \\Sigma_{XY} \\Sigma_{YY}^{-1} \\Sigma_{YX} \\Sigma_{XX}^{-1/2}\\)\n\n\n\\(f_k \\propto \\Sigma_{YY}^{-1/2} \\Sigma_{YX} \\Sigma_{XX}^{-1/2} e_k\\),\n\n\\(\\rho_k = \\sqrt{\\lambda_k}\\), gdzie \\(\\lambda_k\\) to odpowiadająca wartość własna.\n\nMacierze \\(\\Sigma_{XX}\\), \\(\\Sigma_{YY}\\) są dodatnio określone, więc można wprowadzić transformacje \\[\n\\tilde{X} = \\Sigma_{XX}^{-1/2}X, \\quad \\tilde{Y} = \\Sigma_{YY}^{-1/2}Y.\n\\] Zatem \\[\nU_k = e_k^\\top \\tilde{X},\\quad V_k = f_k^\\top \\tilde{Y}.\n\\]\nNajpierw udowodnimy, że \\(\\operatorname{Var}(U_k) = \\operatorname{Var}(V_k) = 1\\).\nZmienna \\(U_k = e_k^\\top \\tilde{X}\\), więc \\[\n\\operatorname{Var}(U_k) = \\operatorname{Var}(e_k^\\top \\tilde{X}) = e_k^\\top \\operatorname{Var}(\\tilde{X}) e_k.\n\\] Zauważmy, że \\[\n\\operatorname{Var}(\\tilde{X}) = \\Sigma_{XX}^{-1/2} \\Sigma_{XX} \\Sigma_{XX}^{-1/2} = I,\n\\] więc \\[\n\\operatorname{Var}(U_k) = e_k^\\top I e_k = e_k^\\top e_k = 1.\n\\] Analogicznie \\[\n\\operatorname{Var}(V_k) = f_k^\\top \\operatorname{Var}(\\tilde{Y}) f_k = f_k^\\top f_k = 1,\n\\] ponieważ \\(\\tilde{Y}\\) ma jednostkową macierz kowariancji, a \\(f_k\\) są znormalizowane.\nTeraz dowiedziemy, że \\(\\operatorname{Cov}(U_k, U_l) = 0\\) dla \\(k \\neq l\\)\n\\[\n\\operatorname{Cov}(U_k, U_l) = \\operatorname{Cov}(e_k^\\top \\tilde{X}, e_l^\\top \\tilde{X}) = e_k^\\top \\operatorname{Var}(\\tilde{X}) e_l = e_k^\\top e_l.\n\\] Ponieważ \\(e_k\\), \\(e_l\\) są ortonormalnymi wektorami własnymi symetrycznej macierzy, to \\[\ne_k^\\top e_l = 0 \\quad \\text{dla } k \\neq l.\n\\] Zatem \\[\n\\operatorname{Cov}(U_k, U_l) = 0.\n\\] Podobnie \\[\n\\operatorname{Cov}(V_k, V_l) = f_k^\\top f_l = 0 \\quad \\text{dla } k \\neq l.\n\\]\nNa koniec dowiedźmy, że \\(\\operatorname{Cov}(U_k, V_l) = 0\\) dla \\(k \\neq l\\) \\[\n\\operatorname{Cov}(U_k, V_l) = \\operatorname{Cov}(e_k^\\top \\tilde{X}, f_l^\\top \\tilde{Y}) = e_k^\\top \\operatorname{Cov}(\\tilde{X}, \\tilde{Y}) f_l.\n\\] Z definicji \\[\n\\operatorname{Cov}(\\tilde{X}, \\tilde{Y}) = \\Sigma_{XX}^{-1/2} \\Sigma_{XY} \\Sigma_{YY}^{-1/2} =: M.\n\\] Zatem \\[\n\\operatorname{Cov}(U_k, V_l) = e_k^\\top M f_l.\n\\] Z poprzednich wyprowadzeń \\[\nf_l \\propto M^\\top e_l.\n\\] Zatem \\[\n\\operatorname{Cov}(U_k, V_l) \\propto e_k^\\top M M^\\top e_l.\n\\] Ale macierz \\(MM^\\top\\) jest symetryczna, a \\(e_k\\) są jej ortonormalnymi wektorami własnymi, więc \\[\ne_k^\\top MM^\\top e_l = 0 \\quad \\text{dla } k \\neq l.\n\\] Zatem \\[\n\\operatorname{Cov}(U_k, V_l) = 0.\n\\]\n\n\n6 ortonormalność wynika z niezmienniczości korelacji względem długości wektorówPonadto korelacje kanoniczne są niezmiennicze względem odwracalnych przekształceń liniowych \\(X\\) i \\(Y\\): \\[\nX^*=\\mathcal{U}^TX+u,\\quad Y^*=\\mathcal{V}^TY+v \\implies\n\\rho_i(X^*,Y^*)=\\rho_i(X,Y).\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#wniosek",
+    "href": "cca.html#wniosek",
+    "title": "Analiza kanoniczna",
+    "section": "Wniosek",
+    "text": "Wniosek\nPonieważ macierze kowariancji \\(\\Sigma_{XX}\\) i \\(\\Sigma_{YY}\\) są dodatnio określone, ich odwrotności istnieją. Macierze: \\[\n\\Sigma_{XX}^{-1/2}\\Sigma_{XY}\\Sigma_{YY}^{-1}\\Sigma_{YX}\\Sigma_{XX}^{-1/2},\\quad\n\\Sigma_{YY}^{-1/2}\\Sigma_{YX}\\Sigma_{XX}^{-1}\\Sigma_{XY}\\Sigma_{YY}^{-1/2}\n\\] są symetryczne i dodatnio określone, więc mają rzeczywiste, dodatnie wartości własne i ortonormalne wektory własne. Z lematu Rayleigha–Ritza otrzymujemy maksymalizację ilorazu Rayleigha oraz gwarancję istnienia rozwiązania. Tym samym wykazano, że pary \\((a_k,b_k)\\) istnieją, a odpowiadające im \\(\\rho_k=\\sqrt{\\lambda_k}\\) są kanonicznymi korelacjami.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#hipoteza-zerowa-i-alternatywna",
+    "href": "cca.html#hipoteza-zerowa-i-alternatywna",
+    "title": "Analiza kanoniczna",
+    "section": "Hipoteza zerowa i alternatywna",
+    "text": "Hipoteza zerowa i alternatywna\nDla zbiorów zmiennych \\(X \\in \\mathbb{R}^p\\), \\(Y \\in \\mathbb{R}^q\\), testujemy\n\n\n\\(H_0: \\rho_1 = \\rho_2 = \\cdots = \\rho_s = 0\\) – brak istotnych korelacji kanonicznych (pierwiastków),\n\n\\(H_1\\): istnieje co najmniej jedna istotna korelacja kanoniczna, tj. \\(\\exists i \\leq s \\ \\text{takie, że } \\rho_i \\ne 0\\).\n\ngdzie \\(s = \\min(p, q)\\), a \\(\\rho_i\\) to \\(i\\)-ta korelacja kanoniczna.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#statystyka-testowa-test-wilka",
+    "href": "cca.html#statystyka-testowa-test-wilka",
+    "title": "Analiza kanoniczna",
+    "section": "Statystyka testowa – test Wilka",
+    "text": "Statystyka testowa – test Wilka\nW celu przetestowania tej hipotezy, wykorzystuje się statystykę Wilka, która bazuje na iloczynie składników postaci (\\(1 - \\lambda_i\\)), gdzie \\(\\lambda_i\\) to wartości własne odpowiadające kwadratom korelacji kanonicznych \\[\n\\lambda_i = \\rho_i^2.\n\\] Statystyka Wilkas jest zdefiniowana jako \\[\n\\Lambda = \\prod_{i=1}^s (1 - \\lambda_i).\n\\]\nInterpretacja - im mniejsze wartości \\(\\Lambda\\), tym większa zależność między zbiorami \\(X\\) i \\(Y\\). Duże wartości \\(\\lambda_i\\) (czyli silne korelacje kanoniczne) powodują, że \\(\\Lambda\\) dąży do zera.\nW praktyce, dla próby \\(n\\)-elementowej, stosujemy wersję testu bazującą na macierzach kowariancji estymowanych z próby \\(S_{XX}, S_{XY}, S_{YX}, S_{YY})\\) – odpowiedniki \\(\\Sigma_{XX}, \\Sigma_{XY}, \\Sigma_{YX}, \\Sigma_{YY}\\).\nWówczas \\[\nT^2/n = \\left|I - S_{YY}^{-1} S_{YX} S_{XX}^{-1} S_{XY} \\right| = \\prod_{i=1}^s (1 - \\hat{\\lambda}_i),\n\\] gdzie \\(\\hat{\\lambda}_i\\) to próbkowe wartości własne (szacunki \\(\\lambda_i\\)).",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#rozkład-asymptotyczny-i-transformacja-do-rozkładu-chi2",
+    "href": "cca.html#rozkład-asymptotyczny-i-transformacja-do-rozkładu-chi2",
+    "title": "Analiza kanoniczna",
+    "section": "Rozkład asymptotyczny i transformacja do rozkładu \\(\\chi^2\\)\n",
+    "text": "Rozkład asymptotyczny i transformacja do rozkładu \\(\\chi^2\\)\n\nWielu autorów (np. Marriott i Gittins (1986)) sugeruje przekształcenie statystyki Wilksa do postaci asymptotycznie zgodnej z rozkładem \\(\\chi^2\\), np. za pomocą transformacji\n\\[\n-\\left(n - \\frac{1}{2}(p + q + 1) \\right) \\cdot \\ln(\\Lambda) \\sim \\chi^2_{pq}.\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#procedura-testowania",
+    "href": "cca.html#procedura-testowania",
+    "title": "Analiza kanoniczna",
+    "section": "Procedura testowania",
+    "text": "Procedura testowania\n\nOszacuj wszystkie korelacje kanoniczne \\(\\hat{\\rho}_1, \\ldots, \\hat{\\rho}_p\\).\nOd \\(k = 0\\) do \\(p-1\\) oblicz \\(\\Lambda_k = \\prod_{i=k+1}^{p}(1 - \\hat{\\rho}_i^2)\\).\nOblicz transformację \\(\\chi^2_k=-\\left(n - \\frac{1}{2}(p + q + 1) \\right) \\cdot \\ln(\\Lambda_k)\\)\n\nPorównaj z odpowiednim kwantylem rozkładu \\(\\chi^2\\) z \\((q - k)(r - k)\\) stopniami swobody.\nJeśli wartość statystyki przekracza ten kwantyl (\\(p&lt;\\alpha\\)), odrzuć \\(H_0^{(k)}\\) i przejdź do \\(k+1\\). Jeśli nie, zatrzymaj się – kolejne korelacje uznajemy za nieistotne.\n\nOcena dopasowania modelu w analizie kanonicznej (CCA – Canonical Correlation Analysis) obejmuje kilka istotnych wskaźników diagnostycznych, które pozwalają zrozumieć siłę i strukturę relacji między dwoma zbiorami zmiennych. Poniżej omówione zostały trzy kluczowe miary: ładunki czynnikowe, wariancja wyjaśniona oraz redundancja.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#ładunki-czynnikowe-ang.-canonical-loadings",
+    "href": "cca.html#ładunki-czynnikowe-ang.-canonical-loadings",
+    "title": "Analiza kanoniczna",
+    "section": "Ładunki czynnikowe (ang. canonical loadings)",
+    "text": "Ładunki czynnikowe (ang. canonical loadings)\n\n\nDefinicja - korelacje pomiędzy zmiennymi kanonicznymi (czyli kombinacjami liniowymi wektorów \\(a_k'X\\) i \\(b_k'Y\\)) a oryginalnymi zmiennymi ze zbiorów \\(X\\) i \\(Y\\).\n\nInterpretacja:\n\nPokazują, które konkretne zmienne pierwotne w największym stopniu „ładują się” (czyli kontrybuują) na daną zmienną kanoniczną.\nWysoka wartość (np. &gt; 0.7) wskazuje na silną zależność między zmienną oryginalną a daną zmienną kanoniczną.\nZnaki dodatnie/ujemne pozwalają wnioskować o kierunku związku.\n\n\n\nWzór:\n\nDla zbioru \\(X\\): \\[\n\\text{loadings}_X = \\mathrm{Corr}(X, U_k) = \\Sigma_{XX} a_k\n\\]\n\nDla zbioru \\(Y\\): \\[\n\\text{loadings}_Y = \\mathrm{Corr}(Y, V_k) = \\Sigma_{YY} b_k\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#wariancja-wyjaśniona-ang.-variance-explained",
+    "href": "cca.html#wariancja-wyjaśniona-ang.-variance-explained",
+    "title": "Analiza kanoniczna",
+    "section": "Wariancja wyjaśniona (ang. variance explained)",
+    "text": "Wariancja wyjaśniona (ang. variance explained)\n\n\nDefinicja - średnia kwadratów ładunków czynnikowych dla każdej zmiennej kanonicznej i każdego zbioru danych.\n\nInterpretacja:\n\nInformuje, jaką część wariancji oryginalnych zmiennych w danym zbiorze (\\(X\\) lub \\(Y\\)) wyjaśnia dana zmienna kanoniczna.\nMożna traktować ten wskaźnik jako odpowiednik współczynnika determinacji \\(R^2\\) dla pojedynczej zmiennej kanonicznej.\nWysoka wartość oznacza, że dana zmienna kanoniczna dobrze reprezentuje zbiór, z którego została utworzona.\n\n\n\nWzór: \\[\n\\text{Explained variance} = \\frac{1}{p} \\sum_{j=1}^{p} \\mathrm{Corr}^2(X_j, U_k)\n\\] gdzie \\(p\\) to liczba zmiennych w zbiorze \\(X\\), a \\(U_k\\) to \\(k\\)-ta zmienna kanoniczna.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#redundancja-ang.-redundancy-index",
+    "href": "cca.html#redundancja-ang.-redundancy-index",
+    "title": "Analiza kanoniczna",
+    "section": "Redundancja (ang. redundancy index)",
+    "text": "Redundancja (ang. redundancy index)\n\n\nDefinicja - iloczyn kwadratu korelacji kanonicznej \\(\\rho_k^2\\) oraz wariancji wyjaśnionej przez daną zmienną kanoniczną we własnym zbiorze.\n\nInterpretacja:\n\nInformuje, jaka część przeciętnej wariancji jednej grupy zmiennych jest wyjaśniana przez zmienną kanoniczną utworzoną na podstawie drugiego zbioru.\nMiara ta pokazuje, czy dany zbiór zmiennych wnosi unikalną informację o drugim zbiorze.\nWysoka redundancja oznacza, że istnieje istotny związek między strukturami dwóch zbiorów zmiennych.\n\n\n\nWzór: \\[\n\\text{Redundancy}_X = \\rho_k^2 \\cdot \\left( \\frac{1}{p} \\sum_{j=1}^{p} \\mathrm{Corr}^2(X_j, U_k) \\right)\n\\] Analogicznie definiujemy redundancję względem \\(Y\\).\n\n\n\n\n\n\n\n\nMiara\nCo opisuje\nInterpretacja praktyczna\n\n\n\nŁadunki czynnikowe\nSiłę powiązania zmiennej oryginalnej z kanoniczną\nWysoka wartość ⇒ silna reprezentacja zmiennej\n\n\nWariancja wyjaśniona\nŚrednia siła reprezentacji zbioru przez zm. kanoniczną\nMiara dopasowania struktury do zbioru\n\n\nRedundancja\nIlość informacji o jednym zbiorze zawarta w drugim\nMiara istotności relacji między zbiorami",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#normalność-wielowymiarowa",
+    "href": "cca.html#normalność-wielowymiarowa",
+    "title": "Analiza kanoniczna",
+    "section": "Normalność wielowymiarowa",
+    "text": "Normalność wielowymiarowa\nZakłada się, że obydwa zbiory zmiennych losowych – \\(X\\) i \\(Y\\) – są wspólnie rozkładem normalnym wielowymiarowym jak podano w Równanie 4.1. Normalność umożliwia stosowanie testów statystycznych (np. testu Wilksa) do oceny liczby istotnych korelacji kanonicznych.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#brak-wartości-odstających-outliers",
+    "href": "cca.html#brak-wartości-odstających-outliers",
+    "title": "Analiza kanoniczna",
+    "section": "Brak wartości odstających (outliers)",
+    "text": "Brak wartości odstających (outliers)\nZarówno obserwacje odstające jednowymiarowe, jak i wielowymiarowe mogą istotnie zaburzać wynik analizy kanonicznej. Odstające wartości mogą wpływać na macierze kowariancji, zmieniając kierunki i siły relacji między zbiorami zmiennych.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#wystarczająca-liczba-obserwacji",
+    "href": "cca.html#wystarczająca-liczba-obserwacji",
+    "title": "Analiza kanoniczna",
+    "section": "Wystarczająca liczba obserwacji",
+    "text": "Wystarczająca liczba obserwacji\nLiczba obserwacji powinna znacząco przekraczać liczbę zmiennych w każdym zbiorze. Liczba obserwacji \\(n\\) w każdej grupie powinna być większa niż suma liczby zmiennych w \\(X\\) i \\(Y\\) \\[\nn &gt; p + q\n\\] Zapewnia odwracalność macierzy kowariancji oraz stabilność estymatorów.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#liniowość-zależności",
+    "href": "cca.html#liniowość-zależności",
+    "title": "Analiza kanoniczna",
+    "section": "Liniowość zależności",
+    "text": "Liniowość zależności\nZakłada się, że związki między wszystkimi parami zmiennych są liniowe. Ponieważ CCA opiera się na maksymalizacji liniowych kombinacji, nieliniowe zależności mogą pozostać niewykryte.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#brak-nadmiernej-współliniowości-multikolinearności",
+    "href": "cca.html#brak-nadmiernej-współliniowości-multikolinearności",
+    "title": "Analiza kanoniczna",
+    "section": "Brak nadmiernej współliniowości (multikolinearności)",
+    "text": "Brak nadmiernej współliniowości (multikolinearności)\nZmienne wewnątrz każdego zbioru (w \\(X\\) lub w \\(Y\\)) nie powinny być nadmiernie skorelowane. Wysoka współliniowość może prowadzić do niestabilnych i trudnych do interpretacji wektorów kanonicznych.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
+    ]
+  },
+  {
+    "objectID": "cca.html#niezależność-obserwacji",
+    "href": "cca.html#niezależność-obserwacji",
+    "title": "Analiza kanoniczna",
+    "section": "Niezależność obserwacji",
+    "text": "Niezależność obserwacji\nKażda obserwacja powinna pochodzić od innej jednostki (brak powtórzeń pomiarów). Niezależność warunkuje poprawność estymatorów kowariancji.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analiza kanoniczna</span>"
     ]
   }
 ]

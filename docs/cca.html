@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Analiza kanoniczna – Wielowymiarowa analiza danych</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./multi_tests.html" rel="prev">
+<link href="./images/cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-2d449610c6da6b3fd31ed0a9984c1b47.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-f7ccbded210020a5533f6fd86e3f20c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-2d449610c6da6b3fd31ed0a9984c1b47.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Brak wyników",
+    "search-matching-documents-text": "dopasowane dokumenty",
+    "search-copy-link-title": "Kopiuj link do wyszukiwania",
+    "search-hide-matches-text": "Ukryj dodatkowe dopasowania",
+    "search-more-match-text": "więcej dopasowań w tym dokumencie",
+    "search-more-matches-text": "więcej dopasowań w tym dokumencie",
+    "search-clear-button-title": "Wyczyść",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Anuluj",
+    "search-submit-button-title": "Zatwierdź",
+    "search-label": "Szukaj"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-sidebar floating slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cca.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analiza kanoniczna</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Szukaj" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/logo.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Wielowymiarowa analiza danych</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/dax44/ModelsValidation/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Przełącz tryb ciemny"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Przełącz tryb czytnika">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Szukaj"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wstęp</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multi_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Testy wielowymiarowe</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cca.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analiza kanoniczna</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Spis treści</h2>
+   
+  <ul>
+<li><a href="#przypomnienie-z-algebry" id="toc-przypomnienie-z-algebry" class="nav-link active" data-scroll-target="#przypomnienie-z-algebry">Przypomnienie z algebry 😉</a></li>
+  <li><a href="#definicja-modelu" id="toc-definicja-modelu" class="nav-link" data-scroll-target="#definicja-modelu">Definicja modelu</a></li>
+  <li>
+<a href="#dow%C3%B3d-istnienia-rozwi%C4%85zania" id="toc-dowód-istnienia-rozwiązania" class="nav-link" data-scroll-target="#dow%C3%B3d-istnienia-rozwi%C4%85zania">Dowód istnienia rozwiązania</a>
+  <ul class="collapse">
+<li><a href="#sformu%C5%82owanie-problemu-w%C5%82asnego" id="toc-sformułowanie-problemu-własnego" class="nav-link" data-scroll-target="#sformu%C5%82owanie-problemu-w%C5%82asnego">Sformułowanie problemu własnego</a></li>
+  <li><a href="#w%C5%82asno%C5%9Bci-rozwi%C4%85za%C5%84" id="toc-własności-rozwiązań" class="nav-link" data-scroll-target="#w%C5%82asno%C5%9Bci-rozwi%C4%85za%C5%84">Własności rozwiązań</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#testowanie-liczby-istotnych-korelacji-kanonicznych" id="toc-testowanie-liczby-istotnych-korelacji-kanonicznych" class="nav-link" data-scroll-target="#testowanie-liczby-istotnych-korelacji-kanonicznych">Testowanie liczby istotnych korelacji kanonicznych</a>
+  <ul class="collapse">
+<li><a href="#hipoteza-zerowa-i-alternatywna" id="toc-hipoteza-zerowa-i-alternatywna" class="nav-link" data-scroll-target="#hipoteza-zerowa-i-alternatywna">Hipoteza zerowa i alternatywna</a></li>
+  <li><a href="#statystyka-testowa-test-wilka" id="toc-statystyka-testowa-test-wilka" class="nav-link" data-scroll-target="#statystyka-testowa-test-wilka">Statystyka testowa – test Wilka</a></li>
+  <li><a href="#rozk%C5%82ad-asymptotyczny-i-transformacja-do-rozk%C5%82adu-chi2" id="toc-rozkład-asymptotyczny-i-transformacja-do-rozkładu-chi2" class="nav-link" data-scroll-target="#rozk%C5%82ad-asymptotyczny-i-transformacja-do-rozk%C5%82adu-chi2">Rozkład asymptotyczny i transformacja do rozkładu <span class="math inline">\(\chi^2\)</span></a></li>
+  <li><a href="#procedura-testowania" id="toc-procedura-testowania" class="nav-link" data-scroll-target="#procedura-testowania">Procedura testowania</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#ocena-dopasowania-modelu" id="toc-ocena-dopasowania-modelu" class="nav-link" data-scroll-target="#ocena-dopasowania-modelu">Ocena dopasowania modelu</a>
+  <ul class="collapse">
+<li><a href="#%C5%82adunki-czynnikowe-ang.-canonical-loadings" id="toc-ładunki-czynnikowe-ang.-canonical-loadings" class="nav-link" data-scroll-target="#%C5%82adunki-czynnikowe-ang.-canonical-loadings">Ładunki czynnikowe (ang. <em>canonical loadings</em>)</a></li>
+  <li><a href="#wariancja-wyja%C5%9Bniona-ang.-variance-explained" id="toc-wariancja-wyjaśniona-ang.-variance-explained" class="nav-link" data-scroll-target="#wariancja-wyja%C5%9Bniona-ang.-variance-explained">Wariancja wyjaśniona (ang. <em>variance explained</em>)</a></li>
+  <li><a href="#redundancja-ang.-redundancy-index" id="toc-redundancja-ang.-redundancy-index" class="nav-link" data-scroll-target="#redundancja-ang.-redundancy-index">Redundancja (ang. <em>redundancy index</em>)</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#za%C5%82o%C5%BCenia-stosowalno%C5%9Bci-analizy-kanonicznej" id="toc-założenia-stosowalności-analizy-kanonicznej" class="nav-link" data-scroll-target="#za%C5%82o%C5%BCenia-stosowalno%C5%9Bci-analizy-kanonicznej">Założenia stosowalności analizy kanonicznej</a>
+  <ul class="collapse">
+<li><a href="#normalno%C5%9B%C4%87-wielowymiarowa" id="toc-normalność-wielowymiarowa" class="nav-link" data-scroll-target="#normalno%C5%9B%C4%87-wielowymiarowa">Normalność wielowymiarowa</a></li>
+  <li><a href="#brak-warto%C5%9Bci-odstaj%C4%85cych-outliers" id="toc-brak-wartości-odstających-outliers" class="nav-link" data-scroll-target="#brak-warto%C5%9Bci-odstaj%C4%85cych-outliers">Brak wartości odstających (outliers)</a></li>
+  <li><a href="#wystarczaj%C4%85ca-liczba-obserwacji" id="toc-wystarczająca-liczba-obserwacji" class="nav-link" data-scroll-target="#wystarczaj%C4%85ca-liczba-obserwacji">Wystarczająca liczba obserwacji</a></li>
+  <li><a href="#liniowo%C5%9B%C4%87-zale%C5%BCno%C5%9Bci" id="toc-liniowość-zależności" class="nav-link" data-scroll-target="#liniowo%C5%9B%C4%87-zale%C5%BCno%C5%9Bci">Liniowość zależności</a></li>
+  <li><a href="#brak-nadmiernej-wsp%C3%B3%C5%82liniowo%C5%9Bci-multikolinearno%C5%9Bci" id="toc-brak-nadmiernej-współliniowości-multikolinearności" class="nav-link" data-scroll-target="#brak-nadmiernej-wsp%C3%B3%C5%82liniowo%C5%9Bci-multikolinearno%C5%9Bci">Brak nadmiernej współliniowości (multikolinearności)</a></li>
+  <li><a href="#niezale%C5%BCno%C5%9B%C4%87-obserwacji" id="toc-niezależność-obserwacji" class="nav-link" data-scroll-target="#niezale%C5%BCno%C5%9B%C4%87-obserwacji">Niezależność obserwacji</a></li>
+  </ul>
+</li>
+  <li><a href="#implementacje-cca-w-r" id="toc-implementacje-cca-w-r" class="nav-link" data-scroll-target="#implementacje-cca-w-r">Implementacje CCA w R</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/dax44/ModelsValidation/issues/new" class="toc-action"><i class="bi bi-github"></i>Zgłoś problem</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Analiza kanoniczna</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>Analiza kanoniczna (ang. <em>Canonical Correlation Analysis, CCA</em>) jest klasyczną techniką statystyczną służącą do badania związków pomiędzy dwoma zestawami zmiennych wielowymiarowych. Jej podstawowym celem jest znalezienie takich kombinacji liniowych zmiennych z obu zestawów, które maksymalizują wzajemną korelację – są to tzw. kanoniczne zmienne lub kanoniczne składniki. Technika ta została wprowadzona przez Harolda Hotellinga w roku 1936, a więc w okresie intensywnego rozwoju metod statystycznych opartych na algebrze macierzy.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="images/hotelling.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Harold Hotelling"><img src="images/hotelling.jpg" class="img-fluid figure-img" alt="Harold Hotelling"></a></p>
+<figcaption>Harold Hotelling</figcaption></figure>
+</div>
+</div><div id="fn1"><p><sup>1</sup>&nbsp;o których już wkrótce</p></div></div><p>W tym samym czasie powstawały także inne fundamenty analizy wielowymiarowej, takie jak analiza składowych głównych (PCA) czy dyskryminacja liniowa (LDA)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Analiza kanoniczna stanowi zatem jeden z filarów klasycznej statystyki wielowymiarowej i do dziś pozostaje istotnym narzędziem eksploracji i modelowania złożonych zależności.</p>
+<p>W odróżnieniu od regresji wielorakiej, która przewiduje zestaw zmiennych zależnych na podstawie zestawu predyktorów, analiza kanoniczna traktuje obie grupy zmiennych symetrycznie – nie zakłada istnienia wyraźnego kierunku przyczynowego. Dlatego stosuje się ją w sytuacjach, gdy celem jest ogólna analiza współzależności pomiędzy dwoma zbiorami zmiennych, a nie przewidywanie jednego zestawu na podstawie drugiego.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="images/cca.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Przykładowy model analizy kanonicznej"><img src="images/cca.png" class="img-fluid figure-img" width="500" alt="Przykładowy model analizy kanonicznej"></a></p>
+<figcaption>Przykładowy model analizy kanonicznej</figcaption></figure>
+</div>
+<p>Typowe zastosowania analizy kanonicznej obejmują:</p>
+<ul>
+<li>
+<p>Psychologia i nauki społeczne – badanie relacji między grupami testów poznawczych a zmiennymi demograficznymi.</p>
+<p><em>Przykład:</em> W badaniu dzieci w wieku szkolnym mierzy się wyniki w testach: pamięci, uwagi i szybkości przetwarzania informacji (zmienne poznawcze), a następnie porównuje się je z takimi cechami, jak wiek, poziom wykształcenia rodziców oraz status społeczno-ekonomiczny (zmienne demograficzne). Analiza kanoniczna pozwala ocenić, które kombinacje cech demograficznych są powiązane z ogólnym wzorcem zdolności poznawczych.,</p>
+</li>
+<li>
+<p>Biologia i medycyna – analiza zależności pomiędzy pomiarami fizjologicznymi (np. poziomy hormonów) a cechami klinicznymi (np. objawy choroby).</p>
+<p><em>Przykład:</em> W grupie pacjentów z depresją mierzy się poziomy kortyzolu, serotoniny i dopaminy (wskaźniki biologiczne), a także nasilenie objawów takich jak bezsenność, brak apetytu, spadek energii czy anhedonia<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (zmienne kliniczne). Analiza kanoniczna pomaga zidentyfikować wspólną strukturę zmienności – np. czy określony wzorzec hormonalny odpowiada za określony profil objawów.</p>
+</li>
+<li>
+<p>Ekonomia – porównywanie zestawów wskaźników ekonomicznych z różnych dziedzin (np. zmienne finansowe vs.&nbsp;konsumpcyjne).</p>
+<p><em>Przykład:</em> W badaniu krajów Unii Europejskiej zestawia się wskaźniki makroekonomiczne, takie jak stopa inflacji, stopa bezrobocia i zadłużenie publiczne (zmienne finansowe), z danymi dotyczącymi konsumpcji – np. wydatki na kulturę, transport i żywność (zmienne konsumpcyjne). Analiza kanoniczna umożliwia odkrycie wspólnych układów zależności między stabilnością finansową a wzorcami konsumpcji.</p>
+</li>
+<li>
+<p>Lingwistyka korpusowa – badania zbieżności struktur gramatycznych i semantycznych.</p>
+<p><em>Przykład:</em> W analizie dużego korpusu tekstów (np. esejów studentów lub wypowiedzi polityków) zestawia się cechy składniowe, takie jak długość zdań, liczba zdań podrzędnie złożonych, liczba czasowników (zmienne składniowe), z cechami semantycznymi takimi jak stopień abstrakcyjności używanych rzeczowników, nacechowanie emocjonalne słownictwa czy liczba metafor (zmienne semantyczne). CCA pozwala ocenić, czy bardziej złożona składnia idzie w parze z większą abstrakcyjnością przekazu.</p>
+</li>
+<li>
+<p>Genomika i bioinformatyka – integracja danych z różnych platform pomiarowych (np. ekspresji genów i metylacji DNA<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>).</p>
+<p><em>Przykład:</em> Dla próbek guza nowotworowego analizuje się jednocześnie poziomy ekspresji genów (np. z RNA) i poziomy metylacji DNA (z mikromacierzy EPIC). CCA pozwala odnaleźć kanoniczne kombinacje genów i regionów metylacyjnych, które są współzmienne i mogą być związane z podtypem nowotworu lub odpowiedzią na leczenie.</p>
+</li>
+</ul>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;termin stosowany w psychologii i psychiatrii, który oznacza utraconą zdolność do odczuwania przyjemności z czynności, które wcześniej były źródłem satysfakcji, radości lub zainteresowania</p></div><div id="fn3"><p><sup>3</sup>&nbsp;polega na chemicznym dołączaniu grupy metylowej (–CH<sub>3</sub>)</p></div></div><section id="przypomnienie-z-algebry" class="level1 page-columns page-full"><h1>Przypomnienie z algebry 😉</h1>
+<p>Na potrzeby definicji modeli kanonicznego potrzebne będą nam pewne twierdzenia z zakresu algebry.</p>
+<div id="lem-1" class="lem theorem lemma page-columns page-full">
+<p><span class="theorem-title"><strong>Lemat 3.1 (Nierówność <strong>Cauchy’ego–Schwarza</strong><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>)</strong></span> Niech <span class="math inline">\(a,b\)</span> będą dwoma wektorami kolumnowymi o wymiarach <span class="math inline">\(p\times 1\)</span>, wówczas</p>
+<div class="no-row-height column-margin column-container"><div id="fn4"><p><sup>4</sup>&nbsp;znanej również jako Cauchy’ego–Buniakowskiego–Schwarza–Bienaymé</p></div></div><p><span class="math display">\[
+(a^\top b)\leq (a^\top a)(b^\top b).
+\]</span></p>
+<p>Powyższa nierówność staje się równością jeśli <span class="math inline">\(b=\lambda \cdot a\)</span>, dla pewnej stałej <span class="math inline">\(\lambda\)</span>.</p>
+</div>
+<div id="lem-2" class="lem theorem lemma page-columns page-full">
+<p><span class="theorem-title"><strong>Lemat 3.2 (Twierdzenie o maksymalizacji formy kwadratowej<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>)</strong></span> Niech <span class="math inline">\(\mathbf{B} \in \mathbb{R}^{p \times p}\)</span> będzie symetryczną, dodatnio określoną macierzą, o uporządkowanych malejąco wartościach własnych <span class="math inline">\(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_p &gt; 0\)</span> oraz odpowiadających im ortonormalnych wektorach własnych <span class="math inline">\(\boldsymbol{e}_1, \boldsymbol{e}_2, \ldots, \boldsymbol{e}_p\)</span>. Wówczas:</p>
+<div class="no-row-height column-margin column-container"><div id="fn5"><p><sup>5</sup>&nbsp;znane również jako lemat Rayleigha-Ritza</p></div></div><ol type="1">
+<li><p><strong>Maksymalna wartość ilorazu Rayleigha</strong> dla wszystkich niezerowych wektorów <span class="math inline">\(\boldsymbol{x} \in \mathbb{R}^p\)</span>: <span class="math display">\[
+\max_{\boldsymbol{x} \neq \boldsymbol{0}} \frac{\boldsymbol{x}^\top \mathbf{B} \boldsymbol{x}}{\boldsymbol{x}^\top \boldsymbol{x}} = \lambda_1,
+\]</span> i jest osiągana dla <span class="math inline">\(\boldsymbol{x} = \boldsymbol{e}_1\)</span>, czyli wektora własnego odpowiadającego największej wartości własnej.</p></li>
+<li><p><strong>Minimalna wartość ilorazu Rayleigha</strong>:</p></li>
+</ol>
+<p><span class="math display">\[
+\min_{\boldsymbol{x} \neq \boldsymbol{0}} \frac{\boldsymbol{x}^\top \mathbf{B} \boldsymbol{x}}{\boldsymbol{x}^\top \boldsymbol{x}} = \lambda_p,
+\]</span> i jest osiągana dla <span class="math inline">\(\boldsymbol{x} = \boldsymbol{e}_p\)</span>, czyli wektora własnego odpowiadającego najmniejszej wartości własnej.</p>
+<ol start="3" type="1">
+<li>
+<strong>Ograniczona maksymalizacja w podprzestrzeni ortogonalnej do</strong> <span class="math inline">\(\boldsymbol{e}_1, \ldots, \boldsymbol{e}_k\)</span>:</li>
+</ol>
+<p>Jeśli maksymalizacja jest prowadzona pod warunkiem ortogonalności <span class="math inline">\(\boldsymbol{x} \perp \boldsymbol{e}_1, \ldots, \boldsymbol{e}_k\)</span>, wówczas: <span class="math display">\[
+\max_{\boldsymbol{x} \perp \boldsymbol{e}_1, \ldots, \boldsymbol{e}_k} \frac{\boldsymbol{x}^\top \mathbf{B} \boldsymbol{x}}{\boldsymbol{x}^\top \boldsymbol{x}} = \lambda_{k+1},
+\]</span> i maksimum osiągane jest dla <span class="math inline">\(\boldsymbol{x} = \boldsymbol{e}_{k+1}\)</span>.</p>
+<p>Twierdzenie to formalizuje intuicję, że <strong>wartości własne</strong> macierzy symetrycznej reprezentują <strong>ekstremalne wartości formy kwadratowej</strong> w kierunkach określonych przez wektory własne.</p>
+</div>
+<p>Oto <strong>matematyczna definicja modelu CCA</strong> oraz <strong>dowód istnienia rozwiązania</strong>, sformułowana ściśle w duchu Twojego tekstu:</p>
+</section><section id="definicja-modelu" class="level1"><h1>Definicja modelu</h1>
+<p>Niech <span id="eq-normal"><span class="math display">\[
+\begin{pmatrix}
+X\\
+Y
+\end{pmatrix}
+\sim
+\mathcal{N}_{p+q}\left(
+\begin{pmatrix}
+\mu \\
+\nu
+\end{pmatrix},
+\begin{pmatrix}
+\Sigma_{XX} &amp; \Sigma_{XY}\\
+\Sigma_{YX} &amp; \Sigma_{YY}
+\end{pmatrix}
+\right)
+\tag{4.1}\]</span></span></p>
+<p>gdzie:</p>
+<ul>
+<li>
+<span class="math inline">\(X \in \mathbb{R}^{q}\)</span> i <span class="math inline">\(Y \in \mathbb{R}^{p}\)</span>,</li>
+<li>
+<span class="math inline">\(\Sigma_{XX}\)</span> i <span class="math inline">\(\Sigma_{YY}\)</span> to macierze kowariancji odpowiednio <span class="math inline">\(q \times q\)</span> i <span class="math inline">\(p \times p\)</span>,</li>
+<li>
+<span class="math inline">\(\Sigma_{XY}=\Sigma_{YX}^\top\)</span> to macierz kowariancji między <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span>.</li>
+</ul>
+<p>Szukamy wektorów <span class="math inline">\(a \in \mathbb{R}^q\)</span>, <span class="math inline">\(b \in \mathbb{R}^p\)</span>, które <strong>maksymalizują korelację</strong> pomiędzy kombinacjami liniowymi <span class="math display">\[
+U=a^\top X, \quad V=b^\top Y,
+\]</span> czyli <span class="math display">\[
+\rho(a,b)=\frac{a^\top \Sigma_{XY}b}{\sqrt{a^\top \Sigma_{XX}a},\sqrt{b^\top \Sigma_{YY}b}}.
+\]</span></p>
+<p>Pierwsza para kanoniczna <span class="math inline">\((a_1,b_1)\)</span> to para rozwiązująca ten problem maksymalizacji. Kolejne pary <span class="math inline">\((a_k,b_k)\)</span> definiuje się analogicznie, przy dodatkowych warunkach ortogonalności względem wcześniejszych par.</p>
+</section><section id="dowód-istnienia-rozwiązania" class="level1 page-columns page-full"><h1>Dowód istnienia rozwiązania</h1>
+<section id="sformułowanie-problemu-własnego" class="level2"><h2 class="anchored" data-anchor-id="sformułowanie-problemu-własnego">Sformułowanie problemu własnego</h2>
+<p>Przekształćmy zmienne <span class="math display">\[
+c=\Sigma_{XX}^{1/2}a,\quad d=\Sigma_{YY}^{1/2}b.
+\]</span></p>
+<p>Wówczas <span class="math display">\[
+\rho(a,b)=\frac{c^\top\Sigma_{XX}^{-1/2}\Sigma_{XY}\Sigma_{YY}^{-1/2}d}{\sqrt{c^\top c}\sqrt{d^\top d}}.
+\]</span></p>
+<p>Z lematu Cauchy’ego–Buniakowskiego–Schwarza mamy <span id="eq-cbs"><span class="math display">\[
+\left|c^\top \mathbf{M} d\right| \le
+\bigl(c^\top \mathbf{M}\mathbf{M}^\top c\bigr)^{1/2}\bigl(d^\top d\bigr)^{1/2},
+\quad \text{gdzie }\mathbf{M}=\Sigma_{XX}^{-1/2}\Sigma_{XY}\Sigma_{YY}^{-1/2}.
+\tag{5.1}\]</span></span></p>
+<p>Zatem <span class="math display">\[
+\rho(a,b)^2 \le
+\frac{c^\top\mathbf{M}\mathbf{M}^\top c}{c^\top c}.
+\]</span></p>
+<p>Ponieważ <span class="math inline">\(\mathbf{M}\mathbf{M}^\top=\Sigma_{XX}^{-1/2}\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}\Sigma_{XX}^{-1/2}\)</span> jest macierzą symetryczną dodatnio określoną, z lematu Rayleigha–Ritza otrzymujemy <span class="math display">\[
+\max_{c\neq 0}\frac{c^\top\mathbf{M}\mathbf{M}^\top c}{c^\top c}=\lambda_1,
+\]</span> gdzie <span class="math inline">\(\lambda_1\)</span> to największa wartość własna tej macierzy, osiągana dla <span class="math inline">\(c=e_1\)</span> – jej wektora własnego.</p>
+<p>Jeśli <span class="math display">\[
+d \propto \Sigma_{YY}^{-1/2}\Sigma_{YX}\Sigma_{XX}^{-1/2}e_1
+\]</span> to <a href="#eq-cbs" class="quarto-xref">Równanie&nbsp;<span>5.1</span></a> staje się równością.</p>
+<p>Wracając do oryginalnych współczynników <span class="math display">\[
+a_1=\Sigma_{XX}^{-1/2}e_1,\quad
+b_1\propto \Sigma_{YY}^{-1/2}\Sigma_{YX}\Sigma_{XX}^{-1/2}e_1.
+\]</span></p>
+<p>Pierwsza korelacja kanoniczna wynosi wówczas <span class="math display">\[
+\rho_1=\sqrt{\lambda_1}.
+\]</span></p>
+<p>Analogicznie dla kolejnych par, przy założeniu <span class="math inline">\(c\perp e_1,\dots,e_{k-1}\)</span>, mamy <span class="math display">\[
+\rho_k=\sqrt{\lambda_k},
+\]</span> gdzie <span class="math inline">\(\lambda_k\)</span> to kolejne wartości własne macierzy <span class="math inline">\(\Sigma_{XX}^{-1/2}\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}\Sigma_{XX}^{-1/2}\)</span>, a odpowiadające im wektory własne <span class="math inline">\(e_k\)</span> definiują kolejne wektory kanoniczne <span class="math display">\[
+U_k=e_k^\top\Sigma_{XX}^{-1/2}X,\quad
+V_k=f_k^\top\Sigma_{YY}^{-1/2}Y,\quad
+f_k\propto \Sigma_{YY}^{-1/2}\Sigma_{YX}\Sigma_{XX}^{-1/2}e_k.
+\]</span></p>
+</section><section id="własności-rozwiązań" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="własności-rozwiązań">Własności rozwiązań</h2>
+<p>Dla każdej pary <span class="math inline">\((U_k,V_k)\)</span> zachodzi <span class="math display">\[
+\mathrm{Var}(U_k)=\mathrm{Var}(V_k)=1,\quad
+\mathrm{Cov}(U_k,U_l)=\mathrm{Cov}(V_k,V_l)=\mathrm{Cov}(U_k,V_l)=0\quad (k\neq l).
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dowód powyższych równości
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dla danej pary wektorów kanonicznych mamy</p>
+<p><span class="math display">\[
+U_k = a_k^\top X = e_k^\top \Sigma_{XX}^{-1/2} X,
+    \qquad
+    V_k = b_k^\top Y = f_k^\top \Sigma_{YY}^{-1/2} Y,
+\]</span> gdzie:</p>
+<ul>
+<li>
+<span class="math inline">\(e_k\)</span> jest ortonormalnym<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> wektorem własnym macierzy <span class="math inline">\(\Sigma_{XX}^{-1/2} \Sigma_{XY} \Sigma_{YY}^{-1} \Sigma_{YX} \Sigma_{XX}^{-1/2}\)</span>
+</li>
+<li>
+<span class="math inline">\(f_k \propto \Sigma_{YY}^{-1/2} \Sigma_{YX} \Sigma_{XX}^{-1/2} e_k\)</span>,</li>
+<li>
+<span class="math inline">\(\rho_k = \sqrt{\lambda_k}\)</span>, gdzie <span class="math inline">\(\lambda_k\)</span> to odpowiadająca wartość własna.</li>
+</ul>
+<p>Macierze <span class="math inline">\(\Sigma_{XX}\)</span>, <span class="math inline">\(\Sigma_{YY}\)</span> są dodatnio określone, więc można wprowadzić transformacje <span class="math display">\[
+\tilde{X} = \Sigma_{XX}^{-1/2}X, \quad \tilde{Y} = \Sigma_{YY}^{-1/2}Y.
+\]</span> Zatem <span class="math display">\[
+U_k = e_k^\top \tilde{X},\quad V_k = f_k^\top \tilde{Y}.
+\]</span></p>
+<p>Najpierw udowodnimy, że <span class="math inline">\(\operatorname{Var}(U_k) = \operatorname{Var}(V_k) = 1\)</span>.</p>
+<p>Zmienna <span class="math inline">\(U_k = e_k^\top \tilde{X}\)</span>, więc <span class="math display">\[
+\operatorname{Var}(U_k) = \operatorname{Var}(e_k^\top \tilde{X}) = e_k^\top \operatorname{Var}(\tilde{X}) e_k.
+\]</span> Zauważmy, że <span class="math display">\[
+\operatorname{Var}(\tilde{X}) = \Sigma_{XX}^{-1/2} \Sigma_{XX} \Sigma_{XX}^{-1/2} = I,
+\]</span> więc <span class="math display">\[
+\operatorname{Var}(U_k) = e_k^\top I e_k = e_k^\top e_k = 1.
+\]</span> Analogicznie <span class="math display">\[
+\operatorname{Var}(V_k) = f_k^\top \operatorname{Var}(\tilde{Y}) f_k = f_k^\top f_k = 1,
+\]</span> ponieważ <span class="math inline">\(\tilde{Y}\)</span> ma jednostkową macierz kowariancji, a <span class="math inline">\(f_k\)</span> są znormalizowane.</p>
+<p>Teraz dowiedziemy, że <span class="math inline">\(\operatorname{Cov}(U_k, U_l) = 0\)</span> dla <span class="math inline">\(k \neq l\)</span></p>
+<p><span class="math display">\[
+\operatorname{Cov}(U_k, U_l) = \operatorname{Cov}(e_k^\top \tilde{X}, e_l^\top \tilde{X}) = e_k^\top \operatorname{Var}(\tilde{X}) e_l = e_k^\top e_l.
+\]</span> Ponieważ <span class="math inline">\(e_k\)</span>, <span class="math inline">\(e_l\)</span> są ortonormalnymi wektorami własnymi symetrycznej macierzy, to <span class="math display">\[
+e_k^\top e_l = 0 \quad \text{dla } k \neq l.
+\]</span> Zatem <span class="math display">\[
+\operatorname{Cov}(U_k, U_l) = 0.
+\]</span> Podobnie <span class="math display">\[
+\operatorname{Cov}(V_k, V_l) = f_k^\top f_l = 0 \quad \text{dla } k \neq l.
+\]</span></p>
+<p>Na koniec dowiedźmy, że <span class="math inline">\(\operatorname{Cov}(U_k, V_l) = 0\)</span> dla <span class="math inline">\(k \neq l\)</span> <span class="math display">\[
+\operatorname{Cov}(U_k, V_l) = \operatorname{Cov}(e_k^\top \tilde{X}, f_l^\top \tilde{Y}) = e_k^\top \operatorname{Cov}(\tilde{X}, \tilde{Y}) f_l.
+\]</span> Z definicji <span class="math display">\[
+\operatorname{Cov}(\tilde{X}, \tilde{Y}) = \Sigma_{XX}^{-1/2} \Sigma_{XY} \Sigma_{YY}^{-1/2} =: M.
+\]</span> Zatem <span class="math display">\[
+\operatorname{Cov}(U_k, V_l) = e_k^\top M f_l.
+\]</span> Z poprzednich wyprowadzeń <span class="math display">\[
+f_l \propto M^\top e_l.
+\]</span> Zatem <span class="math display">\[
+\operatorname{Cov}(U_k, V_l) \propto e_k^\top M M^\top e_l.
+\]</span> Ale macierz <span class="math inline">\(MM^\top\)</span> jest symetryczna, a <span class="math inline">\(e_k\)</span> są jej ortonormalnymi wektorami własnymi, więc <span class="math display">\[
+e_k^\top MM^\top e_l = 0 \quad \text{dla } k \neq l.
+\]</span> Zatem <span class="math display">\[
+\operatorname{Cov}(U_k, V_l) = 0.
+\]</span></p>
+</div>
+</div>
+<div class="no-row-height column-margin column-container"><div id="fn6"><p><sup>6</sup>&nbsp;ortonormalność wynika z niezmienniczości korelacji względem długości wektorów</p></div></div><p>Ponadto korelacje kanoniczne są niezmiennicze względem odwracalnych przekształceń liniowych <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span>: <span class="math display">\[
+X^*=\mathcal{U}^TX+u,\quad Y^*=\mathcal{V}^TY+v \implies
+\rho_i(X^*,Y^*)=\rho_i(X,Y).
+\]</span></p>
+</section></section><section id="testowanie-liczby-istotnych-korelacji-kanonicznych" class="level1"><h1>Testowanie liczby istotnych korelacji kanonicznych</h1>
+<p>W kontekście analizy kanonicznej (CCA), istotnym zagadnieniem jest testowanie liczby istotnych korelacji kanonicznych. Celem jest ustalenie, ile par zmiennych kanonicznych (kombinacji liniowych zmiennych z dwóch zbiorów <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span>) jest statystycznie istotnie skorelowanych. W tym celu stosuje się testy statystyczne, które pozwalają odrzucić hipotezę zerową o braku skorelowania między zbiorami zmiennych.</p>
+<section id="hipoteza-zerowa-i-alternatywna" class="level2"><h2 class="anchored" data-anchor-id="hipoteza-zerowa-i-alternatywna">Hipoteza zerowa i alternatywna</h2>
+<p>Dla zbiorów zmiennych <span class="math inline">\(X \in \mathbb{R}^p\)</span>, <span class="math inline">\(Y \in \mathbb{R}^q\)</span>, testujemy</p>
+<ul>
+<li>
+<span class="math inline">\(H_0: \rho_1 = \rho_2 = \cdots = \rho_s = 0\)</span> – brak istotnych korelacji kanonicznych (pierwiastków),</li>
+<li>
+<span class="math inline">\(H_1\)</span>: istnieje co najmniej jedna istotna korelacja kanoniczna, tj. <span class="math inline">\(\exists i \leq s \ \text{takie, że } \rho_i \ne 0\)</span>.</li>
+</ul>
+<p>gdzie <span class="math inline">\(s = \min(p, q)\)</span>, a <span class="math inline">\(\rho_i\)</span> to <span class="math inline">\(i\)</span>-ta korelacja kanoniczna.</p>
+</section><section id="statystyka-testowa-test-wilka" class="level2"><h2 class="anchored" data-anchor-id="statystyka-testowa-test-wilka">Statystyka testowa – test Wilka</h2>
+<p>W celu przetestowania tej hipotezy, wykorzystuje się statystykę Wilka, która bazuje na iloczynie składników postaci (<span class="math inline">\(1 - \lambda_i\)</span>), gdzie <span class="math inline">\(\lambda_i\)</span> to wartości własne odpowiadające kwadratom korelacji kanonicznych <span class="math display">\[
+\lambda_i = \rho_i^2.
+\]</span> Statystyka Wilkas jest zdefiniowana jako <span class="math display">\[
+\Lambda = \prod_{i=1}^s (1 - \lambda_i).
+\]</span></p>
+<p>Interpretacja - im mniejsze wartości <span class="math inline">\(\Lambda\)</span>, tym większa zależność między zbiorami <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span>. Duże wartości <span class="math inline">\(\lambda_i\)</span> (czyli silne korelacje kanoniczne) powodują, że <span class="math inline">\(\Lambda\)</span> dąży do zera.</p>
+<p>W praktyce, dla próby <span class="math inline">\(n\)</span>-elementowej, stosujemy wersję testu bazującą na macierzach kowariancji estymowanych z próby <span class="math inline">\(S_{XX}, S_{XY}, S_{YX}, S_{YY})\)</span> – odpowiedniki <span class="math inline">\(\Sigma_{XX}, \Sigma_{XY}, \Sigma_{YX}, \Sigma_{YY}\)</span>.</p>
+<p>Wówczas <span class="math display">\[
+T^2/n = \left|I - S_{YY}^{-1} S_{YX} S_{XX}^{-1} S_{XY} \right| = \prod_{i=1}^s (1 - \hat{\lambda}_i),
+\]</span> gdzie <span class="math inline">\(\hat{\lambda}_i\)</span> to <em>próbkowe wartości własne</em> (szacunki <span class="math inline">\(\lambda_i\)</span>).</p>
+</section><section id="rozkład-asymptotyczny-i-transformacja-do-rozkładu-chi2" class="level2"><h2 class="anchored" data-anchor-id="rozkład-asymptotyczny-i-transformacja-do-rozkładu-chi2">Rozkład asymptotyczny i transformacja do rozkładu <span class="math inline">\(\chi^2\)</span>
+</h2>
+<p>Wielu autorów (np. <span class="citation" data-cites="marriott1986">Marriott i Gittins (<a href="references.html#ref-marriott1986" role="doc-biblioref">1986</a>)</span>) sugeruje przekształcenie statystyki Wilksa do postaci asymptotycznie zgodnej z rozkładem <span class="math inline">\(\chi^2\)</span>, np. za pomocą transformacji</p>
+<p><span class="math display">\[
+-\left(n - \frac{1}{2}(p + q + 1) \right) \cdot \ln(\Lambda) \sim \chi^2_{pq}.
+\]</span></p>
+</section><section id="procedura-testowania" class="level2"><h2 class="anchored" data-anchor-id="procedura-testowania">Procedura testowania</h2>
+<ol type="1">
+<li>Oszacuj wszystkie korelacje kanoniczne <span class="math inline">\(\hat{\rho}_1, \ldots, \hat{\rho}_p\)</span>.</li>
+<li>Od <span class="math inline">\(k = 0\)</span> do <span class="math inline">\(p-1\)</span> oblicz <span class="math inline">\(\Lambda_k = \prod_{i=k+1}^{p}(1 - \hat{\rho}_i^2)\)</span>.</li>
+<li>Oblicz transformację <span class="math inline">\(\chi^2_k=-\left(n - \frac{1}{2}(p + q + 1) \right) \cdot \ln(\Lambda_k)\)</span>
+</li>
+<li>Porównaj z odpowiednim kwantylem rozkładu <span class="math inline">\(\chi^2\)</span> z <span class="math inline">\((q - k)(r - k)\)</span> stopniami swobody.</li>
+<li>Jeśli wartość statystyki przekracza ten kwantyl (<span class="math inline">\(p&lt;\alpha\)</span>), odrzuć <span class="math inline">\(H_0^{(k)}\)</span> i przejdź do <span class="math inline">\(k+1\)</span>. Jeśli nie, zatrzymaj się – kolejne korelacje uznajemy za nieistotne.</li>
+</ol>
+<p>Ocena dopasowania modelu w analizie kanonicznej (CCA – <em>Canonical Correlation Analysis</em>) obejmuje kilka istotnych wskaźników diagnostycznych, które pozwalają zrozumieć siłę i strukturę relacji między dwoma zbiorami zmiennych. Poniżej omówione zostały trzy kluczowe miary: ładunki czynnikowe, wariancja wyjaśniona oraz redundancja.</p>
+</section></section><section id="ocena-dopasowania-modelu" class="level1"><h1>Ocena dopasowania modelu</h1>
+<section id="ładunki-czynnikowe-ang.-canonical-loadings" class="level2"><h2 class="anchored" data-anchor-id="ładunki-czynnikowe-ang.-canonical-loadings">Ładunki czynnikowe (ang. <em>canonical loadings</em>)</h2>
+<ul>
+<li>
+<strong>Definicja</strong> - korelacje pomiędzy zmiennymi kanonicznymi (czyli kombinacjami liniowymi wektorów <span class="math inline">\(a_k'X\)</span> i <span class="math inline">\(b_k'Y\)</span>) a oryginalnymi zmiennymi ze zbiorów <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span>.</li>
+<li>
+<strong>Interpretacja</strong>:
+<ul>
+<li>Pokazują, które konkretne zmienne pierwotne w największym stopniu „ładują się” (czyli kontrybuują) na daną zmienną kanoniczną.</li>
+<li>Wysoka wartość (np. &gt; 0.7) wskazuje na silną zależność między zmienną oryginalną a daną zmienną kanoniczną.</li>
+<li>Znaki dodatnie/ujemne pozwalają wnioskować o kierunku związku.</li>
+</ul>
+</li>
+<li>
+<strong>Wzór</strong>:
+<ul>
+<li>Dla zbioru <span class="math inline">\(X\)</span>: <span class="math display">\[
+\text{loadings}_X = \mathrm{Corr}(X, U_k) = \Sigma_{XX} a_k
+\]</span>
+</li>
+<li>Dla zbioru <span class="math inline">\(Y\)</span>: <span class="math display">\[
+\text{loadings}_Y = \mathrm{Corr}(Y, V_k) = \Sigma_{YY} b_k
+\]</span>
+</li>
+</ul>
+</li>
+</ul></section><section id="wariancja-wyjaśniona-ang.-variance-explained" class="level2"><h2 class="anchored" data-anchor-id="wariancja-wyjaśniona-ang.-variance-explained">Wariancja wyjaśniona (ang. <em>variance explained</em>)</h2>
+<ul>
+<li>
+<strong>Definicja</strong> - średnia kwadratów ładunków czynnikowych dla każdej zmiennej kanonicznej i każdego zbioru danych.</li>
+<li>
+<strong>Interpretacja</strong>:
+<ul>
+<li>Informuje, jaką część wariancji oryginalnych zmiennych w danym zbiorze (<span class="math inline">\(X\)</span> lub <span class="math inline">\(Y\)</span>) wyjaśnia dana zmienna kanoniczna.</li>
+<li>Można traktować ten wskaźnik jako odpowiednik współczynnika determinacji <span class="math inline">\(R^2\)</span> dla pojedynczej zmiennej kanonicznej.</li>
+<li>Wysoka wartość oznacza, że dana zmienna kanoniczna dobrze reprezentuje zbiór, z którego została utworzona.</li>
+</ul>
+</li>
+<li>
+<strong>Wzór</strong>: <span class="math display">\[
+\text{Explained variance} = \frac{1}{p} \sum_{j=1}^{p} \mathrm{Corr}^2(X_j, U_k)
+\]</span> gdzie <span class="math inline">\(p\)</span> to liczba zmiennych w zbiorze <span class="math inline">\(X\)</span>, a <span class="math inline">\(U_k\)</span> to <span class="math inline">\(k\)</span>-ta zmienna kanoniczna.</li>
+</ul></section><section id="redundancja-ang.-redundancy-index" class="level2"><h2 class="anchored" data-anchor-id="redundancja-ang.-redundancy-index">Redundancja (ang. <em>redundancy index</em>)</h2>
+<ul>
+<li>
+<strong>Definicja</strong> - iloczyn kwadratu korelacji kanonicznej <span class="math inline">\(\rho_k^2\)</span> oraz wariancji wyjaśnionej przez daną zmienną kanoniczną we własnym zbiorze.</li>
+<li>
+<strong>Interpretacja</strong>:
+<ul>
+<li>Informuje, jaka część przeciętnej wariancji jednej grupy zmiennych jest wyjaśniana przez zmienną kanoniczną utworzoną na podstawie drugiego zbioru.</li>
+<li>Miara ta pokazuje, czy dany zbiór zmiennych wnosi unikalną informację o drugim zbiorze.</li>
+<li>Wysoka redundancja oznacza, że istnieje istotny związek między strukturami dwóch zbiorów zmiennych.</li>
+</ul>
+</li>
+<li>
+<strong>Wzór</strong>: <span class="math display">\[
+\text{Redundancy}_X = \rho_k^2 \cdot \left( \frac{1}{p} \sum_{j=1}^{p} \mathrm{Corr}^2(X_j, U_k) \right)
+\]</span> Analogicznie definiujemy redundancję względem <span class="math inline">\(Y\)</span>.</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 40%">
+<col style="width: 34%">
+</colgroup>
+<thead><tr class="header">
+<th>Miara</th>
+<th>Co opisuje</th>
+<th>Interpretacja praktyczna</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Ładunki czynnikowe</td>
+<td>Siłę powiązania zmiennej oryginalnej z kanoniczną</td>
+<td>Wysoka wartość ⇒ silna reprezentacja zmiennej</td>
+</tr>
+<tr class="even">
+<td>Wariancja wyjaśniona</td>
+<td>Średnia siła reprezentacji zbioru przez zm. kanoniczną</td>
+<td>Miara dopasowania struktury do zbioru</td>
+</tr>
+<tr class="odd">
+<td>Redundancja</td>
+<td>Ilość informacji o jednym zbiorze zawarta w drugim</td>
+<td>Miara istotności relacji między zbiorami</td>
+</tr>
+</tbody>
+</table></section></section><section id="założenia-stosowalności-analizy-kanonicznej" class="level1"><h1>Założenia stosowalności analizy kanonicznej</h1>
+<section id="normalność-wielowymiarowa" class="level2"><h2 class="anchored" data-anchor-id="normalność-wielowymiarowa">Normalność wielowymiarowa</h2>
+<p>Zakłada się, że obydwa zbiory zmiennych losowych – <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span> – są wspólnie rozkładem normalnym wielowymiarowym jak podano w <a href="#eq-normal" class="quarto-xref">Równanie&nbsp;<span>4.1</span></a>. Normalność umożliwia stosowanie testów statystycznych (np. testu Wilksa) do oceny liczby istotnych korelacji kanonicznych.</p>
+</section><section id="brak-wartości-odstających-outliers" class="level2"><h2 class="anchored" data-anchor-id="brak-wartości-odstających-outliers">Brak wartości odstających (outliers)</h2>
+<p>Zarówno obserwacje odstające jednowymiarowe, jak i wielowymiarowe mogą istotnie zaburzać wynik analizy kanonicznej. Odstające wartości mogą wpływać na macierze kowariancji, zmieniając kierunki i siły relacji między zbiorami zmiennych.</p>
+</section><section id="wystarczająca-liczba-obserwacji" class="level2"><h2 class="anchored" data-anchor-id="wystarczająca-liczba-obserwacji">Wystarczająca liczba obserwacji</h2>
+<p>Liczba obserwacji powinna znacząco przekraczać liczbę zmiennych w każdym zbiorze. Liczba obserwacji <span class="math inline">\(n\)</span> w każdej grupie powinna być większa niż suma liczby zmiennych w <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span> <span class="math display">\[
+n &gt; p + q
+\]</span> Zapewnia odwracalność macierzy kowariancji oraz stabilność estymatorów.</p>
+</section><section id="liniowość-zależności" class="level2"><h2 class="anchored" data-anchor-id="liniowość-zależności">Liniowość zależności</h2>
+<p>Zakłada się, że związki między wszystkimi parami zmiennych są liniowe. Ponieważ CCA opiera się na maksymalizacji liniowych kombinacji, nieliniowe zależności mogą pozostać niewykryte.</p>
+</section><section id="brak-nadmiernej-współliniowości-multikolinearności" class="level2"><h2 class="anchored" data-anchor-id="brak-nadmiernej-współliniowości-multikolinearności">Brak nadmiernej współliniowości (multikolinearności)</h2>
+<p>Zmienne wewnątrz każdego zbioru (w <span class="math inline">\(X\)</span> lub w <span class="math inline">\(Y\)</span>) nie powinny być nadmiernie skorelowane. Wysoka współliniowość może prowadzić do niestabilnych i trudnych do interpretacji wektorów kanonicznych.</p>
+</section><section id="niezależność-obserwacji" class="level2"><h2 class="anchored" data-anchor-id="niezależność-obserwacji">Niezależność obserwacji</h2>
+<p>Każda obserwacja powinna pochodzić od innej jednostki (brak powtórzeń pomiarów). Niezależność warunkuje poprawność estymatorów kowariancji.</p>
+</section></section><section id="implementacje-cca-w-r" class="level1 page-columns page-full"><h1>Implementacje CCA w R</h1>
+<p>Istnieje wiele bibliotek w języku R umożliwiających wykonanie analizy kanonicznej. Wśród najbardziej znanych są: <code>CCA::cc()</code>, <code><a href="https://rdrr.io/r/stats/cancor.html">stats::cancor()</a></code>), <code><a href="https://rdrr.io/pkg/yacca/man/cca.html">yacca::cca()</a></code> oraz w wersji regularyzowanej <code>mixOmics::rcc()</code>.</p>
+<div class="exm-1 page-columns page-full">
+<p>Oszacujemy związek między dwoma zestawami zmiennych w zbiorze <code>mtcars</code> przy użyciu funkcji <code><a href="https://rdrr.io/pkg/yacca/man/cca.html">cca()</a></code> z pakietu <code>yacca</code>.</p>
+<p>Zbiór <code>X</code> – zmienne związane z konstrukcją silnika i układem napędowym:</p>
+<ul>
+<li>
+<code>cyl</code> – liczba cylindrów,</li>
+<li>
+<code>disp</code> – pojemność skokowa silnika,</li>
+<li>
+<code>hp</code> – moc silnika,</li>
+<li>
+<code>drat</code> – przełożenie tylnego mostu,</li>
+<li>
+<code>vs</code> – układ cylindrów.</li>
+</ul>
+<p>Zbiór <code>Y</code> – zmienne związane z osiągami i eksploatacją:</p>
+<ul>
+<li>
+<code>mpg</code> – zużycie paliwa,</li>
+<li>
+<code>qsec</code> – czas przyspieszenia na odcinku 1/4 mili,</li>
+<li>
+<code>wt</code> – masa pojazdu,</li>
+<li>
+<code>gear</code> – liczba biegów,</li>
+<li>
+<code>am</code> – typ skrzyni biegów (0 = automatyczna, 1 = manualna).</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">yacca</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cyl"</span>, <span class="st">"disp"</span>, <span class="st">"hp"</span>, <span class="st">"drat"</span>, <span class="st">"vs"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"qsec"</span>, <span class="st">"wt"</span>, <span class="st">"gear"</span>, <span class="st">"am"</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/yacca/man/cca.html">cca</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, xcenter <span class="op">=</span> <span class="cn">T</span>, ycenter <span class="op">=</span> <span class="cn">T</span>, xscale <span class="op">=</span> <span class="cn">T</span>, yscale <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Canonical Correlation Analysis - Summary
+
+
+Canonical Correlations:
+
+     CV 1      CV 2      CV 3      CV 4      CV 5 
+0.9665716 0.8528224 0.4950213 0.3882414 0.1145244 
+
+Shared Variance on Each Canonical Variate:
+
+      CV 1       CV 2       CV 3       CV 4       CV 5 
+0.93426061 0.72730599 0.24504613 0.15073137 0.01311583 
+
+Bartlett's Chi-Squared Test:
+
+          rho^2      Chisq df    Pr(&gt;X)    
+CV 1   0.934261 114.218145 25 2.286e-13 ***
+CV 2   0.727306  44.805691 16 0.0001486 ***
+CV 3   0.245046  11.670865  9 0.2325066    
+CV 4   0.150731   4.502850  4 0.3422097    
+CV 5   0.013116   0.336666  1 0.5617598    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Canonical Variate Coefficients:
+
+    X Vars:
+            CV 1       CV 2        CV 3       CV 4       CV 5
+cyl  -0.35404018 -0.3202430  2.36562182 -0.2101579  2.1867041
+disp -0.44058431 -0.9016099 -1.97209644  1.0904515  0.3808257
+hp   -0.10170950  1.0627557 -0.66529863 -1.4565067 -0.5450210
+drat  0.03729776  0.4100536 -0.20088591  0.6993630  1.4026658
+vs    0.13910861 -0.6701374 -0.03612397 -1.0863066  1.2557431
+
+    Y Vars:
+            CV 1       CV 2       CV 3       CV 4       CV 5
+mpg   0.01739764 -0.3425219 -0.6139144  1.6286135  1.8734129
+qsec  0.56090973 -0.4612667 -0.5656445 -0.6828188 -0.9684395
+wt   -0.56385903 -0.2021069 -1.7755574  1.1167115  0.6816007
+gear  0.20081971  0.5205813 -0.6831098 -1.0936754  0.8817315
+am    0.10680186  0.2747215 -0.5656426  0.8554364 -1.7866305
+
+
+Structural Correlations (Loadings):
+
+    X Vars:
+           CV 1         CV 2       CV 3        CV 4       CV 5
+cyl  -0.9750265  0.007506657  0.2027973 -0.04772071 0.07656948
+disp -0.9657015 -0.165044027 -0.1961098  0.02389238 0.03392844
+hp   -0.8622356  0.383602015 -0.1395992 -0.29730181 0.03902600
+drat  0.7049027  0.502571435 -0.1734102  0.24734994 0.39910034
+vs    0.8291339 -0.357899996 -0.1605599 -0.32947247 0.22385946
+
+    Y Vars:
+           CV 1        CV 2        CV 3       CV 4        CV 5
+mpg   0.9019930  0.05452712  0.02246031  0.3616459  0.22834876
+qsec  0.5994486 -0.74323004 -0.23715821 -0.1600776 -0.08001008
+wt   -0.8680494 -0.31821554 -0.35390786 -0.1315301 -0.05175115
+gear  0.5035786  0.79020784 -0.27115489 -0.1383502  0.17121455
+am    0.5382387  0.72862313 -0.11673305  0.3475250 -0.21214903
+
+
+Fractional Variance Deposition on Canonical Variates:
+
+    X Vars:
+          CV 1         CV 2       CV 3         CV 4        CV 5
+cyl  0.9506768 5.634989e-05 0.04112674 0.0022772659 0.005862885
+disp 0.9325794 2.723953e-02 0.03845905 0.0005708458 0.001151139
+hp   0.7434502 1.471505e-01 0.01948793 0.0883883664 0.001523029
+drat 0.4968878 2.525780e-01 0.03007110 0.0611819949 0.159281081
+vs   0.6874630 1.280924e-01 0.02577947 0.1085521109 0.050113056
+
+    Y Vars:
+          CV 1        CV 2         CV 3       CV 4        CV 5
+mpg  0.8135914 0.002973207 0.0005044654 0.13078775 0.052143158
+qsec 0.3593386 0.552390895 0.0562440173 0.02562483 0.006401612
+wt   0.7535098 0.101261132 0.1252507750 0.01730016 0.002678182
+gear 0.2535914 0.624428427 0.0735249749 0.01914078 0.029314423
+am   0.2897009 0.530891664 0.0136266038 0.12077364 0.045007211
+
+
+Canonical Communalities (Fraction of Total Variance
+Explained for Each Variable, Within Sets):
+
+    X Vars:
+ cyl disp   hp drat   vs 
+   1    1    1    1    1 
+
+    Y Vars:
+ mpg qsec   wt gear   am 
+   1    1    1    1    1 
+
+
+Canonical Variate Adequacies (Fraction of Total Variance
+Explained by Each CV, Within Sets):
+
+
+    X Vars:
+      CV 1       CV 2       CV 3       CV 4       CV 5 
+0.76221142 0.11102337 0.03098486 0.05219412 0.04358624 
+
+    Y Vars:
+      CV 1       CV 2       CV 3       CV 4       CV 5 
+0.49394642 0.36238906 0.05383017 0.06272543 0.02710892 
+
+
+Redundancy Coefficients (Fraction of Total Variance
+Explained by Each CV, Across Sets):
+
+
+    X | Y:
+        CV 1         CV 2         CV 3         CV 4         CV 5 
+0.7121041066 0.0807479602 0.0075927195 0.0078672907 0.0005716698 
+
+    Y | X:
+       CV 1        CV 2        CV 3        CV 4        CV 5 
+0.461474684 0.263567736 0.013190874 0.009454690 0.000355556 
+
+
+Aggregate Redundancy Coefficients (Total Variance
+Explained by All CVs, Across Sets):
+
+    X | Y: 0.8088837 
+    Y | X: 0.7480435 </code></pre>
+</div>
+</div>
+<p>Teraz przeanalizujemy wyniki modelu. Zaczniemy od korelacji kanonicznych, które można wywołać za pomocą <code>model$corr</code>.</p>
+<p>Wyniki analizy kanonicznej wskazują, że pierwsza zmienna kanoniczna (<code>CV 1</code>) charakteryzuje się bardzo wysoką korelacją kanoniczną, równą 0.967. Oznacza to, że istnieje silny związek liniowy pomiędzy odpowiednimi kombinacjami liniowymi zmiennych ze zbiorów <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span>. Dodatkowo, wartość wspólnej wariancji dla tej zmiennej wynosi 93.4%, co oznacza, że ta pierwsza para zmiennych kanonicznych wyjaśnia znaczną część współzależności między oboma zestawami zmiennych. Druga zmienna kanoniczna (<code>CV 2</code>) również wykazuje silną korelację, równą 0.853, co sugeruje istnienie kolejnego istotnego związku między pozostałymi informacjami zawartymi w zbiorach <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span>. Wspólna wariancja dla tej pary wynosi 72.7%, co wciąż stanowi wysoki poziom wyjaśnienia współzmienności.</p>
+<p>Kolejne zmienne kanoniczne (<code>CV 3, CV 4, CV 5</code>) wykazują już znacznie słabsze korelacje kanoniczne – odpowiednio 0.495, 0.388 i 0.115. Oznacza to, że siła zależności między dalszymi kombinacjami liniowymi zmiennych <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span> jest wyraźnie mniejsza. Co więcej, wspólna wariancja spada (<code>model$corrsq</code>) dla tych par odpowiednio do 24.5%, 15.1% i jedynie 1.3%. Te wartości sugerują, że trzecia i kolejne zmienne kanoniczne mogą mieć ograniczoną wartość interpretacyjną i potencjalnie można je pominąć w interpretacji, szczególnie jeśli wyniki testów istotności (np. test Bartletta) nie potwierdzają ich znaczenia.</p>
+<p>Wyniki testu chi-kwadrat Bartletta pozwalają ocenić, które pary zmiennych kanonicznych są statystycznie istotne, tzn. które z nich wyjaśniają istotną część współzmienności między dwoma zbiorami zmiennych.</p>
+<ul>
+<li>Pierwsza kanoniczna korelacja (<code>CV 1</code>) jest wysoce istotna statystycznie, co potwierdza bardzo niski poziom istotności <span class="math inline">\(p &lt; 2.3 \times 10^{-13}\)</span>. To oznacza, że pierwsza para zmiennych kanonicznych wyjaśnia istotną część zależności pomiędzy zbiorami <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span>.</li>
+<li>Druga kanoniczna korelacja (<code>CV 2</code>) również jest istotna, choć nie tak silnie jak pierwsza. Wartość statystyki wynosi 44.81 przy 16 stopniach swobody, a poziom istotności to około <span class="math inline">\(p = 0.00015\)</span>, co także pozwala na odrzucenie hipotezy zerowej o braku korelacji na tym poziomie.</li>
+<li>Trzecia (<code>CV 3</code>), czwarta (<code>CV 4</code>) i piąta (<code>CV 5</code>) korelacje kanoniczne nie są istotne statystycznie. Ich wartości <span class="math inline">\(p\)</span>-value przekraczają standardowe poziomy istotności (0.05), co oznacza brak wystarczających dowodów na to, że odpowiadające im kombinacje zmiennych <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span> są skorelowane w populacji.</li>
+</ul>
+<p>Na podstawie testu Bartletta można stwierdzić, że tylko pierwsze dwie kanoniczne pary zmiennych <span class="math inline">\((U_1, V_1)\)</span> i <span class="math inline">\((U_2, V_2)\)</span> są istotne statystycznie. Kolejne pary nie wnoszą istotnej informacji o zależności między zbiorami zmiennych i można je pominąć w interpretacji oraz dalszej analizie. Taki wniosek jest zgodny z wcześniejszą oceną siły korelacji kanonicznych oraz wspólnej wariancji.</p>
+<p>Interpretacja wag kanonicznych (<em>canonical variate coefficients</em> - <code>model$xcoef</code> i <code>model$ycoef</code>) oraz ładunków strukturalnych (<em>structural correlations</em>, inaczej <em>loadings</em> - <code>model$xstructcorr</code> i <code>model$ystructcorr</code>) pozwala na pełne zrozumienie, które zmienne pierwotne mają największy wpływ na poszczególne zmienne kanoniczne oraz jak mocno są z nimi skorelowane. W interpretacji należy analizować oba zestawy danych równocześnie – zarówno dla zmiennych <span class="math inline">\(X\)</span>, jak i <span class="math inline">\(Y\)</span>.</p>
+<p><code>CV 1</code></p>
+<ul>
+<li>Dla zmiennych <span class="math inline">\(X\)</span>, największy wpływ mają: <code>disp</code> (–0.44), <code>cyl</code> (–0.35), <code>hp</code> (–0.10) – czyli im większa pojemność i liczba cylindrów, tym niższa wartość zmiennej kanonicznej <span class="math inline">\(U_1\)</span>.</li>
+<li>Dla zmiennych <span class="math inline">\(Y\)</span>, najistotniejsze są: <code>wt</code> (–0.56), <code>qsec</code> (0.56), <code>gear</code> (0.20) – wskazuje to, że <span class="math inline">\(V_1\)</span> rośnie wraz z <code>qsec</code> i <code>gear</code>, a maleje przy wzroście <code>wt</code>.</li>
+</ul>
+<p>Jednocześnie ładunki strukturalne pokazują, jak silnie poszczególne zmienne oryginalne są skorelowane z daną zmienną kanoniczną:</p>
+<ul>
+<li>Dla <span class="math inline">\(X\)</span>: <code>cyl</code> (–0.98), <code>disp</code> (–0.97), <code>hp</code> (–0.86), <code>vs</code> (0.83) – bardzo silne powiązania ze zmiennymi opisującymi silnik.</li>
+<li>Dla <span class="math inline">\(Y\)</span>: <code>mpg</code> (0.90), <code>wt</code> (–0.87), <code>qsec</code> (0.60) – sugeruje, że pierwsza zmienna kanoniczna opisuje związek między cechami silnika a zużyciem paliwa i masą pojazdu.</li>
+</ul>
+<p><code>CV 1</code> wskazuje na silną zależność między masą i mocą samochodu (cechy techniczne) a jego ekonomią (<code>mpg</code>) i osiągami (<code>qsec</code>). Większe silniki są związane z większą masą i spalaniem (niższym <code>mpg</code>).</p>
+<p><code>CV 2</code></p>
+<ul>
+<li>Dla <span class="math inline">\(X\)</span>: <code>disp</code> (–0.90), <code>hp</code> (1.06), <code>drat</code> (0.41), <code>vs</code> (–0.67) – wskazuje na kontrast między mocą (<code>hp</code>) a objętością i układem silnika (<code>vs</code>).</li>
+<li>Dla <span class="math inline">\(Y\)</span>: <code>gear</code> (0.52), <code>am</code> (0.27) – wartości <code>CV 2</code> rosną przy wyższej liczbie biegów i skrzyni manualnej.</li>
+</ul>
+<p>Jednocześnie ładunki strukturalne pokazują, że</p>
+<ul>
+<li>
+<span class="math inline">\(X\)</span>: <code>drat</code> (0.50), <code>hp</code> (0.38), <code>vs</code> (–0.36) – umiarkowane korelacje.</li>
+<li>
+<span class="math inline">\(Y\)</span>: <code>gear</code> (0.79), <code>am</code> (0.73), <code>qsec</code> (–0.74) – pokazuje powiązanie ze skrzynią biegów i czasem przyspieszenia.</li>
+</ul>
+<p><code>CV 2</code> odzwierciedla typ skrzyni biegów i dynamikę pojazdu. Samochody z większą liczbą biegów i skrzynią manualną mają inne cechy napędu niż te z automatem<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
+<div class="no-row-height column-margin column-container"><div id="fn7"><p><sup>7</sup>&nbsp;Wagi kanoniczne (<em>Canonical Variate Coefficients</em>) pokazują, jak zmienne pierwotne są <strong>ważone w kombinacji liniowej</strong> tworzącej zmienną kanoniczną. Oznacza to, że dana zmienna ma określoną kontrybucję do wyniku przy jednoczesnym uwzględnieniu obecności wszystkich pozostałych zmiennych w modelu. Innymi słowy, wagi są wynikiem rozwiązania problemu optymalizacji, w którym maksymalizujemy korelację między dwiema kombinacjami liniowymi (<span class="math inline">\(a'X\)</span> i <span class="math inline">\(b'Y\)</span>), i odzwierciedlają względny wpływ danej zmiennej <strong>w kontekście współdziałania z innymi zmiennymi</strong>. Ładunki kanoniczne (<em>loadings</em>) natomiast opisują zwykłą korelację między zmienną kanoniczną a każdą pojedynczą zmienną oryginalną, czyli <strong>bez kontroli pozostałych zmiennych</strong>. W tym sensie są one bliższe klasycznej interpretacji współczynników korelacji, które pokazują, jak silnie dana zmienna jest „powiązana” z kanonicznym wymiarem, ale już nie informują, jaka była jej rzeczywista kontrybucja do utworzenia kombinacji liniowej. Dlatego możliwe są sytuacje, w których zmienna ma niski współczynnik wagowy (jej udział w kombinacji jest mały lub nawet ujemny), ale mimo to jej korelacja z uzyskanym wymiarem kanonicznym jest wysoka – bo zmienna ta silnie podąża za ogólną strukturą zależności w zbiorze. To właśnie obserwujemy w <code>CV 2</code>. Na przykład <code>disp</code> ma dużą ujemną wagę (–0.90), co oznacza, że wnosi istotny wkład w kombinację liniową <span class="math inline">\(U_2\)</span>, ale jednocześnie jej ładunek jest tylko –0.17, czyli korelacja ze zmienną kanoniczną jest umiarkowana (może się zdarzyć, że będzie nawet przeciwna). Oznacza to, że w obecności innych zmiennych, szczególnie takich jak <code>hp</code> czy <code>drat</code>, <code>disp</code> jest „wymuszony” do pełnienia określonej roli w kombinacji liniowej, mimo że jego indywidualna korelacja z <span class="math inline">\(U_2\)</span> jest mniejsza.</p></div></div><p>Interpretację pozostałych par kanonicznych pominięto, ze wzgledu na brak istotności statystycznej.</p>
+<p>Interpretacja adekwatności zmiennych kanonicznych (ang. <em>Canonical Variate Adequacies</em>) polega na ocenie, w jakim stopniu każda z kanonicznych zmiennych <span class="math inline">\(U_k\)</span> i <span class="math inline">\(V_k\)</span> wyjaśnia wariancję oryginalnych zmiennych w swoim zbiorze (odpowiednio: <span class="math inline">\(X\)</span> lub <span class="math inline">\(Y\)</span>). Wskaźniki te są interpretowane jako miara „reprezentatywności” danej zmiennej kanonicznej względem zmiennych pierwotnych.</p>
+<p><code>CV 1</code></p>
+<p>Dla zbioru <span class="math inline">\(X\)</span>, pierwsza zmienna kanoniczna <span class="math inline">\(U_1\)</span> wyjaśnia 76,2% całkowitej wariancji zmiennych pierwotnych. Oznacza to, że kombinacja liniowa <span class="math inline">\(U_1\)</span> bardzo dobrze reprezentuje główny wymiar zróżnicowania zmiennych <span class="math inline">\(X\)</span> (np. liczby cylindrów, pojemności silnika, mocy itd.). Wysoka adekwatność wskazuje, że <span class="math inline">\(U_1\)</span> zawiera większość informacji zawartej w zmiennych <span class="math inline">\(X\)</span>. Dla zbioru <span class="math inline">\(Y\)</span>, odpowiadająca zmienna kanoniczna <span class="math inline">\(V_1\)</span> wyjaśnia 49,4% wariancji zmiennych pierwotnych. Jest to również stosunkowo wysoka wartość, co oznacza, że <span class="math inline">\(V_1\)</span> dobrze streszcza informacje ze zbioru <span class="math inline">\(Y\)</span> (<code>mpg</code>, <code>qsec</code>, <code>wt</code>, <code>gear</code>, <code>am</code>). Zatem pierwsza para zmiennych kanonicznych <span class="math inline">\((U_1, V_1)\)</span> nie tylko ma bardzo wysoką korelację wzajemną, ale również silnie reprezentuje oba zbiory zmiennych, co czyni ją interpretacyjnie bardzo istotną.</p>
+<p><code>CV 2</code></p>
+<p>Dla zbioru <span class="math inline">\(X\)</span>, zmienna <span class="math inline">\(U_2\)</span> wyjaśnia 11,1% wariancji. Jest to znacznie mniej niż w przypadku <span class="math inline">\(U_1\)</span>, ale nadal może wskazywać na pewną drugorzędną strukturę w danych <span class="math inline">\(X\)</span>, np. kontrast między różnymi cechami napędu lub parametrów konstrukcyjnych pojazdu. Dla zbioru <span class="math inline">\(Y\)</span>, zmienna <span class="math inline">\(V_2\)</span> wyjaśnia 36,2% wariancji, co stanowi wartość umiarkowaną. Może to oznaczać, że <span class="math inline">\(V_2\)</span> reprezentuje odrębny wymiar zróżnicowania w danych <span class="math inline">\(Y\)</span>, być może związany z typem skrzyni biegów lub przyspieszeniem. Druga para zmiennych kanonicznych tłumaczy mniejszą, ale nadal znaczącą część zmienności zmiennych pierwotnych, zwłaszcza po stronie <span class="math inline">\(Y\)</span>. Może więc ujawniać dodatkowe, mniej oczywiste powiązania między cechami konstrukcyjnymi a właściwościami użytkowymi samochodów.</p>
+<p>Wskaźniki <em>redundancji kanonicznej</em> informują o tym, ile przeciętnej wariancji w jednym zbiorze zmiennych jest wyjaśnione przez kombinację liniową zmiennych kanonicznych utworzoną na podstawie drugiego zbioru. Jest to zatem miara użyteczności jednej grupy zmiennych do przewidywania drugiej, z uwzględnieniem zarówno siły korelacji kanonicznej, jak i struktury wariancji wewnątrz zbiorów. Redundancja stanowi produkt odpowiedniego współczynnika korelacji kanonicznej podniesionego do kwadratu i współczynnika adekwatności (czyli wyjaśnionej wariancji).</p>
+<p>Redundancja <span class="math inline">\(X|Y\)</span> określa, jak dobrze zmienne kanoniczne ze zbioru <span class="math inline">\(Y\)</span> (czyli <span class="math inline">\(V_1, V_2, \ldots\)</span>) pozwalają wyjaśnić zmienność w zbiorze <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li>
+<code>CV 1</code> - wartość 0.712 oznacza, że około 71,2% wariancji zmiennych ze zbioru <span class="math inline">\(X\)</span> można wyjaśnić na podstawie pierwszej zmiennej kanonicznej <span class="math inline">\(V_1\)</span> (utworzonej ze zmiennych <span class="math inline">\(Y\)</span>). Jest to bardzo wysoka wartość i świadczy o dużej nadmiarowości informacji między zbiorami – zmienne z <span class="math inline">\(Y\)</span> dobrze „reprezentują” <span class="math inline">\(X\)</span>.</li>
+<li>
+<code>CV 2</code> - wartość 0.081 oznacza, że druga zmienna kanoniczna ze zbioru <span class="math inline">\(Y\)</span> wyjaśnia już tylko 8,1% wariancji zbioru <span class="math inline">\(X\)</span>. To wyraźnie mniejszy wkład, ale może wciąż wskazywać na drugorzędne związki pomiędzy niektórymi zmiennymi w obu zbiorach.</li>
+</ul>
+<p>Redundancja <span class="math inline">\(Y|X\)</span> określa, jak dobrze zmienne kanoniczne ze zbioru <span class="math inline">\(X\)</span> (czyli <span class="math inline">\(U_1, U_2, \ldots\)</span>) pozwalają wyjaśnić zmienność w zbiorze <span class="math inline">\(Y\)</span>.</p>
+<ul>
+<li>
+<code>CV 1</code> - wartość 0.461 oznacza, że pierwsza zmienna kanoniczna <span class="math inline">\(U_1\)</span> wyjaśnia 46,1% wariancji zbioru <span class="math inline">\(Y\)</span>. To wynik dobry, choć mniej spektakularny niż w przypadku <span class="math inline">\(X | Y\)</span>, co może sugerować, że zbiór <span class="math inline">\(X\)</span> (cechy konstrukcyjne pojazdów) zawiera mniej informacji o cechach użytkowych i osiągach niż odwrotnie.</li>
+<li>
+<code>CV 2</code> - wartość 0.264 oznacza, że druga zmienna kanoniczna <span class="math inline">\(U_2\)</span> wyjaśnia 26,4% wariancji zmiennych w <span class="math inline">\(Y\)</span>. To umiarkowany wkład i świadczy o obecności wyraźnej, ale słabszej drugiej osi powiązań między zbiorami.</li>
+</ul>
+<p>Ponadto:</p>
+<ul>
+<li>Całkowita redundancja <span class="math inline">\(X|Y = 0.809\)</span>, co oznacza, że zbiór <span class="math inline">\(Y\)</span> pozwala łącznie wyjaśnić aż 81% wariancji zmiennych z <span class="math inline">\(X\)</span> na podstawie wszystkich kanonicznych zmiennych <span class="math inline">\(V_k\)</span>.</li>
+<li>Całkowita redundancja <span class="math inline">\(Y|X = 0.748\)</span>, co oznacza, że zmienne z <span class="math inline">\(X\)</span> pozwalają wyjaśnić 75% wariancji w zbiorze <span class="math inline">\(Y\)</span>.</li>
+</ul>
+<p>Pierwsza para zmiennych kanonicznych jest zdecydowanie najistotniejsza, wyjaśniając większość wspólnej struktury. Wysoka redundancja świadczy o silnym powiązaniu między zbiorami zmiennych, szczególnie między konstrukcją pojazdu <span class="math inline">\(X\)</span> a jego osiągami i wyposażeniem <span class="math inline">\(Y\)</span>. Druga zmienna kanoniczna wnosi mniej informacji, ale nadal ma interpretacyjną wartość. Powyżej drugiej pary, wartości stają się bardzo niskie, co sugeruje, że kolejne zmienne kanoniczne nie dostarczają już istotnych zależności.</p>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-marriott1986" class="csl-entry" role="listitem">
+Marriott, F. H. C., i R. Gittins. 1986. <span>„Canonical Analysis: A Review with Applications in Ecology; Biomathematics, Vol. 12.”</span> <em>Biometrics</em> 42 (1): 222. <a href="https://doi.org/10.2307/2531264">https://doi.org/10.2307/2531264</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Skopiowano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Skopiowano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./multi_tests.html" class="pagination-link" aria-label="Testy wielowymiarowe">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Testy wielowymiarowe</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Wielowymiarowa analiza danych</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dax44/ModelsValidation/issues/new" class="toc-action"><i class="bi bi-github"></i>Zgłoś problem</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Dariusz Majerek ©2025</p>
+</div>
+  </div>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+</body></html>
