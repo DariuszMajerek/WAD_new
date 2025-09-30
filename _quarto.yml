@@ -13,7 +13,7 @@ book:
       Dariusz Majerek ©2025
   favicon: images/cover.png
   cover-image: images/cover.png  
-  repo-url: https://github.com/dax44/ModelsValidation/
+  repo-url: https://dariuszmajerek.github.io/WAD_new/
   repo-actions: [issue]
   sharing: [twitter]
   search: true
@@ -27,6 +27,7 @@ book:
     - index.qmd
     - multi_tests.qmd
     - cca.qmd
+    - fa.qmd
     - references.qmd
 
 bibliography: references.bib

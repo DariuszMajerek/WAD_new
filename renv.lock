@@ -7282,6 +7282,29 @@
       "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "Repository": "CRAN"
     },
+    "yacca": {
+      "Package": "yacca",
+      "Version": "1.4-2",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Yet Another Canonical Correlation Analysis Package",
+      "Date": "2022-03-08",
+      "Depends": [
+        "R (>= 1.8.0)",
+        "utils"
+      ],
+      "Suggests": [
+        "RSpectra"
+      ],
+      "Author": "Carter T. Butts <buttsc@uci.edu>",
+      "Maintainer": "Carter T. Butts <buttsc@uci.edu>",
+      "Description": "An alternative canonical correlation/redundancy analysis function, with associated print, plot, and summary methods.  A method for generating helio plots is also included.",
+      "License": "GPL (>= 3)",
+      "LazyLoad": "yes",
+      "NeedsCompilation": "no",
+      "Repository": "CRAN",
+      "Encoding": "UTF-8"
+    },
     "yaml": {
       "Package": "yaml",
       "Version": "2.3.10",

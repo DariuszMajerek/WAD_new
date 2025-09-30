@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Analiza czynnikowa – Wielowymiarowa analiza danych</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./cca.html" rel="prev">
+<link href="./images/cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-2d449610c6da6b3fd31ed0a9984c1b47.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-f7ccbded210020a5533f6fd86e3f20c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-2d449610c6da6b3fd31ed0a9984c1b47.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Brak wyników",
+    "search-matching-documents-text": "dopasowane dokumenty",
+    "search-copy-link-title": "Kopiuj link do wyszukiwania",
+    "search-hide-matches-text": "Ukryj dodatkowe dopasowania",
+    "search-more-match-text": "więcej dopasowań w tym dokumencie",
+    "search-more-matches-text": "więcej dopasowań w tym dokumencie",
+    "search-clear-button-title": "Wyczyść",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Anuluj",
+    "search-submit-button-title": "Zatwierdź",
+    "search-label": "Szukaj"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-sidebar floating slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fa.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analiza czynnikowa</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Szukaj" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/logo.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Wielowymiarowa analiza danych</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://dariuszmajerek.github.io/WAD_new/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Przełącz tryb ciemny"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Przełącz tryb czytnika">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Szukaj"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wstęp</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multi_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Testy wielowymiarowe</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analiza kanoniczna</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fa.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analiza czynnikowa</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Spis treści</h2>
+   
+  <ul>
+<li>
+<a href="#eksploracyjna-analiza-czynnikowa" id="toc-eksploracyjna-analiza-czynnikowa" class="nav-link active" data-scroll-target="#eksploracyjna-analiza-czynnikowa">Eksploracyjna analiza czynnikowa</a>
+  <ul class="collapse">
+<li><a href="#za%C5%82o%C5%BCenia-klasycznego-modelu-efa" id="toc-założenia-klasycznego-modelu-efa" class="nav-link" data-scroll-target="#za%C5%82o%C5%BCenia-klasycznego-modelu-efa">Założenia klasycznego modelu EFA</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#metody-estymacji-%C5%82adunk%C3%B3w-czynnikowych" id="toc-metody-estymacji-ładunków-czynnikowych" class="nav-link" data-scroll-target="#metody-estymacji-%C5%82adunk%C3%B3w-czynnikowych">Metody estymacji ładunków czynnikowych</a>
+  <ul class="collapse">
+<li><a href="#metoda-najwi%C4%99kszej-wiarogodno%C5%9Bci-ang.-maximal-likelihood-ml" id="toc-metoda-największej-wiarogodności-ang.-maximal-likelihood-ml" class="nav-link" data-scroll-target="#metoda-najwi%C4%99kszej-wiarogodno%C5%9Bci-ang.-maximal-likelihood-ml">Metoda największej wiarogodności (ang. <em>Maximal Likelihood, ML</em>)</a></li>
+  <li><a href="#metoda-osi-g%C5%82%C3%B3wnych-ang.-principal-axis-factoring-paf" id="toc-metoda-osi-głównych-ang.-principal-axis-factoring-paf" class="nav-link" data-scroll-target="#metoda-osi-g%C5%82%C3%B3wnych-ang.-principal-axis-factoring-paf">Metoda osi głównych (ang. <em>Principal Axis Factoring, PAF</em>)</a></li>
+  <li><a href="#metoda-s%C5%82adowych-g%C5%82%C3%B3wnych-ang.-principal-component-method" id="toc-metoda-sładowych-głównych-ang.-principal-component-method" class="nav-link" data-scroll-target="#metoda-s%C5%82adowych-g%C5%82%C3%B3wnych-ang.-principal-component-method">Metoda sładowych głównych (ang. <em>Principal Component Method</em>)</a></li>
+  <li><a href="#metoda-minimalizacji-reszt-ang.-minres" id="toc-metoda-minimalizacji-reszt-ang.-minres" class="nav-link" data-scroll-target="#metoda-minimalizacji-reszt-ang.-minres">Metoda minimalizacji reszt (ang. <em>MINRES</em>)</a></li>
+  <li><a href="#metoda-uog%C3%B3lnionych-najmniejszych-kwadrat%C3%B3w-ang.-generalized-least-squares-gls" id="toc-metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls" class="nav-link" data-scroll-target="#metoda-uog%C3%B3lnionych-najmniejszych-kwadrat%C3%B3w-ang.-generalized-least-squares-gls">Metoda uogólnionych najmniejszych kwadratów (ang. <em>Generalized Least Squares, GLS</em>)</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynnik%C3%B3w" id="toc-oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynników" class="nav-link" data-scroll-target="#oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynnik%C3%B3w">Oceny dopasowania modelu i kryteria doboru liczby czynników</a>
+  <ul class="collapse">
+<li><a href="#proporcja-wyja%C5%9Bnionej-wariancji-przez-czynniki" id="toc-proporcja-wyjaśnionej-wariancji-przez-czynniki" class="nav-link" data-scroll-target="#proporcja-wyja%C5%9Bnionej-wariancji-przez-czynniki">Proporcja wyjaśnionej wariancji przez czynniki</a></li>
+  <li><a href="#test-chi-kwadrat" id="toc-test-chi-kwadrat" class="nav-link" data-scroll-target="#test-chi-kwadrat">Test chi-kwadrat</a></li>
+  <li><a href="#wska%C5%BAnik-rmsea" id="toc-wskaźnik-rmsea" class="nav-link" data-scroll-target="#wska%C5%BAnik-rmsea">Wskaźnik RMSEA</a></li>
+  <li><a href="#analiza-reszt" id="toc-analiza-reszt" class="nav-link" data-scroll-target="#analiza-reszt">Analiza reszt</a></li>
+  <li><a href="#kryteria-informacyjne" id="toc-kryteria-informacyjne" class="nav-link" data-scroll-target="#kryteria-informacyjne">Kryteria informacyjne</a></li>
+  <li><a href="#inne-wska%C5%BAniki-dopasowania" id="toc-inne-wskaźniki-dopasowania" class="nav-link" data-scroll-target="#inne-wska%C5%BAniki-dopasowania">Inne wskaźniki dopasowania</a></li>
+  <li><a href="#kryterium-wykresu-osypiska-scree-plot-cattell" id="toc-kryterium-wykresu-osypiska-scree-plot-cattell" class="nav-link" data-scroll-target="#kryterium-wykresu-osypiska-scree-plot-cattell">Kryterium wykresu osypiska (Scree plot, Cattell)</a></li>
+  <li><a href="#analiza-r%C3%B3wnoleg%C5%82a-parallel-analysis-horn" id="toc-analiza-równoległa-parallel-analysis-horn" class="nav-link" data-scroll-target="#analiza-r%C3%B3wnoleg%C5%82a-parallel-analysis-horn">Analiza równoległa (Parallel analysis, Horn)</a></li>
+  <li><a href="#kryterium-map-minimum-average-partial-velicer" id="toc-kryterium-map-minimum-average-partial-velicer" class="nav-link" data-scroll-target="#kryterium-map-minimum-average-partial-velicer">Kryterium MAP (Minimum Average Partial, Velicer)</a></li>
+  <li><a href="#testy-statystyczne-dopasowania-dla-ml" id="toc-testy-statystyczne-dopasowania-dla-ml" class="nav-link" data-scroll-target="#testy-statystyczne-dopasowania-dla-ml">Testy statystyczne dopasowania (dla ML)</a></li>
+  <li><a href="#kryteria-informacyjne-aic-bic-caic" id="toc-kryteria-informacyjne-aic-bic-caic" class="nav-link" data-scroll-target="#kryteria-informacyjne-aic-bic-caic">Kryteria informacyjne (AIC, BIC, CAIC)</a></li>
+  <li><a href="#analiza-reszt-i-spektrum-warto%C5%9Bci-w%C5%82asnych-macierzy-reszt" id="toc-analiza-reszt-i-spektrum-wartości-własnych-macierzy-reszt" class="nav-link" data-scroll-target="#analiza-reszt-i-spektrum-warto%C5%9Bci-w%C5%82asnych-macierzy-reszt">Analiza reszt i spektrum wartości własnych macierzy reszt</a></li>
+  <li><a href="#udzia%C5%82-wyja%C5%9Bnionej-wariancji" id="toc-udział-wyjaśnionej-wariancji" class="nav-link" data-scroll-target="#udzia%C5%82-wyja%C5%9Bnionej-wariancji">Udział wyjaśnionej wariancji</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#rotacje-czynnik%C3%B3w" id="toc-rotacje-czynników" class="nav-link" data-scroll-target="#rotacje-czynnik%C3%B3w">Rotacje czynników</a>
+  <ul class="collapse">
+<li><a href="#rotacje-ortogonalne" id="toc-rotacje-ortogonalne" class="nav-link" data-scroll-target="#rotacje-ortogonalne">Rotacje ortogonalne</a></li>
+  <li><a href="#rotacje-sko%C5%9Bne-oblique" id="toc-rotacje-skośne-oblique" class="nav-link" data-scroll-target="#rotacje-sko%C5%9Bne-oblique">Rotacje skośne (<em>oblique</em>)</a></li>
+  <li><a href="#wyb%C3%B3r-rodzaju-rotacji" id="toc-wybór-rodzaju-rotacji" class="nav-link" data-scroll-target="#wyb%C3%B3r-rodzaju-rotacji">Wybór rodzaju rotacji</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://dariuszmajerek.github.io/WAD_new/issues/new" class="toc-action"><i class="bi bi-git"></i>Zgłoś problem</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Analiza czynnikowa</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>Analiza czynnikowa należy do klasy metod wielowymiarowych, których celem jest odkrywanie ukrytych struktur stojących za obserwowanymi zmiennymi. W odróżnieniu od metod takich jak analiza głównych składowych<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, które opierają się na czysto algebraicznych przekształceniach danych, analiza czynnikowa ma wyraźne odniesienie do modeli statystycznych i psychometrycznych, w których zakłada się istnienie <em>czynników latentnych</em> – czyli zmiennych ukrytych, niewidocznych bezpośrednio, ale wpływających na wartości zmiennych obserwowalnych. Przykładem może być konstrukt „inteligencja”, który przejawia się w wynikach testów logicznych, pamięciowych czy językowych. Głównym celem analizy czynnikowej jest redukcja wymiarowości poprzez reprezentację wielu zmiennych w postaci mniejszej liczby czynników oraz lepsze zrozumienie powiązań między zmiennymi poprzez ujawnienie wspólnych źródeł ich zmienności.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Analiza głównych składowych (PCA, <em>Principal Component Analysis</em>) to technika redukcji wymiarowości, która przekształca oryginalne zmienne w nowe, nieskorelowane zmienne (składowe), maksymalizując wariancję. Ta metoda zostanie przedstawiona w następnych rozdziałach.</p></div></div><p>Można wyróżnić dwa podstawowe podejścia do analizy czynnikowej. <strong>Eksploracyjna analiza czynnikowa (EFA, <em>Exploratory Factor Analysis</em>)</strong> jest stosowana, gdy badacz nie ma wcześniej zdefiniowanych hipotez co do liczby czynników czy struktury powiązań między nimi. Jej celem jest odkrycie potencjalnych układów zależności i zidentyfikowanie liczby czynników najlepiej opisujących dane. <strong>Konfirmacyjna analiza czynnikowa (CFA, <em>Confirmatory Factor Analysis</em>)</strong> jest natomiast podejściem dedukcyjnym – badacz z góry formułuje model teoretyczny (np. że pewne zmienne mierzą „pamięć roboczą”, a inne „myślenie abstrakcyjne”) i testuje jego zgodność z danymi empirycznymi. CFA jest szczególnie istotna w kontekście walidacji narzędzi badawczych, np. kwestionariuszy psychologicznych, i stanowi fundament bardziej zaawansowanych modeli strukturalnych (SEM).</p>
+<p>Historia analizy czynnikowej sięga początków XX wieku i jest ściśle związana z psychometrią. Jej pionierem był Charles Spearman, który w 1904 roku zaproponował model jednoczynnikowy, interpretując zmienne poznawcze jako przejawy ogólnego czynnika inteligencji. W kolejnych dekadach metoda była rozwijana przez psychologów, takich jak Thurstone, który wprowadził koncepcję wieloczynnikową oraz przez statystyków, którzy rozwijali formalne podstawy estymacji czynników i rotacji macierzy ładunków. W latach 60. i 70. analiza czynnikowa stała się jedną z najczęściej stosowanych metod w badaniach psychologicznych i społecznych, a wraz z rozwojem informatyki zyskała na popularności także w ekonomii, biologii czy medycynie. Dziś analiza czynnikowa jest narzędziem interdyscyplinarnym, stosowanym zarówno do eksploracji struktur danych, jak i do testowania teorii opartych na zmiennych latentnych.</p>
+<section id="eksploracyjna-analiza-czynnikowa" class="level2"><h2 class="anchored" data-anchor-id="eksploracyjna-analiza-czynnikowa">Eksploracyjna analiza czynnikowa</h2>
+<p>Formalna postać modelu eksploracyjnej analizy czynnikowej (EFA) zakłada, że zmienne obserwowalne <span class="math inline">\(\mathbf{x} = (x_1, x_2, \ldots, x_p)^\top\)</span> można wyrazić jako kombinację liniową czynników latentnych oraz składników specyficznych. Model przyjmuje postać:</p>
+<p><span class="math display">\[
+\mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon},
+\]</span></p>
+<p>gdzie:</p>
+<ul>
+<li>
+<span class="math inline">\(\mathbf{x} \in \mathbb{R}^p\)</span> – wektor zmiennych obserwowalnych,</li>
+<li>
+<span class="math inline">\(\boldsymbol{\mu} \in \mathbb{R}^p\)</span> – wektor średnich,</li>
+<li>
+<span class="math inline">\(\Lambda \in \mathbb{R}^{p \times m}\)</span> – macierz ładunków czynnikowych, której element <span class="math inline">\(\lambda_{ij}\)</span> opisuje wpływ czynnika <span class="math inline">\(j\)</span> na zmienną <span class="math inline">\(i\)</span>,</li>
+<li>
+<span class="math inline">\(\mathbf{f} \in \mathbb{R}^m\)</span> – wektor czynników latentnych (czynników wspólnych),</li>
+<li>
+<span class="math inline">\(\boldsymbol{\epsilon} \in \mathbb{R}^p\)</span> – wektor składników specyficznych (unikalnych, błędów pomiaru).</li>
+</ul>
+<section id="założenia-klasycznego-modelu-efa" class="level3"><h3 class="anchored" data-anchor-id="założenia-klasycznego-modelu-efa">Założenia klasycznego modelu EFA</h3>
+<ol type="1">
+<li><p><strong>Rozkład czynników wspólnych</strong> <span class="math display">\[
+\mathbb{E}[\mathbf{f}] = \mathbf{0}, \quad \mathrm{Cov}(\mathbf{f}) = \Phi = I_m,
+\]</span> czyli czynniki latentne mają średnią zero i macierz kowariancji równą macierzy jednostkowej. To założenie oznacza, że czynniki są nieskorelowane i mają wariancję jednostkową (jest to standaryzacja wprowadzona dla identyfikowalności modelu).</p></li>
+<li><p><strong>Rozkład składników specyficznych</strong> <span class="math display">\[
+\mathbb{E}[\boldsymbol{\epsilon}] = \mathbf{0}, \quad \mathrm{Cov}(\boldsymbol{\epsilon}) = \Psi,
+\]</span> gdzie <span class="math inline">\(\Psi\)</span> jest macierzą diagonalną o elementach dodatnich. Oznacza to, że błędy są nieskorelowane między sobą oraz niezależne od czynników <span class="math inline">\(\mathbf{f}\)</span>.</p></li>
+<li><p><strong>Niezależność czynników i błędów</strong> <span class="math display">\[
+\mathrm{Cov}(\mathbf{f}, \boldsymbol{\epsilon}) = 0.
+\]</span></p></li>
+<li><p><strong>Macierz kowariancji zmiennych obserwowalnych</strong></p></li>
+</ol>
+<p>Z powyższej konstrukcji wynika, że kowariancja zmiennych obserwowalnych jest sumą części wspólnej i specyficznej: <span class="math display">\[
+\Sigma = \Lambda \Lambda^\top + \Psi.
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dowód
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Niech losowy wektor obserwacji ma postać <span class="math display">\[
+\mathbf{x}=\boldsymbol{\mu}+\Lambda\mathbf{f}+\boldsymbol{\epsilon},
+\]</span> gdzie <span class="math inline">\(\mathbf{f}\)</span> to wektor czynników wspólnych, a <span class="math inline">\(\boldsymbol{\epsilon}\)</span> to wektor składników specyficznych. Zakładamy, że <span class="math display">\[\mathbb{E}[\mathbf{f}]=\mathbf{0},\quad \operatorname{Cov}(\mathbf{f})=\Phi,\]</span> <span class="math display">\[\mathbb{E}[\boldsymbol{\epsilon}]=\mathbf{0},\quad \operatorname{Cov}(\boldsymbol{\epsilon})=\Psi\]</span> oraz <span class="math display">\[\operatorname{Cov}(\mathbf{f},\boldsymbol{\epsilon})=\mathbf{0}.\]</span> Celem jest wykazać, że <span class="math inline">\(\Sigma:=\operatorname{Cov}(\mathbf{x})=\Lambda\Phi\Lambda^\top+\Psi\)</span>, a w szczególności przy <span class="math inline">\(\Phi=I_m\)</span>, że mamy <span class="math inline">\(\Sigma=\Lambda\Lambda^\top+\Psi\)</span>.</p>
+<p>Zaczynamy od wycentrowania wektora <span class="math inline">\(\mathbf{x}\)</span>, a ponieważ <span class="math inline">\(\mathbb{E}[\mathbf{f}]=\mathbf{0}\)</span> i <span class="math inline">\(\mathbb{E}[\boldsymbol{\epsilon}]=\mathbf{0}\)</span>, to <span class="math inline">\(\mathbb{E}[\mathbf{x}]=\boldsymbol{\mu}\)</span>, zatem <span class="math inline">\(\mathbf{x}-\boldsymbol{\mu}=\Lambda\mathbf{f}+\boldsymbol{\epsilon}\)</span>.</p>
+<p>Kowariancję <span class="math inline">\(\Sigma=\operatorname{Cov}(\mathbf{x})\)</span> wyrażamy jako <span class="math display">\[
+\Sigma=\operatorname{Cov}(\mathbf{x}-\boldsymbol{\mu})=\operatorname{Cov}(\Lambda\mathbf{f}+\boldsymbol{\epsilon}).
+\]</span> Korzystając z liniowości kowariancji i tożsamości <span class="math inline">\(\operatorname{Cov}(A\mathbf{u}+B\mathbf{v})=A\operatorname{Cov}(\mathbf{u})A^\top+B\operatorname{Cov}(\mathbf{v})B^\top+A\operatorname{Cov}(\mathbf{u}\mathbf{v})B^\top+B\operatorname{Cov}(\mathbf{v}\mathbf{u})A^\top\)</span> dla dowolnych macierzy <span class="math inline">\(A,B\)</span> i wektorów losowych <span class="math inline">\(\mathbf{u},\,\mathbf{v}\)</span> o skończonych wariancjach. W naszym przypadku <span class="math inline">\(A=\Lambda\)</span>, <span class="math inline">\(\mathbf{u}=\mathbf{f}\)</span>, <span class="math inline">\(B=I_p\)</span>, <span class="math inline">\(\mathbf{v}=\boldsymbol{\epsilon}\)</span>.</p>
+<p>Dzięki założeniu nieskorelowania <span class="math inline">\(\operatorname{Cov}(\mathbf{f},\boldsymbol{\epsilon})=\mathbf{0}\)</span> wyrazy mieszane znikają i pozostaje <span class="math display">\[
+\Sigma=\Lambda\operatorname{Cov}(\mathbf{f})\Lambda^\top + I_p\operatorname{Cov}(\boldsymbol{\epsilon})I_p^\top
+=\Lambda\Phi\Lambda^\top + \Psi.
+\]</span> Jeśli dodatkowo przyjmiemy standardyzację czynników <span class="math inline">\(\Phi=I_m\)</span> (co jest konwencją identyfikacyjną modelu EFA), to otrzymujemy <span class="math display">\[
+\Sigma=\Lambda\Lambda^\top+\Psi,
+\]</span> czego należało dowieść.</p>
+<p>Warto odnotować, że dowód nie wymaga niezależności <span class="math inline">\(\mathbf{f}\)</span> i <span class="math inline">\(\boldsymbol{\epsilon}\)</span> w sensie probabilistycznym — wystarcza nieskorelowanie, aby zniknęły składniki mieszane. Ponadto w wersji niestandardowej, gdy <span class="math inline">\(\Phi\neq I_m\)</span>, model przyjmuje postać <span class="math inline">\(\Sigma=\Lambda\Phi\Lambda^\top+\Psi\)</span>, to można zastosować tzw. <em>whitening</em> czynników <span class="math inline">\(\tilde{\mathbf{f}}=\Phi^{1/2}\mathbf{z}\)</span> z <span class="math inline">\(\operatorname{Cov}(\mathbf{z})=I_m\)</span>, co równoważnie prowadzi do <span class="math inline">\(\tilde{\Lambda}=\Lambda\Phi^{1/2}\)</span> i standardowej formy <span class="math inline">\(\Sigma=\tilde{\Lambda}\tilde{\Lambda}^\top+\Psi\)</span>.</p>
+<p>Reprezentacja macierzy kowariancji <span class="math inline">\(\Sigma\)</span> w postaci <span class="math inline">\(\Lambda\Phi\Lambda^\top+\Psi\)</span> nie jest unikatowa. Istnieje wiele par <span class="math inline">\(\Lambda, \Phi\)</span>, które prowadzą do tej samej macierzy kowariancji <span class="math inline">\(\Sigma\)</span>. Jest to związane z możliwością przeprowadzania różnych transformacji czynników bez zmiany struktury kowariancji zmiennych obserwowalnych.</p>
+<p>Formalnie:</p>
+<ol type="1">
+<li><p>W wersji ogólnej mamy <span class="math display">\[
+\Sigma = \Lambda \Phi \Lambda^\top + \Psi.
+\]</span></p></li>
+<li><p>Jeżeli dokonamy transformacji ortogonalnej czynników <span class="math inline">\(\mathbf{f}^* = Q \mathbf{f}\)</span>, gdzie <span class="math inline">\(Q\)</span> jest macierzą ortogonalną, to: <span class="math display">\[
+\Lambda \mathbf{f} = (\Lambda Q^\top) (Q\mathbf{f}) = \Lambda^* \mathbf{f}^*,
+\]</span> przy czym <span class="math display">\[
+\Lambda^* = \Lambda Q^\top, \quad \Phi^* = Q \Phi Q^\top.
+\]</span> Wtedy dalej mamy <span class="math display">\[
+\Sigma = \Lambda^* \Phi^* \Lambda^{*\top} + \Psi.
+\]</span></p></li>
+<li><p>To pokazuje, że <span class="math inline">\(\Lambda\)</span> i <span class="math inline">\(\Phi\)</span> nie są jednoznacznie wyznaczone. Różne pary <span class="math inline">\((\Lambda, \Phi)\)</span> mogą prowadzić do tej samej macierzy kowariancji <span class="math inline">\(\Sigma\)</span>.</p></li>
+<li><p>W szczególności wprowadzenie wektora <span class="math inline">\(z\)</span> (o kowariancji jednostkowej) i zapisanie modelu jako <span class="math display">\[
+\Sigma = \tilde{\Lambda}\tilde{\Lambda}^\top + \Psi
+\]</span> jest jedną z takich równoważnych reprezentacji.</p></li>
+</ol>
+</div>
+</div>
+<p>Macierz kowariancji <span class="math inline">\(\Sigma\)</span> w analizie czynnikowej odgrywa fundamentalną rolę, ponieważ jest miejscem, w którym spotykają się dwa składniki zmienności: wspólna i specyficzna. Rozkład <span class="math inline">\(\Sigma = \Lambda \Lambda^\top + \Psi\)</span> oznacza, że całkowita wariancja i kowariancja obserwowanych zmiennych może być przedstawiona jako suma efektu wspólnych czynników oraz efektu specyficznego, indywidualnego dla każdej zmiennej.</p>
+<p>Część <span class="math inline">\(\Lambda \Lambda^\top\)</span> reprezentuje wspólne źródło zmienności, czyli wariancję wyjaśnianą przez czynniki ukryte. To właśnie ta część umożliwia redukcję wymiaru – wiele zmiennych obserwowanych można sprowadzić do kilku czynników, które reprezentują główną strukturę zależności. Interpretacja czynników jako ukrytych wymiarów (np. inteligencja, poziom lęku, satysfakcja zawodowa, czy cechy rynku finansowego) pozwala nie tylko uprościć analizę, ale także nadać jej znaczenie teoretyczne w danej dziedzinie badań.</p>
+<p>Z kolei <span class="math inline">\(\Psi\)</span> odpowiada za wariancję unikalną, czyli tę część zmienności, która nie jest współdzielona z innymi zmiennymi. Obejmuje ona zarówno wariancję czysto specyficzną dla danej cechy, jak i wariancję błędu pomiarowego. Dzięki temu możliwe jest odróżnienie struktury głębokiej (czynnikowej) od elementów przypadkowych i indywidualnych.</p>
+<p>Podsumowując, znaczenie modelu czynnikowego polega na tym, że pozwala on wydzielić istotne, ukryte mechanizmy stojące za współzależnościami zmiennych i oddzielić je od szumów specyficznych dla pojedynczych obserwacji. W praktyce oznacza to możliwość redukcji liczby analizowanych zmiennych, uproszczenie opisu złożonych danych i pogłębienie interpretacji zjawisk społecznych, psychologicznych, biologicznych czy ekonomicznych.</p>
+<p>Interpretacja czynników w praktyce opiera się przede wszystkim na analizie macierzy ładunków czynnikowych <span class="math inline">\(\Lambda\)</span>. Każdy element <span class="math inline">\(\lambda_{ij}\)</span> tej macierzy informuje o sile związku pomiędzy zmienną obserwowaną <span class="math inline">\(x_i\)</span> a czynnikiem <span class="math inline">\(f_j\)</span>. Im wyższa wartość bezwzględna ładunku, tym większy udział danego czynnika w wyjaśnianiu zmienności konkretnej zmiennej. Na przykład w psychologii wysoki ładunek czynnika na zmiennej opisującej pamięć krótkotrwałą i na zmiennej opisującej zdolność rozwiązywania problemów matematycznych może sugerować, że obie cechy są przejawem wspólnego czynnika – inteligencji ogólnej.</p>
+</section></section><section id="metody-estymacji-ładunków-czynnikowych" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="metody-estymacji-ładunków-czynnikowych">Metody estymacji ładunków czynnikowych</h2>
+<section id="metoda-największej-wiarogodności-ang.-maximal-likelihood-ml" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-największej-wiarogodności-ang.-maximal-likelihood-ml">Metoda największej wiarogodności (ang. <em>Maximal Likelihood, ML</em>)</h3>
+<section id="założenia" class="level4"><h4 class="anchored" data-anchor-id="założenia">Założenia</h4>
+<p>Zakładamy, że wektor zmiennych obserwowalnych</p>
+<p><span class="math display">\[
+\mathbf{x} \sim \mathcal{N}_p(\boldsymbol{\mu}, \Sigma),
+\]</span></p>
+<p>gdzie kowariancja <span class="math inline">\(\Sigma\)</span> ma postać modelową <span class="math display">\[
+\Sigma = \Lambda \Phi \Lambda^\top + \Psi.
+\]</span></p>
+<p>Dla uproszczenia przyjmuje się często, że czynniki <span class="math inline">\(\mathbf{f}\)</span> są standaryzowane i nieskorelowane, czyli <span class="math inline">\(\Phi = I_m\)</span>. Wówczas macierz kowariancji ma postać</p>
+<p><span class="math display">\[
+\Sigma = \Lambda \Lambda^\top + \Psi.
+\]</span></p>
+</section><section id="funkcja-wiarygodności" class="level4"><h4 class="anchored" data-anchor-id="funkcja-wiarygodności">Funkcja wiarygodności</h4>
+<p>Dla próby <span class="math inline">\(\mathbf{x}_1,\ldots,\mathbf{x}_n\)</span> funkcja wiarygodności rozkładu normalnego wynosi</p>
+<p><span class="math display">\[
+L(\Lambda,\Psi) = (2\pi)^{-\frac{np}{2}} |\Sigma|^{-\frac{n}{2}}
+\exp\left(-\tfrac{1}{2}\sum_{i=1}^n (\mathbf{x}_i-\mu)^\top\Sigma^{-1}(\mathbf{x}_i-\mu)\right).
+\]</span></p>
+<p>częściej wyrażana w postaci zlogarytmowanej</p>
+<p><span class="math display">\[
+\ell(\Lambda,\Psi) = -\frac{n}{2} \left[ \log |\Sigma| + \operatorname{tr}(\Sigma^{-1} S) \right] + C,
+\]</span></p>
+<p>gdzie <span class="math inline">\(S = \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i-\mu)(\mathbf{x}_i-\mu)^\top\)</span> jest macierzą kowariancji z próby.</p>
+</section><section id="estymacja-parametrów" class="level4"><h4 class="anchored" data-anchor-id="estymacja-parametrów">Estymacja parametrów</h4>
+<p>Estymatory <span class="math inline">\(\hat{\Lambda}, \hat{\Psi}\)</span> dobiera się tak, aby maksymalizowały <span class="math inline">\(\ell(\Lambda,\Psi)\)</span>, co odpowiada minimalizacji funkcji rozbieżności:</p>
+<p><span class="math display">\[
+F(\Lambda,\Psi) = \log |\Sigma| + \operatorname{tr}(\Sigma^{-1} S) - \log |S| - p.
+\]</span></p>
+<p>Powyższa miara rozbieżności powstaje z odległości Kullbacka-Leiblera między rozkładami normalnymi <span class="math inline">\(\mathcal{N}_p(\mu, \Sigma)\)</span> i <span class="math inline">\(\mathcal{N}_p(\mu, S)\)</span> i jest równa dokładnie <span class="math inline">\(2D_{KL}(S||\Sigma)\)</span>.</p>
+</section><section id="procedura-obliczeniowa" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="procedura-obliczeniowa">Procedura obliczeniowa</h4>
+<p>W praktyce:</p>
+<ol type="1">
+<li>Wybiera się liczbę <span class="math inline">\(m\)</span> czynników<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</li>
+<li>Ustala się początkowe wartości <span class="math inline">\(\Lambda, \Psi\)</span><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</li>
+<li>Iteracyjnie poprawia się parametry, rozwiązując równania warunków pierwszego rzędu</li>
+</ol>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;wybór liczby czynników zostanie przedstawiony nieco później</p></div><div id="fn3"><p><sup>3</sup>&nbsp;spsoby ewstępnej estymacji zostaną omówione w dalszej części</p></div></div><p><span class="math display">\[
+\frac{\partial \ell}{\partial \Lambda} = 0, \quad \frac{\partial \ell}{\partial \Psi} = 0.
+\]</span></p>
+<ol start="4" type="1">
+<li>Takie postępowanie iteracyjne prowadzi się aż do zbieżności funkcji wiarygodności.</li>
+</ol></section><section id="własności" class="level4"><h4 class="anchored" data-anchor-id="własności">Własności</h4>
+<ul>
+<li>Estymatory ML są efektywne przy spełnieniu założenia o normalności wielowymiarowej danych pierwotnych.</li>
+<li>Umożliwiaja testy istotności liczby czynników:
+<ul>
+<li>Hipoteza <span class="math inline">\(H_0: \Sigma = \Lambda\Lambda^\top + \Psi\)</span> vs <span class="math inline">\(H_1: \Sigma\)</span> dowolna.</li>
+<li>Statystyka testowa ma w przybliżeniu rozkład <span class="math inline">\(\chi^2\)</span>.</li>
+</ul>
+</li>
+<li>Pozwalają też konstruować przedziały ufności dla ładunków czynnikowych.</li>
+</ul></section><section id="ograniczenia" class="level4"><h4 class="anchored" data-anchor-id="ograniczenia">Ograniczenia</h4>
+<ul>
+<li>Wymagaja dużej próby i spełnienia założenia normalności wielowymiarowej.</li>
+<li>Może być numerycznie niestabilne, zwłaszcza gdy liczba czynników jest duża w stosunku do liczby zmiennych.</li>
+<li>Przy małych próbach lub silnym naruszeniu normalności wyniki mogą być obciążone.</li>
+</ul></section></section><section id="metoda-osi-głównych-ang.-principal-axis-factoring-paf" class="level3"><h3 class="anchored" data-anchor-id="metoda-osi-głównych-ang.-principal-axis-factoring-paf">Metoda osi głównych (ang. <em>Principal Axis Factoring, PAF</em>)</h3>
+<section id="idea-metody-paf" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-paf">Idea metody PAF</h4>
+<p>W metodzie PAF znanej również jako metoda czynników głównych, zakładamy klasyczny model czynnikowy</p>
+<p><span class="math display">\[
+\mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon}, \quad \mathrm{Cov}(\mathbf{x}) = \Sigma = \Lambda \Lambda^\top + \Psi.
+\]</span></p>
+<p>Celem jest znalezienie takiego <span class="math inline">\(\Lambda\)</span> i <span class="math inline">\(\Psi\)</span>, aby zbliżyć się do macierzy kowariancji próbkowej <span class="math inline">\(S\)</span>. W odróżnieniu od ML, PAF nie opiera się na funkcji wiarygodności ani na rozbieżności Kullbacka–Leiblera, lecz <strong>maksymalizuje wariancję wspólną</strong> zmiennych, traktując część specyficzną <span class="math inline">\((\Psi)\)</span> jako resztę.</p>
+</section><section id="macierz-zredukowanych-korelacji" class="level4"><h4 class="anchored" data-anchor-id="macierz-zredukowanych-korelacji">Macierz zredukowanych korelacji</h4>
+<p>W metodzie <em>Principal Axis Factoring (PAF)</em> kluczową rolę odgrywa <strong>macierz zredukowanych korelacji</strong>. Punktem wyjścia jest macierz korelacji <span class="math inline">\(\mathbf{R}\)</span> pomiędzy zmiennymi obserwowanymi <span class="math inline">\(\mathbf{x}\)</span>. Na diagonali tej macierzy stoją jedynki, odzwierciedlające fakt, że każda zmienna jest w pełni skorelowana sama ze sobą. Jednak w modelu czynnikowym zakładamy, że całkowita wariancja zmiennej <span class="math inline">\(x_j\)</span> może zostać podzielona na część wspólną (zasoby zmienności wspólnej - ang. <em>communalities</em>) i część swoistą (zasoby zmienności swoistej - ang. <em>uniqness</em>):</p>
+<p><span class="math display">\[
+1 = h_j^2 + \psi_j, \quad j=1,\dots,p,
+\]</span></p>
+<p>gdzie <span class="math inline">\(h_j^2\)</span> oznacza zasób zmienności wspólnej, a <span class="math inline">\(\psi_j\)</span> wariancję swoistą. W konstrukcji macierzy zredukowanych korelacji zamiast jedynek wstawia się w diagonali właśnie wartości <span class="math inline">\(h_j^2\)</span>. Otrzymujemy w ten sposób macierz</p>
+<p><span class="math display">\[
+\mathbf{R}^* = [r_{ij}^*], \quad r_{jj}^* = h_j^2.
+\]</span></p>
+<p>Macierz <span class="math inline">\(\mathbf{R}^*\)</span> ma więc charakter „zredukowany”, ponieważ na jej diagonali pozostaje tylko ta część wariancji zmiennej, którą model czynnikowy ma szansę wyjaśnić. Dzięki temu macierz ta może być przybliżana przez strukturę <span class="math inline">\(\Lambda \Lambda^\top\)</span>, co odpowiada wspólnej wariancji wszystkich zmiennych.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wstępne oszacowania zasobów zmienności wspólnej
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Problem polega na tym, że wartości <span class="math inline">\(h_j^2\)</span> nie są znane a priori. Dlatego w praktyce stosuje się różne metody wstępnego ich wyznaczania, które mogą być następnie udoskonalane iteracyjnie w kolejnych krokach procedury PAF. Do najczęściej stosowanych metod należą:</p>
+<ul>
+<li><p><strong>średnia arytmetyczna współczynników korelacji</strong> danej zmiennej z innymi zmiennymi <span class="math display">\[
+h_j^2=\frac{1}{m}\sum_{j'=1}^m r_{jj'},\quad j\ne j'
+\]</span></p></li>
+<li><p><strong>maksymalna wartość bezwzględna współczynników korelacji</strong> danej zmiennej z innymi zmiennymi <span class="math display">\[
+h_j^2=\max_{j'}|r_{jj'}|, \quad j\ne j',
+\]</span></p></li>
+<li><p><strong>współczynnik determinacji wielokrotnej</strong> danej zmiennej z innymi zmiennymi (najczęściej stosowana i wykorzystywana przez <code>R</code>) <span class="math display">\[
+h_j^2=R^2_{j\cdot 1,2,\ldots,m},
+\]</span></p></li>
+<li><p><strong>formuła triad</strong> <span class="math display">\[
+h_j^2=\frac{r_{jj'}r_{jj''}}{r_{j'j''}}, \quad j\ne j' \ne j''
+\]</span> gdzie <span class="math inline">\(r_{jj'}, r_{jj''}\)</span> - dwie najwyższe wartości współczynników korelacji <span class="math inline">\(j\)</span>-tej zmiennej z innymi zmiennymi.</p></li>
+</ul>
+</div>
+</div>
+</section><section id="rozkład-na-wartości-własne" class="level4"><h4 class="anchored" data-anchor-id="rozkład-na-wartości-własne">Rozkład na wartości własne</h4>
+<p>W metodzie PAF zakładamy, że tylko część wariancji każdej zmiennej jest wspólna. Oznacza to, że zamiast pełnej macierzy korelacji <span class="math inline">\(\mathbf{R}\)</span>, rozważamy macierz zredukowanych korelacji: <span class="math display">\[
+\mathbf{R}^* = \mathbf{R} - \Psi,
+\]</span> gdzie na diagonali znajdują się oszacowane zasoby zmienności wspólnej <span class="math inline">\(\hat{h}_j^2\)</span>, zamiast jedynek.</p>
+<p>Następnie wykonujemy dekompozycję spektralną tej macierzy: <span class="math display">\[
+\mathbf{R}^* = \mathbf{Q}^* \mathbf{D}^* {\mathbf{Q}^*}^\top,
+\]</span> gdzie <span class="math inline">\(\mathbf{Q}^*\)</span> i <span class="math inline">\(\mathbf{D}^*\)</span> są odpowiednio wektorami i wartościami własnymi macierzy <span class="math inline">\(\mathbf{R}^*\)</span>.</p>
+<p>Estymator ładunków czynnikowych w PAF ma więc postać <span class="math display">\[
+\hat{\Lambda} = \mathbf{Q}^*_m (\mathbf{D}^*_m)^{1/2},
+\]</span></p>
+<p>bazującą na zmodyfikowanej macierzy korelacji, w której uwzględniono oszacowane komunalności.</p>
+<p>Ponieważ <span class="math inline">\(\hat{h}_j^2\)</span> same zależą od ładunków (są ich sumą kwadratów), w praktyce stosuje się procedurę iteracyjną: zaczynamy od pewnych wartości początkowych, obliczamy dekompozycję spektralną, aktualizujemy komunalności i powtarzamy procedurę aż do zbieżności.</p>
+</section><section id="iteracyjna-poprawa-komunalności" class="level4"><h4 class="anchored" data-anchor-id="iteracyjna-poprawa-komunalności">Iteracyjna poprawa komunalności</h4>
+<p>Ponieważ początkowe komunalności są przybliżone, PAF stosuje procedurę iteracyjną:</p>
+<ol type="1">
+<li>Szacujemy <span class="math inline">\(\Lambda\)</span> na podstawie bieżącego <span class="math inline">\(\mathbf{R}^*\)</span>.</li>
+<li>Obliczamy nowe zasoby zmienności wspólnej <span class="math inline">\(h_j^2 = \sum_{k=1}^m \lambda_{jk}^2\)</span>.</li>
+<li>Wstawiamy je na przekątnej <span class="math inline">\(\mathbf{R}^*\)</span> zamiast starych wartości.</li>
+<li>Powtarzamy rozkład wartości własnych.</li>
+</ol>
+<p>Proces powtarza się aż do zbieżności, czyli stabilizacji ładunków czynnikowych i zasobów zmienności wspólnej.</p>
+</section><section id="własności-1" class="level4"><h4 class="anchored" data-anchor-id="własności-1">Własności</h4>
+<ul>
+<li>
+<strong>Dopasowanie do wariancji wspólnej</strong> – PAF minimalizuje różnice pomiędzy macierzą zredukowanych korelacji <span class="math inline">\(\mathbf{R}^*\)</span> a aproksymacją <span class="math inline">\(\Lambda \Lambda^\top\)</span>. Sskupia się na wariancji wspólnej.</li>
+<li>
+<strong>Iteracyjność oszacowań</strong> – estymatory w PAF powstają w procesie iteracyjnym, w którym kolejne przybliżenia komunalności są poprawiane na podstawie sumy kwadratów aktualnych ładunków czynnikowych. Dzięki temu metoda zbiega do rozwiązań lepiej oddających strukturę wspólną niż proste metody jednorazowe.</li>
+<li>
+<strong>Niestandaryzowana postać estymatorów</strong> – rozwiązania PAF mogą zależeć od przyjętych wartości początkowych <span class="math inline">\(h_j^2\)</span>. Różne wybory startowe mogą prowadzić do nieco innych estymatorów, choć w praktyce po kilku iteracjach zbieżność do stabilnego rozwiązania jest zazwyczaj dobra.</li>
+<li>
+<strong>Interpretowalność</strong> – ponieważ oszacowane ładunki czynnikowe odzwierciedlają wyłącznie część wspólną wariancji, interpretacja czynników uzyskanych metodą PAF jest bliższa teoretycznemu modelowi czynnikowemu niż w przypadku metod opartych na PCA.</li>
+</ul></section><section id="ograniczenia-1" class="level4"><h4 class="anchored" data-anchor-id="ograniczenia-1">Ograniczenia</h4>
+<ul>
+<li>
+<strong>Brak optymalności w sensie funkcji wiarygodności</strong> – w przeciwieństwie do metody największej wiarygodności (ML), estymatory PAF nie mają znanych własności asymptotycznych, takich jak efektywność czy zgodność w sensie probabilistycznym. Są bardziej heurystyczne niż ściśle statystyczne.</li>
+<li>
+<strong>Zależność od wartości początkowych komunalności</strong> – oszacowania początkowe wpływają na przebieg iteracji i mogą prowadzić do lokalnych minimów. W praktyce wybór metody startowej (np. <span class="math inline">\(R^2\)</span>, średnia korelacja, …) ma znaczenie dla szybkości i stabilności algorytmu.</li>
+<li>
+<strong>Możliwość uzyskania ujemnych komunalności</strong> – w niektórych przypadkach iteracje mogą prowadzić do oszacowań <span class="math inline">\(h_j^2 &lt; 0\)</span> (tzw. przypadek Haywooda), co jest sprzeczne z definicją wariancji wspólnej. Wówczas konieczne stosowanie innych metod estymacji ładunków.</li>
+<li>
+<strong>Mniejsza przydatność przy małych próbach</strong> – ponieważ metoda nie opiera się na pełnym modelu statystycznym, jej własności są mniej stabilne przy niewielkich licznościach obserwacji. Wyniki mogą być wówczas silnie zależne od przypadkowych fluktuacji w danych.</li>
+<li>
+<strong>Brak testów statystycznych dopasowania modelu</strong> – w odróżnieniu od metody ML, PAF nie pozwala na formalne testowanie hipotez o liczbie czynników czy jakości dopasowania modelu do danych.</li>
+</ul></section></section><section id="metoda-sładowych-głównych-ang.-principal-component-method" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-sładowych-głównych-ang.-principal-component-method">Metoda sładowych głównych (ang. <em>Principal Component Method</em>)</h3>
+<p>Metoda sładowych głównych należy do klasy metod wspólnotowych, czyli takich, które zakładają klasyczny model czynnikowy</p>
+<p><span class="math display">\[
+\mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon},
+\quad \Sigma = \Lambda\Lambda^\top + \Psi.
+\]</span></p>
+<p>Celem jest oszacowanie macierzy ładunków <span class="math inline">\(\Lambda\)</span>, tak aby jak najlepiej odtworzyć część wspólną wariancji.</p>
+<section id="idea-metody" class="level4"><h4 class="anchored" data-anchor-id="idea-metody">Idea metody</h4>
+<p>W metodzie PCM zakładamy, że cała wariancja zmiennej jest wariancją wspólną, tzn. <span class="math display">\[
+h_j^2 = 1, \quad j=1,\ldots,p.
+\]</span></p>
+<p>Oznacza to, że macierz zredukowanych korelacji jest po prostu zwykłą macierzą korelacji <span class="math inline">\(\mathbf{R}\)</span>: <span class="math display">\[
+\mathbf{R} = \Lambda \Lambda^\top + \Psi,
+\]</span> przy czym w PCM przyjmujemy <span class="math inline">\(\Psi = \mathbf{0}\)</span>.</p>
+<p>Następnie wykonujemy dekompozycję spektralną <span class="math display">\[
+\mathbf{R} = \mathbf{Q} \mathbf{D} \mathbf{Q}^\top,
+\]</span> gdzie:</p>
+<ul>
+<li>
+<span class="math inline">\(\mathbf{Q} = (q_1, q_2, \ldots, q_p)\)</span> – to macierz ortonormalnych wektorów własnych,</li>
+<li>
+<span class="math inline">\(\mathbf{D} = \mathrm{diag}(\lambda_1, \lambda_2, \ldots, \lambda_p)\)</span> – to macierz wartości własnych uporządkowanych malejąco.</li>
+</ul>
+<p>Jeśli chcemy oszacować model z <span class="math inline">\(m\)</span> czynnikami, to bierzemy największe <span class="math inline">\(m\)</span> wartości własne i odpowiadające im wektory własne. Estymator ładunków czynnikowych jest wtedy równy <span class="math display">\[
+\hat{\Lambda} = \mathbf{Q}_m \mathbf{D}_m^{1/2},
+\]</span> gdzie <span class="math inline">\(\mathbf{Q}_m = (q_1,\ldots,q_m)\)</span>, a <span class="math inline">\(\mathbf{D}_m = \mathrm{diag}(\lambda_1, \ldots, \lambda_m)\)</span>.</p>
+<p>Widzimy więc, że w PCM ładunki są wprost pierwiastkami z największych wartości własnych pomnożonymi przez odpowiadające im wektory własne.</p>
+</section><section id="procedura-estymacjifa-4" class="level4"><h4 class="anchored" data-anchor-id="procedura-estymacjifa-4">Procedura estymacji<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
+</h4>
+<ol type="1">
+<li>Konstruujemy macierz korelacji <span class="math inline">\(\mathbf{R}\)</span>.</li>
+<li>Obliczamy rozkład wartości i wektorów własnych macierzy <span class="math inline">\(\mathbf{R}\)</span>.</li>
+<li>Wybieramy <span class="math inline">\(m\)</span> największych wartości własnych (odpowiadających liczbie czynników w modelu).</li>
+<li>Na tej podstawie konstruujemy macierz ładunków czynnikowych <span class="math inline">\(\Lambda\)</span>.</li>
+</ol></section><div class="no-row-height column-margin column-container"><div id="fn4"><p><sup>4</sup>&nbsp;tu widać największą różnicę pomięcy PCM a PAF; w metodzie PCM występuję jedna iteracja estymacji ładunków</p></div></div><section id="własności-2" class="level4"><h4 class="anchored" data-anchor-id="własności-2">Własności</h4>
+<ul>
+<li>
+<strong>Zgodność z modelem czynnikowym</strong> – metoda dąży do aproksymacji struktury wspólnej wariancji, a nie całkowitej wariancji.</li>
+<li>
+<strong>Zbieżność do stabilnych oszacowań</strong> – iteracyjne poprawki komunalności pozwalają uzyskać estymatory spójne z założeniami modelu.</li>
+<li>
+<strong>Łatwość interpretacji</strong> – podobnie jak PCA, metoda bazuje na analizie spektralnej wartości własnych, co ułatwia intuicyjne rozumienie struktury danych.</li>
+</ul></section><section id="ograniczenia-2" class="level4"><h4 class="anchored" data-anchor-id="ograniczenia-2">Ograniczenia</h4>
+<ul>
+<li>
+<strong>Brak optymalności statystycznej</strong> – podobnie jak PAF, metoda nie ma własności estymatorów opartych na funkcji wiarygodności (ML).</li>
+<li>
+<strong>Zależność od początkowych oszacowań komunalności</strong> – nieprawidłowy wybór startowy może utrudnić uzyskanie sensownych rozwiązań.</li>
+<li>
+<strong>Haywood case</strong> – zdarza się, że zasoby zmienności wspólnej mogą przyjmować wartości ujemne.</li>
+</ul></section></section><section id="metoda-minimalizacji-reszt-ang.-minres" class="level3"><h3 class="anchored" data-anchor-id="metoda-minimalizacji-reszt-ang.-minres">Metoda minimalizacji reszt (ang. <em>MINRES</em>)</h3>
+<section id="idea-metody-minres" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-minres">Idea metody MINRES</h4>
+<p>W modelu czynnikowym przyjmujemy, że macierz kowariancji (lub korelacji) ma postać <span class="math display">\[
+\Sigma = \Lambda \Lambda' + \Psi,
+\]</span> gdzie <span class="math inline">\(\Lambda\)</span> to macierz ładunków czynnikowych, a <span class="math inline">\(\Psi = \mathrm{diag}(\psi_1,\ldots,\psi_p)\)</span> to macierz wariancji swoistych.</p>
+<p>W metodzie <strong>MINRES</strong> nie próbujemy dokładnie odtworzyć całej macierzy <span class="math inline">\(\Sigma\)</span>. Zamiast tego minimalizujemy <strong>reszty pozadiagonalne</strong>, czyli różnice między obserwowaną macierzą korelacji <span class="math inline">\(\mathbf{R}\)</span> a macierzą odtworzoną z modelu <span class="math inline">\(\Lambda \Lambda^\top + \Psi\)</span>, przy czym skupiamy się wyłącznie na elementach pozadiagonalnych.</p>
+</section><section id="funkcja-kryterialna" class="level4"><h4 class="anchored" data-anchor-id="funkcja-kryterialna">Funkcja kryterialna</h4>
+<p>Formalnie minimalizowana jest suma kwadratów reszt poza przekątną <span class="math display">\[
+F(\Lambda, \Psi) = \sum_{i \neq j} \Big( r_{ij} - \hat{r}_{ij} \Big)^2,
+\]</span> gdzie:</p>
+<ul>
+<li>
+<span class="math inline">\(r_{ij}\)</span> to element macierzy korelacji empirycznej <span class="math inline">\(\mathbf{R}\)</span>,</li>
+<li>
+<span class="math inline">\(\hat{r}_{ij}\)</span> to element macierzy odtworzonej <span class="math inline">\(\Lambda \Lambda^\top + \Psi\)</span>,</li>
+<li>elementy diagonalne nie są uwzględniane (bo zawsze odtwarzane są przez normalizację zmiennych).</li>
+</ul>
+<p>Można to zapisać równoważnie jako <span class="math display">\[
+F(\Lambda) = | \mathbf{R} - (\Lambda \Lambda' + \Psi)|^2_{off},
+\]</span> gdzie <span class="math inline">\(|\cdot|_{off}\)</span> oznacza normę Frobeniusa liczona tylko na częściach pozadiagonalnych macierzy.</p>
+</section><section id="procedura-estymacyjna" class="level4"><h4 class="anchored" data-anchor-id="procedura-estymacyjna">Procedura estymacyjna</h4>
+<ol type="1">
+<li>Zaczynamy od przybliżonych wartości komunalności <span class="math inline">\(\hat{h}_j^2\)</span>, tak jak w PAF.</li>
+<li>Budujemy macierz reszt <span class="math display">\[
+\mathbf{U} = \mathbf{R} - (\Lambda \Lambda^\top + \Psi).
+\]</span>
+</li>
+<li>Szukamy takich ładunków <span class="math inline">\(\Lambda\)</span>, które minimalizują sumę kwadratów elementów <span class="math inline">\(\mathbf{U}\)</span> poza przekątną.</li>
+<li>W praktyce problem redukuje się do iteracyjnego rozwiązywania układów równań własnych, bardzo podobnie jak w PAF, ale z innym warunkiem minimalizacji (PAF dopasowuje wartości własne macierzy zredukowanych korelacji, MINRES – reszty pozadiagonalne).</li>
+</ol></section><section id="związek-z-dekompozycją-spektralną" class="level4"><h4 class="anchored" data-anchor-id="związek-z-dekompozycją-spektralną">Związek z dekompozycją spektralną</h4>
+<p>W przeciwieństwie do PCM czy PAF, metoda MINRES <strong>nie ma bezpośredniego prostego rozwiązania w postaci pierwiastków z wartości własnych</strong>. Wymaga zastosowania iteracyjnych algorytmów numerycznych, które szukają <span class="math inline">\(\Lambda\)</span> minimalizującej <span class="math inline">\(F(\Lambda)\)</span>. Jednak podobnie jak w PAF, punktem startowym mogą być wektory własne macierzy zredukowanych korelacji. Następnie algorytm minimalizacji dopasowuje ładunki tak, by reszty pozadiagonalne były jak najmniejsze.</p>
+</section><section id="właściwości-i-ograniczenia" class="level4"><h4 class="anchored" data-anchor-id="właściwości-i-ograniczenia">Właściwości i ograniczenia</h4>
+<ul>
+<li>
+<em>MINRES</em> skupia się tylko na korelacjach pomiędzy zmiennymi, ignorując elementy diagonalne – co sprawia, że estymacja jest mniej wrażliwa na problem ujemnych komunalności (tzw. <em>Heywood cases</em>).</li>
+<li>Metoda jest relatywnie stabilna numerycznie i dobrze sprawdza się przy dużej liczbie zmiennych.</li>
+<li>Ograniczeniem jest to, że wynik zależy od jakości początkowych oszacowań zasobów zmienności wspólnej. Przy złym wyborze startu możliwa jest wolna zbieżność albo zbieżność do lokalnego minimum.</li>
+</ul></section></section><section id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls" class="level3"><h3 class="anchored" data-anchor-id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls">Metoda uogólnionych najmniejszych kwadratów (ang. <em>Generalized Least Squares, GLS</em>)</h3>
+<section id="idea-metody-1" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-1">Idea metody</h4>
+<p>GLS, podobnie jak MINRES czy ML, polega na porównaniu macierzy obserwowanej <span class="math inline">\(\mathbf{S}\)</span> (kowariancji lub korelacji) z macierzą odtworzoną przez model czynnikowy <span class="math inline">\(\hat{\Sigma} = \Lambda \Lambda^\top + \Psi\)</span>. Różnica w stosunku do MINRES polega na tym, że w <strong>GLS ważymy reszty</strong>, czyli błędy odwzorowania poszczególnych elementów macierzy <span class="math inline">\(\mathbf{S}\)</span>.</p>
+<p>Formalnie kryterium minimalizacji ma postać <span class="math display">\[
+F_{\text{GLS}}(\Lambda, \Psi) = \mathrm{tr}\Big[ \big( S - \hat{\Sigma} \big) W \big( S - \hat{\Sigma} \big) W \Big],
+\]</span></p>
+<p>gdzie <span class="math inline">\(W\)</span> to <strong>macierz wag</strong>, zwykle przyjmowana jako odwrotność (lub pseudoodwrotność) wariancji estymatora elementów macierzy <span class="math inline">\(\mathbf{S}\)</span>.</p>
+<p>W przeciwieństwie do MINRES (gdzie wszystkie reszty traktowane są jednakowo), w GLS różne elementy macierzy kowariancji otrzymują różne wagi. Wagi te wynikają z asymptotycznych własności estymatora macierzy kowariancji i uwzględniają fakt, że elementy macierzy nie są niezależne i mają różne wariancje. Dzięki temu GLS jest bardziej efektywny statystycznie niż MINRES, ale jednocześnie mniej wymagający niż ML (który zakłada pełną normalność wielowymiarową).</p>
+</section><section id="własności-3" class="level4"><h4 class="anchored" data-anchor-id="własności-3">Własności</h4>
+<ul>
+<li>Estymatory GLS są <strong>spójne</strong> i <strong>asymptotycznie efektywne</strong> w klasie metod najmniejszych kwadratów, przy założeniu poprawnej specyfikacji modelu.</li>
+<li>GLS, podobnie jak ML, uwzględnia strukturę wariancji elementów macierzy <span class="math inline">\(\mathbf{S}\)</span>, co czyni go bardziej precyzyjnym niż MINRES.</li>
+<li>Z drugiej strony GLS jest mniej czuły na naruszenie założenia normalności niż ML, dlatego bywa rekomendowany przy większych odchyleniach od normalności.</li>
+</ul></section><section id="ograniczenia-3" class="level4"><h4 class="anchored" data-anchor-id="ograniczenia-3">Ograniczenia</h4>
+<ul>
+<li>Procedura GLS jest obliczeniowo trudniejsza niż MINRES, ponieważ wymaga oszacowania (lub przyjęcia) odpowiedniej macierzy wag.</li>
+<li>W praktyce GLS bywa niestabilny przy małych próbach lub przy silnych współliniowościach zmiennych.</li>
+<li>W implementacjach programowych często stosuje się GLS jako kompromis pomiędzy prostym MINRES a wymagającym ML.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Adnotacja
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Istnieją również inne metody estymacji ładunków czynnikowych, jak metody bayesowskie, czy metody z regularyzacją LASSO ale nie są one częścią tego opracowania.</p>
+</div>
+</div>
+</section></section></section><section id="oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynników" class="level2"><h2 class="anchored" data-anchor-id="oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynników">Oceny dopasowania modelu i kryteria doboru liczby czynników</h2>
+<p>Ocena dopasowania modelu EFA opiera się na kilku uzupełniających się perspektywach: globalnym dopasowaniu implikowanej macierzy kowariancji do macierzy empirycznej, analizie reszt korelacyjnych, doborze liczby czynników, stabilności rozwiązania oraz jakości lokalnej (ładunki i zasoby zmienności wspólnej). Poniżej przedstawiam najważniejsze procedury wraz z ich interpretacją oraz typowymi pułapkami.</p>
+<section id="proporcja-wyjaśnionej-wariancji-przez-czynniki" class="level3"><h3 class="anchored" data-anchor-id="proporcja-wyjaśnionej-wariancji-przez-czynniki">Proporcja wyjaśnionej wariancji przez czynniki</h3>
+<p>Proporcja wariancji wyjaśnionej przez model czynnikowy, czyli stosunek sumy wariancji wspólnej do całkowitej wariancji wszystkich zmiennych, stanowi podstawową miarę jakości dopasowania. W przypadku standaryzowanych zmiennych całkowita wariancja wynosi <span class="math inline">\(p\)</span>, więc proporcja ta ma postać <span class="math display">\[
+\text{Proporcja wyjaśnionej wariancji} = \frac{\sum_{j=1}^p h_j^2}{p}.
+\]</span> Wyższe wartości (np. powyżej <span class="math inline">\(0,6\)</span>) wskazują na dobrą reprezentację zmiennych przez czynniki, natomiast niskie wartości (np. poniżej <span class="math inline">\(0,4\)</span>) sugerują, że model nie uchwytuje istotnej części struktury danych. Jednak sama proporcja nie uwzględnia liczby czynników ani złożoności modelu, dlatego powinna być interpretowana w kontekście innych wskaźników dopasowania.</p>
+</section><section id="test-chi-kwadrat" class="level3"><h3 class="anchored" data-anchor-id="test-chi-kwadrat">Test chi-kwadrat</h3>
+<p>W metodzie ML został przedstawiony test dopasowania oparty na <em>maximum likelihood</em>. Przy założeniu normalności wielowymiarowej i zidentyfikowanym modelu postaci <span class="math display">\[
+\Sigma=\Lambda\Lambda^\top + \Psi
+\]</span> testujemy hipotezę <span class="math inline">\(H_0:\ \Sigma(\Lambda,\Psi)=S\)</span> w populacji, gdzie <span class="math inline">\(S\)</span> oznacza macierz kowariancji (lub korelacji) z próby. Statystyka <span class="math inline">\(\chi^2\)</span> rośnie wraz z pogarszającym się dopasowaniem (niestety duże próby sprzyjają odrzucaniu nawet dobrze dopasowanych modeli, a naruszenia normalności mogą zawyżać lub zaniżać wynik).</p>
+</section><section id="wskaźnik-rmsea" class="level3"><h3 class="anchored" data-anchor-id="wskaźnik-rmsea">Wskaźnik RMSEA</h3>
+<p>Wskaźnik <em>root mean square error of approximation</em> (<em>RMSEA</em>) mierzy błąd aproksymacji na jednostkę stopnia swobody i można go interpretować jako „błąd w populacji”, nie tylko w próbie. Definiujemy go jako <span class="math display">\[
+\mathrm{RMSEA}=\sqrt{\max\left\{\frac{\chi^2-df}{df(n-1)},0\right\}},
+\]</span> a ocenę uzupełniamy o przedział ufności oparty na niecentralnym rozkładzie chi-kwadrat. Wartości rzędu <span class="math inline">\(0,05-0,08\)</span> tradycyjnie uznawane są za akceptowalne, traktując progi orientacyjnie: wzrost liczby zmiennych i stopni swobody sprzyja niższym RMSEA, natomiast małe próby destabilizują oszacowanie.</p>
+</section><section id="analiza-reszt" class="level3"><h3 class="anchored" data-anchor-id="analiza-reszt">Analiza reszt</h3>
+<p>Analiza reszt macierzy korelacji stanowi podstawową kontrolę lokalnego dopasowania, niezależnie od sposobu estymacji. Wyznaczamy reszty <span class="math inline">\(r_{ij}-\hat r_{ij}\)</span> i przeglądamy rozkład wartości bezwzględnych, a dokładnie odsetek przekraczających praktyczne progi (np. <span class="math inline">\(0,05\)</span>). Wskaźniki zbiorcze, takie jak <em>RMSR</em> (<em>root mean square residual</em>) oraz <em>SRMR</em> (<em>standardized RMSR</em>), agregują wielkość reszt poza diagonalą - mniejsze wartości świadczą o lepszym dopasowaniu. Mapa ciepła reszt ułatwia wykrywanie klastrów niedopasowania sugerujących brakujący czynnik lub zbyt małą liczbę czynników.</p>
+</section><section id="kryteria-informacyjne" class="level3"><h3 class="anchored" data-anchor-id="kryteria-informacyjne">Kryteria informacyjne</h3>
+<p>Kryteria informacyjne, takie jak <em>AIC</em> i <em>BIC</em>, służą do porównywania modeli o różnej liczbie czynników, karząc nadmierną złożoność. Definiujemy je przez logarytm funkcji wiarogodności i liczbę parametrów. <em>BIC</em> silniej faworyzuje prostsze modele przy dużych próbach. Bardzo ważne jest aby używać tych metod do porównywania modeli otrzymanych tą samą metodą.</p>
+</section><section id="inne-wskaźniki-dopasowania" class="level3"><h3 class="anchored" data-anchor-id="inne-wskaźniki-dopasowania">Inne wskaźniki dopasowania</h3>
+<p>Wskaźniki „globalne” starszej generacji, takie jak <em>GFI</em> i <em>AGFI</em> (<em>goodness of fit index</em>, <em>adjusted GFI</em>), oceniają proporcję wariancji/kowariancji wyjaśnionej przez model. Są wrażliwe na rozmiar próby i liczbę zmiennych, skłonne do optymizmu w dużych modelach i do pesymizmu przy małej liczbie stopni swobody. Możemy je traktować pomocniczo, kładąc większy nacisk na RMSEA oraz analizę reszt.</p>
+<p>Analiza wartości własnych macierzy reszt uzupełnia powyższe podejścia. Po wyodrębnieniu <span class="math inline">\(m\)</span> czynników obliczamy resztową macierz korelacji <span class="math inline">\(\mathbf{R}-\hat{\mathbf{R}}\)</span> i badać jej wartości własne. Duże dodatnie wartości własne sygnalizują pozostawioną wspólną wariancję (niedomiar czynników) lub struktury lokalne.</p>
+<p>Jakość lokalną rozwiązania oceniać przez zasoby zmienności wspólnej i swoistej. <span class="math display">\[
+h_j^2=\sum_{k=1}^{m}\lambda_{jk}^{2}
+\]</span> mierzą część wariancji zmiennej <span class="math inline">\(x_j\)</span> wyjaśnioną przez czynniki, bardzo niskie <span class="math inline">\(h_j^2\)</span> wskazują słabą reprezentację zmiennej, natomiast bardzo wysokie — wraz z ryzykiem ujemnych <span class="math inline">\(\Psi_j\)</span> (przypadki Haywooda) — mogą sygnalizować dopasowanie wymuszone lub niewłaściwą liczebność czynników. Sumy kwadratów ładunków per czynnik odzwierciedlają wyjaśnioną wspólną wariancję i służą do oceny równomierności wkładu czynników.</p>
+<p>W rozwiązaniach dopuszczajacych korelacje pomiedzy czynnikami dodatkowym aspektem dopasowania jest macierz korelacji czynników <span class="math inline">\(\Phi\)</span>. Bardzo wysokie korelacje między czynnikami sugerują nadmiarowość i potencjalne przeparametryzowanie. Wówczas warto rozważyć redukcję liczby czynników lub alternatywne struktury.</p>
+<p>Najbardziej znane kryteria doboru liczby czynników to:</p>
+</section><section id="kryterium-wykresu-osypiska-scree-plot-cattell" class="level3"><h3 class="anchored" data-anchor-id="kryterium-wykresu-osypiska-scree-plot-cattell">Kryterium wykresu osypiska (Scree plot, Cattell)</h3>
+<p>Na osi poziomej odkładamy kolejne wartości własne, a na pionowej ich wielkość. Punktem granicznym jest miejsce, gdzie wykres „załamuje się” i przechodzi w „osypisko” – od tego miejsca czynniki interpretowane są jako szum.</p>
+<ul>
+<li>Zalety: wizualna intuicja, łatwe zastosowanie.</li>
+<li>Wady: często subiektywność w określeniu miejsca „łokcia”, szczególnie gdy krzywa nie ma wyraźnego załamania.</li>
+</ul></section><section id="analiza-równoległa-parallel-analysis-horn" class="level3"><h3 class="anchored" data-anchor-id="analiza-równoległa-parallel-analysis-horn">Analiza równoległa (Parallel analysis, Horn)</h3>
+<p>Polega na porównaniu wartości własnych dla danych empirycznych z wartościami własnymi uzyskanymi dla danych losowych o tej samej strukturze (ta sama liczba zmiennych i obserwacji). Zatrzymuje się te czynniki, których wartości własne przewyższają np. 95. percentyl rozkładu wartości losowych.</p>
+<ul>
+<li>Zalety: jedna z najbardziej rekomendowanych metod, dobrze sprawdza się w praktyce.</li>
+<li>Wady: wymaga procedur symulacyjnych, większej mocy obliczeniowej.</li>
+</ul></section><section id="kryterium-map-minimum-average-partial-velicer" class="level3"><h3 class="anchored" data-anchor-id="kryterium-map-minimum-average-partial-velicer">Kryterium MAP (Minimum Average Partial, Velicer)</h3>
+<p>Opiera się na analizie korelacji cząstkowych. Stopniowo usuwa się kolejne czynniki, a następnie oblicza średnią wartość kwadratu korelacji cząstkowych. Liczba czynników odpowiadająca minimum tej wartości uznawana jest za optymalną.</p>
+<ul>
+<li>Zalety: metoda oparta na minimalizacji resztowych zależności, obiektywna.</li>
+<li>Wady: wrażliwa na naruszenia założeń modelu, mniej intuicyjna dla początkujących.</li>
+</ul></section><section id="testy-statystyczne-dopasowania-dla-ml" class="level3"><h3 class="anchored" data-anchor-id="testy-statystyczne-dopasowania-dla-ml">Testy statystyczne dopasowania (dla ML)</h3>
+<p>Przy estymacji metodą największej wiarygodności można zastosować test <em>chi-kwadrat</em> dla porównania modelu z <span class="math inline">\(m\)</span> czynnikami z modelem pełnym. Sprawdza się, czy macierz implikowana przez model różni się istotnie od empirycznej. Liczbę czynników dobiera się tak, aby model był jeszcze akceptowalny, ale nie przeparametryzowany.</p>
+<ul>
+<li>Zalety: formalne podejście statystyczne.</li>
+<li>Wady: silna wrażliwość na liczność próby i założenie normalności wielowymiarowej; w dużych próbach nawet dobre modele mogą być odrzucane.</li>
+</ul></section><section id="kryteria-informacyjne-aic-bic-caic" class="level3"><h3 class="anchored" data-anchor-id="kryteria-informacyjne-aic-bic-caic">Kryteria informacyjne (AIC, BIC, CAIC)</h3>
+<p>Porównują modele o różnej liczbie czynników, równoważąc dopasowanie (log-wiarygodność) i złożoność (liczbę parametrów). Optymalna liczba czynników to ta, dla której wartość kryterium jest minimalna.</p>
+<ul>
+<li>Zalety: uwzględniają karę za nadmierną złożoność, dobrze sprawdzają się w porównaniach.</li>
+<li>Wady: wartości kryteriów są zależne od metody estymacji, więc porównywać można tylko modele oszacowane tą samą metodą.</li>
+</ul></section><section id="analiza-reszt-i-spektrum-wartości-własnych-macierzy-reszt" class="level3"><h3 class="anchored" data-anchor-id="analiza-reszt-i-spektrum-wartości-własnych-macierzy-reszt">Analiza reszt i spektrum wartości własnych macierzy reszt</h3>
+<p>Po przyjęciu liczby czynników oblicza się macierz reszt korelacji <span class="math inline">\(\mathbf{R}-\hat{\mathbf{R}}\)</span> . Jeśli w resztach (poza przekątną) pozostają duże (co do wartości bezwzględnej) wartości własne, oznacza to, że nie wszystkie wspólne zależności zostały uchwycone i potrzebne są dodatkowe czynniki.</p>
+<ul>
+<li>Zalety: pozwala ocenić niedopasowanie „lokalne” i strukturalne.</li>
+<li>Wady: wymaga bardziej zaawansowanej interpretacji.</li>
+</ul></section><section id="udział-wyjaśnionej-wariancji" class="level3"><h3 class="anchored" data-anchor-id="udział-wyjaśnionej-wariancji">Udział wyjaśnionej wariancji</h3>
+<p>W praktyce często wymaga się, aby całkowita wyjaśniona wariancja przekraczała określony próg (np. 50% w naukach społecznych). Dodatkowo analizuje się równomierność wkładu poszczególnych czynników.</p>
+<ul>
+<li>Zalety: intuicyjne i łatwe do raportowania.</li>
+<li>Wady: arbitralne progi, zależne od liczby zmiennych i kontekstu.</li>
+</ul></section></section><section id="rotacje-czynników" class="level2"><h2 class="anchored" data-anchor-id="rotacje-czynników">Rotacje czynników</h2>
+<p>Rotacja czynników jest etapem analizy czynnikowej, którego celem jest poprawa interpretowalności rozwiązania poprzez uproszczenie struktury ładunków czynnikowych. Matematycznie polega ona na zastosowaniu transformacji liniowej do macierzy ładunków <span class="math inline">\(\Lambda\)</span>. Jeśli <span class="math inline">\(\Lambda\)</span> jest macierzą <span class="math inline">\(p \times m\)</span> ładunków (gdzie <span class="math inline">\(p\)</span> to liczba zmiennych, a <span class="math inline">\(m\)</span> liczba czynników), to po rotacji otrzymujemy nową macierz ładunków <span class="math display">\[
+\Lambda^* = \Lambda T,
+\]</span> gdzie <span class="math inline">\(T\)</span> jest macierzą transformacji rotacyjnej o wymiarach <span class="math inline">\(m \times m\)</span>. W zależności od własności macierzy <span class="math inline">\(T\)</span> wyróżnia się dwa główne typy rotacji: ortogonalne i skośne (<em>oblique</em>).</p>
+<section id="rotacje-ortogonalne" class="level3"><h3 class="anchored" data-anchor-id="rotacje-ortogonalne">Rotacje ortogonalne</h3>
+<p>W przypadku rotacji ortogonalnych macierz <span class="math inline">\(T\)</span> jest macierzą ortogonalną, czyli spełnia warunek: <span class="math display">\[T^\top T = TT^\top = I_m.\]</span> Oznacza to, że czynniki po rotacji pozostają nieskorelowane (<span class="math inline">\(\Phi = I_m\)</span>).</p>
+<p>Najważniejsze rodzaje rotacji ortogonalnych:</p>
+<ul>
+<li><p><em>Varimax</em> (Kaiser, 1958) - najczęściej stosowana rotacja ortogonalna. Maksymalizuje wariancję kwadratów ładunków w ramach każdego czynnika. Prowadzi do tego, że każda zmienna ma wysokie ładunki tylko na jednym czynniku, a bliskie zeru na pozostałych. Funkcja celu <span class="math display">\[
+V = \sum_{j=1}^m \left[ \frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*4} - \left(\frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*2}\right)^2 \right].
+\]</span></p></li>
+<li><p><em>Quartimax</em> - minimalizuje liczbę czynników potrzebnych do opisania każdej zmiennej, upraszczając wiersze macierzy ładunków. Funkcja celu <span class="math display">\[
+Q = \sum_{i=1}^p \sum_{j=1}^m \lambda_{ij}^{*4}.
+\]</span></p></li>
+<li><p><em>Equamax</em> - łączy idee <em>varimax</em> i <em>quartimax.</em> Celem jest równoważenie prostoty struktur wierszy i kolumn macierzy ładunków. Funkcja celu <span class="math display">\[
+E = \frac12(Q + V).
+\]</span></p></li>
+<li><p><em>Biquartimax</em> - celem tej rotacji jest jednoczesne uproszczenie wierszy i kolumn macierzy ładunków. W praktyce łączy zalety <em>varimax</em> i <em>quartimax</em>. Funkcja celu <span class="math display">\[
+BQ = \alpha \, Q + (1 - \alpha) \, V,
+\]</span> z modyfikacją wag, które równoważą wpływ prostoty wierszy i kolumn. Zmienne mają tendencję do ładowania się mocno na jednym czynniku (jak w <em>varimax</em>), ale jednocześnie ogranicza się sytuacje, w których jedna zmienna ma średnie ładunki na wielu czynnikach (jak w <em>quartimax</em>).</p></li>
+</ul></section><section id="rotacje-skośne-oblique" class="level3"><h3 class="anchored" data-anchor-id="rotacje-skośne-oblique">Rotacje skośne (<em>oblique</em>)</h3>
+<p>W przypadku rotacji skośnych macierz <span class="math inline">\(T\)</span> nie musi być ortogonalna, więc <span class="math display">\[
+T^\top T \neq I_m.
+\]</span> W efekcie rotowane czynniki mogą być skorelowane, a macierz korelacji czynników <span class="math inline">\(\Phi\)</span> przyjmuje ogólną postać dodatnio określoną.</p>
+<p>Podstawowe rodzaje:</p>
+<ul>
+<li><p><em>Oblimin</em> (Jennrich &amp; Sampson, 1966) - rodzina rotacji z parametrem <span class="math inline">\(\gamma\)</span>, który reguluje stopień skośności. Dla <span class="math inline">\(\gamma = 0\)</span> rozwiązanie staje się <em>quartimax</em>, a większe <span class="math inline">\(\gamma\)</span> prowadzą do większej korelacji czynników. Funkcja celu <span class="math display">\[
+F(\Lambda^*) = \sum_{i=1}^p \sum_{j=1}^m \left(\lambda_{ij}^{*2} - \gamma \frac{\sum_{k=1}^m \lambda_{ik}^{*2}}{m}\right)^2.
+\]</span></p></li>
+<li><p><em>Promax</em> (Hendrickson &amp; White, 1964) - rotacja skośna oparta na prostym podejściu dwustopniowym. Najpierw stosuje się rotację ortogonalną (najczęściej <em>varimax</em>), następnie ładunki są podnoszone do potęgi <span class="math inline">\(k\)</span> (zwykle 3 lub 4), aby wymusić prostą strukturę, i ponownie dopasowywane przy użyciu metody najmniejszych kwadratów <span class="math display">\[
+\tilde{\lambda}{jk} = \text{sign}(\lambda^*_{jk}) \cdot |\lambda^*_{jk}|^p.
+\]</span> Rotacja <em>promax</em> pozwala uzyskać bardziej realistyczne struktury, gdy czynniki są rzeczywiście skorelowane.</p></li>
+<li><p>Geomin (Yates, 1987) - minimalizuje średnią geometryczną kwadratów ładunków, co prowadzi do sytuacji, w której każda zmienna ma niewiele istotnych ładunków. Funkcja celu <span class="math display">\[
+G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) \right)^{1/m},
+\]</span> gdzie <span class="math inline">\(\epsilon\)</span> to mały parametr stabilizujący.</p></li>
+<li><p>Simplimax (Kiers, 1994) - uogólnienie kryteriów prostoty, które minimalizuje liczbę dużych i małych ładunków w macierzy, pozwalając użytkownikowi sterować liczbą „prostych” elementów.</p></li>
+</ul></section><section id="wybór-rodzaju-rotacji" class="level3"><h3 class="anchored" data-anchor-id="wybór-rodzaju-rotacji">Wybór rodzaju rotacji</h3>
+<ul>
+<li>Rotacje ortogonalne są preferowane, gdy zakładamy, że czynniki powinny być niezależne teoretycznie.</li>
+<li>Rotacje skośne stosuje się, gdy istnieje uzasadnienie, że czynniki mogą być skorelowane (co jest częste w naukach społecznych, psychologii czy biologii).</li>
+</ul>
+<div class="exm-1">
+<p>Na potrzeby ilustracji budowy modelu EFA wykorzystamy dane z pakietu <code>psych</code>, które zawierają wyniki różnych testów poznawczych (Harman, 1976). Dane te są często używane jako przykład w literaturze dotyczącej analizy czynnikowej.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Dane: macierz korelacji testów poznawczych (Harman, 1976)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"Harman74.cor"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 48%">
+<col style="width: 33%">
+</colgroup>
+<thead><tr class="header">
+<th>Zmienna</th>
+<th>Opis</th>
+<th>Kategoria testu</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>VisualPerception</td>
+<td>Rozpoznawanie i analiza relacji przestrzennych w figurach</td>
+<td>Zdolności przestrzenne / percepcyjne</td>
+</tr>
+<tr class="even">
+<td>Cubes</td>
+<td>Manipulacja wyobrażeniowa brył, rotacje przestrzenne</td>
+<td>Zdolności przestrzenne</td>
+</tr>
+<tr class="odd">
+<td>PaperFormBoard</td>
+<td>Składanie i dopasowywanie elementów figur</td>
+<td>Zdolności przestrzenne</td>
+</tr>
+<tr class="even">
+<td>Flags</td>
+<td>Rozpoznawanie wzorów i relacji symboli</td>
+<td>Percepcja wzrokowa / logiczne</td>
+</tr>
+<tr class="odd">
+<td>GeneralInformation</td>
+<td>Ogólna wiedza faktograficzna</td>
+<td>Zdolności werbalne</td>
+</tr>
+<tr class="even">
+<td>PargraphComprehension</td>
+<td>Rozumienie tekstów pisanych</td>
+<td>Zdolności werbalne</td>
+</tr>
+<tr class="odd">
+<td>SentenceCompletion</td>
+<td>Uzupełnianie zdań brakującymi słowami</td>
+<td>Zdolności werbalne</td>
+</tr>
+<tr class="even">
+<td>WordClassification</td>
+<td>Grupowanie słów według znaczenia</td>
+<td>Zdolności werbalne / semantyczne</td>
+</tr>
+<tr class="odd">
+<td>WordMeaning</td>
+<td>Znajomość i rozumienie znaczeń słów</td>
+<td>Zdolności werbalne</td>
+</tr>
+<tr class="even">
+<td>Addition</td>
+<td>Wykonywanie prostych działań arytmetycznych</td>
+<td>Zdolności numeryczne</td>
+</tr>
+<tr class="odd">
+<td>Code</td>
+<td>Dopasowywanie symboli do liczb według klucza</td>
+<td>Szybkość przetwarzania / percepcja</td>
+</tr>
+<tr class="even">
+<td>CountingDots</td>
+<td>Liczenie elementów wzrokowych</td>
+<td>Szybkość percepcji / numeryczne</td>
+</tr>
+<tr class="odd">
+<td>StraightCurvedCapitals</td>
+<td>Rozpoznawanie prostych i zakrzywionych liter</td>
+<td>Percepcja wizualna / szybkość</td>
+</tr>
+<tr class="even">
+<td>WordRecognition</td>
+<td>Rozpoznawanie słów z listy</td>
+<td>Pamięć i zdolności werbalne</td>
+</tr>
+<tr class="odd">
+<td>NumberRecognition</td>
+<td>Rozpoznawanie liczb z listy</td>
+<td>Pamięć / percepcja numeryczna</td>
+</tr>
+<tr class="even">
+<td>FigureRecognition</td>
+<td>Rozpoznawanie i identyfikacja figur</td>
+<td>Pamięć wizualna / percepcja</td>
+</tr>
+<tr class="odd">
+<td>ObjectNumber</td>
+<td>Dopasowywanie obiektów do liczb</td>
+<td>Złożone zdolności percepcyjno-num.</td>
+</tr>
+<tr class="even">
+<td>NumberFigure</td>
+<td>Dopasowywanie liczb do figur</td>
+<td>Złożone zdolności percepcyjno-num.</td>
+</tr>
+<tr class="odd">
+<td>FigureWord</td>
+<td>Dopasowywanie figur do słów</td>
+<td>Łączenie informacji wizualno-werbalnych</td>
+</tr>
+<tr class="even">
+<td>Deduction</td>
+<td>Rozwiązywanie zadań logicznych, wnioskowanie</td>
+<td>Rozumowanie logiczne</td>
+</tr>
+<tr class="odd">
+<td>NumericalPuzzles</td>
+<td>Zadania numeryczne o charakterze problemowym</td>
+<td>Zdolności numeryczne / logiczne</td>
+</tr>
+<tr class="even">
+<td>ProblemReasoning</td>
+<td>Rozwiązywanie złożonych problemów</td>
+<td>Rozumowanie ogólne</td>
+</tr>
+<tr class="odd">
+<td>SeriesCompletion</td>
+<td>Uzupełnianie szeregów logicznych lub numerycznych</td>
+<td>Rozumowanie abstrakcyjne / numeryczne</td>
+</tr>
+<tr class="even">
+<td>ArithmeticProblems</td>
+<td>Rozwiązywanie zadań arytmetycznych o większej trudności</td>
+<td>Zdolności numeryczne</td>
+</tr>
+</tbody>
+</table>
+<p>Widać, że testy można grupować w pięć głównych obszarów: <strong>przestrzenne/percepcyjne</strong> (np. <em>Cubes, VisualPerception</em>), <strong>werbalne</strong> (np. <em>WordMeaning, SentenceCompletion</em>), <strong>numeryczne</strong> (np. <em>Addition, ArithmeticProblems</em>), <strong>pamięciowe</strong> (np. <em>WordRecognition, NumberRecognition</em>), oraz <strong>rozumowania i logiczne</strong> (np. <em>Deduction, SeriesCompletion</em>). To właśnie takie powiązania w macierzy korelacji uzasadniają zastosowanie analizy czynnikowej w celu identyfikacji ukrytych wymiarów inteligencji.</p>
+<p>Najpierw sprawdzimy czy dane nadają się do analizy czynnikowej, obliczając test KMO i test sferyczności Bartletta.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/easystats/">easystats</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">check_factorstructure</span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, n <span class="op">=</span> <span class="fl">145</span><span class="op">)</span> </span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># Is the data suitable for Factor Analysis?
+
+
+  - Sphericity: Bartlett's test of sphericity suggests that there is sufficient significant correlation in the data for factor analysis (Chisq(276) = 1545.86, p &lt; .001).
+  - KMO: The Kaiser, Meyer, Olkin (KMO) overall measure of sampling adequacy suggests that data seems appropriate for factor analysis (KMO = 0.88). The individual KMO scores are: VisualPerception (0.90), Cubes (0.84), PaperFormBoard (0.78), Flags (0.85), GeneralInformation (0.88), PargraphComprehension (0.89), SentenceCompletion (0.89), WordClassification (0.92), WordMeaning (0.88), Addition (0.81), Code (0.85), CountingDots (0.84), StraightCurvedCapitals (0.89), WordRecognition (0.85), NumberRecognition (0.88), FigureRecognition (0.89), ObjectNumber (0.85), NumberFigure (0.88), FigureWord (0.83), Deduction (0.93), NumericalPuzzles (0.91), ProblemReasoning (0.93), SeriesCompletion (0.91), ArithmeticProblems (0.92).</code></pre>
+</div>
+</div>
+<p>Test sferyczności Bartletta dostarcza podstawowego potwierdzenia, że w zbiorze danych występują istotne statystycznie korelacje pomiędzy zmiennymi. Wynik <span class="math inline">\(\chi^2(276) = 1545.86,\ p &lt; 0.001\)</span> oznacza, że hipoteza zerowa o macierzy korelacji równej macierzy jednostkowej zostaje odrzucona. Innymi słowy, zmienne nie są niezależne, a ich struktura korelacyjna uzasadnia dalsze poszukiwanie wspólnych czynników. Gdyby test okazał się nieistotny, sugerowałby brak uzasadnienia do stosowania analizy czynnikowej, ponieważ nie byłoby wystarczających zależności między zmiennymi.</p>
+<p>Miara adekwatności próby KMO (Kaiser–Meyer–Olkin) wskazuje, na ile obserwowane korelacje mogą być wyjaśnione przez czynniki wspólne w porównaniu z korelacjami cząstkowymi. Wynik ogólny KMO = 0.88 mieści się w przedziale uznawanym za „bardzo dobry” (powyżej 0.80). Oznacza to, że dane dobrze nadają się do analizy czynnikowej i możemy oczekiwać stabilnych, interpretowalnych rozwiązań. Wartości indywidualne dla poszczególnych zmiennych mieszczą się między 0.78 a 0.93, a więc wszystkie osiągają poziom „dobry” lub „bardzo dobry”. Najwyższe wartości, takie jak Deduction (0.93), ProblemReasoning (0.93) czy ArithmeticProblems (0.92), wskazują na wyjątkowo silną reprezentację tych testów w przestrzeni czynnikowej. Z kolei najniższe, jak PaperFormBoard (0.78), są nadal akceptowalne, ale sugerują nieco słabszą integrację tej zmiennej z pozostałymi. Całościowo zarówno wynik globalny, jak i rozkład wartości cząstkowych KMO jednoznacznie potwierdzają zasadność prowadzenia analizy czynnikowej na tym zbiorze danych.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Parallel analysis</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.parallel.html">fa.parallel</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, fa <span class="op">=</span> <span class="st">"fa"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="fa_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="fa_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parallel analysis suggests that the number of factors =  4  and the number of components =  NA </code></pre>
+</div>
+</div>
+<p>Samo kryterium paralelne wskazuje na 4 czynniki, choć gdyby brać pod uwagę samo kryterium osypiska to rozwiązanie z 5 czynnikami też wydaje się być właściwe.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Kryterium MAP</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/VSS.html">VSS</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, plot <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Very Simple Structure
+Call: vss(x = x, n = n, rotate = rotate, diagonal = diagonal, fm = fm, 
+    n.obs = n.obs, plot = plot, title = title, use = use, cor = cor)
+VSS complexity 1 achieves a maximimum of 0.8  with  1  factors
+VSS complexity 2 achieves a maximimum of 0.85  with  2  factors
+
+The Velicer MAP achieves a minimum of 0.02  with  4  factors 
+BIC achieves a minimum of  -731.36  with  3  factors
+Sample Size adjusted BIC achieves a minimum of  -112  with  5  factors
+
+Statistics by number of factors 
+  vss1 vss2   map dof chisq    prob sqresid  fit RMSEA  BIC SABIC complex
+1 0.80 0.00 0.025 252   626 8.0e-34    16.8 0.80 0.101 -628   170     1.0
+2 0.55 0.85 0.022 229   428 3.1e-14    12.7 0.85 0.077 -711    13     1.5
+3 0.46 0.79 0.017 207   299 3.0e-05    10.0 0.88 0.055 -731   -76     1.8
+4 0.42 0.74 0.017 186   228 1.9e-02     8.0 0.90 0.039 -698  -109     1.9
+5 0.40 0.71 0.021 166   189 1.1e-01     7.2 0.91 0.030 -637  -112     2.0
+6 0.40 0.71 0.024 147   162 1.8e-01     6.3 0.92 0.026 -569  -104     2.0
+7 0.40 0.70 0.028 129   138 2.7e-01     5.6 0.93 0.021 -504   -95     2.2
+8 0.41 0.70 0.030 112   111 5.0e-01     5.0 0.94 0.000 -446   -92     2.3
+  eChisq  SRMR eCRMS eBIC
+1    748 0.097 0.101 -506
+2    422 0.073 0.080 -718
+3    240 0.055 0.063 -790
+4    133 0.041 0.050 -792
+5    105 0.036 0.047 -721
+6     81 0.032 0.044 -651
+7     62 0.028 0.041 -580
+8     44 0.023 0.037 -514</code></pre>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 89%">
+</colgroup>
+<thead><tr class="header">
+<th>Wskaźnik</th>
+<th>Interpretacja</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>vss1</strong></td>
+<td>Dopasowanie Very Simple Structure przy założeniu jednego czynnika na zmienną; wyższe = lepsze.</td>
+</tr>
+<tr class="even">
+<td><strong>vss2</strong></td>
+<td>Dopasowanie VSS przy założeniu maksymalnie dwóch czynników na zmienną; wyższe = lepsze.</td>
+</tr>
+<tr class="odd">
+<td><strong>map</strong></td>
+<td>Kryterium Velicera; minimum wskazuje optymalną liczbę czynników (eliminuje korelacje cząstkowe).</td>
+</tr>
+<tr class="even">
+<td><strong>dof</strong></td>
+<td>Stopnie swobody testu dopasowania chi-kwadrat.</td>
+</tr>
+<tr class="odd">
+<td><strong>chisq</strong></td>
+<td>Wartość statystyki chi-kwadrat; niska w relacji do df sugeruje dobre dopasowanie.</td>
+</tr>
+<tr class="even">
+<td><strong>prob</strong></td>
+<td>Wartość p testu chi-kwadrat; wysoka oznacza brak podstaw do odrzucenia poprawnego dopasowania.</td>
+</tr>
+<tr class="odd">
+<td><strong>sqresid</strong></td>
+<td>Suma kwadratów reszt (różnice R − R̂); niższe wartości = lepsze odwzorowanie danych.</td>
+</tr>
+<tr class="even">
+<td><strong>fit</strong></td>
+<td>Proporcja wyjaśnionej wariancji w macierzy korelacji; wyższe wartości = lepsze dopasowanie.</td>
+</tr>
+<tr class="odd">
+<td><strong>RMSEA</strong></td>
+<td>Błąd aproksymacji w populacji; &lt; 0.05 bardzo dobre, 0.05–0.08 akceptowalne, &gt; 0.10 słabe.</td>
+</tr>
+<tr class="even">
+<td><strong>BIC</strong></td>
+<td>Kryterium informacyjne; niższe wartości = lepszy kompromis dopasowania i prostoty.</td>
+</tr>
+<tr class="odd">
+<td><strong>SABIC</strong></td>
+<td>Wersja BIC korygowana o wielkość próby; lepsza przy mniejszych próbach.</td>
+</tr>
+<tr class="even">
+<td><strong>complex</strong></td>
+<td>Średnia liczba czynników na które ładują się zmienne; niższe = prostsza struktura.</td>
+</tr>
+<tr class="odd">
+<td><strong>eChisq</strong></td>
+<td>Estymowana statystyka chi-kwadrat w alternatywnej estymacji; interpretacja analogiczna jak chisq.</td>
+</tr>
+<tr class="even">
+<td><strong>SRMR</strong></td>
+<td>Standardized Root Mean Square Residual; niski poziom (&lt; 0.08) wskazuje dobre dopasowanie.</td>
+</tr>
+<tr class="odd">
+<td><strong>eCRMS</strong></td>
+<td>Estymowany błąd resztowy analogiczny do RMSEA; mniejsze wartości = lepsze dopasowanie.</td>
+</tr>
+<tr class="even">
+<td><strong>eBIC</strong></td>
+<td>Estymowana wersja kryterium BIC; niższe wartości = lepszy model.</td>
+</tr>
+</tbody>
+</table>
+<p>Kryterium MAP Velicera wskazuje, że minimalna wartość statystyki została osiągnięta przy czterech czynnikach (MAP = 0.017). Oznacza to, że w ujęciu tego kryterium, czynniki te najlepiej redukują korelacje cząstkowe między zmiennymi – czyli eliminują największą część wariancji niepowiązanej ze wspólną strukturą czynnikową. Innymi słowy, przy czterech czynnikach model najefektywniej odwzorowuje wspólne zależności bez pozostawiania nadmiernych reszt.</p>
+<p>Warto jednak zauważyć, że różne kryteria sugerują odmienne liczby czynników. Kryterium BIC wskazuje na trzy czynniki jako najbardziej oczekiwane rozwiązanie, natomiast skorygowany BIC (SABIC) preferuje pięć czynników. Z kolei wskaźniki VSS (Very Simple Structure) sugerują jedno– lub dwuczynnikowe rozwiązania, maksymalizujące prostotę struktury. Ostateczna decyzja wymaga zatem kompromisu: MAP sugeruje cztery czynniki jako najpełniej oddające wspólną strukturę zmiennych, BIC preferuje trzy jako prostsze, a SABIC wskazuje na pięć. Interpretacja powinna uwzględniać nie tylko statystyki, lecz także sensowność teoretyczną i interpretowalność uzyskanych czynników w kontekście badanego materiału.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Analiza czynnikowa</span></span>
+<span><span class="va">fa_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.html">fa</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, nfactors <span class="op">=</span> <span class="fl">4</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, </span>
+<span>               fm <span class="op">=</span> <span class="st">"ml"</span>, rotate <span class="op">=</span> <span class="st">"varimax"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fa_model</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Factor Analysis using method =  ml
+Call: fa(r = Harman74.cor$cov, nfactors = 4, n.obs = 145, rotate = "varimax", 
+    fm = "ml")
+Standardized loadings (pattern matrix) based upon correlation matrix
+                        ML1   ML3   ML2  ML4   h2   u2 com
+VisualPerception       0.16  0.69  0.19 0.16 0.56 0.44 1.4
+Cubes                  0.12  0.44  0.08 0.10 0.22 0.78 1.3
+PaperFormBoard         0.14  0.57 -0.02 0.11 0.36 0.64 1.2
+Flags                  0.23  0.53  0.10 0.08 0.35 0.65 1.5
+GeneralInformation     0.74  0.19  0.21 0.15 0.65 0.35 1.4
+PargraphComprehension  0.77  0.20  0.07 0.23 0.69 0.31 1.4
+SentenceCompletion     0.81  0.20  0.15 0.07 0.72 0.28 1.2
+WordClassification     0.57  0.34  0.24 0.13 0.51 0.49 2.2
+WordMeaning            0.81  0.20  0.04 0.23 0.74 0.26 1.3
+Addition               0.17 -0.12  0.83 0.17 0.76 0.24 1.2
+Code                   0.18  0.12  0.51 0.37 0.45 0.55 2.2
+CountingDots           0.02  0.21  0.72 0.09 0.56 0.44 1.2
+StraightCurvedCapitals 0.19  0.44  0.53 0.08 0.51 0.49 2.3
+WordRecognition        0.20  0.05  0.08 0.55 0.35 0.65 1.3
+NumberRecognition      0.12  0.12  0.07 0.52 0.30 0.70 1.3
+FigureRecognition      0.07  0.41  0.06 0.53 0.45 0.55 2.0
+ObjectNumber           0.14  0.06  0.22 0.57 0.40 0.60 1.4
+NumberFigure           0.03  0.29  0.34 0.46 0.41 0.59 2.6
+FigureWord             0.15  0.24  0.16 0.37 0.24 0.76 2.6
+Deduction              0.38  0.40  0.12 0.30 0.41 0.59 3.0
+NumericalPuzzles       0.17  0.38  0.44 0.22 0.42 0.58 2.8
+ProblemReasoning       0.37  0.40  0.12 0.30 0.40 0.60 3.1
+SeriesCompletion       0.37  0.50  0.24 0.24 0.50 0.50 2.9
+ArithmeticProblems     0.37  0.16  0.50 0.30 0.50 0.50 2.8
+
+                       ML1  ML3  ML2  ML4
+SS loadings           3.65 2.87 2.66 2.29
+Proportion Var        0.15 0.12 0.11 0.10
+Cumulative Var        0.15 0.27 0.38 0.48
+Proportion Explained  0.32 0.25 0.23 0.20
+Cumulative Proportion 0.32 0.57 0.80 1.00
+
+Mean item complexity =  1.9
+Test of the hypothesis that 4 factors are sufficient.
+
+df null model =  276  with the objective function =  11.44 with Chi Square =  1545.86
+df of  the model are 186  and the objective function was  1.71 
+
+The root mean square of the residuals (RMSR) is  0.04 
+The df corrected root mean square of the residuals is  0.05 
+
+The harmonic n.obs is  145 with the empirical chi square  135.74  with prob &lt;  1 
+The total n.obs was  145  with Likelihood Chi Square =  226.68  with prob &lt;  0.022 
+
+Tucker Lewis Index of factoring reliability =  0.951
+RMSEA index =  0.038  and the 90 % confidence intervals are  0.016 0.056
+BIC =  -698.99
+Fit based upon off diagonal values = 0.98
+Measures of factor score adequacy             
+                                                   ML1  ML3  ML2  ML4
+Correlation of (regression) scores with factors   0.93 0.87 0.91 0.82
+Multiple R square of scores with factors          0.87 0.76 0.83 0.68
+Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pre>
+</div>
+</div>
+<p>Model czteroczynnikowy oszacowany metodą największej wiarygodności na macierzy korelacji <code>Harman74.cor$cov</code> dobrze odwzorowuje strukturę danych i dostarcza interpretowalnych wyników.</p>
+<p>Pierwszy czynnik (<code>ML1</code>) skupia się na kompetencjach werbalnych i wiedzy ogólnej. Najwyższe ładunki uzyskano dla zmiennych takich jak <code>WordMeaning</code> (0.81), <code>SentenceCompletion</code> (0.81), <code>ParagraphComprehension</code> (0.77) czy <code>GeneralInformation</code> (0.74). Wskazuje to, że ML1 reprezentuje wymiar wiedzy językowej i rozumienia tekstu. Zasoby zmienności wspólej dla tych zmiennych są wysokie (powyżej 0.65), co oznacza, że znaczna część ich wariancji została uchwycona przez model.</p>
+<p>Drugi czynnik (<code>ML2</code>) odzwierciedla zdolności arytmetyczne i numeryczne. Najsilniejsze ładunki dotyczą zmiennych <code>Addition</code> (0.83), <code>CountingDots</code> (0.72) i <code>ArithmeticProblems</code> (0.50). Oznacza to, że <code>ML2</code> reprezentuje wymiar obliczeniowy, obejmujący zarówno proste działania matematyczne, jak i bardziej złożone zadania wymagające operowania na liczbach. Wysokie wartości <span class="math inline">\(h_j^2\)</span> (np. 0.76 dla <code>Addition</code>) sugerują dobrą reprezentację tych zmiennych.</p>
+<p>Trzeci czynnik (<code>ML3</code>) można interpretować jako zdolności wzrokowo-przestrzenne i percepcyjne. Najsilniejsze ładunki wystąpiły dla <code>VisualPerception</code> (0.69), <code>PaperFormBoard</code> (0.57), <code>Flags</code> (0.53) oraz <code>SeriesCompletion</code> (0.50). Grupa ta obejmuje zadania związane z manipulacją figurami, rozpoznawaniem wzorów i orientacją przestrzenną.</p>
+<p>Czwarty czynnik (<code>ML4</code>) wydaje się związany z rozpoznawaniem wzrokowym i pamięcią wzrokową. Największe ładunki dotyczą zmiennych takich jak <code>WordRecognition</code> (0.55), <code>NumberRecognition</code> (0.52), <code>FigureRecognition</code> (0.53) czy <code>ObjectNumber</code> (0.57). Sugeruje to wymiar rozpoznawania i szybkiego identyfikowania bodźców wzrokowych.</p>
+<p>Łącznie cztery czynniki wyjaśniają 48% wariancji całkowitej, co w psychometrii jest uznawane za wartość akceptowalną przy tego typu danych. Dopasowanie globalne modelu również jest dobre: RMSEA = 0.038 (z przedziałem ufności 0.016–0.056) wskazuje na bardzo dobre dopasowanie, a Tucker-Lewis Index wynosi 0.951, co również świadczy o wysokiej jakości modelu. Niskie wartości RMSR (0.04) oraz wysoka zgodność dopasowania poza przekątną (0.98) potwierdzają, że model trafnie odwzorowuje strukturę korelacji między zmiennymi.</p>
+<p>Ostatecznie wyniki wskazują, że struktura czteroczynnikowa jest dobrze uzasadniona empirycznie i teoretycznie. Każdy czynnik odpowiada odmiennym zdolnościom poznawczym – werbalnym, numerycznym, przestrzennym i percepcyjno-pamięciowym – a ich interpretacje są zgodne z psychologicznymi ujęciami inteligencji wielowymiarowej.</p>
+<p>Dla większej czytelności przedstawiamy ładunki czynnikowe po rotacji varimax w formie tabelarycznej, z wyciętymi ładunkami o niskich wartościach.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># Rotated loadings from Factor Analysis (varimax-rotation)
+
+Variable               |  ML1 |  ML3 |  ML2 |  ML4 | Complexity | Uniqueness
+----------------------------------------------------------------------------
+WordMeaning            | 0.81 |      |      |      |       1.30 |       0.26
+SentenceCompletion     | 0.81 |      |      |      |       1.21 |       0.28
+PargraphComprehension  | 0.77 |      |      |      |       1.35 |       0.31
+GeneralInformation     | 0.74 |      |      |      |       1.39 |       0.35
+WordClassification     | 0.57 |      |      |      |       2.17 |       0.49
+VisualPerception       |      | 0.69 |      |      |       1.38 |       0.44
+PaperFormBoard         |      | 0.57 |      |      |       1.20 |       0.64
+Flags                  |      | 0.53 |      |      |       1.51 |       0.65
+SeriesCompletion       |      | 0.50 |      |      |       2.87 |       0.50
+Cubes                  |      | 0.44 |      |      |       1.33 |       0.78
+Deduction              |      | 0.40 |      |      |       3.05 |       0.59
+ProblemReasoning       |      | 0.40 |      |      |       3.08 |       0.60
+Addition               |      |      | 0.83 |      |       1.21 |       0.24
+CountingDots           |      |      | 0.72 |      |       1.21 |       0.44
+StraightCurvedCapitals |      |      | 0.53 |      |       2.27 |       0.49
+Code                   |      |      | 0.51 |      |       2.25 |       0.55
+ArithmeticProblems     |      |      | 0.50 |      |       2.83 |       0.50
+NumericalPuzzles       |      |      | 0.44 |      |       2.84 |       0.58
+ObjectNumber           |      |      |      | 0.57 |       1.45 |       0.60
+WordRecognition        |      |      |      | 0.55 |       1.32 |       0.65
+FigureRecognition      |      |      |      | 0.53 |       1.96 |       0.55
+NumberRecognition      |      |      |      | 0.52 |       1.26 |       0.70
+NumberFigure           |      |      |      | 0.46 |       2.62 |       0.59
+FigureWord             |      |      |      | 0.37 |       2.56 |       0.76
+
+The 4 latent factors (varimax rotation) accounted for 47.78% of the total variance of the original data (ML1 = 15.20%, ML3 = 11.97%, ML2 = 11.07%, ML4 = 9.54%).</code></pre>
+</div>
+</div>
+<p>Możemy też przedstawić model graficznie.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.diagram.html">fa.diagram</a></span><span class="op">(</span><span class="va">fa_model</span>, marg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, rsize <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="fa_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="fa_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1152"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Skopiowano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Skopiowano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./cca.html" class="pagination-link" aria-label="Analiza kanoniczna">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analiza kanoniczna</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Wielowymiarowa analiza danych</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://dariuszmajerek.github.io/WAD_new/issues/new" class="toc-action"><i class="bi bi-git"></i>Zgłoś problem</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Dariusz Majerek ©2025</p>
+</div>
+  </div>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+</body></html>
