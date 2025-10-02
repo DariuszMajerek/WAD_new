@@ -28,6 +28,7 @@ book:
     - multi_tests.qmd
     - cca.qmd
     - fa.qmd
+    - sem.qmd
     - references.qmd
 
 bibliography: references.bib
@@ -49,8 +50,8 @@ format:
     code-fold: show
     fig-align: center
     crossref:
-      fig-title: Rys.     # (default is "Figure")
-      tbl-title: Tab.     # (default is "Table")
+      fig-title: Rys.     
+      tbl-title: Tab.     
       fig-prefix: Rys.
       tbl-prefix: Tab.
 

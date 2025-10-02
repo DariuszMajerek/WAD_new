@@ -8,17 +8,62 @@ editor_options:
 
 # Analiza czynnikowa
 
-Analiza czynnikowa należy do klasy metod wielowymiarowych, których celem jest odkrywanie ukrytych struktur stojących za obserwowanymi zmiennymi. W odróżnieniu od metod takich jak analiza głównych składowych[^fa-1], które opierają się na czysto algebraicznych przekształceniach danych, analiza czynnikowa ma wyraźne odniesienie do modeli statystycznych i psychometrycznych, w których zakłada się istnienie *czynników latentnych* – czyli zmiennych ukrytych, niewidocznych bezpośrednio, ale wpływających na wartości zmiennych obserwowalnych. Przykładem może być konstrukt „inteligencja”, który przejawia się w wynikach testów logicznych, pamięciowych czy językowych. Głównym celem analizy czynnikowej jest redukcja wymiarowości poprzez reprezentację wielu zmiennych w postaci mniejszej liczby czynników oraz lepsze zrozumienie powiązań między zmiennymi poprzez ujawnienie wspólnych źródeł ich zmienności.
+Analiza czynnikowa należy do klasy metod wielowymiarowych, których celem
+jest odkrywanie ukrytych struktur stojących za obserwowanymi zmiennymi.
+W odróżnieniu od metod takich jak analiza głównych składowych[^fa-1],
+które opierają się na czysto algebraicznych przekształceniach danych,
+analiza czynnikowa ma wyraźne odniesienie do modeli statystycznych i
+psychometrycznych, w których zakłada się istnienie *czynników
+latentnych* – czyli zmiennych ukrytych, niewidocznych bezpośrednio, ale
+wpływających na wartości zmiennych obserwowalnych. Przykładem może być
+konstrukt „inteligencja”, który przejawia się w wynikach testów
+logicznych, pamięciowych czy językowych. Głównym celem analizy
+czynnikowej jest redukcja wymiarowości poprzez reprezentację wielu
+zmiennych w postaci mniejszej liczby czynników oraz lepsze zrozumienie
+powiązań między zmiennymi poprzez ujawnienie wspólnych źródeł ich
+zmienności.
 
-Można wyróżnić dwa podstawowe podejścia do analizy czynnikowej. **Eksploracyjna analiza czynnikowa (EFA, *Exploratory Factor Analysis*)** jest stosowana, gdy badacz nie ma wcześniej zdefiniowanych hipotez co do liczby czynników czy struktury powiązań między nimi. Jej celem jest odkrycie potencjalnych układów zależności i zidentyfikowanie liczby czynników najlepiej opisujących dane. **Konfirmacyjna analiza czynnikowa (CFA, *Confirmatory Factor Analysis*)** jest natomiast podejściem dedukcyjnym – badacz z góry formułuje model teoretyczny (np. że pewne zmienne mierzą „pamięć roboczą”, a inne „myślenie abstrakcyjne”) i testuje jego zgodność z danymi empirycznymi. CFA jest szczególnie istotna w kontekście walidacji narzędzi badawczych, np. kwestionariuszy psychologicznych, i stanowi fundament bardziej zaawansowanych modeli strukturalnych (SEM).
+[^fa-1]: Analiza głównych składowych (PCA, *Principal Component
+    Analysis*) to technika redukcji wymiarowości, która przekształca
+    oryginalne zmienne w nowe, nieskorelowane zmienne (składowe),
+    maksymalizując wariancję. Ta metoda zostanie przedstawiona w
+    następnych rozdziałach.
 
-Historia analizy czynnikowej sięga początków XX wieku i jest ściśle związana z psychometrią. Jej pionierem był Charles Spearman, który w 1904 roku zaproponował model jednoczynnikowy, interpretując zmienne poznawcze jako przejawy ogólnego czynnika inteligencji. W kolejnych dekadach metoda była rozwijana przez psychologów, takich jak Thurstone, który wprowadził koncepcję wieloczynnikową oraz przez statystyków, którzy rozwijali formalne podstawy estymacji czynników i rotacji macierzy ładunków. W latach 60. i 70. analiza czynnikowa stała się jedną z najczęściej stosowanych metod w badaniach psychologicznych i społecznych, a wraz z rozwojem informatyki zyskała na popularności także w ekonomii, biologii czy medycynie. Dziś analiza czynnikowa jest narzędziem interdyscyplinarnym, stosowanym zarówno do eksploracji struktur danych, jak i do testowania teorii opartych na zmiennych latentnych.
+Można wyróżnić dwa podstawowe podejścia do analizy czynnikowej.
+**Eksploracyjna analiza czynnikowa (EFA, *Exploratory Factor
+Analysis*)** jest stosowana, gdy badacz nie ma wcześniej zdefiniowanych
+hipotez co do liczby czynników czy struktury powiązań między nimi. Jej
+celem jest odkrycie potencjalnych układów zależności i zidentyfikowanie
+liczby czynników najlepiej opisujących dane. **Konfirmacyjna analiza
+czynnikowa (CFA, *Confirmatory Factor Analysis*)** jest natomiast
+podejściem dedukcyjnym – badacz z góry formułuje model teoretyczny (np.
+że pewne zmienne mierzą „pamięć roboczą”, a inne „myślenie
+abstrakcyjne”) i testuje jego zgodność z danymi empirycznymi. CFA jest
+szczególnie istotna w kontekście walidacji narzędzi badawczych, np.
+kwestionariuszy psychologicznych, i stanowi fundament bardziej
+zaawansowanych modeli strukturalnych (SEM).
 
-[^fa-1]: Analiza głównych składowych (PCA, *Principal Component Analysis*) to technika redukcji wymiarowości, która przekształca oryginalne zmienne w nowe, nieskorelowane zmienne (składowe), maksymalizując wariancję. Ta metoda zostanie przedstawiona w następnych rozdziałach.
+Historia analizy czynnikowej sięga początków XX wieku i jest ściśle
+związana z psychometrią. Jej pionierem był Charles Spearman, który w
+1904 roku zaproponował model jednoczynnikowy, interpretując zmienne
+poznawcze jako przejawy ogólnego czynnika inteligencji. W kolejnych
+dekadach metoda była rozwijana przez psychologów, takich jak Thurstone,
+który wprowadził koncepcję wieloczynnikową oraz przez statystyków,
+którzy rozwijali formalne podstawy estymacji czynników i rotacji
+macierzy ładunków. W latach 60. i 70. analiza czynnikowa stała się jedną
+z najczęściej stosowanych metod w badaniach psychologicznych i
+społecznych, a wraz z rozwojem informatyki zyskała na popularności także
+w ekonomii, biologii czy medycynie. Dziś analiza czynnikowa jest
+narzędziem interdyscyplinarnym, stosowanym zarówno do eksploracji
+struktur danych, jak i do testowania teorii opartych na zmiennych
+latentnych.
 
 ## Eksploracyjna analiza czynnikowa
 
-Formalna postać modelu eksploracyjnej analizy czynnikowej (EFA) zakłada, że zmienne obserwowalne $\mathbf{x} = (x_1, x_2, \ldots, x_p)^\top$ można wyrazić jako kombinację liniową czynników latentnych oraz składników specyficznych. Model przyjmuje postać:
+Formalna postać modelu eksploracyjnej analizy czynnikowej (EFA) zakłada,
+że zmienne obserwowalne $\mathbf{x} = (x_1, x_2, \ldots, x_p)^\top$
+można wyrazić jako kombinację liniową czynników latentnych oraz
+składników specyficznych. Model przyjmuje postać [@introduc2020]:
 
 $$
 \mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon},
@@ -26,119 +71,208 @@ $$
 
 gdzie:
 
-* $\mathbf{x} \in \mathbb{R}^p$ – wektor zmiennych obserwowalnych,
-* $\boldsymbol{\mu} \in \mathbb{R}^p$ – wektor średnich,
-* $\Lambda \in \mathbb{R}^{p \times m}$ – macierz ładunków czynnikowych, której element $\lambda_{ij}$ opisuje wpływ czynnika $j$ na zmienną $i$,
-* $\mathbf{f} \in \mathbb{R}^m$ – wektor czynników latentnych (czynników wspólnych),
-* $\boldsymbol{\epsilon} \in \mathbb{R}^p$ – wektor składników specyficznych (unikalnych, błędów pomiaru).
+-   $\mathbf{x} \in \mathbb{R}^p$ – wektor zmiennych obserwowalnych,
+-   $\boldsymbol{\mu} \in \mathbb{R}^p$ – wektor średnich,
+-   $\Lambda \in \mathbb{R}^{p \times m}$ – macierz ładunków
+    czynnikowych, której element $\lambda_{ij}$ opisuje wpływ czynnika
+    $j$ na zmienną $i$,
+-   $\mathbf{f} \in \mathbb{R}^m$ – wektor czynników latentnych
+    (czynników wspólnych),
+-   $\boldsymbol{\epsilon} \in \mathbb{R}^p$ – wektor składników
+    specyficznych (unikalnych, błędów pomiaru).
 
 ### Założenia klasycznego modelu EFA
 
-1. **Rozkład czynników wspólnych**
-$$
-\mathbb{E}[\mathbf{f}] = \mathbf{0}, \quad \mathrm{Cov}(\mathbf{f}) = \Phi = I_m,
-$$
-czyli czynniki latentne mają średnią zero i macierz kowariancji równą macierzy jednostkowej. To założenie oznacza, że czynniki są nieskorelowane i mają wariancję jednostkową (jest to standaryzacja wprowadzona dla identyfikowalności modelu).
+1.  **Rozkład czynników wspólnych** $$
+    \mathbb{E}[\mathbf{f}] = \mathbf{0}, \quad \mathrm{Cov}(\mathbf{f}) = \Phi = I_m,
+    $$ czyli czynniki latentne mają średnią zero i macierz kowariancji
+    równą macierzy jednostkowej. To założenie oznacza, że czynniki są
+    nieskorelowane i mają wariancję jednostkową (jest to standaryzacja
+    wprowadzona dla identyfikowalności modelu).
 
-2. **Rozkład składników specyficznych**
-$$
-\mathbb{E}[\boldsymbol{\epsilon}] = \mathbf{0}, \quad \mathrm{Cov}(\boldsymbol{\epsilon}) = \Psi,
-$$
-gdzie $\Psi$ jest macierzą diagonalną o elementach dodatnich. Oznacza to, że błędy są nieskorelowane między sobą oraz niezależne od czynników $\mathbf{f}$.
+2.  **Rozkład składników specyficznych** $$
+    \mathbb{E}[\boldsymbol{\epsilon}] = \mathbf{0}, \quad \mathrm{Cov}(\boldsymbol{\epsilon}) = \Psi,
+    $$ gdzie $\Psi$ jest macierzą diagonalną o elementach dodatnich.
+    Oznacza to, że błędy są nieskorelowane między sobą oraz niezależne
+    od czynników $\mathbf{f}$.
 
-3. **Niezależność czynników i błędów**
-$$
-\mathrm{Cov}(\mathbf{f}, \boldsymbol{\epsilon}) = 0.
-$$
+3.  **Niezależność czynników i błędów** $$
+    \mathrm{Cov}(\mathbf{f}, \boldsymbol{\epsilon}) = 0.
+    $$
 
-4. **Macierz kowariancji zmiennych obserwowalnych**
+4.  **Macierz kowariancji zmiennych obserwowalnych**
 
-Z powyższej konstrukcji wynika, że kowariancja zmiennych obserwowalnych jest sumą części wspólnej i specyficznej:
-$$
+Z powyższej konstrukcji wynika, że kowariancja zmiennych obserwowalnych
+jest sumą części wspólnej i specyficznej: $$
 \Sigma = \Lambda \Lambda^\top + \Psi.
 $$
 
 ::: callout-note
-
 ## Dowód
 
-Niech losowy wektor obserwacji ma postać
-$$
+Niech losowy wektor obserwacji ma postać $$
 \mathbf{x}=\boldsymbol{\mu}+\Lambda\mathbf{f}+\boldsymbol{\epsilon},
-$$
-gdzie $\mathbf{f}$ to wektor czynników wspólnych, a $\boldsymbol{\epsilon}$ to wektor składników specyficznych. Zakładamy, że
+$$ gdzie $\mathbf{f}$ to wektor czynników wspólnych, a
+$\boldsymbol{\epsilon}$ to wektor składników specyficznych. Zakładamy,
+że
 $$\mathbb{E}[\mathbf{f}]=\mathbf{0},\quad \operatorname{Cov}(\mathbf{f})=\Phi,$$
 $$\mathbb{E}[\boldsymbol{\epsilon}]=\mathbf{0},\quad \operatorname{Cov}(\boldsymbol{\epsilon})=\Psi$$
-oraz 
+oraz
 $$\operatorname{Cov}(\mathbf{f},\boldsymbol{\epsilon})=\mathbf{0}.$$
-Celem jest wykazać, że $\Sigma:=\operatorname{Cov}(\mathbf{x})=\Lambda\Phi\Lambda^\top+\Psi$, a w szczególności przy $\Phi=I_m$, że mamy $\Sigma=\Lambda\Lambda^\top+\Psi$.
+Celem jest wykazać, że
+$\Sigma:=\operatorname{Cov}(\mathbf{x})=\Lambda\Phi\Lambda^\top+\Psi$, a
+w szczególności przy $\Phi=I_m$, że mamy
+$\Sigma=\Lambda\Lambda^\top+\Psi$.
 
-Zaczynamy od wycentrowania wektora $\mathbf{x}$, a ponieważ $\mathbb{E}[\mathbf{f}]=\mathbf{0}$ i $\mathbb{E}[\boldsymbol{\epsilon}]=\mathbf{0}$, to $\mathbb{E}[\mathbf{x}]=\boldsymbol{\mu}$, zatem $\mathbf{x}-\boldsymbol{\mu}=\Lambda\mathbf{f}+\boldsymbol{\epsilon}$.
+Zaczynamy od wycentrowania wektora $\mathbf{x}$, a ponieważ
+$\mathbb{E}[\mathbf{f}]=\mathbf{0}$ i
+$\mathbb{E}[\boldsymbol{\epsilon}]=\mathbf{0}$, to
+$\mathbb{E}[\mathbf{x}]=\boldsymbol{\mu}$, zatem
+$\mathbf{x}-\boldsymbol{\mu}=\Lambda\mathbf{f}+\boldsymbol{\epsilon}$.
 
-Kowariancję $\Sigma=\operatorname{Cov}(\mathbf{x})$ wyrażamy jako
-$$
+Kowariancję $\Sigma=\operatorname{Cov}(\mathbf{x})$ wyrażamy jako $$
 \Sigma=\operatorname{Cov}(\mathbf{x}-\boldsymbol{\mu})=\operatorname{Cov}(\Lambda\mathbf{f}+\boldsymbol{\epsilon}).
-$$
-Korzystając z liniowości kowariancji i tożsamości $\operatorname{Cov}(A\mathbf{u}+B\mathbf{v})=A\operatorname{Cov}(\mathbf{u})A^\top+B\operatorname{Cov}(\mathbf{v})B^\top+A\operatorname{Cov}(\mathbf{u}\mathbf{v})B^\top+B\operatorname{Cov}(\mathbf{v}\mathbf{u})A^\top$ dla dowolnych macierzy $A,B$ i wektorów losowych $\mathbf{u},\,\mathbf{v}$ o skończonych wariancjach. W naszym przypadku $A=\Lambda$, $\mathbf{u}=\mathbf{f}$, $B=I_p$, $\mathbf{v}=\boldsymbol{\epsilon}$.
+$$ Korzystając z liniowości kowariancji i tożsamości
+$\operatorname{Cov}(A\mathbf{u}+B\mathbf{v})=A\operatorname{Cov}(\mathbf{u})A^\top+B\operatorname{Cov}(\mathbf{v})B^\top+A\operatorname{Cov}(\mathbf{u}\mathbf{v})B^\top+B\operatorname{Cov}(\mathbf{v}\mathbf{u})A^\top$
+dla dowolnych macierzy $A,B$ i wektorów losowych
+$\mathbf{u},\,\mathbf{v}$ o skończonych wariancjach. W naszym przypadku
+$A=\Lambda$, $\mathbf{u}=\mathbf{f}$, $B=I_p$,
+$\mathbf{v}=\boldsymbol{\epsilon}$.
 
-Dzięki założeniu nieskorelowania $\operatorname{Cov}(\mathbf{f},\boldsymbol{\epsilon})=\mathbf{0}$ wyrazy mieszane znikają i pozostaje
-$$
+Dzięki założeniu nieskorelowania
+$\operatorname{Cov}(\mathbf{f},\boldsymbol{\epsilon})=\mathbf{0}$ wyrazy
+mieszane znikają i pozostaje $$
 \Sigma=\Lambda\operatorname{Cov}(\mathbf{f})\Lambda^\top + I_p\operatorname{Cov}(\boldsymbol{\epsilon})I_p^\top
 =\Lambda\Phi\Lambda^\top + \Psi.
-$$
-Jeśli dodatkowo przyjmiemy standardyzację czynników $\Phi=I_m$ (co jest konwencją identyfikacyjną modelu EFA), to otrzymujemy
-$$
+$$ Jeśli dodatkowo przyjmiemy standardyzację czynników $\Phi=I_m$ (co
+jest konwencją identyfikacyjną modelu EFA), to otrzymujemy $$
 \Sigma=\Lambda\Lambda^\top+\Psi,
-$$
-czego należało dowieść.
+$$ czego należało dowieść.
 
-Warto odnotować, że dowód nie wymaga niezależności $\mathbf{f}$ i $\boldsymbol{\epsilon}$ w sensie probabilistycznym — wystarcza nieskorelowanie, aby zniknęły składniki mieszane. Ponadto w wersji niestandardowej, gdy $\Phi\neq I_m$, model przyjmuje postać $\Sigma=\Lambda\Phi\Lambda^\top+\Psi$, to można zastosować tzw. *whitening* czynników $\tilde{\mathbf{f}}=\Phi^{1/2}\mathbf{z}$ z $\operatorname{Cov}(\mathbf{z})=I_m$, co równoważnie prowadzi do $\tilde{\Lambda}=\Lambda\Phi^{1/2}$ i standardowej formy $\Sigma=\tilde{\Lambda}\tilde{\Lambda}^\top+\Psi$.
+Warto odnotować, że dowód nie wymaga niezależności $\mathbf{f}$ i
+$\boldsymbol{\epsilon}$ w sensie probabilistycznym — wystarcza
+nieskorelowanie, aby zniknęły składniki mieszane. Ponadto w wersji
+niestandardowej, gdy $\Phi\neq I_m$, model przyjmuje postać
+$\Sigma=\Lambda\Phi\Lambda^\top+\Psi$, to można zastosować tzw.
+*whitening* czynników $\tilde{\mathbf{f}}=\Phi^{1/2}\mathbf{z}$ z
+$\operatorname{Cov}(\mathbf{z})=I_m$, co równoważnie prowadzi do
+$\tilde{\Lambda}=\Lambda\Phi^{1/2}$ i standardowej formy
+$\Sigma=\tilde{\Lambda}\tilde{\Lambda}^\top+\Psi$.
 
-Reprezentacja macierzy kowariancji $\Sigma$ w postaci $\Lambda\Phi\Lambda^\top+\Psi$ nie jest unikatowa. Istnieje wiele par $\Lambda, \Phi$, które prowadzą do tej samej macierzy kowariancji $\Sigma$. Jest to związane z możliwością przeprowadzania różnych transformacji czynników bez zmiany struktury kowariancji zmiennych obserwowalnych.
+Reprezentacja macierzy kowariancji $\Sigma$ w postaci
+$\Lambda\Phi\Lambda^\top+\Psi$ nie jest unikatowa. Istnieje wiele par
+$\Lambda, \Phi$, które prowadzą do tej samej macierzy kowariancji
+$\Sigma$. Jest to związane z możliwością przeprowadzania różnych
+transformacji czynników bez zmiany struktury kowariancji zmiennych
+obserwowalnych.
 
 Formalnie:
 
-1. W wersji ogólnej mamy
-$$
-\Sigma = \Lambda \Phi \Lambda^\top + \Psi.
-$$
+1.  W wersji ogólnej mamy $$
+    \Sigma = \Lambda \Phi \Lambda^\top + \Psi.
+    $$
 
-2. Jeżeli dokonamy transformacji ortogonalnej czynników $\mathbf{f}^* = Q \mathbf{f}$, gdzie $Q$ jest macierzą ortogonalną, to:
-$$
-\Lambda \mathbf{f} = (\Lambda Q^\top) (Q\mathbf{f}) = \Lambda^* \mathbf{f}^*,
-$$
-przy czym
-$$
-\Lambda^* = \Lambda Q^\top, \quad \Phi^* = Q \Phi Q^\top.
-$$
-Wtedy dalej mamy
-$$
-\Sigma = \Lambda^* \Phi^* \Lambda^{*\top} + \Psi.
-$$
+2.  Jeżeli dokonamy transformacji ortogonalnej czynników
+    $\mathbf{f}^* = Q \mathbf{f}$, gdzie $Q$ jest macierzą ortogonalną,
+    to: $$
+    \Lambda \mathbf{f} = (\Lambda Q^\top) (Q\mathbf{f}) = \Lambda^* \mathbf{f}^*,
+    $$ przy czym $$
+    \Lambda^* = \Lambda Q^\top, \quad \Phi^* = Q \Phi Q^\top.
+    $$ Wtedy dalej mamy $$
+    \Sigma = \Lambda^* \Phi^* \Lambda^{*\top} + \Psi.
+    $$
 
-3. To pokazuje, że $\Lambda$ i $\Phi$ nie są jednoznacznie wyznaczone. Różne pary $(\Lambda, \Phi)$ mogą prowadzić do tej samej macierzy kowariancji $\Sigma$.
+3.  To pokazuje, że $\Lambda$ i $\Phi$ nie są jednoznacznie wyznaczone.
+    Różne pary $(\Lambda, \Phi)$ mogą prowadzić do tej samej macierzy
+    kowariancji $\Sigma$.
 
-4. W szczególności wprowadzenie wektora $z$ (o kowariancji jednostkowej) i zapisanie modelu jako
-$$
-\Sigma = \tilde{\Lambda}\tilde{\Lambda}^\top + \Psi
-$$
-jest jedną z takich równoważnych reprezentacji.
-
+4.  W szczególności wprowadzenie wektora $z$ (o kowariancji
+    jednostkowej) i zapisanie modelu jako $$
+    \Sigma = \tilde{\Lambda}\tilde{\Lambda}^\top + \Psi
+    $$ jest jedną z takich równoważnych reprezentacji.
 :::
 
-Macierz kowariancji $\Sigma$ w analizie czynnikowej odgrywa fundamentalną rolę, ponieważ jest miejscem, w którym spotykają się dwa składniki zmienności: wspólna i specyficzna. Rozkład $\Sigma = \Lambda \Lambda^\top + \Psi$ oznacza, że całkowita wariancja i kowariancja obserwowanych zmiennych może być przedstawiona jako suma efektu wspólnych czynników oraz efektu specyficznego, indywidualnego dla każdej zmiennej. 
+Macierz kowariancji $\Sigma$ w analizie czynnikowej odgrywa
+fundamentalną rolę, ponieważ jest miejscem, w którym spotykają się dwa
+składniki zmienności: wspólna i specyficzna. Rozkład
+$\Sigma = \Lambda \Lambda^\top + \Psi$ oznacza, że całkowita wariancja i
+kowariancja obserwowanych zmiennych może być przedstawiona jako suma
+efektu wspólnych czynników oraz efektu specyficznego, indywidualnego dla
+każdej zmiennej.
 
-Część $\Lambda \Lambda^\top$ reprezentuje wspólne źródło zmienności, czyli wariancję wyjaśnianą przez czynniki ukryte. To właśnie ta część umożliwia redukcję wymiaru – wiele zmiennych obserwowanych można sprowadzić do kilku czynników, które reprezentują główną strukturę zależności. Interpretacja czynników jako ukrytych wymiarów (np. inteligencja, poziom lęku, satysfakcja zawodowa, czy cechy rynku finansowego) pozwala nie tylko uprościć analizę, ale także nadać jej znaczenie teoretyczne w danej dziedzinie badań.
+Część $\Lambda \Lambda^\top$ reprezentuje wspólne źródło zmienności,
+czyli wariancję wyjaśnianą przez czynniki ukryte. To właśnie ta część
+umożliwia redukcję wymiaru – wiele zmiennych obserwowanych można
+sprowadzić do kilku czynników, które reprezentują główną strukturę
+zależności. Interpretacja czynników jako ukrytych wymiarów (np.
+inteligencja, poziom lęku, satysfakcja zawodowa, czy cechy rynku
+finansowego) pozwala nie tylko uprościć analizę, ale także nadać jej
+znaczenie teoretyczne w danej dziedzinie badań.
 
-Z kolei $\Psi$ odpowiada za wariancję unikalną, czyli tę część zmienności, która nie jest współdzielona z innymi zmiennymi. Obejmuje ona zarówno wariancję czysto specyficzną dla danej cechy, jak i wariancję błędu pomiarowego. Dzięki temu możliwe jest odróżnienie struktury głębokiej (czynnikowej) od elementów przypadkowych i indywidualnych.
+Z kolei $\Psi$ odpowiada za wariancję unikalną, czyli tę część
+zmienności, która nie jest współdzielona z innymi zmiennymi. Obejmuje
+ona zarówno wariancję czysto specyficzną dla danej cechy, jak i
+wariancję błędu pomiarowego. Dzięki temu możliwe jest odróżnienie
+struktury głębokiej (czynnikowej) od elementów przypadkowych i
+indywidualnych.
 
-Podsumowując, znaczenie modelu czynnikowego polega na tym, że pozwala on wydzielić istotne, ukryte mechanizmy stojące za współzależnościami zmiennych i oddzielić je od szumów specyficznych dla pojedynczych obserwacji. W praktyce oznacza to możliwość redukcji liczby analizowanych zmiennych, uproszczenie opisu złożonych danych i pogłębienie interpretacji zjawisk społecznych, psychologicznych, biologicznych czy ekonomicznych.
+Podsumowując, znaczenie modelu czynnikowego polega na tym, że pozwala on
+wydzielić istotne, ukryte mechanizmy stojące za współzależnościami
+zmiennych i oddzielić je od szumów specyficznych dla pojedynczych
+obserwacji. W praktyce oznacza to możliwość redukcji liczby
+analizowanych zmiennych, uproszczenie opisu złożonych danych i
+pogłębienie interpretacji zjawisk społecznych, psychologicznych,
+biologicznych czy ekonomicznych.
 
-Interpretacja czynników w praktyce opiera się przede wszystkim na analizie macierzy ładunków czynnikowych $\Lambda$. Każdy element $\lambda_{ij}$ tej macierzy informuje o sile związku pomiędzy zmienną obserwowaną $x_i$ a czynnikiem $f_j$. Im wyższa wartość bezwzględna ładunku, tym większy udział danego czynnika w wyjaśnianiu zmienności konkretnej zmiennej. Na przykład w psychologii wysoki ładunek czynnika na zmiennej opisującej pamięć krótkotrwałą i na zmiennej opisującej zdolność rozwiązywania problemów matematycznych może sugerować, że obie cechy są przejawem wspólnego czynnika – inteligencji ogólnej.
+Interpretacja czynników w praktyce opiera się przede wszystkim na
+analizie macierzy ładunków czynnikowych $\Lambda$. Każdy element
+$\lambda_{ij}$ tej macierzy informuje o sile związku pomiędzy zmienną
+obserwowaną $x_i$ a czynnikiem $f_j$. Im wyższa wartość bezwzględna
+ładunku, tym większy udział danego czynnika w wyjaśnianiu zmienności
+konkretnej zmiennej. Na przykład w psychologii wysoki ładunek czynnika
+na zmiennej opisującej pamięć krótkotrwałą i na zmiennej opisującej
+zdolność rozwiązywania problemów matematycznych może sugerować, że obie
+cechy są przejawem wspólnego czynnika – inteligencji ogólnej.
+
+## Założenia dotyczące danych
+
+Aby estymacja modelu eksploracyjnej analizy czynnikowej (EFA) była
+uzasadniona, dane powinny spełniać szereg założeń teoretycznych i
+praktycznych.
+
+-   Po pierwsze, podstawą jest istnienie istotnej struktury korelacyjnej
+    pomiędzy zmiennymi obserwowalnymi. Jeżeli zmienne są w zasadzie
+    nieskorelowane, nie da się wydzielić wspólnych czynników. Warunek
+    ten weryfikuje się wstępnie testem sferyczności Bartletta
+    [@bartlett1951] oraz miarą adekwatności próby KMO [@kaiser1970].
+-   Po drugie, zakłada się odpowiednią wielkość próby. Choć w
+    literaturze nie istnieje jednoznaczna reguła, rekomenduje się co
+    najmniej 5–10 obserwacji na zmienną oraz łączną liczebność rzędu
+    ≥100–200 jednostek, aby uzyskać stabilne rozwiązania i wiarygodne
+    oszacowania ładunków czynnikowych.
+-   Po trzecie, dane powinny pochodzić z rozkładu wielowymiarowego
+    normalnego, szczególnie jeżeli korzysta się z estymacji metodą
+    największej wiarygodności. Naruszenia normalności mogą prowadzić do
+    zawyżenia błędów standardowych, problemów z testami istotności oraz
+    błędnych przedziałów ufności.
+-   Po czwarte, model EFA wymaga, aby zmienne były ciągłe lub co
+    najmniej traktowane jako przybliżenie zmiennych ciągłych. W
+    przypadku zmiennych kategorycznych należy sięgnąć po odpowiednie
+    uogólnienia (np. analizy czynnikowe dla danych porządkowych).
+-   Po piąte, zakłada się addytywność wariancji. Oznacza to, że
+    wariancja każdej zmiennej obserwowanej rozkłada się na część
+    wspólną, wyjaśnianą przez czynniki latentne, oraz część swoistą
+    (unikalną dla danej zmiennej), zgodnie z postacią: $$
+    \mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon}, \quad
+    \Sigma = \Lambda \Lambda^\top + \Psi.
+    $$
+-   I na koniec, należy zadbać o brak nadmiernej współliniowości oraz o
+    to, by liczba czynników nie przekraczała liczby zmiennych – w
+    przeciwnym wypadku model byłby nieidentyfikowalny.
 
 ## Metody estymacji ładunków czynnikowych
 
-### Metoda największej wiarogodności (ang. *Maximal Likelihood, ML*)
+### Metoda największej wiarogodności (ang. *Maximal Likelihood, ML*) [@lawley1940]
 
 #### Założenia
 
@@ -148,12 +282,13 @@ $$
 \mathbf{x} \sim \mathcal{N}_p(\boldsymbol{\mu}, \Sigma),
 $$
 
-gdzie kowariancja $\Sigma$ ma postać modelową
-$$
+gdzie kowariancja $\Sigma$ ma postać modelową $$
 \Sigma = \Lambda \Phi \Lambda^\top + \Psi.
 $$
 
-Dla uproszczenia przyjmuje się często, że czynniki $\mathbf{f}$ są standaryzowane i nieskorelowane, czyli $\Phi = I_m$. Wówczas macierz kowariancji ma postać
+Dla uproszczenia przyjmuje się często, że czynniki $\mathbf{f}$ są
+standaryzowane i nieskorelowane, czyli $\Phi = I_m$. Wówczas macierz
+kowariancji ma postać
 
 $$
 \Sigma = \Lambda \Lambda^\top + \Psi.
@@ -161,7 +296,8 @@ $$
 
 #### Funkcja wiarygodności
 
-Dla próby $\mathbf{x}_1,\ldots,\mathbf{x}_n$ funkcja wiarygodności rozkładu normalnego wynosi
+Dla próby $\mathbf{x}_1,\ldots,\mathbf{x}_n$ funkcja wiarygodności
+rozkładu normalnego wynosi
 
 $$
 L(\Lambda,\Psi) = (2\pi)^{-\frac{np}{2}} |\Sigma|^{-\frac{n}{2}}
@@ -174,505 +310,754 @@ $$
 \ell(\Lambda,\Psi) = -\frac{n}{2} \left[ \log |\Sigma| + \operatorname{tr}(\Sigma^{-1} S) \right] + C,
 $$
 
-gdzie $S = \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i-\mu)(\mathbf{x}_i-\mu)^\top$ jest macierzą kowariancji z próby.
+gdzie
+$S = \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i-\mu)(\mathbf{x}_i-\mu)^\top$
+jest macierzą kowariancji z próby.
 
 #### Estymacja parametrów
 
-Estymatory $\hat{\Lambda}, \hat{\Psi}$ dobiera się tak, aby maksymalizowały $\ell(\Lambda,\Psi)$, co odpowiada minimalizacji funkcji rozbieżności:
+Estymatory $\hat{\Lambda}, \hat{\Psi}$ dobiera się tak, aby
+maksymalizowały $\ell(\Lambda,\Psi)$, co odpowiada minimalizacji funkcji
+rozbieżności:
 
 $$
 F(\Lambda,\Psi) = \log |\Sigma| + \operatorname{tr}(\Sigma^{-1} S) - \log |S| - p.
 $$
 
-Powyższa miara rozbieżności powstaje z odległości Kullbacka-Leiblera między rozkładami normalnymi $\mathcal{N}_p(\mu, \Sigma)$ i $\mathcal{N}_p(\mu, S)$ i jest równa dokładnie $2D_{KL}(S||\Sigma)$.
+Powyższa miara rozbieżności powstaje z odległości Kullbacka-Leiblera
+między rozkładami normalnymi $\mathcal{N}_p(\mu, \Sigma)$ i
+$\mathcal{N}_p(\mu, S)$ i jest równa dokładnie $2D_{KL}(S||\Sigma)$.
 
 #### Procedura obliczeniowa
 
 W praktyce:
 
-1. Wybiera się liczbę $m$ czynników[^fa-2].
-2. Ustala się początkowe wartości $\Lambda, \Psi$[^fa-3].
-3. Iteracyjnie poprawia się parametry, rozwiązując równania warunków pierwszego rzędu
+1.  Wybiera się liczbę $m$ czynników[^fa-2].
+2.  Ustala się początkowe wartości $\Lambda, \Psi$[^fa-3].
+3.  Iteracyjnie poprawia się parametry, rozwiązując równania warunków
+    pierwszego rzędu
+
+[^fa-2]: wybór liczby czynników zostanie przedstawiony nieco później
+
+[^fa-3]: spsoby ewstępnej estymacji zostaną omówione w dalszej części
 
 $$
 \frac{\partial \ell}{\partial \Lambda} = 0, \quad \frac{\partial \ell}{\partial \Psi} = 0.
 $$
 
-4. Takie postępowanie iteracyjne prowadzi się aż do zbieżności funkcji wiarygodności.
+4.  Takie postępowanie iteracyjne prowadzi się aż do zbieżności funkcji
+    wiarygodności.
 
 #### Własności
 
-* Estymatory ML są efektywne przy spełnieniu założenia o normalności wielowymiarowej danych pierwotnych.
-* Umożliwiaja testy istotności liczby czynników:
-  * Hipoteza $H_0: \Sigma = \Lambda\Lambda^\top + \Psi$ vs $H_1: \Sigma$ dowolna.
-  * Statystyka testowa ma w przybliżeniu rozkład $\chi^2$.
-* Pozwalają też konstruować przedziały ufności dla ładunków czynnikowych.
+-   Estymatory ML są efektywne przy spełnieniu założenia o normalności
+    wielowymiarowej danych pierwotnych.
+-   Umożliwiaja testy istotności liczby czynników:
+    -   Hipoteza $H_0: \Sigma = \Lambda\Lambda^\top + \Psi$ vs
+        $H_1: \Sigma$ dowolna.
+    -   Statystyka testowa ma w przybliżeniu rozkład $\chi^2$.
+-   Pozwalają też konstruować przedziały ufności dla ładunków
+    czynnikowych.
 
 #### Ograniczenia
 
-* Wymagaja dużej próby i spełnienia założenia normalności wielowymiarowej.
-* Może być numerycznie niestabilne, zwłaszcza gdy liczba czynników jest duża w stosunku do liczby zmiennych.
-* Przy małych próbach lub silnym naruszeniu normalności wyniki mogą być obciążone.
+-   Wymagaja dużej próby i spełnienia założenia normalności
+    wielowymiarowej.
+-   Może być numerycznie niestabilne, zwłaszcza gdy liczba czynników
+    jest duża w stosunku do liczby zmiennych.
+-   Przy małych próbach lub silnym naruszeniu normalności wyniki mogą
+    być obciążone.
 
-[^fa-2]: wybór liczby czynników zostanie przedstawiony nieco później
-[^fa-3]: spsoby ewstępnej estymacji zostaną omówione w dalszej części
-
-### Metoda osi głównych (ang. *Principal Axis Factoring, PAF*)
+### Metoda osi głównych (ang. *Principal Axis Factoring, PAF*) [@grieder2020]
 
 #### Idea metody PAF
 
-W metodzie PAF znanej również jako metoda czynników głównych, zakładamy klasyczny model czynnikowy
+W metodzie PAF znanej również jako metoda czynników głównych, zakładamy
+klasyczny model czynnikowy
 
 $$
 \mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon}, \quad \mathrm{Cov}(\mathbf{x}) = \Sigma = \Lambda \Lambda^\top + \Psi.
 $$
 
-Celem jest znalezienie takiego $\Lambda$ i $\Psi$, aby zbliżyć się do macierzy kowariancji próbkowej $S$. W odróżnieniu od ML, PAF nie opiera się na funkcji wiarygodności ani na rozbieżności Kullbacka–Leiblera, lecz **maksymalizuje wariancję wspólną** zmiennych, traktując część specyficzną $(\Psi)$ jako resztę.
+Celem jest znalezienie takiego $\Lambda$ i $\Psi$, aby zbliżyć się do
+macierzy kowariancji próbkowej $S$. W odróżnieniu od ML, PAF nie opiera
+się na funkcji wiarygodności ani na rozbieżności Kullbacka–Leiblera,
+lecz **maksymalizuje wariancję wspólną** zmiennych, traktując część
+specyficzną $(\Psi)$ jako resztę.
 
 #### Macierz zredukowanych korelacji
 
-W metodzie *Principal Axis Factoring (PAF)* kluczową rolę odgrywa **macierz zredukowanych korelacji**. Punktem wyjścia jest macierz korelacji $\mathbf{R}$ pomiędzy zmiennymi obserwowanymi $\mathbf{x}$. Na diagonali tej macierzy stoją jedynki, odzwierciedlające fakt, że każda zmienna jest w pełni skorelowana sama ze sobą. Jednak w modelu czynnikowym zakładamy, że całkowita wariancja zmiennej $x_j$ może zostać podzielona na część wspólną (zasoby zmienności wspólnej - ang. *communalities*) i część swoistą (zasoby zmienności swoistej - ang. *uniqness*):
+W metodzie *Principal Axis Factoring (PAF)* kluczową rolę odgrywa
+**macierz zredukowanych korelacji**. Punktem wyjścia jest macierz
+korelacji $\mathbf{R}$ pomiędzy zmiennymi obserwowanymi $\mathbf{x}$. Na
+diagonali tej macierzy stoją jedynki, odzwierciedlające fakt, że każda
+zmienna jest w pełni skorelowana sama ze sobą. Jednak w modelu
+czynnikowym zakładamy, że całkowita wariancja zmiennej $x_j$ może zostać
+podzielona na część wspólną (zasoby zmienności wspólnej - ang.
+*communalities*) i część swoistą (zasoby zmienności swoistej - ang.
+*uniqness*):
 
 $$
 1 = h_j^2 + \psi_j, \quad j=1,\dots,p,
 $$
 
-gdzie $h_j^2$ oznacza zasób zmienności wspólnej, a $\psi_j$ wariancję swoistą. W konstrukcji macierzy zredukowanych korelacji zamiast jedynek wstawia się w diagonali właśnie wartości $h_j^2$. Otrzymujemy w ten sposób macierz
+gdzie $h_j^2$ oznacza zasób zmienności wspólnej, a $\psi_j$ wariancję
+swoistą. W konstrukcji macierzy zredukowanych korelacji zamiast jedynek
+wstawia się w diagonali właśnie wartości $h_j^2$. Otrzymujemy w ten
+sposób macierz
 
 $$
 \mathbf{R}^* = [r_{ij}^*], \quad r_{jj}^* = h_j^2.
 $$
 
-Macierz $\mathbf{R}^*$ ma więc charakter „zredukowany”, ponieważ na jej diagonali pozostaje tylko ta część wariancji zmiennej, którą model czynnikowy ma szansę wyjaśnić. Dzięki temu macierz ta może być przybliżana przez strukturę $\Lambda \Lambda^\top$, co odpowiada wspólnej wariancji wszystkich zmiennych.
+Macierz $\mathbf{R}^*$ ma więc charakter „zredukowany”, ponieważ na jej
+diagonali pozostaje tylko ta część wariancji zmiennej, którą model
+czynnikowy ma szansę wyjaśnić. Dzięki temu macierz ta może być
+przybliżana przez strukturę $\Lambda \Lambda^\top$, co odpowiada
+wspólnej wariancji wszystkich zmiennych.
 
 ::: callout-note
-
 ## Wstępne oszacowania zasobów zmienności wspólnej
 
-Problem polega na tym, że wartości $h_j^2$ nie są znane a priori. Dlatego w praktyce stosuje się różne metody wstępnego ich wyznaczania, które mogą być następnie udoskonalane iteracyjnie w kolejnych krokach procedury PAF. Do najczęściej stosowanych metod należą:
+Problem polega na tym, że wartości $h_j^2$ nie są znane a priori.
+Dlatego w praktyce stosuje się różne metody wstępnego ich wyznaczania,
+które mogą być następnie udoskonalane iteracyjnie w kolejnych krokach
+procedury PAF. Do najczęściej stosowanych metod należą:
 
-- **średnia arytmetyczna współczynników korelacji** danej zmiennej z innymi zmiennymi
-$$
-h_j^2=\frac{1}{m}\sum_{j'=1}^m r_{jj'},\quad j\ne j'
-$$
-- **maksymalna wartość bezwzględna współczynników korelacji** danej zmiennej z innymi zmiennymi
-$$
-h_j^2=\max_{j'}|r_{jj'}|, \quad j\ne j',
-$$
+-   **średnia arytmetyczna współczynników korelacji** danej zmiennej z
+    innymi zmiennymi $$
+    h_j^2=\frac{1}{m}\sum_{j'=1}^m r_{jj'},\quad j\ne j'
+    $$
 
-- **współczynnik determinacji wielokrotnej** danej zmiennej z innymi zmiennymi (najczęściej stosowana i wykorzystywana przez `R`)
-$$
-h_j^2=R^2_{j\cdot 1,2,\ldots,m},
-$$
-- **formuła triad**
-$$
-h_j^2=\frac{r_{jj'}r_{jj''}}{r_{j'j''}}, \quad j\ne j' \ne j''
-$$
-gdzie $r_{jj'}, r_{jj''}$ - dwie najwyższe wartości współczynników korelacji $j$-tej zmiennej z innymi zmiennymi.
+-   **maksymalna wartość bezwzględna współczynników korelacji** danej
+    zmiennej z innymi zmiennymi $$
+    h_j^2=\max_{j'}|r_{jj'}|, \quad j\ne j',
+    $$
 
+-   **współczynnik determinacji wielokrotnej** danej zmiennej z innymi
+    zmiennymi (najczęściej stosowana i wykorzystywana przez `R`) $$
+    h_j^2=R^2_{j\cdot 1,2,\ldots,m},
+    $$
+
+-   **formuła triad** $$
+    h_j^2=\frac{r_{jj'}r_{jj''}}{r_{j'j''}}, \quad j\ne j' \ne j''
+    $$ gdzie $r_{jj'}, r_{jj''}$ - dwie najwyższe wartości
+    współczynników korelacji $j$-tej zmiennej z innymi zmiennymi.
 :::
 
 #### Rozkład na wartości własne
 
-W metodzie PAF zakładamy, że tylko część wariancji każdej zmiennej jest wspólna. Oznacza to, że zamiast pełnej macierzy korelacji $\mathbf{R}$, rozważamy macierz zredukowanych korelacji:
-$$
+W metodzie PAF zakładamy, że tylko część wariancji każdej zmiennej jest
+wspólna. Oznacza to, że zamiast pełnej macierzy korelacji $\mathbf{R}$,
+rozważamy macierz zredukowanych korelacji: $$
 \mathbf{R}^* = \mathbf{R} - \Psi,
-$$
-gdzie na diagonali znajdują się oszacowane zasoby zmienności wspólnej $\hat{h}_j^2$, zamiast jedynek.
+$$ gdzie na diagonali znajdują się oszacowane zasoby zmienności wspólnej
+$\hat{h}_j^2$, zamiast jedynek.
 
-Następnie wykonujemy dekompozycję spektralną tej macierzy:
-$$
+Następnie wykonujemy dekompozycję spektralną tej macierzy: $$
 \mathbf{R}^* = \mathbf{Q}^* \mathbf{D}^* {\mathbf{Q}^*}^\top,
-$$
-gdzie $\mathbf{Q}^*$ i $\mathbf{D}^*$ są odpowiednio wektorami i wartościami własnymi macierzy $\mathbf{R}^*$.
+$$ gdzie $\mathbf{Q}^*$ i $\mathbf{D}^*$ są odpowiednio wektorami i
+wartościami własnymi macierzy $\mathbf{R}^*$.
 
-Estymator ładunków czynnikowych w PAF ma więc postać
-$$
+Estymator ładunków czynnikowych w PAF ma więc postać $$
 \hat{\Lambda} = \mathbf{Q}^*_m (\mathbf{D}^*_m)^{1/2},
 $$
 
-bazującą na zmodyfikowanej macierzy korelacji, w której uwzględniono oszacowane komunalności.
+bazującą na zmodyfikowanej macierzy korelacji, w której uwzględniono
+oszacowane komunalności.
 
-Ponieważ $\hat{h}_j^2$ same zależą od ładunków (są ich sumą kwadratów), w praktyce stosuje się procedurę iteracyjną: zaczynamy od pewnych wartości początkowych, obliczamy dekompozycję spektralną, aktualizujemy komunalności i powtarzamy procedurę aż do zbieżności.
+Ponieważ $\hat{h}_j^2$ same zależą od ładunków (są ich sumą kwadratów),
+w praktyce stosuje się procedurę iteracyjną: zaczynamy od pewnych
+wartości początkowych, obliczamy dekompozycję spektralną, aktualizujemy
+komunalności i powtarzamy procedurę aż do zbieżności.
 
 #### Iteracyjna poprawa komunalności
 
-Ponieważ początkowe komunalności są przybliżone, PAF stosuje procedurę iteracyjną:
+Ponieważ początkowe komunalności są przybliżone, PAF stosuje procedurę
+iteracyjną:
 
-1. Szacujemy $\Lambda$ na podstawie bieżącego $\mathbf{R}^*$.
-2. Obliczamy nowe zasoby zmienności wspólnej $h_j^2 = \sum_{k=1}^m \lambda_{jk}^2$.
-3. Wstawiamy je na przekątnej $\mathbf{R}^*$ zamiast starych wartości.
-4. Powtarzamy rozkład wartości własnych.
+1.  Szacujemy $\Lambda$ na podstawie bieżącego $\mathbf{R}^*$.
+2.  Obliczamy nowe zasoby zmienności wspólnej
+    $h_j^2 = \sum_{k=1}^m \lambda_{jk}^2$.
+3.  Wstawiamy je na przekątnej $\mathbf{R}^*$ zamiast starych wartości.
+4.  Powtarzamy rozkład wartości własnych.
 
-Proces powtarza się aż do zbieżności, czyli stabilizacji ładunków czynnikowych i zasobów zmienności wspólnej.
+Proces powtarza się aż do zbieżności, czyli stabilizacji ładunków
+czynnikowych i zasobów zmienności wspólnej.
 
 #### Własności
 
-* **Dopasowanie do wariancji wspólnej** – PAF minimalizuje różnice pomiędzy macierzą zredukowanych korelacji $\mathbf{R}^*$ a aproksymacją $\Lambda \Lambda^\top$. Sskupia się na wariancji wspólnej.
-* **Iteracyjność oszacowań** – estymatory w PAF powstają w procesie iteracyjnym, w którym kolejne przybliżenia komunalności są poprawiane na podstawie sumy kwadratów aktualnych ładunków czynnikowych. Dzięki temu metoda zbiega do rozwiązań lepiej oddających strukturę wspólną niż proste metody jednorazowe.
-* **Niestandaryzowana postać estymatorów** – rozwiązania PAF mogą zależeć od przyjętych wartości początkowych $h_j^2$. Różne wybory startowe mogą prowadzić do nieco innych estymatorów, choć w praktyce po kilku iteracjach zbieżność do stabilnego rozwiązania jest zazwyczaj dobra.
-* **Interpretowalność** – ponieważ oszacowane ładunki czynnikowe odzwierciedlają wyłącznie część wspólną wariancji, interpretacja czynników uzyskanych metodą PAF jest bliższa teoretycznemu modelowi czynnikowemu niż w przypadku metod opartych na PCA.
+-   **Dopasowanie do wariancji wspólnej** – PAF minimalizuje różnice
+    pomiędzy macierzą zredukowanych korelacji $\mathbf{R}^*$ a
+    aproksymacją $\Lambda \Lambda^\top$. Sskupia się na wariancji
+    wspólnej.
+-   **Iteracyjność oszacowań** – estymatory w PAF powstają w procesie
+    iteracyjnym, w którym kolejne przybliżenia komunalności są
+    poprawiane na podstawie sumy kwadratów aktualnych ładunków
+    czynnikowych. Dzięki temu metoda zbiega do rozwiązań lepiej
+    oddających strukturę wspólną niż proste metody jednorazowe.
+-   **Niestandaryzowana postać estymatorów** – rozwiązania PAF mogą
+    zależeć od przyjętych wartości początkowych $h_j^2$. Różne wybory
+    startowe mogą prowadzić do nieco innych estymatorów, choć w praktyce
+    po kilku iteracjach zbieżność do stabilnego rozwiązania jest
+    zazwyczaj dobra.
+-   **Interpretowalność** – ponieważ oszacowane ładunki czynnikowe
+    odzwierciedlają wyłącznie część wspólną wariancji, interpretacja
+    czynników uzyskanych metodą PAF jest bliższa teoretycznemu modelowi
+    czynnikowemu niż w przypadku metod opartych na PCA.
 
 #### Ograniczenia
 
-* **Brak optymalności w sensie funkcji wiarygodności** – w przeciwieństwie do metody największej wiarygodności (ML), estymatory PAF nie mają znanych własności asymptotycznych, takich jak efektywność czy zgodność w sensie probabilistycznym. Są bardziej heurystyczne niż ściśle statystyczne.
-* **Zależność od wartości początkowych komunalności** – oszacowania początkowe wpływają na przebieg iteracji i mogą prowadzić do lokalnych minimów. W praktyce wybór metody startowej (np. $R^2$, średnia korelacja, ...) ma znaczenie dla szybkości i stabilności algorytmu.
-* **Możliwość uzyskania ujemnych komunalności** – w niektórych przypadkach iteracje mogą prowadzić do oszacowań $h_j^2 < 0$ (tzw. przypadek Haywooda), co jest sprzeczne z definicją wariancji wspólnej. Wówczas konieczne stosowanie innych metod estymacji ładunków.
-* **Mniejsza przydatność przy małych próbach** – ponieważ metoda nie opiera się na pełnym modelu statystycznym, jej własności są mniej stabilne przy niewielkich licznościach obserwacji. Wyniki mogą być wówczas silnie zależne od przypadkowych fluktuacji w danych.
-* **Brak testów statystycznych dopasowania modelu** – w odróżnieniu od metody ML, PAF nie pozwala na formalne testowanie hipotez o liczbie czynników czy jakości dopasowania modelu do danych.
+-   **Brak optymalności w sensie funkcji wiarygodności** – w
+    przeciwieństwie do metody największej wiarygodności (ML), estymatory
+    PAF nie mają znanych własności asymptotycznych, takich jak
+    efektywność czy zgodność w sensie probabilistycznym. Są bardziej
+    heurystyczne niż ściśle statystyczne.
+-   **Zależność od wartości początkowych komunalności** – oszacowania
+    początkowe wpływają na przebieg iteracji i mogą prowadzić do
+    lokalnych minimów. W praktyce wybór metody startowej (np. $R^2$,
+    średnia korelacja, ...) ma znaczenie dla szybkości i stabilności
+    algorytmu.
+-   **Możliwość uzyskania ujemnych komunalności** – w niektórych
+    przypadkach iteracje mogą prowadzić do oszacowań $h_j^2 < 0$ (tzw.
+    przypadek Haywooda), co jest sprzeczne z definicją wariancji
+    wspólnej. Wówczas konieczne stosowanie innych metod estymacji
+    ładunków.
+-   **Mniejsza przydatność przy małych próbach** – ponieważ metoda nie
+    opiera się na pełnym modelu statystycznym, jej własności są mniej
+    stabilne przy niewielkich licznościach obserwacji. Wyniki mogą być
+    wówczas silnie zależne od przypadkowych fluktuacji w danych.
+-   **Brak testów statystycznych dopasowania modelu** – w odróżnieniu od
+    metody ML, PAF nie pozwala na formalne testowanie hipotez o liczbie
+    czynników czy jakości dopasowania modelu do danych.
 
-### Metoda sładowych głównych (ang. *Principal Component Method*)
+### Metoda sładowych głównych (ang. *Principal Component Method*) [@wang2008]
 
-Metoda sładowych głównych należy do klasy metod wspólnotowych, czyli takich, które zakładają klasyczny model czynnikowy
+Metoda sładowych głównych należy do klasy metod wspólnotowych, czyli
+takich, które zakładają klasyczny model czynnikowy
 
 $$
 \mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon},
 \quad \Sigma = \Lambda\Lambda^\top + \Psi.
 $$
 
-Celem jest oszacowanie macierzy ładunków $\Lambda$, tak aby jak najlepiej odtworzyć część wspólną wariancji.
+Celem jest oszacowanie macierzy ładunków $\Lambda$, tak aby jak
+najlepiej odtworzyć część wspólną wariancji.
 
 #### Idea metody
 
-W metodzie PCM zakładamy, że cała wariancja zmiennej jest wariancją wspólną, tzn.
-$$
+W metodzie PCM zakładamy, że cała wariancja zmiennej jest wariancją
+wspólną, tzn. $$
 h_j^2 = 1, \quad j=1,\ldots,p.
 $$
 
-Oznacza to, że macierz zredukowanych korelacji jest po prostu zwykłą macierzą korelacji $\mathbf{R}$:
-$$
+Oznacza to, że macierz zredukowanych korelacji jest po prostu zwykłą
+macierzą korelacji $\mathbf{R}$: $$
 \mathbf{R} = \Lambda \Lambda^\top + \Psi,
-$$
-przy czym w PCM przyjmujemy $\Psi = \mathbf{0}$.
+$$ przy czym w PCM przyjmujemy $\Psi = \mathbf{0}$.
 
-Następnie wykonujemy dekompozycję spektralną
-$$
+Następnie wykonujemy dekompozycję spektralną $$
 \mathbf{R} = \mathbf{Q} \mathbf{D} \mathbf{Q}^\top,
-$$
-gdzie:
+$$ gdzie:
 
-* $\mathbf{Q} = (q_1, q_2, \ldots, q_p)$ – to macierz ortonormalnych wektorów własnych,
-* $\mathbf{D} = \mathrm{diag}(\lambda_1, \lambda_2, \ldots, \lambda_p)$ – to macierz wartości własnych uporządkowanych malejąco.
+-   $\mathbf{Q} = (q_1, q_2, \ldots, q_p)$ – to macierz ortonormalnych
+    wektorów własnych,
+-   $\mathbf{D} = \mathrm{diag}(\lambda_1, \lambda_2, \ldots, \lambda_p)$
+    – to macierz wartości własnych uporządkowanych malejąco.
 
-Jeśli chcemy oszacować model z $m$ czynnikami, to bierzemy największe $m$ wartości własne i odpowiadające im wektory własne. Estymator ładunków czynnikowych jest wtedy równy
-$$
+Jeśli chcemy oszacować model z $m$ czynnikami, to bierzemy największe
+$m$ wartości własne i odpowiadające im wektory własne. Estymator
+ładunków czynnikowych jest wtedy równy $$
 \hat{\Lambda} = \mathbf{Q}_m \mathbf{D}_m^{1/2},
-$$
-gdzie $\mathbf{Q}_m = (q_1,\ldots,q_m)$, a $\mathbf{D}_m = \mathrm{diag}(\lambda_1, \ldots, \lambda_m)$.
+$$ gdzie $\mathbf{Q}_m = (q_1,\ldots,q_m)$, a
+$\mathbf{D}_m = \mathrm{diag}(\lambda_1, \ldots, \lambda_m)$.
 
-Widzimy więc, że w PCM ładunki są wprost pierwiastkami z największych wartości własnych pomnożonymi przez odpowiadające im wektory własne.
+Widzimy więc, że w PCM ładunki są wprost pierwiastkami z największych
+wartości własnych pomnożonymi przez odpowiadające im wektory własne.
 
 #### Procedura estymacji[^fa-4]
 
-1. Konstruujemy macierz korelacji $\mathbf{R}$.
-2. Obliczamy rozkład wartości i wektorów własnych macierzy $\mathbf{R}$.
-3. Wybieramy $m$ największych wartości własnych (odpowiadających liczbie czynników w modelu).
-4. Na tej podstawie konstruujemy macierz ładunków czynnikowych $\Lambda$.
+[^fa-4]: tu widać największą różnicę pomięcy PCM a PAF; w metodzie PCM
+    występuję jedna iteracja estymacji ładunków
 
-[^fa-4]: tu widać największą różnicę pomięcy PCM a PAF; w metodzie PCM występuję jedna iteracja estymacji ładunków
+1.  Konstruujemy macierz korelacji $\mathbf{R}$.
+2.  Obliczamy rozkład wartości i wektorów własnych macierzy
+    $\mathbf{R}$.
+3.  Wybieramy $m$ największych wartości własnych (odpowiadających
+    liczbie czynników w modelu).
+4.  Na tej podstawie konstruujemy macierz ładunków czynnikowych
+    $\Lambda$.
 
 #### Własności
 
-* **Zgodność z modelem czynnikowym** – metoda dąży do aproksymacji struktury wspólnej wariancji, a nie całkowitej wariancji.
-* **Zbieżność do stabilnych oszacowań** – iteracyjne poprawki komunalności pozwalają uzyskać estymatory spójne z założeniami modelu.
-* **Łatwość interpretacji** – podobnie jak PCA, metoda bazuje na analizie spektralnej wartości własnych, co ułatwia intuicyjne rozumienie struktury danych.
+-   **Zgodność z modelem czynnikowym** – metoda dąży do aproksymacji
+    struktury wspólnej wariancji, a nie całkowitej wariancji.
+-   **Zbieżność do stabilnych oszacowań** – iteracyjne poprawki
+    komunalności pozwalają uzyskać estymatory spójne z założeniami
+    modelu.
+-   **Łatwość interpretacji** – podobnie jak PCA, metoda bazuje na
+    analizie spektralnej wartości własnych, co ułatwia intuicyjne
+    rozumienie struktury danych.
 
 #### Ograniczenia
 
-* **Brak optymalności statystycznej** – podobnie jak PAF, metoda nie ma własności estymatorów opartych na funkcji wiarygodności (ML).
-* **Zależność od początkowych oszacowań komunalności** – nieprawidłowy wybór startowy może utrudnić uzyskanie sensownych rozwiązań.
-* **Haywood case** – zdarza się, że zasoby zmienności wspólnej mogą przyjmować wartości ujemne.
+-   **Brak optymalności statystycznej** – podobnie jak PAF, metoda nie
+    ma własności estymatorów opartych na funkcji wiarygodności (ML).
+-   **Zależność od początkowych oszacowań komunalności** – nieprawidłowy
+    wybór startowy może utrudnić uzyskanie sensownych rozwiązań.
+-   **Haywood case** – zdarza się, że zasoby zmienności wspólnej mogą
+    przyjmować wartości ujemne.
 
-### Metoda minimalizacji reszt (ang. *MINRES*)
+### Metoda minimalizacji reszt (ang. *MINRES*) [@harman1966]
 
 #### Idea metody MINRES
 
-W modelu czynnikowym przyjmujemy, że macierz kowariancji (lub korelacji) ma postać
-$$
+W modelu czynnikowym przyjmujemy, że macierz kowariancji (lub korelacji)
+ma postać $$
 \Sigma = \Lambda \Lambda' + \Psi,
-$$
-gdzie $\Lambda$ to macierz ładunków czynnikowych, a $\Psi = \mathrm{diag}(\psi_1,\ldots,\psi_p)$ to macierz wariancji swoistych.
+$$ gdzie $\Lambda$ to macierz ładunków czynnikowych, a
+$\Psi = \mathrm{diag}(\psi_1,\ldots,\psi_p)$ to macierz wariancji
+swoistych.
 
-W metodzie **MINRES** nie próbujemy dokładnie odtworzyć całej macierzy $\Sigma$. Zamiast tego minimalizujemy **reszty pozadiagonalne**, czyli różnice między obserwowaną macierzą korelacji $\mathbf{R}$ a macierzą odtworzoną z modelu $\Lambda \Lambda^\top + \Psi$, przy czym skupiamy się wyłącznie na elementach pozadiagonalnych.
-
+W metodzie **MINRES** nie próbujemy dokładnie odtworzyć całej macierzy
+$\Sigma$. Zamiast tego minimalizujemy **reszty pozadiagonalne**, czyli
+różnice między obserwowaną macierzą korelacji $\mathbf{R}$ a macierzą
+odtworzoną z modelu $\Lambda \Lambda^\top + \Psi$, przy czym skupiamy
+się wyłącznie na elementach pozadiagonalnych.
 
 #### Funkcja kryterialna
 
-Formalnie minimalizowana jest suma kwadratów reszt poza przekątną
-$$
+Formalnie minimalizowana jest suma kwadratów reszt poza przekątną $$
 F(\Lambda, \Psi) = \sum_{i \neq j} \Big( r_{ij} - \hat{r}_{ij} \Big)^2,
-$$
-gdzie:
+$$ gdzie:
 
-* $r_{ij}$ to element macierzy korelacji empirycznej $\mathbf{R}$,
-* $\hat{r}_{ij}$ to element macierzy odtworzonej $\Lambda \Lambda^\top + \Psi$,
-* elementy diagonalne nie są uwzględniane (bo zawsze odtwarzane są przez normalizację zmiennych).
+-   $r_{ij}$ to element macierzy korelacji empirycznej $\mathbf{R}$,
+-   $\hat{r}_{ij}$ to element macierzy odtworzonej
+    $\Lambda \Lambda^\top + \Psi$,
+-   elementy diagonalne nie są uwzględniane (bo zawsze odtwarzane są
+    przez normalizację zmiennych).
 
-Można to zapisać równoważnie jako
-$$
+Można to zapisać równoważnie jako $$
 F(\Lambda) = | \mathbf{R} - (\Lambda \Lambda' + \Psi)|^2_{off},
-$$
-gdzie $|\cdot|_{off}$ oznacza normę Frobeniusa liczona tylko na częściach pozadiagonalnych macierzy.
+$$ gdzie $|\cdot|_{off}$ oznacza normę Frobeniusa liczona tylko na
+częściach pozadiagonalnych macierzy.
 
 #### Procedura estymacyjna
 
-1. Zaczynamy od przybliżonych wartości komunalności $\hat{h}_j^2$, tak jak w PAF.
-2. Budujemy macierz reszt
-$$
-\mathbf{U} = \mathbf{R} - (\Lambda \Lambda^\top + \Psi).
-$$
-3. Szukamy takich ładunków $\Lambda$, które minimalizują sumę kwadratów elementów $\mathbf{U}$ poza przekątną.
-4. W praktyce problem redukuje się do iteracyjnego rozwiązywania układów równań własnych, bardzo podobnie jak w PAF, ale z innym warunkiem minimalizacji (PAF dopasowuje wartości własne macierzy zredukowanych korelacji, MINRES – reszty pozadiagonalne).
+1.  Zaczynamy od przybliżonych wartości komunalności $\hat{h}_j^2$, tak
+    jak w PAF.
+2.  Budujemy macierz reszt $$
+    \mathbf{U} = \mathbf{R} - (\Lambda \Lambda^\top + \Psi).
+    $$
+3.  Szukamy takich ładunków $\Lambda$, które minimalizują sumę kwadratów
+    elementów $\mathbf{U}$ poza przekątną.
+4.  W praktyce problem redukuje się do iteracyjnego rozwiązywania
+    układów równań własnych, bardzo podobnie jak w PAF, ale z innym
+    warunkiem minimalizacji (PAF dopasowuje wartości własne macierzy
+    zredukowanych korelacji, MINRES – reszty pozadiagonalne).
 
 #### Związek z dekompozycją spektralną
 
-W przeciwieństwie do PCM czy PAF, metoda MINRES **nie ma bezpośredniego prostego rozwiązania w postaci pierwiastków z wartości własnych**. Wymaga zastosowania iteracyjnych algorytmów numerycznych, które szukają $\Lambda$ minimalizującej $F(\Lambda)$. Jednak podobnie jak w PAF, punktem startowym mogą być wektory własne macierzy zredukowanych korelacji. Następnie algorytm minimalizacji dopasowuje ładunki tak, by reszty pozadiagonalne były jak najmniejsze.
+W przeciwieństwie do PCM czy PAF, metoda MINRES **nie ma bezpośredniego
+prostego rozwiązania w postaci pierwiastków z wartości własnych**.
+Wymaga zastosowania iteracyjnych algorytmów numerycznych, które szukają
+$\Lambda$ minimalizującej $F(\Lambda)$. Jednak podobnie jak w PAF,
+punktem startowym mogą być wektory własne macierzy zredukowanych
+korelacji. Następnie algorytm minimalizacji dopasowuje ładunki tak, by
+reszty pozadiagonalne były jak najmniejsze.
 
 #### Właściwości i ograniczenia
 
-* *MINRES* skupia się tylko na korelacjach pomiędzy zmiennymi, ignorując elementy diagonalne – co sprawia, że estymacja jest mniej wrażliwa na problem ujemnych komunalności (tzw. *Heywood cases*).
-* Metoda jest relatywnie stabilna numerycznie i dobrze sprawdza się przy dużej liczbie zmiennych.
-* Ograniczeniem jest to, że wynik zależy od jakości początkowych oszacowań zasobów zmienności wspólnej. Przy złym wyborze startu możliwa jest wolna zbieżność albo zbieżność do lokalnego minimum.
+-   *MINRES* skupia się tylko na korelacjach pomiędzy zmiennymi,
+    ignorując elementy diagonalne – co sprawia, że estymacja jest mniej
+    wrażliwa na problem ujemnych komunalności (tzw. *Heywood cases*).
+-   Metoda jest relatywnie stabilna numerycznie i dobrze sprawdza się
+    przy dużej liczbie zmiennych.
+-   Ograniczeniem jest to, że wynik zależy od jakości początkowych
+    oszacowań zasobów zmienności wspólnej. Przy złym wyborze startu
+    możliwa jest wolna zbieżność albo zbieżność do lokalnego minimum.
 
-### Metoda uogólnionych najmniejszych kwadratów (ang. *Generalized Least Squares, GLS*)
+### Metoda uogólnionych najmniejszych kwadratów (ang. *Generalized Least Squares, GLS*) [@jöreskog1972]
 
 #### Idea metody
 
-GLS, podobnie jak MINRES czy ML, polega na porównaniu macierzy obserwowanej $\mathbf{S}$ (kowariancji lub korelacji) z macierzą odtworzoną przez model czynnikowy $\hat{\Sigma} = \Lambda \Lambda^\top + \Psi$.
-Różnica w stosunku do MINRES polega na tym, że w **GLS ważymy reszty**, czyli błędy odwzorowania poszczególnych elementów macierzy $\mathbf{S}$.
+GLS, podobnie jak MINRES czy ML, polega na porównaniu macierzy
+obserwowanej $\mathbf{S}$ (kowariancji lub korelacji) z macierzą
+odtworzoną przez model czynnikowy
+$\hat{\Sigma} = \Lambda \Lambda^\top + \Psi$. Różnica w stosunku do
+MINRES polega na tym, że w **GLS ważymy reszty**, czyli błędy
+odwzorowania poszczególnych elementów macierzy $\mathbf{S}$.
 
-Formalnie kryterium minimalizacji ma postać
-$$
+Formalnie kryterium minimalizacji ma postać $$
 F_{\text{GLS}}(\Lambda, \Psi) = \mathrm{tr}\Big[ \big( S - \hat{\Sigma} \big) W \big( S - \hat{\Sigma} \big) W \Big],
 $$
 
-gdzie $W$ to **macierz wag**, zwykle przyjmowana jako odwrotność (lub pseudoodwrotność) wariancji estymatora elementów macierzy $\mathbf{S}$.
+gdzie $W$ to **macierz wag**, zwykle przyjmowana jako odwrotność (lub
+pseudoodwrotność) wariancji estymatora elementów macierzy $\mathbf{S}$.
 
-W przeciwieństwie do MINRES (gdzie wszystkie reszty traktowane są jednakowo), w GLS różne elementy macierzy kowariancji otrzymują różne wagi. Wagi te wynikają z asymptotycznych własności estymatora macierzy kowariancji i uwzględniają fakt, że elementy macierzy nie są niezależne i mają różne wariancje. Dzięki temu GLS jest bardziej efektywny statystycznie niż MINRES, ale jednocześnie mniej wymagający niż ML (który zakłada pełną normalność wielowymiarową).
+W przeciwieństwie do MINRES (gdzie wszystkie reszty traktowane są
+jednakowo), w GLS różne elementy macierzy kowariancji otrzymują różne
+wagi. Wagi te wynikają z asymptotycznych własności estymatora macierzy
+kowariancji i uwzględniają fakt, że elementy macierzy nie są niezależne
+i mają różne wariancje. Dzięki temu GLS jest bardziej efektywny
+statystycznie niż MINRES, ale jednocześnie mniej wymagający niż ML
+(który zakłada pełną normalność wielowymiarową).
 
 #### Własności
 
-* Estymatory GLS są **spójne** i **asymptotycznie efektywne** w klasie metod najmniejszych kwadratów, przy założeniu poprawnej specyfikacji modelu.
-* GLS, podobnie jak ML, uwzględnia strukturę wariancji elementów macierzy $\mathbf{S}$, co czyni go bardziej precyzyjnym niż MINRES.
-* Z drugiej strony GLS jest mniej czuły na naruszenie założenia normalności niż ML, dlatego bywa rekomendowany przy większych odchyleniach od normalności.
+-   Estymatory GLS są **spójne** i **asymptotycznie efektywne** w klasie
+    metod najmniejszych kwadratów, przy założeniu poprawnej specyfikacji
+    modelu.
+-   GLS, podobnie jak ML, uwzględnia strukturę wariancji elementów
+    macierzy $\mathbf{S}$, co czyni go bardziej precyzyjnym niż MINRES.
+-   Z drugiej strony GLS jest mniej czuły na naruszenie założenia
+    normalności niż ML, dlatego bywa rekomendowany przy większych
+    odchyleniach od normalności.
 
 #### Ograniczenia
 
-* Procedura GLS jest obliczeniowo trudniejsza niż MINRES, ponieważ wymaga oszacowania (lub przyjęcia) odpowiedniej macierzy wag.
-* W praktyce GLS bywa niestabilny przy małych próbach lub przy silnych współliniowościach zmiennych.
-* W implementacjach programowych często stosuje się GLS jako kompromis pomiędzy prostym MINRES a wymagającym ML.
+-   Procedura GLS jest obliczeniowo trudniejsza niż MINRES, ponieważ
+    wymaga oszacowania (lub przyjęcia) odpowiedniej macierzy wag.
+-   W praktyce GLS bywa niestabilny przy małych próbach lub przy silnych
+    współliniowościach zmiennych.
+-   W implementacjach programowych często stosuje się GLS jako kompromis
+    pomiędzy prostym MINRES a wymagającym ML.
 
 ::: callout-note
-Istnieją również inne metody estymacji ładunków czynnikowych, jak metody bayesowskie, czy metody z regularyzacją LASSO ale nie są one częścią tego opracowania.
+Istnieją również inne metody estymacji ładunków czynnikowych, jak metody
+bayesowskie [@lu2016], czy metody z regularyzacją LASSO ale nie są one
+częścią tego opracowania [@jacobucci2018].
 :::
 
 ## Oceny dopasowania modelu i kryteria doboru liczby czynników
 
-Ocena dopasowania modelu EFA opiera się na kilku uzupełniających się perspektywach: globalnym dopasowaniu implikowanej macierzy kowariancji do macierzy empirycznej, analizie reszt korelacyjnych, doborze liczby czynników, stabilności rozwiązania oraz jakości lokalnej (ładunki i zasoby zmienności wspólnej). Poniżej przedstawiam najważniejsze procedury wraz z ich interpretacją oraz typowymi pułapkami.
+Ocena dopasowania modelu EFA opiera się na kilku uzupełniających się
+perspektywach: globalnym dopasowaniu implikowanej macierzy kowariancji
+do macierzy empirycznej, analizie reszt korelacyjnych, doborze liczby
+czynników, stabilności rozwiązania oraz jakości lokalnej (ładunki i
+zasoby zmienności wspólnej). Poniżej przedstawiam najważniejsze
+procedury wraz z ich interpretacją oraz typowymi pułapkami.
 
 ### Proporcja wyjaśnionej wariancji przez czynniki
 
-Proporcja wariancji wyjaśnionej przez model czynnikowy, czyli stosunek sumy wariancji wspólnej do całkowitej wariancji wszystkich zmiennych, stanowi podstawową miarę jakości dopasowania. W przypadku standaryzowanych zmiennych całkowita wariancja wynosi $p$, więc proporcja ta ma postać
-$$
+Proporcja wariancji wyjaśnionej przez model czynnikowy, czyli stosunek
+sumy wariancji wspólnej do całkowitej wariancji wszystkich zmiennych,
+stanowi podstawową miarę jakości dopasowania. W przypadku
+standaryzowanych zmiennych całkowita wariancja wynosi $p$, więc
+proporcja ta ma postać $$
 \text{Proporcja wyjaśnionej wariancji} = \frac{\sum_{j=1}^p h_j^2}{p}.
-$$
-Wyższe wartości (np. powyżej $0,6$) wskazują na dobrą reprezentację zmiennych przez czynniki, natomiast niskie wartości (np. poniżej $0,4$) sugerują, że model nie uchwytuje istotnej części struktury danych. Jednak sama proporcja nie uwzględnia liczby czynników ani złożoności modelu, dlatego powinna być interpretowana w kontekście innych wskaźników dopasowania.
+$$ Wyższe wartości (np. powyżej $0,6$) wskazują na dobrą reprezentację
+zmiennych przez czynniki, natomiast niskie wartości (np. poniżej $0,4$)
+sugerują, że model nie uchwytuje istotnej części struktury danych.
+Jednak sama proporcja nie uwzględnia liczby czynników ani złożoności
+modelu, dlatego powinna być interpretowana w kontekście innych
+wskaźników dopasowania.
 
 ### Test chi-kwadrat
 
-W metodzie ML został przedstawiony test dopasowania oparty na *maximum likelihood*. Przy założeniu normalności wielowymiarowej i zidentyfikowanym modelu postaci
-$$
+W metodzie ML został przedstawiony test dopasowania oparty na *maximum
+likelihood*. Przy założeniu normalności wielowymiarowej i
+zidentyfikowanym modelu postaci $$
 \Sigma=\Lambda\Lambda^\top + \Psi
-$$
-testujemy hipotezę $H_0:\ \Sigma(\Lambda,\Psi)=S$ w populacji, gdzie $S$ oznacza macierz kowariancji (lub korelacji) z próby. Statystyka $\chi^2$ rośnie wraz z pogarszającym się dopasowaniem (niestety duże próby sprzyjają odrzucaniu nawet dobrze dopasowanych modeli, a naruszenia normalności mogą zawyżać lub zaniżać wynik).
+$$ testujemy hipotezę $H_0:\ \Sigma(\Lambda,\Psi)=S$ w populacji, gdzie
+$S$ oznacza macierz kowariancji (lub korelacji) z próby. Statystyka
+$\chi^2$ rośnie wraz z pogarszającym się dopasowaniem (niestety duże
+próby sprzyjają odrzucaniu nawet dobrze dopasowanych modeli, a
+naruszenia normalności mogą zawyżać lub zaniżać wynik).
 
 ### Wskaźnik RMSEA
 
-Wskaźnik *root mean square error of approximation* (*RMSEA*) mierzy błąd aproksymacji na jednostkę stopnia swobody i można go interpretować jako „błąd w populacji”, nie tylko w próbie. Definiujemy go jako
-$$
+Wskaźnik *root mean square error of approximation* (*RMSEA*) mierzy błąd
+aproksymacji na jednostkę stopnia swobody i można go interpretować jako
+„błąd w populacji”, nie tylko w próbie. Definiujemy go jako $$
 \mathrm{RMSEA}=\sqrt{\max\left\{\frac{\chi^2-df}{df(n-1)},0\right\}},
-$$
-a ocenę uzupełniamy o przedział ufności oparty na niecentralnym rozkładzie chi-kwadrat. Wartości rzędu $0,05-0,08$ tradycyjnie uznawane są za akceptowalne, traktując progi orientacyjnie: wzrost liczby zmiennych i stopni swobody sprzyja niższym RMSEA, natomiast małe próby destabilizują oszacowanie.
+$$ a ocenę uzupełniamy o przedział ufności oparty na niecentralnym
+rozkładzie chi-kwadrat. Wartości rzędu $0,05-0,08$ tradycyjnie uznawane
+są za akceptowalne, traktując progi orientacyjnie: wzrost liczby
+zmiennych i stopni swobody sprzyja niższym RMSEA, natomiast małe próby
+destabilizują oszacowanie.
 
 ### Analiza reszt
 
-Analiza reszt macierzy korelacji stanowi podstawową kontrolę lokalnego dopasowania, niezależnie od sposobu estymacji. Wyznaczamy reszty $r_{ij}-\hat r_{ij}$ i przeglądamy rozkład wartości bezwzględnych, a dokładnie odsetek przekraczających praktyczne progi (np. $0,05$). Wskaźniki zbiorcze, takie jak *RMSR* (*root mean square residual*) oraz *SRMR* (*standardized RMSR*), agregują wielkość reszt poza diagonalą - mniejsze wartości świadczą o lepszym dopasowaniu. Mapa ciepła reszt ułatwia wykrywanie klastrów niedopasowania sugerujących brakujący czynnik lub zbyt małą liczbę czynników.
+Analiza reszt macierzy korelacji stanowi podstawową kontrolę lokalnego
+dopasowania, niezależnie od sposobu estymacji. Wyznaczamy reszty
+$r_{ij}-\hat r_{ij}$ i przeglądamy rozkład wartości bezwzględnych, a
+dokładnie odsetek przekraczających praktyczne progi (np. $0,05$).
+Wskaźniki zbiorcze, takie jak *RMSR* (*root mean square residual*) oraz
+*SRMR* (*standardized RMSR*), agregują wielkość reszt poza diagonalą -
+mniejsze wartości świadczą o lepszym dopasowaniu. Mapa ciepła reszt
+ułatwia wykrywanie klastrów niedopasowania sugerujących brakujący
+czynnik lub zbyt małą liczbę czynników.
 
 ### Kryteria informacyjne
 
-Kryteria informacyjne, takie jak *AIC* i *BIC*, służą do porównywania modeli o różnej liczbie czynników, karząc nadmierną złożoność. Definiujemy je przez logarytm funkcji wiarogodności i liczbę parametrów. *BIC* silniej faworyzuje prostsze modele przy dużych próbach. Bardzo ważne jest aby używać tych metod do porównywania modeli otrzymanych tą samą metodą.
+Kryteria informacyjne, takie jak *AIC* i *BIC*, służą do porównywania
+modeli o różnej liczbie czynników, karząc nadmierną złożoność.
+Definiujemy je przez logarytm funkcji wiarogodności i liczbę parametrów.
+*BIC* silniej faworyzuje prostsze modele przy dużych próbach. Bardzo
+ważne jest aby używać tych metod do porównywania modeli otrzymanych tą
+samą metodą.
 
 ### Inne wskaźniki dopasowania
 
-Wskaźniki „globalne” starszej generacji, takie jak *GFI* i *AGFI* (*goodness of fit index*, *adjusted GFI*), oceniają proporcję wariancji/kowariancji wyjaśnionej przez model. Są wrażliwe na rozmiar próby i liczbę zmiennych, skłonne do optymizmu w dużych modelach i do pesymizmu przy małej liczbie stopni swobody. Możemy je traktować pomocniczo, kładąc większy nacisk na RMSEA oraz analizę reszt.
+Wskaźniki „globalne” starszej generacji, takie jak *GFI* i *AGFI*
+(*goodness of fit index*, *adjusted GFI*), oceniają proporcję
+wariancji/kowariancji wyjaśnionej przez model. Są wrażliwe na rozmiar
+próby i liczbę zmiennych, skłonne do optymizmu w dużych modelach i do
+pesymizmu przy małej liczbie stopni swobody. Możemy je traktować
+pomocniczo, kładąc większy nacisk na RMSEA oraz analizę reszt.
 
-Analiza wartości własnych macierzy reszt uzupełnia powyższe podejścia. Po wyodrębnieniu $m$ czynników obliczamy resztową macierz korelacji $\mathbf{R}-\hat{\mathbf{R}}$ i badać jej wartości własne. Duże dodatnie wartości własne sygnalizują pozostawioną wspólną wariancję (niedomiar czynników) lub struktury lokalne.
+Analiza wartości własnych macierzy reszt uzupełnia powyższe podejścia.
+Po wyodrębnieniu $m$ czynników obliczamy resztową macierz korelacji
+$\mathbf{R}-\hat{\mathbf{R}}$ i badać jej wartości własne. Duże dodatnie
+wartości własne sygnalizują pozostawioną wspólną wariancję (niedomiar
+czynników) lub struktury lokalne.
 
-Jakość lokalną rozwiązania oceniać przez zasoby zmienności wspólnej i swoistej. 
-$$
+Jakość lokalną rozwiązania oceniać przez zasoby zmienności wspólnej i
+swoistej. $$
 h_j^2=\sum_{k=1}^{m}\lambda_{jk}^{2}
-$$
-mierzą część wariancji zmiennej $x_j$ wyjaśnioną przez czynniki, bardzo niskie $h_j^2$ wskazują słabą reprezentację zmiennej, natomiast bardzo wysokie — wraz z ryzykiem ujemnych $\Psi_j$ (przypadki Haywooda) — mogą sygnalizować dopasowanie wymuszone lub niewłaściwą liczebność czynników. Sumy kwadratów ładunków per czynnik odzwierciedlają wyjaśnioną wspólną wariancję i służą do oceny równomierności wkładu czynników.
+$$ mierzą część wariancji zmiennej $x_j$ wyjaśnioną przez czynniki,
+bardzo niskie $h_j^2$ wskazują słabą reprezentację zmiennej, natomiast
+bardzo wysokie — wraz z ryzykiem ujemnych $\Psi_j$ (przypadki Haywooda)
+— mogą sygnalizować dopasowanie wymuszone lub niewłaściwą liczebność
+czynników. Sumy kwadratów ładunków per czynnik odzwierciedlają
+wyjaśnioną wspólną wariancję i służą do oceny równomierności wkładu
+czynników.
 
-W rozwiązaniach dopuszczajacych korelacje pomiedzy czynnikami dodatkowym aspektem dopasowania jest macierz korelacji czynników $\Phi$. Bardzo wysokie korelacje między czynnikami sugerują nadmiarowość i potencjalne przeparametryzowanie. Wówczas warto rozważyć redukcję liczby czynników lub alternatywne struktury.
+W rozwiązaniach dopuszczajacych korelacje pomiedzy czynnikami dodatkowym
+aspektem dopasowania jest macierz korelacji czynników $\Phi$. Bardzo
+wysokie korelacje między czynnikami sugerują nadmiarowość i potencjalne
+przeparametryzowanie. Wówczas warto rozważyć redukcję liczby czynników
+lub alternatywne struktury.
 
 Najbardziej znane kryteria doboru liczby czynników to:
 
-### Kryterium wykresu osypiska (Scree plot, Cattell)
-Na osi poziomej odkładamy kolejne wartości własne, a na pionowej ich wielkość. Punktem granicznym jest miejsce, gdzie wykres „załamuje się” i przechodzi w „osypisko” – od tego miejsca czynniki interpretowane są jako szum.
+### Kryterium wykresu osypiska (Scree plot, @cattell1966)
 
-* Zalety: wizualna intuicja, łatwe zastosowanie.
-* Wady: często subiektywność w określeniu miejsca „łokcia”, szczególnie gdy krzywa nie ma wyraźnego załamania.
+Na osi poziomej odkładamy kolejne wartości własne, a na pionowej ich
+wielkość. Punktem granicznym jest miejsce, gdzie wykres „załamuje się” i
+przechodzi w „osypisko” – od tego miejsca czynniki interpretowane są
+jako szum.
 
-### Analiza równoległa (Parallel analysis, Horn)
-Polega na porównaniu wartości własnych dla danych empirycznych z wartościami własnymi uzyskanymi dla danych losowych o tej samej strukturze (ta sama liczba zmiennych i obserwacji). Zatrzymuje się te czynniki, których wartości własne przewyższają np. 95. percentyl rozkładu wartości losowych.
+-   Zalety: wizualna intuicja, łatwe zastosowanie.
+-   Wady: często subiektywność w określeniu miejsca „łokcia”,
+    szczególnie gdy krzywa nie ma wyraźnego załamania.
 
-* Zalety: jedna z najbardziej rekomendowanych metod, dobrze sprawdza się w praktyce.
-* Wady: wymaga procedur symulacyjnych, większej mocy obliczeniowej.
+### Analiza równoległa (Parallel analysis, @horn1965)
 
-### Kryterium MAP (Minimum Average Partial, Velicer)
-Opiera się na analizie korelacji cząstkowych. Stopniowo usuwa się kolejne czynniki, a następnie oblicza średnią wartość kwadratu korelacji cząstkowych. Liczba czynników odpowiadająca minimum tej wartości uznawana jest za optymalną.
+Polega na porównaniu wartości własnych dla danych empirycznych z
+wartościami własnymi uzyskanymi dla danych losowych o tej samej
+strukturze (ta sama liczba zmiennych i obserwacji). Zatrzymuje się te
+czynniki, których wartości własne przewyższają np. 95. percentyl
+rozkładu wartości losowych.
 
-* Zalety: metoda oparta na minimalizacji resztowych zależności, obiektywna.
-* Wady: wrażliwa na naruszenia założeń modelu, mniej intuicyjna dla początkujących.
+-   Zalety: jedna z najbardziej rekomendowanych metod, dobrze sprawdza
+    się w praktyce.
+-   Wady: wymaga procedur symulacyjnych, większej mocy obliczeniowej.
+
+### Kryterium MAP (Minimum Average Partial, @velicer1976)
+
+Opiera się na analizie korelacji cząstkowych. Stopniowo usuwa się
+kolejne czynniki, a następnie oblicza średnią wartość kwadratu korelacji
+cząstkowych. Liczba czynników odpowiadająca minimum tej wartości
+uznawana jest za optymalną.
+
+-   Zalety: metoda oparta na minimalizacji resztowych zależności,
+    obiektywna.
+-   Wady: wrażliwa na naruszenia założeń modelu, mniej intuicyjna dla
+    początkujących.
 
 ### Testy statystyczne dopasowania (dla ML)
-Przy estymacji metodą największej wiarygodności można zastosować test *chi-kwadrat* dla porównania modelu z $m$ czynnikami z modelem pełnym. Sprawdza się, czy macierz implikowana przez model różni się istotnie od empirycznej. Liczbę czynników dobiera się tak, aby model był jeszcze akceptowalny, ale nie przeparametryzowany.
 
-* Zalety: formalne podejście statystyczne.
-* Wady: silna wrażliwość na liczność próby i założenie normalności wielowymiarowej; w dużych próbach nawet dobre modele mogą być odrzucane.
+Przy estymacji metodą największej wiarygodności można zastosować test
+*chi-kwadrat* dla porównania modelu z $m$ czynnikami z modelem pełnym.
+Sprawdza się, czy macierz implikowana przez model różni się istotnie od
+empirycznej. Liczbę czynników dobiera się tak, aby model był jeszcze
+akceptowalny, ale nie przeparametryzowany.
+
+-   Zalety: formalne podejście statystyczne.
+-   Wady: silna wrażliwość na liczność próby i założenie normalności
+    wielowymiarowej; w dużych próbach nawet dobre modele mogą być
+    odrzucane.
 
 ### Kryteria informacyjne (AIC, BIC, CAIC)
-Porównują modele o różnej liczbie czynników, równoważąc dopasowanie (log-wiarygodność) i złożoność (liczbę parametrów). Optymalna liczba czynników to ta, dla której wartość kryterium jest minimalna.
 
-* Zalety: uwzględniają karę za nadmierną złożoność, dobrze sprawdzają się w porównaniach.
-* Wady: wartości kryteriów są zależne od metody estymacji, więc porównywać można tylko modele oszacowane tą samą metodą.
+Porównują modele o różnej liczbie czynników, równoważąc dopasowanie
+(log-wiarygodność) i złożoność (liczbę parametrów). Optymalna liczba
+czynników to ta, dla której wartość kryterium jest minimalna.
+
+-   Zalety: uwzględniają karę za nadmierną złożoność, dobrze sprawdzają
+    się w porównaniach.
+-   Wady: wartości kryteriów są zależne od metody estymacji, więc
+    porównywać można tylko modele oszacowane tą samą metodą.
 
 ### Analiza reszt i spektrum wartości własnych macierzy reszt
-Po przyjęciu liczby czynników oblicza się macierz reszt korelacji $\mathbf{R}-\hat{\mathbf{R}}$ . Jeśli w resztach (poza przekątną) pozostają duże (co do wartości bezwzględnej) wartości własne, oznacza to, że nie wszystkie wspólne zależności zostały uchwycone i potrzebne są dodatkowe czynniki.
 
-* Zalety: pozwala ocenić niedopasowanie „lokalne” i strukturalne.
-* Wady: wymaga bardziej zaawansowanej interpretacji.
+Po przyjęciu liczby czynników oblicza się macierz reszt korelacji
+$\mathbf{R}-\hat{\mathbf{R}}$ . Jeśli w resztach (poza przekątną)
+pozostają duże (co do wartości bezwzględnej) wartości własne, oznacza
+to, że nie wszystkie wspólne zależności zostały uchwycone i potrzebne są
+dodatkowe czynniki.
+
+-   Zalety: pozwala ocenić niedopasowanie „lokalne” i strukturalne.
+-   Wady: wymaga bardziej zaawansowanej interpretacji.
 
 ### Udział wyjaśnionej wariancji
-W praktyce często wymaga się, aby całkowita wyjaśniona wariancja przekraczała określony próg (np. 50% w naukach społecznych). Dodatkowo analizuje się równomierność wkładu poszczególnych czynników.
 
-* Zalety: intuicyjne i łatwe do raportowania.
-* Wady: arbitralne progi, zależne od liczby zmiennych i kontekstu.
+W praktyce często wymaga się, aby całkowita wyjaśniona wariancja
+przekraczała określony próg (np. 50% w naukach społecznych). Dodatkowo
+analizuje się równomierność wkładu poszczególnych czynników.
+
+-   Zalety: intuicyjne i łatwe do raportowania.
+-   Wady: arbitralne progi, zależne od liczby zmiennych i kontekstu.
 
 ## Rotacje czynników
 
-Rotacja czynników jest etapem analizy czynnikowej, którego celem jest poprawa interpretowalności rozwiązania poprzez uproszczenie struktury ładunków czynnikowych. Matematycznie polega ona na zastosowaniu transformacji liniowej do macierzy ładunków $\Lambda$. Jeśli $\Lambda$ jest macierzą $p \times m$ ładunków (gdzie $p$ to liczba zmiennych, a $m$ liczba czynników), to po rotacji otrzymujemy nową macierz ładunków
+Rotacja czynników jest etapem analizy czynnikowej, którego celem jest
+poprawa interpretowalności rozwiązania poprzez uproszczenie struktury
+ładunków czynnikowych. Matematycznie polega ona na zastosowaniu
+transformacji liniowej do macierzy ładunków $\Lambda$. Jeśli $\Lambda$
+jest macierzą $p \times m$ ładunków (gdzie $p$ to liczba zmiennych, a
+$m$ liczba czynników), to po rotacji otrzymujemy nową macierz ładunków
 $$
 \Lambda^* = \Lambda T,
-$$
-gdzie $T$ jest macierzą transformacji rotacyjnej o wymiarach $m \times m$. W zależności od własności macierzy $T$ wyróżnia się dwa główne typy rotacji: ortogonalne i skośne (*oblique*).
-
+$$ gdzie $T$ jest macierzą transformacji rotacyjnej o wymiarach
+$m \times m$. W zależności od własności macierzy $T$ wyróżnia się dwa
+główne typy rotacji: ortogonalne i skośne (*oblique*).
 
 ### Rotacje ortogonalne
 
-W przypadku rotacji ortogonalnych macierz $T$ jest macierzą ortogonalną, czyli spełnia warunek:
-$$T^\top T = TT^\top = I_m.$$
-Oznacza to, że czynniki po rotacji pozostają nieskorelowane ($\Phi = I_m$).
+W przypadku rotacji ortogonalnych macierz $T$ jest macierzą ortogonalną,
+czyli spełnia warunek: $$T^\top T = TT^\top = I_m.$$ Oznacza to, że
+czynniki po rotacji pozostają nieskorelowane ($\Phi = I_m$).
 
 Najważniejsze rodzaje rotacji ortogonalnych:
 
-- *Varimax* (Kaiser, 1958) - najczęściej stosowana rotacja ortogonalna. Maksymalizuje wariancję kwadratów ładunków w ramach każdego czynnika. Prowadzi do tego, że każda zmienna ma wysokie ładunki tylko na jednym czynniku, a bliskie zeru na pozostałych.
-Funkcja celu
-$$
-V = \sum_{j=1}^m \left[ \frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*4} - \left(\frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*2}\right)^2 \right].
-$$
-- *Quartimax* - minimalizuje liczbę czynników potrzebnych do opisania każdej zmiennej, upraszczając wiersze macierzy ładunków. Funkcja celu
-$$
-Q = \sum_{i=1}^p \sum_{j=1}^m \lambda_{ij}^{*4}.
-$$
-- *Equamax* - łączy idee *varimax* i *quartimax.* Celem jest równoważenie prostoty struktur wierszy i kolumn macierzy ładunków. Funkcja celu
-$$
-E = \frac12(Q + V).
-$$
+-   *Varimax* [@kaiser1958] - najczęściej stosowana rotacja ortogonalna.
+    Maksymalizuje wariancję kwadratów ładunków w ramach każdego
+    czynnika. Prowadzi do tego, że każda zmienna ma wysokie ładunki
+    tylko na jednym czynniku, a bliskie zeru na pozostałych. Funkcja
+    celu $$
+    V = \sum_{j=1}^m \left[ \frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*4} - \left(\frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*2}\right)^2 \right].
+    $$
 
-- *Biquartimax* - celem tej rotacji jest jednoczesne uproszczenie wierszy i kolumn macierzy ładunków. W praktyce łączy zalety *varimax* i *quartimax*. Funkcja celu
-$$
-BQ = \alpha \, Q + (1 - \alpha) \, V,
-$$
-z modyfikacją wag, które równoważą wpływ prostoty wierszy i kolumn. Zmienne mają tendencję do ładowania się mocno na jednym czynniku (jak w *varimax*), ale jednocześnie ogranicza się sytuacje, w których jedna zmienna ma średnie ładunki na wielu czynnikach (jak w *quartimax*).
+-   *Quartimax* - minimalizuje liczbę czynników potrzebnych do opisania
+    każdej zmiennej, upraszczając wiersze macierzy ładunków. Funkcja
+    celu $$
+    Q = \sum_{i=1}^p \sum_{j=1}^m \lambda_{ij}^{*4}.
+    $$
+
+-   *Equamax* - łączy idee *varimax* i *quartimax.* Celem jest
+    równoważenie prostoty struktur wierszy i kolumn macierzy ładunków.
+    Funkcja celu $$
+    E = \frac12(Q + V).
+    $$
+
+-   *Biquartimax* - celem tej rotacji jest jednoczesne uproszczenie
+    wierszy i kolumn macierzy ładunków. W praktyce łączy zalety
+    *varimax* i *quartimax*. Funkcja celu $$
+    BQ = \alpha \, Q + (1 - \alpha) \, V,
+    $$ z modyfikacją wag, które równoważą wpływ prostoty wierszy i
+    kolumn. Zmienne mają tendencję do ładowania się mocno na jednym
+    czynniku (jak w *varimax*), ale jednocześnie ogranicza się sytuacje,
+    w których jedna zmienna ma średnie ładunki na wielu czynnikach (jak
+    w *quartimax*).
 
 ### Rotacje skośne (*oblique*)
 
 W przypadku rotacji skośnych macierz $T$ nie musi być ortogonalna, więc
 $$
 T^\top T \neq I_m.
-$$
-W efekcie rotowane czynniki mogą być skorelowane, a macierz korelacji czynników $\Phi$ przyjmuje ogólną postać dodatnio określoną.
+$$ W efekcie rotowane czynniki mogą być skorelowane, a macierz korelacji
+czynników $\Phi$ przyjmuje ogólną postać dodatnio określoną.
 
 Podstawowe rodzaje:
 
-- *Oblimin* (Jennrich & Sampson, 1966) - rodzina rotacji z parametrem $\gamma$, który reguluje stopień skośności. Dla $\gamma = 0$ rozwiązanie staje się *quartimax*, a większe $\gamma$ prowadzą do większej korelacji czynników. Funkcja celu
-$$
-F(\Lambda^*) = \sum_{i=1}^p \sum_{j=1}^m \left(\lambda_{ij}^{*2} - \gamma \frac{\sum_{k=1}^m \lambda_{ik}^{*2}}{m}\right)^2.
-$$
-- *Promax* (Hendrickson & White, 1964) - rotacja skośna oparta na prostym podejściu dwustopniowym. Najpierw stosuje się rotację ortogonalną (najczęściej *varimax*), następnie ładunki są podnoszone do potęgi $k$ (zwykle 3 lub 4), aby wymusić prostą strukturę, i ponownie dopasowywane przy użyciu metody najmniejszych kwadratów
-$$
-\tilde{\lambda}{jk} = \text{sign}(\lambda^*_{jk}) \cdot |\lambda^*_{jk}|^p.
-$$
-Rotacja *promax* pozwala uzyskać bardziej realistyczne struktury, gdy czynniki są rzeczywiście skorelowane. 
+-   *Oblimin* [@jennrich1966] - rodzina rotacji z parametrem $\gamma$,
+    który reguluje stopień skośności. Dla $\gamma = 0$ rozwiązanie staje
+    się *quartimax*, a większe $\gamma$ prowadzą do większej korelacji
+    czynników. Funkcja celu $$
+    F(\Lambda^*) = \sum_{i=1}^p \sum_{j=1}^m \left(\lambda_{ij}^{*2} - \gamma \frac{\sum_{k=1}^m \lambda_{ik}^{*2}}{m}\right)^2.
+    $$
 
-- Geomin (Yates, 1987) - minimalizuje średnią geometryczną kwadratów ładunków, co prowadzi do sytuacji, w której każda zmienna ma niewiele istotnych ładunków. Funkcja celu
-$$
-G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) \right)^{1/m},
-$$
-gdzie $\epsilon$ to mały parametr stabilizujący.
+-   *Promax* [@hendrickson1964] - rotacja skośna oparta na prostym
+    podejściu dwustopniowym. Najpierw stosuje się rotację ortogonalną
+    (najczęściej *varimax*), następnie ładunki są podnoszone do potęgi
+    $k$ (zwykle 3 lub 4), aby wymusić prostą strukturę, i ponownie
+    dopasowywane przy użyciu metody najmniejszych kwadratów $$
+    \tilde{\lambda}{jk} = \text{sign}(\lambda^*_{jk}) \cdot |\lambda^*_{jk}|^p.
+    $$ Rotacja *promax* pozwala uzyskać bardziej realistyczne struktury,
+    gdy czynniki są rzeczywiście skorelowane.
 
-- Simplimax (Kiers, 1994) - uogólnienie kryteriów prostoty, które minimalizuje liczbę dużych i małych ładunków w macierzy, pozwalając użytkownikowi sterować liczbą „prostych” elementów.
+-   Geomin [@everitt1989] - minimalizuje średnią geometryczną kwadratów
+    ładunków, co prowadzi do sytuacji, w której każda zmienna ma
+    niewiele istotnych ładunków. Funkcja celu $$
+    G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) \right)^{1/m},
+    $$ gdzie $\epsilon$ to mały parametr stabilizujący.
+
+-   Simplimax [@kiers1994] - uogólnienie kryteriów prostoty, które
+    minimalizuje liczbę dużych i małych ładunków w macierzy, pozwalając
+    użytkownikowi sterować liczbą „prostych” elementów.
 
 ### Wybór rodzaju rotacji
 
-- Rotacje ortogonalne są preferowane, gdy zakładamy, że czynniki powinny być niezależne teoretycznie.
-- Rotacje skośne stosuje się, gdy istnieje uzasadnienie, że czynniki mogą być skorelowane (co jest częste w naukach społecznych, psychologii czy biologii).
+-   Rotacje ortogonalne są preferowane, gdy zakładamy, że czynniki
+    powinny być niezależne teoretycznie.
+-   Rotacje skośne stosuje się, gdy istnieje uzasadnienie, że czynniki
+    mogą być skorelowane (co jest częste w naukach społecznych,
+    psychologii czy biologii).
 
-::: exm-1
-
-Na potrzeby ilustracji budowy modelu EFA wykorzystamy dane z pakietu `psych`, które zawierają wyniki różnych testów poznawczych (Harman, 1976). Dane te są często używane jako przykład w literaturze dotyczącej analizy czynnikowej.
+::: {#exm-1}
+Na potrzeby ilustracji budowy modelu EFA wykorzystamy dane z pakietu
+`psych`, które zawierają wyniki różnych testów poznawczych [@horn1969].
+Dane te są często używane jako przykład w literaturze dotyczącej analizy
+czynnikowej.
 
 ```{r}
 library(psych)
 
-# Dane: macierz korelacji testów poznawczych (Harman, 1976)
+# Dane: macierz korelacji testów poznawczych
 data("Harman74.cor")
 ```
 
-| Zmienna                | Opis                                                      | Kategoria testu                         |
-| ---------------------- | --------------------------------------------------------- | --------------------------------------- |
-| VisualPerception       | Rozpoznawanie i analiza relacji przestrzennych w figurach | Zdolności przestrzenne / percepcyjne    |
-| Cubes                  | Manipulacja wyobrażeniowa brył, rotacje przestrzenne      | Zdolności przestrzenne                  |
-| PaperFormBoard         | Składanie i dopasowywanie elementów figur                 | Zdolności przestrzenne                  |
-| Flags                  | Rozpoznawanie wzorów i relacji symboli                    | Percepcja wzrokowa / logiczne           |
-| GeneralInformation     | Ogólna wiedza faktograficzna                              | Zdolności werbalne                      |
-| PargraphComprehension  | Rozumienie tekstów pisanych                               | Zdolności werbalne                      |
-| SentenceCompletion     | Uzupełnianie zdań brakującymi słowami                     | Zdolności werbalne                      |
-| WordClassification     | Grupowanie słów według znaczenia                          | Zdolności werbalne / semantyczne        |
-| WordMeaning            | Znajomość i rozumienie znaczeń słów                       | Zdolności werbalne                      |
-| Addition               | Wykonywanie prostych działań arytmetycznych               | Zdolności numeryczne                    |
-| Code                   | Dopasowywanie symboli do liczb według klucza              | Szybkość przetwarzania / percepcja      |
-| CountingDots           | Liczenie elementów wzrokowych                             | Szybkość percepcji / numeryczne         |
-| StraightCurvedCapitals | Rozpoznawanie prostych i zakrzywionych liter              | Percepcja wizualna / szybkość           |
-| WordRecognition        | Rozpoznawanie słów z listy                                | Pamięć i zdolności werbalne             |
-| NumberRecognition      | Rozpoznawanie liczb z listy                               | Pamięć / percepcja numeryczna           |
-| FigureRecognition      | Rozpoznawanie i identyfikacja figur                       | Pamięć wizualna / percepcja             |
-| ObjectNumber           | Dopasowywanie obiektów do liczb                           | Złożone zdolności percepcyjno-num.      |
-| NumberFigure           | Dopasowywanie liczb do figur                              | Złożone zdolności percepcyjno-num.      |
-| FigureWord             | Dopasowywanie figur do słów                               | Łączenie informacji wizualno-werbalnych |
-| Deduction              | Rozwiązywanie zadań logicznych, wnioskowanie              | Rozumowanie logiczne                    |
-| NumericalPuzzles       | Zadania numeryczne o charakterze problemowym              | Zdolności numeryczne / logiczne         |
-| ProblemReasoning       | Rozwiązywanie złożonych problemów                         | Rozumowanie ogólne                      |
-| SeriesCompletion       | Uzupełnianie szeregów logicznych lub numerycznych         | Rozumowanie abstrakcyjne / numeryczne   |
-| ArithmeticProblems     | Rozwiązywanie zadań arytmetycznych o większej trudności   | Zdolności numeryczne                    |
+| Zmienna | Opis | Kategoria testu |
+|------------------|-------------------------------|-----------------------|
+| VisualPerception | Rozpoznawanie i analiza relacji przestrzennych w figurach | Zdolności przestrzenne / percepcyjne |
+| Cubes | Manipulacja wyobrażeniowa brył, rotacje przestrzenne | Zdolności przestrzenne |
+| PaperFormBoard | Składanie i dopasowywanie elementów figur | Zdolności przestrzenne |
+| Flags | Rozpoznawanie wzorów i relacji symboli | Percepcja wzrokowa / logiczne |
+| GeneralInformation | Ogólna wiedza faktograficzna | Zdolności werbalne |
+| PargraphComprehension | Rozumienie tekstów pisanych | Zdolności werbalne |
+| SentenceCompletion | Uzupełnianie zdań brakującymi słowami | Zdolności werbalne |
+| WordClassification | Grupowanie słów według znaczenia | Zdolności werbalne / semantyczne |
+| WordMeaning | Znajomość i rozumienie znaczeń słów | Zdolności werbalne |
+| Addition | Wykonywanie prostych działań arytmetycznych | Zdolności numeryczne |
+| Code | Dopasowywanie symboli do liczb według klucza | Szybkość przetwarzania / percepcja |
+| CountingDots | Liczenie elementów wzrokowych | Szybkość percepcji / numeryczne |
+| StraightCurvedCapitals | Rozpoznawanie prostych i zakrzywionych liter | Percepcja wizualna / szybkość |
+| WordRecognition | Rozpoznawanie słów z listy | Pamięć i zdolności werbalne |
+| NumberRecognition | Rozpoznawanie liczb z listy | Pamięć / percepcja numeryczna |
+| FigureRecognition | Rozpoznawanie i identyfikacja figur | Pamięć wizualna / percepcja |
+| ObjectNumber | Dopasowywanie obiektów do liczb | Złożone zdolności percepcyjno-num. |
+| NumberFigure | Dopasowywanie liczb do figur | Złożone zdolności percepcyjno-num. |
+| FigureWord | Dopasowywanie figur do słów | Łączenie informacji wizualno-werbalnych |
+| Deduction | Rozwiązywanie zadań logicznych, wnioskowanie | Rozumowanie logiczne |
+| NumericalPuzzles | Zadania numeryczne o charakterze problemowym | Zdolności numeryczne / logiczne |
+| ProblemReasoning | Rozwiązywanie złożonych problemów | Rozumowanie ogólne |
+| SeriesCompletion | Uzupełnianie szeregów logicznych lub numerycznych | Rozumowanie abstrakcyjne / numeryczne |
+| ArithmeticProblems | Rozwiązywanie zadań arytmetycznych o większej trudności | Zdolności numeryczne |
 
+Widać, że testy można grupować w pięć głównych obszarów:
+**przestrzenne/percepcyjne** (np. *Cubes, VisualPerception*),
+**werbalne** (np. *WordMeaning, SentenceCompletion*), **numeryczne**
+(np. *Addition, ArithmeticProblems*), **pamięciowe** (np.
+*WordRecognition, NumberRecognition*), oraz **rozumowania i logiczne**
+(np. *Deduction, SeriesCompletion*). To właśnie takie powiązania w
+macierzy korelacji uzasadniają zastosowanie analizy czynnikowej w celu
+identyfikacji ukrytych wymiarów inteligencji.
 
-Widać, że testy można grupować w pięć głównych obszarów: **przestrzenne/percepcyjne** (np. *Cubes, VisualPerception*), **werbalne** (np. *WordMeaning, SentenceCompletion*), **numeryczne** (np. *Addition, ArithmeticProblems*), **pamięciowe** (np. *WordRecognition, NumberRecognition*), oraz **rozumowania i logiczne** (np. *Deduction, SeriesCompletion*). To właśnie takie powiązania w macierzy korelacji uzasadniają zastosowanie analizy czynnikowej w celu identyfikacji ukrytych wymiarów inteligencji.
-
-Najpierw sprawdzimy czy dane nadają się do analizy czynnikowej, obliczając test KMO i test sferyczności Bartletta.
-
+Najpierw sprawdzimy czy dane nadają się do analizy czynnikowej,
+obliczając test KMO i test sferyczności Bartletta.
 
 ```{r}
 library(tidyverse)
@@ -681,44 +1066,84 @@ library(easystats)
 check_factorstructure(Harman74.cor$cov, n = 145) 
 ```
 
-Test sferyczności Bartletta dostarcza podstawowego potwierdzenia, że w zbiorze danych występują istotne statystycznie korelacje pomiędzy zmiennymi. Wynik $\chi^2(276) = 1545.86,\ p < 0.001$ oznacza, że hipoteza zerowa o macierzy korelacji równej macierzy jednostkowej zostaje odrzucona. Innymi słowy, zmienne nie są niezależne, a ich struktura korelacyjna uzasadnia dalsze poszukiwanie wspólnych czynników. Gdyby test okazał się nieistotny, sugerowałby brak uzasadnienia do stosowania analizy czynnikowej, ponieważ nie byłoby wystarczających zależności między zmiennymi.
+Test sferyczności Bartletta dostarcza podstawowego potwierdzenia, że w
+zbiorze danych występują istotne statystycznie korelacje pomiędzy
+zmiennymi. Wynik $\chi^2(276) = 1545.86,\ p < 0.001$ oznacza, że
+hipoteza zerowa o macierzy korelacji równej macierzy jednostkowej
+zostaje odrzucona. Innymi słowy, zmienne nie są niezależne, a ich
+struktura korelacyjna uzasadnia dalsze poszukiwanie wspólnych czynników.
+Gdyby test okazał się nieistotny, sugerowałby brak uzasadnienia do
+stosowania analizy czynnikowej, ponieważ nie byłoby wystarczających
+zależności między zmiennymi.
 
-Miara adekwatności próby KMO (Kaiser–Meyer–Olkin) wskazuje, na ile obserwowane korelacje mogą być wyjaśnione przez czynniki wspólne w porównaniu z korelacjami cząstkowymi. Wynik ogólny KMO = 0.88 mieści się w przedziale uznawanym za „bardzo dobry” (powyżej 0.80). Oznacza to, że dane dobrze nadają się do analizy czynnikowej i możemy oczekiwać stabilnych, interpretowalnych rozwiązań. Wartości indywidualne dla poszczególnych zmiennych mieszczą się między 0.78 a 0.93, a więc wszystkie osiągają poziom „dobry” lub „bardzo dobry”. Najwyższe wartości, takie jak Deduction (0.93), ProblemReasoning (0.93) czy ArithmeticProblems (0.92), wskazują na wyjątkowo silną reprezentację tych testów w przestrzeni czynnikowej. Z kolei najniższe, jak PaperFormBoard (0.78), są nadal akceptowalne, ale sugerują nieco słabszą integrację tej zmiennej z pozostałymi. Całościowo zarówno wynik globalny, jak i rozkład wartości cząstkowych KMO jednoznacznie potwierdzają zasadność prowadzenia analizy czynnikowej na tym zbiorze danych.
+Miara adekwatności próby KMO (Kaiser–Meyer–Olkin) wskazuje, na ile
+obserwowane korelacje mogą być wyjaśnione przez czynniki wspólne w
+porównaniu z korelacjami cząstkowymi. Wynik ogólny KMO = 0.88 mieści się
+w przedziale uznawanym za „bardzo dobry” (powyżej 0.80). Oznacza to, że
+dane dobrze nadają się do analizy czynnikowej i możemy oczekiwać
+stabilnych, interpretowalnych rozwiązań. Wartości indywidualne dla
+poszczególnych zmiennych mieszczą się między 0.78 a 0.93, a więc
+wszystkie osiągają poziom „dobry” lub „bardzo dobry”. Najwyższe
+wartości, takie jak Deduction (0.93), ProblemReasoning (0.93) czy
+ArithmeticProblems (0.92), wskazują na wyjątkowo silną reprezentację
+tych testów w przestrzeni czynnikowej. Z kolei najniższe, jak
+PaperFormBoard (0.78), są nadal akceptowalne, ale sugerują nieco słabszą
+integrację tej zmiennej z pozostałymi. Całościowo zarówno wynik
+globalny, jak i rozkład wartości cząstkowych KMO jednoznacznie
+potwierdzają zasadność prowadzenia analizy czynnikowej na tym zbiorze
+danych.
 
 ```{r}
 # Parallel analysis
 fa.parallel(Harman74.cor$cov, n.obs = 145, fa = "fa")
 ```
 
-Samo kryterium paralelne wskazuje na 4 czynniki, choć gdyby brać pod uwagę samo kryterium osypiska to rozwiązanie z 5 czynnikami też wydaje się być właściwe.
+Samo kryterium paralelne wskazuje na 4 czynniki, choć gdyby brać pod
+uwagę samo kryterium osypiska to rozwiązanie z 5 czynnikami też wydaje
+się być właściwe.
 
 ```{r}
 # Kryterium MAP
 VSS(Harman74.cor$cov, n.obs = 145, plot = F)
 ```
 
-| Wskaźnik    | Interpretacja                                                                                     |
-| ----------- | ------------------------------------------------------------------------------------------------- |
-| **vss1**    | Dopasowanie Very Simple Structure przy założeniu jednego czynnika na zmienną; wyższe = lepsze.    |
-| **vss2**    | Dopasowanie VSS przy założeniu maksymalnie dwóch czynników na zmienną; wyższe = lepsze.           |
-| **map**     | Kryterium Velicera; minimum wskazuje optymalną liczbę czynników (eliminuje korelacje cząstkowe).  |
-| **dof**     | Stopnie swobody testu dopasowania chi-kwadrat.                                                    |
-| **chisq**   | Wartość statystyki chi-kwadrat; niska w relacji do df sugeruje dobre dopasowanie.                 |
-| **prob**    | Wartość p testu chi-kwadrat; wysoka oznacza brak podstaw do odrzucenia poprawnego dopasowania.    |
-| **sqresid** | Suma kwadratów reszt (różnice R − R̂); niższe wartości = lepsze odwzorowanie danych.              |
-| **fit**     | Proporcja wyjaśnionej wariancji w macierzy korelacji; wyższe wartości = lepsze dopasowanie.       |
-| **RMSEA**   | Błąd aproksymacji w populacji; < 0.05 bardzo dobre, 0.05–0.08 akceptowalne, > 0.10 słabe.         |
-| **BIC**     | Kryterium informacyjne; niższe wartości = lepszy kompromis dopasowania i prostoty.                |
-| **SABIC**   | Wersja BIC korygowana o wielkość próby; lepsza przy mniejszych próbach.                           |
-| **complex** | Średnia liczba czynników na które ładują się zmienne; niższe = prostsza struktura.                |
-| **eChisq**  | Estymowana statystyka chi-kwadrat w alternatywnej estymacji; interpretacja analogiczna jak chisq. |
-| **SRMR**    | Standardized Root Mean Square Residual; niski poziom (< 0.08) wskazuje dobre dopasowanie.         |
-| **eCRMS**   | Estymowany błąd resztowy analogiczny do RMSEA; mniejsze wartości = lepsze dopasowanie.            |
-| **eBIC**    | Estymowana wersja kryterium BIC; niższe wartości = lepszy model.                                  |
+| Wskaźnik | Interpretacja |
+|---------------------|---------------------------------------------------|
+| **vss1** | Dopasowanie Very Simple Structure przy założeniu jednego czynnika na zmienną; wyższe = lepsze. |
+| **vss2** | Dopasowanie VSS przy założeniu maksymalnie dwóch czynników na zmienną; wyższe = lepsze. |
+| **map** | Kryterium Velicera; minimum wskazuje optymalną liczbę czynników (eliminuje korelacje cząstkowe). |
+| **dof** | Stopnie swobody testu dopasowania chi-kwadrat. |
+| **chisq** | Wartość statystyki chi-kwadrat; niska w relacji do df sugeruje dobre dopasowanie. |
+| **prob** | Wartość p testu chi-kwadrat; wysoka oznacza brak podstaw do odrzucenia poprawnego dopasowania. |
+| **sqresid** | Suma kwadratów reszt (różnice R − R̂); niższe wartości = lepsze odwzorowanie danych. |
+| **fit** | Proporcja wyjaśnionej wariancji w macierzy korelacji; wyższe wartości = lepsze dopasowanie. |
+| **RMSEA** | Błąd aproksymacji w populacji; \< 0.05 bardzo dobre, 0.05–0.08 akceptowalne, \> 0.10 słabe. |
+| **BIC** | Kryterium informacyjne; niższe wartości = lepszy kompromis dopasowania i prostoty. |
+| **SABIC** | Wersja BIC korygowana o wielkość próby; lepsza przy mniejszych próbach. |
+| **complex** | Średnia liczba czynników na które ładują się zmienne; niższe = prostsza struktura. |
+| **eChisq** | Estymowana statystyka chi-kwadrat w alternatywnej estymacji; interpretacja analogiczna jak chisq. |
+| **SRMR** | Standardized Root Mean Square Residual; niski poziom (\< 0.08) wskazuje dobre dopasowanie. |
+| **eCRMS** | Estymowany błąd resztowy analogiczny do RMSEA; mniejsze wartości = lepsze dopasowanie. |
+| **eBIC** | Estymowana wersja kryterium BIC; niższe wartości = lepszy model. |
 
-Kryterium MAP Velicera wskazuje, że minimalna wartość statystyki została osiągnięta przy czterech czynnikach (MAP = 0.017). Oznacza to, że w ujęciu tego kryterium, czynniki te najlepiej redukują korelacje cząstkowe między zmiennymi – czyli eliminują największą część wariancji niepowiązanej ze wspólną strukturą czynnikową. Innymi słowy, przy czterech czynnikach model najefektywniej odwzorowuje wspólne zależności bez pozostawiania nadmiernych reszt.
+Kryterium MAP Velicera wskazuje, że minimalna wartość statystyki została
+osiągnięta przy czterech czynnikach (MAP = 0.017). Oznacza to, że w
+ujęciu tego kryterium, czynniki te najlepiej redukują korelacje
+cząstkowe między zmiennymi – czyli eliminują największą część wariancji
+niepowiązanej ze wspólną strukturą czynnikową. Innymi słowy, przy
+czterech czynnikach model najefektywniej odwzorowuje wspólne zależności
+bez pozostawiania nadmiernych reszt.
 
-Warto jednak zauważyć, że różne kryteria sugerują odmienne liczby czynników. Kryterium BIC wskazuje na trzy czynniki jako najbardziej oczekiwane rozwiązanie, natomiast skorygowany BIC (SABIC) preferuje pięć czynników. Z kolei wskaźniki VSS (Very Simple Structure) sugerują jedno– lub dwuczynnikowe rozwiązania, maksymalizujące prostotę struktury. Ostateczna decyzja wymaga zatem kompromisu: MAP sugeruje cztery czynniki jako najpełniej oddające wspólną strukturę zmiennych, BIC preferuje trzy jako prostsze, a SABIC wskazuje na pięć. Interpretacja powinna uwzględniać nie tylko statystyki, lecz także sensowność teoretyczną i interpretowalność uzyskanych czynników w kontekście badanego materiału.
+Warto jednak zauważyć, że różne kryteria sugerują odmienne liczby
+czynników. Kryterium BIC wskazuje na trzy czynniki jako najbardziej
+oczekiwane rozwiązanie, natomiast skorygowany BIC (SABIC) preferuje pięć
+czynników. Z kolei wskaźniki VSS (Very Simple Structure) sugerują jedno–
+lub dwuczynnikowe rozwiązania, maksymalizujące prostotę struktury.
+Ostateczna decyzja wymaga zatem kompromisu: MAP sugeruje cztery czynniki
+jako najpełniej oddające wspólną strukturę zmiennych, BIC preferuje trzy
+jako prostsze, a SABIC wskazuje na pięć. Interpretacja powinna
+uwzględniać nie tylko statystyki, lecz także sensowność teoretyczną i
+interpretowalność uzyskanych czynników w kontekście badanego materiału.
 
 ```{r}
 # Analiza czynnikowa
@@ -728,24 +1153,61 @@ fa_model <- fa(Harman74.cor$cov, nfactors = 4, n.obs = 145,
 fa_model
 ```
 
-Model czteroczynnikowy oszacowany metodą największej wiarygodności na macierzy korelacji `Harman74.cor$cov` dobrze odwzorowuje strukturę danych i dostarcza interpretowalnych wyników.
+Model czteroczynnikowy oszacowany metodą największej wiarygodności na
+macierzy korelacji `Harman74.cor$cov` dobrze odwzorowuje strukturę
+danych i dostarcza interpretowalnych wyników.
 
-Pierwszy czynnik (`ML1`) skupia się na kompetencjach werbalnych i wiedzy ogólnej. Najwyższe ładunki uzyskano dla zmiennych takich jak `WordMeaning` (0.81), `SentenceCompletion` (0.81), `ParagraphComprehension` (0.77) czy `GeneralInformation` (0.74). Wskazuje to, że ML1 reprezentuje wymiar wiedzy językowej i rozumienia tekstu. Zasoby zmienności wspólej dla tych zmiennych są wysokie (powyżej 0.65), co oznacza, że znaczna część ich wariancji została uchwycona przez model.
+Pierwszy czynnik (`ML1`) skupia się na kompetencjach werbalnych i wiedzy
+ogólnej. Najwyższe ładunki uzyskano dla zmiennych takich jak
+`WordMeaning` (0.81), `SentenceCompletion` (0.81),
+`ParagraphComprehension` (0.77) czy `GeneralInformation` (0.74).
+Wskazuje to, że ML1 reprezentuje wymiar wiedzy językowej i rozumienia
+tekstu. Zasoby zmienności wspólej dla tych zmiennych są wysokie (powyżej
+0.65), co oznacza, że znaczna część ich wariancji została uchwycona
+przez model.
 
-Drugi czynnik (`ML2`) odzwierciedla zdolności arytmetyczne i numeryczne. Najsilniejsze ładunki dotyczą zmiennych `Addition` (0.83), `CountingDots` (0.72) i `ArithmeticProblems` (0.50). Oznacza to, że `ML2` reprezentuje wymiar obliczeniowy, obejmujący zarówno proste działania matematyczne, jak i bardziej złożone zadania wymagające operowania na liczbach. Wysokie wartości $h_j^2$ (np. 0.76 dla `Addition`) sugerują dobrą reprezentację tych zmiennych.
+Drugi czynnik (`ML2`) odzwierciedla zdolności arytmetyczne i numeryczne.
+Najsilniejsze ładunki dotyczą zmiennych `Addition` (0.83),
+`CountingDots` (0.72) i `ArithmeticProblems` (0.50). Oznacza to, że
+`ML2` reprezentuje wymiar obliczeniowy, obejmujący zarówno proste
+działania matematyczne, jak i bardziej złożone zadania wymagające
+operowania na liczbach. Wysokie wartości $h_j^2$ (np. 0.76 dla
+`Addition`) sugerują dobrą reprezentację tych zmiennych.
 
-Trzeci czynnik (`ML3`) można interpretować jako zdolności wzrokowo-przestrzenne i percepcyjne. Najsilniejsze ładunki wystąpiły dla `VisualPerception` (0.69), `PaperFormBoard` (0.57), `Flags` (0.53) oraz `SeriesCompletion` (0.50). Grupa ta obejmuje zadania związane z manipulacją figurami, rozpoznawaniem wzorów i orientacją przestrzenną.
+Trzeci czynnik (`ML3`) można interpretować jako zdolności
+wzrokowo-przestrzenne i percepcyjne. Najsilniejsze ładunki wystąpiły dla
+`VisualPerception` (0.69), `PaperFormBoard` (0.57), `Flags` (0.53) oraz
+`SeriesCompletion` (0.50). Grupa ta obejmuje zadania związane z
+manipulacją figurami, rozpoznawaniem wzorów i orientacją przestrzenną.
 
-Czwarty czynnik (`ML4`) wydaje się związany z rozpoznawaniem wzrokowym i pamięcią wzrokową. Największe ładunki dotyczą zmiennych takich jak `WordRecognition` (0.55), `NumberRecognition` (0.52), `FigureRecognition` (0.53) czy `ObjectNumber` (0.57). Sugeruje to wymiar rozpoznawania i szybkiego identyfikowania bodźców wzrokowych.
+Czwarty czynnik (`ML4`) wydaje się związany z rozpoznawaniem wzrokowym i
+pamięcią wzrokową. Największe ładunki dotyczą zmiennych takich jak
+`WordRecognition` (0.55), `NumberRecognition` (0.52),
+`FigureRecognition` (0.53) czy `ObjectNumber` (0.57). Sugeruje to wymiar
+rozpoznawania i szybkiego identyfikowania bodźców wzrokowych.
 
-Łącznie cztery czynniki wyjaśniają 48% wariancji całkowitej, co w psychometrii jest uznawane za wartość akceptowalną przy tego typu danych. Dopasowanie globalne modelu również jest dobre: RMSEA = 0.038 (z przedziałem ufności 0.016–0.056) wskazuje na bardzo dobre dopasowanie, a Tucker-Lewis Index wynosi 0.951, co również świadczy o wysokiej jakości modelu. Niskie wartości RMSR (0.04) oraz wysoka zgodność dopasowania poza przekątną (0.98) potwierdzają, że model trafnie odwzorowuje strukturę korelacji między zmiennymi.
+Łącznie cztery czynniki wyjaśniają 48% wariancji całkowitej, co w
+psychometrii jest uznawane za wartość akceptowalną przy tego typu
+danych. Dopasowanie globalne modelu również jest dobre: RMSEA = 0.038 (z
+przedziałem ufności 0.016–0.056) wskazuje na bardzo dobre dopasowanie, a
+Tucker-Lewis Index wynosi 0.951, co również świadczy o wysokiej jakości
+modelu. Niskie wartości RMSR (0.04) oraz wysoka zgodność dopasowania
+poza przekątną (0.98) potwierdzają, że model trafnie odwzorowuje
+strukturę korelacji między zmiennymi.
 
-Ostatecznie wyniki wskazują, że struktura czteroczynnikowa jest dobrze uzasadniona empirycznie i teoretycznie. Każdy czynnik odpowiada odmiennym zdolnościom poznawczym – werbalnym, numerycznym, przestrzennym i percepcyjno-pamięciowym – a ich interpretacje są zgodne z psychologicznymi ujęciami inteligencji wielowymiarowej.
+Ostatecznie wyniki wskazują, że struktura czteroczynnikowa jest dobrze
+uzasadniona empirycznie i teoretycznie. Każdy czynnik odpowiada
+odmiennym zdolnościom poznawczym – werbalnym, numerycznym, przestrzennym
+i percepcyjno-pamięciowym – a ich interpretacje są zgodne z
+psychologicznymi ujęciami inteligencji wielowymiarowej.
 
-Dla większej czytelności przedstawiamy ładunki czynnikowe po rotacji varimax w formie tabelarycznej, z wyciętymi ładunkami o niskich wartościach.
+Dla większej czytelności przedstawiamy ładunki czynnikowe po rotacji
+varimax w formie tabelarycznej, z wyciętymi ładunkami o niskich
+wartościach.
 
 ```{r}
-model_parameters(fa_model, sort = TRUE, threshold = "max")
+model_parameters(fa_model, sort = TRUE, threshold = "max") %>% 
+  print_html()
 ```
 
 Możemy też przedstawić model graficznie.
@@ -756,4 +1218,28 @@ Możemy też przedstawić model graficznie.
 fa.diagram(fa_model, marg = c(1,5,1,1), rsize = 2)
 ```
 
+Można spróbować estymować model z pięcioma czynnikami, co odpowiadałoby
+pierwotnemu rozpoznaniu obszarów.
+
+```{r}
+fa_model_5 <- fa(Harman74.cor$cov, nfactors = 5, n.obs = 145, 
+                 fm = "ml", rotate = "varimax")
+model_parameters(fa_model_5, sort = TRUE, threshold = "max") %>% 
+  print_html()
+```
+
+Choć wzrósł nieco poziom wyjaśnionej wariancji przez czynniki, to jednak
+rozwiązanie, w którym występują pojedyncze zmienne jako czynnik nie są
+porządane. Dlatego pozostaniemy przy rozwiązaniu z czterema czynnikami.
 :::
+
+::: callout-tip
+Liczba czynników, może być szacowana na podstawie różnych kryteriów, z
+których każde eksponuje inny aspekt, ale ostateczna decyzja o wyborze
+liczby czynników powinna być podyktowana głównie zgodnością otrzymany
+wyników z teorią oraz interpretowalnością. Oczywiście nie powinno się to
+dziać kosztem znacznego obniżenia poziomu dopasowania modelu.
+:::
+
+Na temat konfiramcyjnej analizy czynnikowej (CFA) zostnie poświęcony
+kolejny rozdział.

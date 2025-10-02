@@ -52,7 +52,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -61,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./sem.html" rel="next">
 <link href="./cca.html" rel="prev">
 <link href="./images/cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
@@ -361,6 +381,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./sem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modele strukturalne</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -379,14 +405,15 @@ window.Quarto = {
 <li><a href="#za%C5%82o%C5%BCenia-klasycznego-modelu-efa" id="toc-założenia-klasycznego-modelu-efa" class="nav-link" data-scroll-target="#za%C5%82o%C5%BCenia-klasycznego-modelu-efa">Założenia klasycznego modelu EFA</a></li>
   </ul>
 </li>
+  <li><a href="#za%C5%82o%C5%BCenia-dotycz%C4%85ce-danych" id="toc-założenia-dotyczące-danych" class="nav-link" data-scroll-target="#za%C5%82o%C5%BCenia-dotycz%C4%85ce-danych">Założenia dotyczące danych</a></li>
   <li>
 <a href="#metody-estymacji-%C5%82adunk%C3%B3w-czynnikowych" id="toc-metody-estymacji-ładunków-czynnikowych" class="nav-link" data-scroll-target="#metody-estymacji-%C5%82adunk%C3%B3w-czynnikowych">Metody estymacji ładunków czynnikowych</a>
   <ul class="collapse">
-<li><a href="#metoda-najwi%C4%99kszej-wiarogodno%C5%9Bci-ang.-maximal-likelihood-ml" id="toc-metoda-największej-wiarogodności-ang.-maximal-likelihood-ml" class="nav-link" data-scroll-target="#metoda-najwi%C4%99kszej-wiarogodno%C5%9Bci-ang.-maximal-likelihood-ml">Metoda największej wiarogodności (ang. <em>Maximal Likelihood, ML</em>)</a></li>
-  <li><a href="#metoda-osi-g%C5%82%C3%B3wnych-ang.-principal-axis-factoring-paf" id="toc-metoda-osi-głównych-ang.-principal-axis-factoring-paf" class="nav-link" data-scroll-target="#metoda-osi-g%C5%82%C3%B3wnych-ang.-principal-axis-factoring-paf">Metoda osi głównych (ang. <em>Principal Axis Factoring, PAF</em>)</a></li>
-  <li><a href="#metoda-s%C5%82adowych-g%C5%82%C3%B3wnych-ang.-principal-component-method" id="toc-metoda-sładowych-głównych-ang.-principal-component-method" class="nav-link" data-scroll-target="#metoda-s%C5%82adowych-g%C5%82%C3%B3wnych-ang.-principal-component-method">Metoda sładowych głównych (ang. <em>Principal Component Method</em>)</a></li>
-  <li><a href="#metoda-minimalizacji-reszt-ang.-minres" id="toc-metoda-minimalizacji-reszt-ang.-minres" class="nav-link" data-scroll-target="#metoda-minimalizacji-reszt-ang.-minres">Metoda minimalizacji reszt (ang. <em>MINRES</em>)</a></li>
-  <li><a href="#metoda-uog%C3%B3lnionych-najmniejszych-kwadrat%C3%B3w-ang.-generalized-least-squares-gls" id="toc-metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls" class="nav-link" data-scroll-target="#metoda-uog%C3%B3lnionych-najmniejszych-kwadrat%C3%B3w-ang.-generalized-least-squares-gls">Metoda uogólnionych najmniejszych kwadratów (ang. <em>Generalized Least Squares, GLS</em>)</a></li>
+<li><a href="#metoda-najwi%C4%99kszej-wiarogodno%C5%9Bci-ang.-maximal-likelihood-ml-lawley1940" id="toc-metoda-największej-wiarogodności-ang.-maximal-likelihood-ml-lawley1940" class="nav-link" data-scroll-target="#metoda-najwi%C4%99kszej-wiarogodno%C5%9Bci-ang.-maximal-likelihood-ml-lawley1940">Metoda największej wiarogodności (ang. <em>Maximal Likelihood, ML</em>) <span class="citation" data-cites="lawley1940">(Lawley 1940)</span></a></li>
+  <li><a href="#metoda-osi-g%C5%82%C3%B3wnych-ang.-principal-axis-factoring-paf-grieder2020" id="toc-metoda-osi-głównych-ang.-principal-axis-factoring-paf-grieder2020" class="nav-link" data-scroll-target="#metoda-osi-g%C5%82%C3%B3wnych-ang.-principal-axis-factoring-paf-grieder2020">Metoda osi głównych (ang. <em>Principal Axis Factoring, PAF</em>) <span class="citation" data-cites="grieder2020">(Grieder i Steiner 2020)</span></a></li>
+  <li><a href="#metoda-s%C5%82adowych-g%C5%82%C3%B3wnych-ang.-principal-component-method-wang2008" id="toc-metoda-sładowych-głównych-ang.-principal-component-method-wang2008" class="nav-link" data-scroll-target="#metoda-s%C5%82adowych-g%C5%82%C3%B3wnych-ang.-principal-component-method-wang2008">Metoda sładowych głównych (ang. <em>Principal Component Method</em>) <span class="citation" data-cites="wang2008">(Wang i in. 2008)</span></a></li>
+  <li><a href="#metoda-minimalizacji-reszt-ang.-minres-harman1966" id="toc-metoda-minimalizacji-reszt-ang.-minres-harman1966" class="nav-link" data-scroll-target="#metoda-minimalizacji-reszt-ang.-minres-harman1966">Metoda minimalizacji reszt (ang. <em>MINRES</em>) <span class="citation" data-cites="harman1966">(Harman i Jones 1966)</span></a></li>
+  <li><a href="#metoda-uog%C3%B3lnionych-najmniejszych-kwadrat%C3%B3w-ang.-generalized-least-squares-gls-j%C3%B6reskog1972" id="toc-metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls-jöreskog1972" class="nav-link" data-scroll-target="#metoda-uog%C3%B3lnionych-najmniejszych-kwadrat%C3%B3w-ang.-generalized-least-squares-gls-j%C3%B6reskog1972">Metoda uogólnionych najmniejszych kwadratów (ang. <em>Generalized Least Squares, GLS</em>) <span class="citation" data-cites="jöreskog1972">(Jöreskog i Goldberger 1972)</span></a></li>
   </ul>
 </li>
   <li>
@@ -398,9 +425,9 @@ window.Quarto = {
   <li><a href="#analiza-reszt" id="toc-analiza-reszt" class="nav-link" data-scroll-target="#analiza-reszt">Analiza reszt</a></li>
   <li><a href="#kryteria-informacyjne" id="toc-kryteria-informacyjne" class="nav-link" data-scroll-target="#kryteria-informacyjne">Kryteria informacyjne</a></li>
   <li><a href="#inne-wska%C5%BAniki-dopasowania" id="toc-inne-wskaźniki-dopasowania" class="nav-link" data-scroll-target="#inne-wska%C5%BAniki-dopasowania">Inne wskaźniki dopasowania</a></li>
-  <li><a href="#kryterium-wykresu-osypiska-scree-plot-cattell" id="toc-kryterium-wykresu-osypiska-scree-plot-cattell" class="nav-link" data-scroll-target="#kryterium-wykresu-osypiska-scree-plot-cattell">Kryterium wykresu osypiska (Scree plot, Cattell)</a></li>
-  <li><a href="#analiza-r%C3%B3wnoleg%C5%82a-parallel-analysis-horn" id="toc-analiza-równoległa-parallel-analysis-horn" class="nav-link" data-scroll-target="#analiza-r%C3%B3wnoleg%C5%82a-parallel-analysis-horn">Analiza równoległa (Parallel analysis, Horn)</a></li>
-  <li><a href="#kryterium-map-minimum-average-partial-velicer" id="toc-kryterium-map-minimum-average-partial-velicer" class="nav-link" data-scroll-target="#kryterium-map-minimum-average-partial-velicer">Kryterium MAP (Minimum Average Partial, Velicer)</a></li>
+  <li><a href="#kryterium-wykresu-osypiska-scree-plot-cattell1966" id="toc-kryterium-wykresu-osypiska-scree-plot-cattell1966" class="nav-link" data-scroll-target="#kryterium-wykresu-osypiska-scree-plot-cattell1966">Kryterium wykresu osypiska (Scree plot, <span class="citation" data-cites="cattell1966">Cattell (1966)</span>)</a></li>
+  <li><a href="#analiza-r%C3%B3wnoleg%C5%82a-parallel-analysis-horn1965" id="toc-analiza-równoległa-parallel-analysis-horn1965" class="nav-link" data-scroll-target="#analiza-r%C3%B3wnoleg%C5%82a-parallel-analysis-horn1965">Analiza równoległa (Parallel analysis, <span class="citation" data-cites="horn1965">Horn (1965)</span>)</a></li>
+  <li><a href="#kryterium-map-minimum-average-partial-velicer1976" id="toc-kryterium-map-minimum-average-partial-velicer1976" class="nav-link" data-scroll-target="#kryterium-map-minimum-average-partial-velicer1976">Kryterium MAP (Minimum Average Partial, <span class="citation" data-cites="velicer1976">Velicer (1976)</span>)</a></li>
   <li><a href="#testy-statystyczne-dopasowania-dla-ml" id="toc-testy-statystyczne-dopasowania-dla-ml" class="nav-link" data-scroll-target="#testy-statystyczne-dopasowania-dla-ml">Testy statystyczne dopasowania (dla ML)</a></li>
   <li><a href="#kryteria-informacyjne-aic-bic-caic" id="toc-kryteria-informacyjne-aic-bic-caic" class="nav-link" data-scroll-target="#kryteria-informacyjne-aic-bic-caic">Kryteria informacyjne (AIC, BIC, CAIC)</a></li>
   <li><a href="#analiza-reszt-i-spektrum-warto%C5%9Bci-w%C5%82asnych-macierzy-reszt" id="toc-analiza-reszt-i-spektrum-wartości-własnych-macierzy-reszt" class="nav-link" data-scroll-target="#analiza-reszt-i-spektrum-warto%C5%9Bci-w%C5%82asnych-macierzy-reszt">Analiza reszt i spektrum wartości własnych macierzy reszt</a></li>
@@ -437,7 +464,7 @@ window.Quarto = {
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Analiza głównych składowych (PCA, <em>Principal Component Analysis</em>) to technika redukcji wymiarowości, która przekształca oryginalne zmienne w nowe, nieskorelowane zmienne (składowe), maksymalizując wariancję. Ta metoda zostanie przedstawiona w następnych rozdziałach.</p></div></div><p>Można wyróżnić dwa podstawowe podejścia do analizy czynnikowej. <strong>Eksploracyjna analiza czynnikowa (EFA, <em>Exploratory Factor Analysis</em>)</strong> jest stosowana, gdy badacz nie ma wcześniej zdefiniowanych hipotez co do liczby czynników czy struktury powiązań między nimi. Jej celem jest odkrycie potencjalnych układów zależności i zidentyfikowanie liczby czynników najlepiej opisujących dane. <strong>Konfirmacyjna analiza czynnikowa (CFA, <em>Confirmatory Factor Analysis</em>)</strong> jest natomiast podejściem dedukcyjnym – badacz z góry formułuje model teoretyczny (np. że pewne zmienne mierzą „pamięć roboczą”, a inne „myślenie abstrakcyjne”) i testuje jego zgodność z danymi empirycznymi. CFA jest szczególnie istotna w kontekście walidacji narzędzi badawczych, np. kwestionariuszy psychologicznych, i stanowi fundament bardziej zaawansowanych modeli strukturalnych (SEM).</p>
 <p>Historia analizy czynnikowej sięga początków XX wieku i jest ściśle związana z psychometrią. Jej pionierem był Charles Spearman, który w 1904 roku zaproponował model jednoczynnikowy, interpretując zmienne poznawcze jako przejawy ogólnego czynnika inteligencji. W kolejnych dekadach metoda była rozwijana przez psychologów, takich jak Thurstone, który wprowadził koncepcję wieloczynnikową oraz przez statystyków, którzy rozwijali formalne podstawy estymacji czynników i rotacji macierzy ładunków. W latach 60. i 70. analiza czynnikowa stała się jedną z najczęściej stosowanych metod w badaniach psychologicznych i społecznych, a wraz z rozwojem informatyki zyskała na popularności także w ekonomii, biologii czy medycynie. Dziś analiza czynnikowa jest narzędziem interdyscyplinarnym, stosowanym zarówno do eksploracji struktur danych, jak i do testowania teorii opartych na zmiennych latentnych.</p>
 <section id="eksploracyjna-analiza-czynnikowa" class="level2"><h2 class="anchored" data-anchor-id="eksploracyjna-analiza-czynnikowa">Eksploracyjna analiza czynnikowa</h2>
-<p>Formalna postać modelu eksploracyjnej analizy czynnikowej (EFA) zakłada, że zmienne obserwowalne <span class="math inline">\(\mathbf{x} = (x_1, x_2, \ldots, x_p)^\top\)</span> można wyrazić jako kombinację liniową czynników latentnych oraz składników specyficznych. Model przyjmuje postać:</p>
+<p>Formalna postać modelu eksploracyjnej analizy czynnikowej (EFA) zakłada, że zmienne obserwowalne <span class="math inline">\(\mathbf{x} = (x_1, x_2, \ldots, x_p)^\top\)</span> można wyrazić jako kombinację liniową czynników latentnych oraz składników specyficznych. Model przyjmuje postać <span class="citation" data-cites="introduc2020">(<a href="references.html#ref-introduc2020" role="doc-biblioref"><span>„Introduction to Factor Analysis”</span> 2020</a>)</span>:</p>
 <p><span class="math display">\[
 \mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon},
 \]</span></p>
@@ -519,8 +546,22 @@ Dowód
 <p>Z kolei <span class="math inline">\(\Psi\)</span> odpowiada za wariancję unikalną, czyli tę część zmienności, która nie jest współdzielona z innymi zmiennymi. Obejmuje ona zarówno wariancję czysto specyficzną dla danej cechy, jak i wariancję błędu pomiarowego. Dzięki temu możliwe jest odróżnienie struktury głębokiej (czynnikowej) od elementów przypadkowych i indywidualnych.</p>
 <p>Podsumowując, znaczenie modelu czynnikowego polega na tym, że pozwala on wydzielić istotne, ukryte mechanizmy stojące za współzależnościami zmiennych i oddzielić je od szumów specyficznych dla pojedynczych obserwacji. W praktyce oznacza to możliwość redukcji liczby analizowanych zmiennych, uproszczenie opisu złożonych danych i pogłębienie interpretacji zjawisk społecznych, psychologicznych, biologicznych czy ekonomicznych.</p>
 <p>Interpretacja czynników w praktyce opiera się przede wszystkim na analizie macierzy ładunków czynnikowych <span class="math inline">\(\Lambda\)</span>. Każdy element <span class="math inline">\(\lambda_{ij}\)</span> tej macierzy informuje o sile związku pomiędzy zmienną obserwowaną <span class="math inline">\(x_i\)</span> a czynnikiem <span class="math inline">\(f_j\)</span>. Im wyższa wartość bezwzględna ładunku, tym większy udział danego czynnika w wyjaśnianiu zmienności konkretnej zmiennej. Na przykład w psychologii wysoki ładunek czynnika na zmiennej opisującej pamięć krótkotrwałą i na zmiennej opisującej zdolność rozwiązywania problemów matematycznych może sugerować, że obie cechy są przejawem wspólnego czynnika – inteligencji ogólnej.</p>
-</section></section><section id="metody-estymacji-ładunków-czynnikowych" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="metody-estymacji-ładunków-czynnikowych">Metody estymacji ładunków czynnikowych</h2>
-<section id="metoda-największej-wiarogodności-ang.-maximal-likelihood-ml" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-największej-wiarogodności-ang.-maximal-likelihood-ml">Metoda największej wiarogodności (ang. <em>Maximal Likelihood, ML</em>)</h3>
+</section></section><section id="założenia-dotyczące-danych" class="level2"><h2 class="anchored" data-anchor-id="założenia-dotyczące-danych">Założenia dotyczące danych</h2>
+<p>Aby estymacja modelu eksploracyjnej analizy czynnikowej (EFA) była uzasadniona, dane powinny spełniać szereg założeń teoretycznych i praktycznych.</p>
+<ul>
+<li>Po pierwsze, podstawą jest istnienie istotnej struktury korelacyjnej pomiędzy zmiennymi obserwowalnymi. Jeżeli zmienne są w zasadzie nieskorelowane, nie da się wydzielić wspólnych czynników. Warunek ten weryfikuje się wstępnie testem sferyczności Bartletta <span class="citation" data-cites="bartlett1951">(<a href="references.html#ref-bartlett1951" role="doc-biblioref">Bartlett 1951</a>)</span> oraz miarą adekwatności próby KMO <span class="citation" data-cites="kaiser1970">(<a href="references.html#ref-kaiser1970" role="doc-biblioref">Kaiser 1970</a>)</span>.</li>
+<li>Po drugie, zakłada się odpowiednią wielkość próby. Choć w literaturze nie istnieje jednoznaczna reguła, rekomenduje się co najmniej 5–10 obserwacji na zmienną oraz łączną liczebność rzędu ≥100–200 jednostek, aby uzyskać stabilne rozwiązania i wiarygodne oszacowania ładunków czynnikowych.</li>
+<li>Po trzecie, dane powinny pochodzić z rozkładu wielowymiarowego normalnego, szczególnie jeżeli korzysta się z estymacji metodą największej wiarygodności. Naruszenia normalności mogą prowadzić do zawyżenia błędów standardowych, problemów z testami istotności oraz błędnych przedziałów ufności.</li>
+<li>Po czwarte, model EFA wymaga, aby zmienne były ciągłe lub co najmniej traktowane jako przybliżenie zmiennych ciągłych. W przypadku zmiennych kategorycznych należy sięgnąć po odpowiednie uogólnienia (np. analizy czynnikowe dla danych porządkowych).</li>
+<li>Po piąte, zakłada się addytywność wariancji. Oznacza to, że wariancja każdej zmiennej obserwowanej rozkłada się na część wspólną, wyjaśnianą przez czynniki latentne, oraz część swoistą (unikalną dla danej zmiennej), zgodnie z postacią: <span class="math display">\[
+\mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon}, \quad
+\Sigma = \Lambda \Lambda^\top + \Psi.
+\]</span>
+</li>
+<li>I na koniec, należy zadbać o brak nadmiernej współliniowości oraz o to, by liczba czynników nie przekraczała liczby zmiennych – w przeciwnym wypadku model byłby nieidentyfikowalny.</li>
+</ul></section><section id="metody-estymacji-ładunków-czynnikowych" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="metody-estymacji-ładunków-czynnikowych">Metody estymacji ładunków czynnikowych</h2>
+<section id="metoda-największej-wiarogodności-ang.-maximal-likelihood-ml-lawley1940" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-największej-wiarogodności-ang.-maximal-likelihood-ml-lawley1940">Metoda największej wiarogodności (ang. <em>Maximal Likelihood, ML</em>) <span class="citation" data-cites="lawley1940">(<a href="references.html#ref-lawley1940" role="doc-biblioref">Lawley 1940</a>)</span>
+</h3>
 <section id="założenia" class="level4"><h4 class="anchored" data-anchor-id="założenia">Założenia</h4>
 <p>Zakładamy, że wektor zmiennych obserwowalnych</p>
 <p><span class="math display">\[
@@ -577,7 +618,8 @@ F(\Lambda,\Psi) = \log |\Sigma| + \operatorname{tr}(\Sigma^{-1} S) - \log |S| - 
 <li>Wymagaja dużej próby i spełnienia założenia normalności wielowymiarowej.</li>
 <li>Może być numerycznie niestabilne, zwłaszcza gdy liczba czynników jest duża w stosunku do liczby zmiennych.</li>
 <li>Przy małych próbach lub silnym naruszeniu normalności wyniki mogą być obciążone.</li>
-</ul></section></section><section id="metoda-osi-głównych-ang.-principal-axis-factoring-paf" class="level3"><h3 class="anchored" data-anchor-id="metoda-osi-głównych-ang.-principal-axis-factoring-paf">Metoda osi głównych (ang. <em>Principal Axis Factoring, PAF</em>)</h3>
+</ul></section></section><section id="metoda-osi-głównych-ang.-principal-axis-factoring-paf-grieder2020" class="level3"><h3 class="anchored" data-anchor-id="metoda-osi-głównych-ang.-principal-axis-factoring-paf-grieder2020">Metoda osi głównych (ang. <em>Principal Axis Factoring, PAF</em>) <span class="citation" data-cites="grieder2020">(<a href="references.html#ref-grieder2020" role="doc-biblioref">Grieder i Steiner 2020</a>)</span>
+</h3>
 <section id="idea-metody-paf" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-paf">Idea metody PAF</h4>
 <p>W metodzie PAF znanej również jako metoda czynników głównych, zakładamy klasyczny model czynnikowy</p>
 <p><span class="math display">\[
@@ -664,7 +706,8 @@ h_j^2=\frac{r_{jj'}r_{jj''}}{r_{j'j''}}, \quad j\ne j' \ne j''
 <strong>Mniejsza przydatność przy małych próbach</strong> – ponieważ metoda nie opiera się na pełnym modelu statystycznym, jej własności są mniej stabilne przy niewielkich licznościach obserwacji. Wyniki mogą być wówczas silnie zależne od przypadkowych fluktuacji w danych.</li>
 <li>
 <strong>Brak testów statystycznych dopasowania modelu</strong> – w odróżnieniu od metody ML, PAF nie pozwala na formalne testowanie hipotez o liczbie czynników czy jakości dopasowania modelu do danych.</li>
-</ul></section></section><section id="metoda-sładowych-głównych-ang.-principal-component-method" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-sładowych-głównych-ang.-principal-component-method">Metoda sładowych głównych (ang. <em>Principal Component Method</em>)</h3>
+</ul></section></section><section id="metoda-sładowych-głównych-ang.-principal-component-method-wang2008" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-sładowych-głównych-ang.-principal-component-method-wang2008">Metoda sładowych głównych (ang. <em>Principal Component Method</em>) <span class="citation" data-cites="wang2008">(<a href="references.html#ref-wang2008" role="doc-biblioref">Wang i in. 2008</a>)</span>
+</h3>
 <p>Metoda sładowych głównych należy do klasy metod wspólnotowych, czyli takich, które zakładają klasyczny model czynnikowy</p>
 <p><span class="math display">\[
 \mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon},
@@ -714,7 +757,8 @@ h_j^2 = 1, \quad j=1,\ldots,p.
 <strong>Zależność od początkowych oszacowań komunalności</strong> – nieprawidłowy wybór startowy może utrudnić uzyskanie sensownych rozwiązań.</li>
 <li>
 <strong>Haywood case</strong> – zdarza się, że zasoby zmienności wspólnej mogą przyjmować wartości ujemne.</li>
-</ul></section></section><section id="metoda-minimalizacji-reszt-ang.-minres" class="level3"><h3 class="anchored" data-anchor-id="metoda-minimalizacji-reszt-ang.-minres">Metoda minimalizacji reszt (ang. <em>MINRES</em>)</h3>
+</ul></section></section><section id="metoda-minimalizacji-reszt-ang.-minres-harman1966" class="level3"><h3 class="anchored" data-anchor-id="metoda-minimalizacji-reszt-ang.-minres-harman1966">Metoda minimalizacji reszt (ang. <em>MINRES</em>) <span class="citation" data-cites="harman1966">(<a href="references.html#ref-harman1966" role="doc-biblioref">Harman i Jones 1966</a>)</span>
+</h3>
 <section id="idea-metody-minres" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-minres">Idea metody MINRES</h4>
 <p>W modelu czynnikowym przyjmujemy, że macierz kowariancji (lub korelacji) ma postać <span class="math display">\[
 \Sigma = \Lambda \Lambda' + \Psi,
@@ -751,7 +795,8 @@ F(\Lambda) = | \mathbf{R} - (\Lambda \Lambda' + \Psi)|^2_{off},
 <em>MINRES</em> skupia się tylko na korelacjach pomiędzy zmiennymi, ignorując elementy diagonalne – co sprawia, że estymacja jest mniej wrażliwa na problem ujemnych komunalności (tzw. <em>Heywood cases</em>).</li>
 <li>Metoda jest relatywnie stabilna numerycznie i dobrze sprawdza się przy dużej liczbie zmiennych.</li>
 <li>Ograniczeniem jest to, że wynik zależy od jakości początkowych oszacowań zasobów zmienności wspólnej. Przy złym wyborze startu możliwa jest wolna zbieżność albo zbieżność do lokalnego minimum.</li>
-</ul></section></section><section id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls" class="level3"><h3 class="anchored" data-anchor-id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls">Metoda uogólnionych najmniejszych kwadratów (ang. <em>Generalized Least Squares, GLS</em>)</h3>
+</ul></section></section><section id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls-jöreskog1972" class="level3"><h3 class="anchored" data-anchor-id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls-jöreskog1972">Metoda uogólnionych najmniejszych kwadratów (ang. <em>Generalized Least Squares, GLS</em>) <span class="citation" data-cites="jöreskog1972">(<a href="references.html#ref-j%C3%B6reskog1972" role="doc-biblioref">Jöreskog i Goldberger 1972</a>)</span>
+</h3>
 <section id="idea-metody-1" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-1">Idea metody</h4>
 <p>GLS, podobnie jak MINRES czy ML, polega na porównaniu macierzy obserwowanej <span class="math inline">\(\mathbf{S}\)</span> (kowariancji lub korelacji) z macierzą odtworzoną przez model czynnikowy <span class="math inline">\(\hat{\Sigma} = \Lambda \Lambda^\top + \Psi\)</span>. Różnica w stosunku do MINRES polega na tym, że w <strong>GLS ważymy reszty</strong>, czyli błędy odwzorowania poszczególnych elementów macierzy <span class="math inline">\(\mathbf{S}\)</span>.</p>
 <p>Formalnie kryterium minimalizacji ma postać <span class="math display">\[
@@ -780,7 +825,7 @@ Adnotacja
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Istnieją również inne metody estymacji ładunków czynnikowych, jak metody bayesowskie, czy metody z regularyzacją LASSO ale nie są one częścią tego opracowania.</p>
+<p>Istnieją również inne metody estymacji ładunków czynnikowych, jak metody bayesowskie <span class="citation" data-cites="lu2016">(<a href="references.html#ref-lu2016" role="doc-biblioref">Lu, Chow, i Loken 2016</a>)</span>, czy metody z regularyzacją LASSO ale nie są one częścią tego opracowania <span class="citation" data-cites="jacobucci2018">(<a href="references.html#ref-jacobucci2018" role="doc-biblioref">Jacobucci i Grimm 2018</a>)</span>.</p>
 </div>
 </div>
 </section></section></section><section id="oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynników" class="level2"><h2 class="anchored" data-anchor-id="oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynników">Oceny dopasowania modelu i kryteria doboru liczby czynników</h2>
@@ -809,17 +854,17 @@ h_j^2=\sum_{k=1}^{m}\lambda_{jk}^{2}
 \]</span> mierzą część wariancji zmiennej <span class="math inline">\(x_j\)</span> wyjaśnioną przez czynniki, bardzo niskie <span class="math inline">\(h_j^2\)</span> wskazują słabą reprezentację zmiennej, natomiast bardzo wysokie — wraz z ryzykiem ujemnych <span class="math inline">\(\Psi_j\)</span> (przypadki Haywooda) — mogą sygnalizować dopasowanie wymuszone lub niewłaściwą liczebność czynników. Sumy kwadratów ładunków per czynnik odzwierciedlają wyjaśnioną wspólną wariancję i służą do oceny równomierności wkładu czynników.</p>
 <p>W rozwiązaniach dopuszczajacych korelacje pomiedzy czynnikami dodatkowym aspektem dopasowania jest macierz korelacji czynników <span class="math inline">\(\Phi\)</span>. Bardzo wysokie korelacje między czynnikami sugerują nadmiarowość i potencjalne przeparametryzowanie. Wówczas warto rozważyć redukcję liczby czynników lub alternatywne struktury.</p>
 <p>Najbardziej znane kryteria doboru liczby czynników to:</p>
-</section><section id="kryterium-wykresu-osypiska-scree-plot-cattell" class="level3"><h3 class="anchored" data-anchor-id="kryterium-wykresu-osypiska-scree-plot-cattell">Kryterium wykresu osypiska (Scree plot, Cattell)</h3>
+</section><section id="kryterium-wykresu-osypiska-scree-plot-cattell1966" class="level3"><h3 class="anchored" data-anchor-id="kryterium-wykresu-osypiska-scree-plot-cattell1966">Kryterium wykresu osypiska (Scree plot, <span class="citation" data-cites="cattell1966">Cattell (<a href="references.html#ref-cattell1966" role="doc-biblioref">1966</a>)</span>)</h3>
 <p>Na osi poziomej odkładamy kolejne wartości własne, a na pionowej ich wielkość. Punktem granicznym jest miejsce, gdzie wykres „załamuje się” i przechodzi w „osypisko” – od tego miejsca czynniki interpretowane są jako szum.</p>
 <ul>
 <li>Zalety: wizualna intuicja, łatwe zastosowanie.</li>
 <li>Wady: często subiektywność w określeniu miejsca „łokcia”, szczególnie gdy krzywa nie ma wyraźnego załamania.</li>
-</ul></section><section id="analiza-równoległa-parallel-analysis-horn" class="level3"><h3 class="anchored" data-anchor-id="analiza-równoległa-parallel-analysis-horn">Analiza równoległa (Parallel analysis, Horn)</h3>
+</ul></section><section id="analiza-równoległa-parallel-analysis-horn1965" class="level3"><h3 class="anchored" data-anchor-id="analiza-równoległa-parallel-analysis-horn1965">Analiza równoległa (Parallel analysis, <span class="citation" data-cites="horn1965">Horn (<a href="references.html#ref-horn1965" role="doc-biblioref">1965</a>)</span>)</h3>
 <p>Polega na porównaniu wartości własnych dla danych empirycznych z wartościami własnymi uzyskanymi dla danych losowych o tej samej strukturze (ta sama liczba zmiennych i obserwacji). Zatrzymuje się te czynniki, których wartości własne przewyższają np. 95. percentyl rozkładu wartości losowych.</p>
 <ul>
 <li>Zalety: jedna z najbardziej rekomendowanych metod, dobrze sprawdza się w praktyce.</li>
 <li>Wady: wymaga procedur symulacyjnych, większej mocy obliczeniowej.</li>
-</ul></section><section id="kryterium-map-minimum-average-partial-velicer" class="level3"><h3 class="anchored" data-anchor-id="kryterium-map-minimum-average-partial-velicer">Kryterium MAP (Minimum Average Partial, Velicer)</h3>
+</ul></section><section id="kryterium-map-minimum-average-partial-velicer1976" class="level3"><h3 class="anchored" data-anchor-id="kryterium-map-minimum-average-partial-velicer1976">Kryterium MAP (Minimum Average Partial, <span class="citation" data-cites="velicer1976">Velicer (<a href="references.html#ref-velicer1976" role="doc-biblioref">1976</a>)</span>)</h3>
 <p>Opiera się na analizie korelacji cząstkowych. Stopniowo usuwa się kolejne czynniki, a następnie oblicza średnią wartość kwadratu korelacji cząstkowych. Liczba czynników odpowiadająca minimum tej wartości uznawana jest za optymalną.</p>
 <ul>
 <li>Zalety: metoda oparta na minimalizacji resztowych zależności, obiektywna.</li>
@@ -852,7 +897,7 @@ h_j^2=\sum_{k=1}^{m}\lambda_{jk}^{2}
 <p>W przypadku rotacji ortogonalnych macierz <span class="math inline">\(T\)</span> jest macierzą ortogonalną, czyli spełnia warunek: <span class="math display">\[T^\top T = TT^\top = I_m.\]</span> Oznacza to, że czynniki po rotacji pozostają nieskorelowane (<span class="math inline">\(\Phi = I_m\)</span>).</p>
 <p>Najważniejsze rodzaje rotacji ortogonalnych:</p>
 <ul>
-<li><p><em>Varimax</em> (Kaiser, 1958) - najczęściej stosowana rotacja ortogonalna. Maksymalizuje wariancję kwadratów ładunków w ramach każdego czynnika. Prowadzi do tego, że każda zmienna ma wysokie ładunki tylko na jednym czynniku, a bliskie zeru na pozostałych. Funkcja celu <span class="math display">\[
+<li><p><em>Varimax</em> <span class="citation" data-cites="kaiser1958">(<a href="references.html#ref-kaiser1958" role="doc-biblioref">Kaiser 1958</a>)</span> - najczęściej stosowana rotacja ortogonalna. Maksymalizuje wariancję kwadratów ładunków w ramach każdego czynnika. Prowadzi do tego, że każda zmienna ma wysokie ładunki tylko na jednym czynniku, a bliskie zeru na pozostałych. Funkcja celu <span class="math display">\[
 V = \sum_{j=1}^m \left[ \frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*4} - \left(\frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*2}\right)^2 \right].
 \]</span></p></li>
 <li><p><em>Quartimax</em> - minimalizuje liczbę czynników potrzebnych do opisania każdej zmiennej, upraszczając wiersze macierzy ładunków. Funkcja celu <span class="math display">\[
@@ -870,35 +915,35 @@ T^\top T \neq I_m.
 \]</span> W efekcie rotowane czynniki mogą być skorelowane, a macierz korelacji czynników <span class="math inline">\(\Phi\)</span> przyjmuje ogólną postać dodatnio określoną.</p>
 <p>Podstawowe rodzaje:</p>
 <ul>
-<li><p><em>Oblimin</em> (Jennrich &amp; Sampson, 1966) - rodzina rotacji z parametrem <span class="math inline">\(\gamma\)</span>, który reguluje stopień skośności. Dla <span class="math inline">\(\gamma = 0\)</span> rozwiązanie staje się <em>quartimax</em>, a większe <span class="math inline">\(\gamma\)</span> prowadzą do większej korelacji czynników. Funkcja celu <span class="math display">\[
+<li><p><em>Oblimin</em> <span class="citation" data-cites="jennrich1966">(<a href="references.html#ref-jennrich1966" role="doc-biblioref">Jennrich i Sampson 1966</a>)</span> - rodzina rotacji z parametrem <span class="math inline">\(\gamma\)</span>, który reguluje stopień skośności. Dla <span class="math inline">\(\gamma = 0\)</span> rozwiązanie staje się <em>quartimax</em>, a większe <span class="math inline">\(\gamma\)</span> prowadzą do większej korelacji czynników. Funkcja celu <span class="math display">\[
 F(\Lambda^*) = \sum_{i=1}^p \sum_{j=1}^m \left(\lambda_{ij}^{*2} - \gamma \frac{\sum_{k=1}^m \lambda_{ik}^{*2}}{m}\right)^2.
 \]</span></p></li>
-<li><p><em>Promax</em> (Hendrickson &amp; White, 1964) - rotacja skośna oparta na prostym podejściu dwustopniowym. Najpierw stosuje się rotację ortogonalną (najczęściej <em>varimax</em>), następnie ładunki są podnoszone do potęgi <span class="math inline">\(k\)</span> (zwykle 3 lub 4), aby wymusić prostą strukturę, i ponownie dopasowywane przy użyciu metody najmniejszych kwadratów <span class="math display">\[
+<li><p><em>Promax</em> <span class="citation" data-cites="hendrickson1964">(<a href="references.html#ref-hendrickson1964" role="doc-biblioref">Hendrickson i White 1964</a>)</span> - rotacja skośna oparta na prostym podejściu dwustopniowym. Najpierw stosuje się rotację ortogonalną (najczęściej <em>varimax</em>), następnie ładunki są podnoszone do potęgi <span class="math inline">\(k\)</span> (zwykle 3 lub 4), aby wymusić prostą strukturę, i ponownie dopasowywane przy użyciu metody najmniejszych kwadratów <span class="math display">\[
 \tilde{\lambda}{jk} = \text{sign}(\lambda^*_{jk}) \cdot |\lambda^*_{jk}|^p.
 \]</span> Rotacja <em>promax</em> pozwala uzyskać bardziej realistyczne struktury, gdy czynniki są rzeczywiście skorelowane.</p></li>
-<li><p>Geomin (Yates, 1987) - minimalizuje średnią geometryczną kwadratów ładunków, co prowadzi do sytuacji, w której każda zmienna ma niewiele istotnych ładunków. Funkcja celu <span class="math display">\[
+<li><p>Geomin <span class="citation" data-cites="everitt1989">(<a href="references.html#ref-everitt1989" role="doc-biblioref">Everitt i Yates 1989</a>)</span> - minimalizuje średnią geometryczną kwadratów ładunków, co prowadzi do sytuacji, w której każda zmienna ma niewiele istotnych ładunków. Funkcja celu <span class="math display">\[
 G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) \right)^{1/m},
 \]</span> gdzie <span class="math inline">\(\epsilon\)</span> to mały parametr stabilizujący.</p></li>
-<li><p>Simplimax (Kiers, 1994) - uogólnienie kryteriów prostoty, które minimalizuje liczbę dużych i małych ładunków w macierzy, pozwalając użytkownikowi sterować liczbą „prostych” elementów.</p></li>
+<li><p>Simplimax <span class="citation" data-cites="kiers1994">(<a href="references.html#ref-kiers1994" role="doc-biblioref">Kiers 1994</a>)</span> - uogólnienie kryteriów prostoty, które minimalizuje liczbę dużych i małych ładunków w macierzy, pozwalając użytkownikowi sterować liczbą „prostych” elementów.</p></li>
 </ul></section><section id="wybór-rodzaju-rotacji" class="level3"><h3 class="anchored" data-anchor-id="wybór-rodzaju-rotacji">Wybór rodzaju rotacji</h3>
 <ul>
 <li>Rotacje ortogonalne są preferowane, gdy zakładamy, że czynniki powinny być niezależne teoretycznie.</li>
 <li>Rotacje skośne stosuje się, gdy istnieje uzasadnienie, że czynniki mogą być skorelowane (co jest częste w naukach społecznych, psychologii czy biologii).</li>
 </ul>
-<div class="exm-1">
-<p>Na potrzeby ilustracji budowy modelu EFA wykorzystamy dane z pakietu <code>psych</code>, które zawierają wyniki różnych testów poznawczych (Harman, 1976). Dane te są często używane jako przykład w literaturze dotyczącej analizy czynnikowej.</p>
+<div id="exm-1" class="theorem example">
+<p><span class="theorem-title"><strong>Przykład 3.1</strong></span> Na potrzeby ilustracji budowy modelu EFA wykorzystamy dane z pakietu <code>psych</code>, które zawierają wyniki różnych testów poznawczych <span class="citation" data-cites="horn1969">(<a href="references.html#ref-horn1969" role="doc-biblioref">Horn 1969</a>)</span>. Dane te są często używane jako przykład w literaturze dotyczącej analizy czynnikowej.</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Dane: macierz korelacji testów poznawczych (Harman, 1976)</span></span>
+<span><span class="co"># Dane: macierz korelacji testów poznawczych</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"Harman74.cor"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 18%">
-<col style="width: 48%">
-<col style="width: 33%">
+<col style="width: 25%">
+<col style="width: 43%">
+<col style="width: 31%">
 </colgroup>
 <thead><tr class="header">
 <th>Zmienna</th>
@@ -1097,8 +1142,8 @@ Statistics by number of factors
 </div>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 89%">
+<col style="width: 29%">
+<col style="width: 70%">
 </colgroup>
 <thead><tr class="header">
 <th>Wskaźnik</th>
@@ -1249,43 +1294,701 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 <p>Ostatecznie wyniki wskazują, że struktura czteroczynnikowa jest dobrze uzasadniona empirycznie i teoretycznie. Każdy czynnik odpowiada odmiennym zdolnościom poznawczym – werbalnym, numerycznym, przestrzennym i percepcyjno-pamięciowym – a ich interpretacje są zgodne z psychologicznymi ujęciami inteligencji wielowymiarowej.</p>
 <p>Dla większej czytelności przedstawiamy ładunki czynnikowe po rotacji varimax w formie tabelarycznej, z wyciętymi ładunkami o niskich wartościach.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code># Rotated loadings from Factor Analysis (varimax-rotation)
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="kgenbrywmv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kgenbrywmv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-Variable               |  ML1 |  ML3 |  ML2 |  ML4 | Complexity | Uniqueness
-----------------------------------------------------------------------------
-WordMeaning            | 0.81 |      |      |      |       1.30 |       0.26
-SentenceCompletion     | 0.81 |      |      |      |       1.21 |       0.28
-PargraphComprehension  | 0.77 |      |      |      |       1.35 |       0.31
-GeneralInformation     | 0.74 |      |      |      |       1.39 |       0.35
-WordClassification     | 0.57 |      |      |      |       2.17 |       0.49
-VisualPerception       |      | 0.69 |      |      |       1.38 |       0.44
-PaperFormBoard         |      | 0.57 |      |      |       1.20 |       0.64
-Flags                  |      | 0.53 |      |      |       1.51 |       0.65
-SeriesCompletion       |      | 0.50 |      |      |       2.87 |       0.50
-Cubes                  |      | 0.44 |      |      |       1.33 |       0.78
-Deduction              |      | 0.40 |      |      |       3.05 |       0.59
-ProblemReasoning       |      | 0.40 |      |      |       3.08 |       0.60
-Addition               |      |      | 0.83 |      |       1.21 |       0.24
-CountingDots           |      |      | 0.72 |      |       1.21 |       0.44
-StraightCurvedCapitals |      |      | 0.53 |      |       2.27 |       0.49
-Code                   |      |      | 0.51 |      |       2.25 |       0.55
-ArithmeticProblems     |      |      | 0.50 |      |       2.83 |       0.50
-NumericalPuzzles       |      |      | 0.44 |      |       2.84 |       0.58
-ObjectNumber           |      |      |      | 0.57 |       1.45 |       0.60
-WordRecognition        |      |      |      | 0.55 |       1.32 |       0.65
-FigureRecognition      |      |      |      | 0.53 |       1.96 |       0.55
-NumberRecognition      |      |      |      | 0.52 |       1.26 |       0.70
-NumberFigure           |      |      |      | 0.46 |       2.62 |       0.59
-FigureWord             |      |      |      | 0.37 |       2.56 |       0.76
+#kgenbrywmv thead, #kgenbrywmv tbody, #kgenbrywmv tfoot, #kgenbrywmv tr, #kgenbrywmv td, #kgenbrywmv th {
+  border-style: none;
+}
 
-The 4 latent factors (varimax rotation) accounted for 47.78% of the total variance of the original data (ML1 = 15.20%, ML3 = 11.97%, ML2 = 11.07%, ML4 = 9.54%).</code></pre>
+#kgenbrywmv p {
+  margin: 0;
+  padding: 0;
+}
+
+#kgenbrywmv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kgenbrywmv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kgenbrywmv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kgenbrywmv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kgenbrywmv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kgenbrywmv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kgenbrywmv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kgenbrywmv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kgenbrywmv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kgenbrywmv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kgenbrywmv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kgenbrywmv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kgenbrywmv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kgenbrywmv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kgenbrywmv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgenbrywmv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kgenbrywmv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kgenbrywmv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kgenbrywmv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgenbrywmv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kgenbrywmv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgenbrywmv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kgenbrywmv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgenbrywmv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kgenbrywmv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kgenbrywmv .gt_left {
+  text-align: left;
+}
+
+#kgenbrywmv .gt_center {
+  text-align: center;
+}
+
+#kgenbrywmv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kgenbrywmv .gt_font_normal {
+  font-weight: normal;
+}
+
+#kgenbrywmv .gt_font_bold {
+  font-weight: bold;
+}
+
+#kgenbrywmv .gt_font_italic {
+  font-style: italic;
+}
+
+#kgenbrywmv .gt_super {
+  font-size: 65%;
+}
+
+#kgenbrywmv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kgenbrywmv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kgenbrywmv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kgenbrywmv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kgenbrywmv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kgenbrywmv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kgenbrywmv .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#kgenbrywmv .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#kgenbrywmv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border">Rotated loadings from Factor Analysis (varimax-rotation)</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th id="ML1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ML1</th>
+<th id="ML3" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ML3</th>
+<th id="ML2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ML2</th>
+<th id="ML4" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ML4</th>
+<th id="Complexity" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Complexity</th>
+<th id="Uniqueness" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Uniqueness</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">WordMeaning</td>
+<td class="gt_row gt_center" headers="ML1">0.81</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.30</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.26</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">SentenceCompletion</td>
+<td class="gt_row gt_center" headers="ML1">0.81</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.21</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.28</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">PargraphComprehension</td>
+<td class="gt_row gt_center" headers="ML1">0.77</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.35</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.31</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">GeneralInformation</td>
+<td class="gt_row gt_center" headers="ML1">0.74</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.39</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.35</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">WordClassification</td>
+<td class="gt_row gt_center" headers="ML1">0.57</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">2.17</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.49</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">VisualPerception</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.69</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.38</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.44</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">PaperFormBoard</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.57</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.20</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.64</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Flags</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.53</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.51</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.65</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">SeriesCompletion</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.50</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">2.87</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.50</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Cubes</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.44</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.33</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.78</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Deduction</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.40</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">3.05</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.59</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">ProblemReasoning</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.40</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">3.08</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.60</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Addition</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.83</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.21</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.24</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">CountingDots</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.72</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">1.21</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.44</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">StraightCurvedCapitals</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.53</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">2.27</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.49</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Code</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.51</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">2.25</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.55</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">ArithmeticProblems</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.50</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">2.83</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.50</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">NumericalPuzzles</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.44</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="Complexity">2.84</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.58</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">ObjectNumber</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.57</td>
+<td class="gt_row gt_center" headers="Complexity">1.45</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.60</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">WordRecognition</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.55</td>
+<td class="gt_row gt_center" headers="Complexity">1.32</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.65</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">FigureRecognition</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.53</td>
+<td class="gt_row gt_center" headers="Complexity">1.96</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.55</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">NumberRecognition</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.52</td>
+<td class="gt_row gt_center" headers="Complexity">1.26</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.70</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">NumberFigure</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.46</td>
+<td class="gt_row gt_center" headers="Complexity">2.62</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.59</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">FigureWord</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.37</td>
+<td class="gt_row gt_center" headers="Complexity">2.56</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.76</td>
+</tr>
+</tbody>
+<tfoot><tr class="gt_sourcenotes odd">
+<td colspan="7" class="gt_sourcenote">The 4 latent factors (varimax rotation) accounted for 47.78% of the total variance of the original data (ML1 = 15.20%, ML3 = 11.97%, ML2 = 11.07%, ML4 = 9.54%).</td>
+</tr></tfoot>
+</table>
+</div>
 </div>
 </div>
 <p>Możemy też przedstawić model graficznie.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.diagram.html">fa.diagram</a></span><span class="op">(</span><span class="va">fa_model</span>, marg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, rsize <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.diagram.html">fa.diagram</a></span><span class="op">(</span><span class="va">fa_model</span>, marg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, rsize <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="fa_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="fa_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1152"></a></p>
@@ -1293,9 +1996,804 @@ The 4 latent factors (varimax rotation) accounted for 47.78% of the total varian
 </div>
 </div>
 </div>
+<p>Można spróbować estymować model z pięcioma czynnikami, co odpowiadałoby pierwotnemu rozpoznaniu obszarów.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fa_model_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.html">fa</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, nfactors <span class="op">=</span> <span class="fl">5</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, </span>
+<span>                 fm <span class="op">=</span> <span class="st">"ml"</span>, rotate <span class="op">=</span> <span class="st">"varimax"</span><span class="op">)</span></span>
+<span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model_5</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fxnknkhbbo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fxnknkhbbo table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#fxnknkhbbo thead, #fxnknkhbbo tbody, #fxnknkhbbo tfoot, #fxnknkhbbo tr, #fxnknkhbbo td, #fxnknkhbbo th {
+  border-style: none;
+}
+
+#fxnknkhbbo p {
+  margin: 0;
+  padding: 0;
+}
+
+#fxnknkhbbo .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#fxnknkhbbo .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#fxnknkhbbo .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#fxnknkhbbo .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#fxnknkhbbo .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#fxnknkhbbo .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#fxnknkhbbo .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#fxnknkhbbo .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#fxnknkhbbo .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#fxnknkhbbo .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#fxnknkhbbo .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fxnknkhbbo .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#fxnknkhbbo .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#fxnknkhbbo .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#fxnknkhbbo .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnknkhbbo .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#fxnknkhbbo .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#fxnknkhbbo .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#fxnknkhbbo .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnknkhbbo .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#fxnknkhbbo .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnknkhbbo .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#fxnknkhbbo .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnknkhbbo .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fxnknkhbbo .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnknkhbbo .gt_left {
+  text-align: left;
+}
+
+#fxnknkhbbo .gt_center {
+  text-align: center;
+}
+
+#fxnknkhbbo .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#fxnknkhbbo .gt_font_normal {
+  font-weight: normal;
+}
+
+#fxnknkhbbo .gt_font_bold {
+  font-weight: bold;
+}
+
+#fxnknkhbbo .gt_font_italic {
+  font-style: italic;
+}
+
+#fxnknkhbbo .gt_super {
+  font-size: 65%;
+}
+
+#fxnknkhbbo .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#fxnknkhbbo .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#fxnknkhbbo .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#fxnknkhbbo .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#fxnknkhbbo .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#fxnknkhbbo .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#fxnknkhbbo .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#fxnknkhbbo .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#fxnknkhbbo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border">Rotated loadings from Factor Analysis (varimax-rotation)</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th id="ML1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ML1</th>
+<th id="ML3" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ML3</th>
+<th id="ML2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ML2</th>
+<th id="ML4" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ML4</th>
+<th id="ML5" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ML5</th>
+<th id="Complexity" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Complexity</th>
+<th id="Uniqueness" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Uniqueness</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">SentenceCompletion</td>
+<td class="gt_row gt_center" headers="ML1">0.81</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.21</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.28</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">WordMeaning</td>
+<td class="gt_row gt_center" headers="ML1">0.80</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.31</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.26</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">PargraphComprehension</td>
+<td class="gt_row gt_center" headers="ML1">0.77</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.39</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.29</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">GeneralInformation</td>
+<td class="gt_row gt_center" headers="ML1">0.74</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.40</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.36</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">WordClassification</td>
+<td class="gt_row gt_center" headers="ML1">0.57</td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">2.17</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.49</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">VisualPerception</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.66</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.59</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.45</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">PaperFormBoard</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.56</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.30</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.64</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">SeriesCompletion</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.55</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">2.72</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.44</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Flags</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.53</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.47</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.65</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Deduction</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.45</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">3.33</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.52</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Cubes</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.44</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.32</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.78</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">ProblemReasoning</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3">0.42</td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">3.10</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.58</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Addition</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.84</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.21</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.21</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">CountingDots</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.69</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.34</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.44</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">ArithmeticProblems</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.50</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">2.94</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.48</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">NumericalPuzzles</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2">0.44</td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">2.85</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.56</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">ObjectNumber</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.56</td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.46</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.61</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">WordRecognition</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.56</td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.34</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.64</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">FigureRecognition</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.53</td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.95</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.55</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">NumberRecognition</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.51</td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">1.29</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.71</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">NumberFigure</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.45</td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">2.65</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.60</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Code</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.45</td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">3.36</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.39</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">FigureWord</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4">0.36</td>
+<td class="gt_row gt_center" headers="ML5"></td>
+<td class="gt_row gt_center" headers="Complexity">2.56</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.76</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">StraightCurvedCapitals</td>
+<td class="gt_row gt_center" headers="ML1"></td>
+<td class="gt_row gt_center" headers="ML3"></td>
+<td class="gt_row gt_center" headers="ML2"></td>
+<td class="gt_row gt_center" headers="ML4"></td>
+<td class="gt_row gt_center" headers="ML5">0.56</td>
+<td class="gt_row gt_center" headers="Complexity">3.16</td>
+<td class="gt_row gt_center" headers="Uniqueness">0.26</td>
+</tr>
+</tbody>
+<tfoot><tr class="gt_sourcenotes odd">
+<td colspan="8" class="gt_sourcenote">The 5 latent factors (varimax rotation) accounted for 50.25% of the total variance of the original data (ML1 = 15.13%, ML3 = 12.35%, ML2 = 10.23%, ML4 = 9.77%, ML5 = 2.76%).</td>
+</tr></tfoot>
+</table>
 </div>
+</div>
+</div>
+<p>Choć wzrósł nieco poziom wyjaśnionej wariancji przez czynniki, to jednak rozwiązanie, w którym występują pojedyncze zmienne jako czynnik nie są porządane. Dlatego pozostaniemy przy rozwiązaniu z czterema czynnikami.</p>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wskazówka
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Liczba czynników, może być szacowana na podstawie różnych kryteriów, z których każde eksponuje inny aspekt, ale ostateczna decyzja o wyborze liczby czynników powinna być podyktowana głównie zgodnością otrzymany wyników z teorią oraz interpretowalnością. Oczywiście nie powinno się to dziać kosztem znacznego obniżenia poziomu dopasowania modelu.</p>
+</div>
+</div>
+<p>Na temat konfiramcyjnej analizy czynnikowej (CFA) zostnie poświęcony kolejny rozdział.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-bartlett1951" class="csl-entry" role="listitem">
+Bartlett, M. S. 1951. <span>„The Effect of Standardization on a χ 2 Approximation in Factor Analysis”</span>. <em>Biometrika</em> 38 (3/4): 337. <a href="https://doi.org/10.2307/2332580">https://doi.org/10.2307/2332580</a>.
+</div>
+<div id="ref-cattell1966" class="csl-entry" role="listitem">
+Cattell, Raymond B. 1966. <span>„The Scree Test For The Number Of Factors”</span>. <em>Multivariate Behavioral Research</em> 1 (2): 245–76. <a href="https://doi.org/10.1207/s15327906mbr0102_10">https://doi.org/10.1207/s15327906mbr0102_10</a>.
+</div>
+<div id="ref-everitt1989" class="csl-entry" role="listitem">
+Everitt, B. S., i A. Yates. 1989. <span>„Multivariate Exploratory Data Analysis: A Perspective on Exploratory Factor Analysis.”</span> <em>Biometrics</em> 45 (1): 342. <a href="https://doi.org/10.2307/2532065">https://doi.org/10.2307/2532065</a>.
+</div>
+<div id="ref-grieder2020" class="csl-entry" role="listitem">
+Grieder, Silvia, i Markus D. Steiner. 2020. <span>„Algorithmic Jingle Jungle: A Comparison of Implementations of Principal Axis Factoring and Promax Rotation in R and SPSS”</span>. <a href="http://dx.doi.org/10.31234/osf.io/7hwrm">http://dx.doi.org/10.31234/osf.io/7hwrm</a>.
+</div>
+<div id="ref-harman1966" class="csl-entry" role="listitem">
+Harman, Harry H., i Wayne H. Jones. 1966. <span>„Factor Analysis by Minimizing Residuals (Minres)”</span>. <em>Psychometrika</em> 31 (3): 351–68. <a href="https://doi.org/10.1007/bf02289468">https://doi.org/10.1007/bf02289468</a>.
+</div>
+<div id="ref-hendrickson1964" class="csl-entry" role="listitem">
+Hendrickson, Alan E., i Paul Owen White. 1964. <span>„PROMAX: A QUICK METHOD FOR ROTATION TO OBLIQUE SIMPLE STRUCTURE”</span>. <em>British Journal of Statistical Psychology</em> 17 (1): 65–70. <a href="https://doi.org/10.1111/j.2044-8317.1964.tb00244.x">https://doi.org/10.1111/j.2044-8317.1964.tb00244.x</a>.
+</div>
+<div id="ref-horn1965" class="csl-entry" role="listitem">
+Horn, John L. 1965. <span>„A Rationale and Test for the Number of Factors in Factor Analysis”</span>. <em>Psychometrika</em> 30 (2): 179–85. <a href="https://doi.org/10.1007/bf02289447">https://doi.org/10.1007/bf02289447</a>.
+</div>
+<div id="ref-horn1969" class="csl-entry" role="listitem">
+———. 1969. <span>„Harry H. Harman Modern Factor Analysis (Second Edition, Revised). Chicago and London: University of Chicago Press, 1967. Pp. Xx + 474. <span>$</span>12.50”</span>. <em>Psychometrika</em> 34 (1): 134–38. <a href="https://doi.org/10.1017/s0033312300004580">https://doi.org/10.1017/s0033312300004580</a>.
+</div>
+<div id="ref-introduc2020" class="csl-entry" role="listitem">
+<span>„Introduction to Factor Analysis”</span>. 2020. W, 1–12. SAGE Publications, Inc. <a href="https://doi.org/10.4135/9781544339900.n4">https://doi.org/10.4135/9781544339900.n4</a>.
+</div>
+<div id="ref-jacobucci2018" class="csl-entry" role="listitem">
+Jacobucci, Ross, i Kevin J. Grimm. 2018. <span>„Comparison of Frequentist and Bayesian Regularization in Structural Equation Modeling”</span>. <em>Structural Equation Modeling: A Multidisciplinary Journal</em> 25 (4): 639–49. <a href="https://doi.org/10.1080/10705511.2017.1410822">https://doi.org/10.1080/10705511.2017.1410822</a>.
+</div>
+<div id="ref-jennrich1966" class="csl-entry" role="listitem">
+Jennrich, R. I., i P. F. Sampson. 1966. <span>„Rotation for Simple Loadings”</span>. <em>Psychometrika</em> 31 (3): 313–23. <a href="https://doi.org/10.1007/bf02289465">https://doi.org/10.1007/bf02289465</a>.
+</div>
+<div id="ref-jöreskog1972" class="csl-entry" role="listitem">
+Jöreskog, Karl G., i Arthur S. Goldberger. 1972. <span>„Factor Analysis by Generalized Least Squares”</span>. <em>Psychometrika</em> 37 (3): 243–60. <a href="https://doi.org/10.1007/bf02306782">https://doi.org/10.1007/bf02306782</a>.
+</div>
+<div id="ref-kaiser1958" class="csl-entry" role="listitem">
+Kaiser, Henry F. 1958. <span>„The Varimax Criterion for Analytic Rotation in Factor Analysis”</span>. <em>Psychometrika</em> 23 (3): 187–200. <a href="https://doi.org/10.1007/bf02289233">https://doi.org/10.1007/bf02289233</a>.
+</div>
+<div id="ref-kaiser1970" class="csl-entry" role="listitem">
+———. 1970. <span>„A Second Generation Little Jiffy”</span>. <em>Psychometrika</em> 35 (4): 401–15. <a href="https://doi.org/10.1007/bf02291817">https://doi.org/10.1007/bf02291817</a>.
+</div>
+<div id="ref-kiers1994" class="csl-entry" role="listitem">
+Kiers, Henk A. L. 1994. <span>„Simplimax: Oblique Rotation to an Optimal Target with Simple Structure”</span>. <em>Psychometrika</em> 59 (4): 567–79. <a href="https://doi.org/10.1007/bf02294392">https://doi.org/10.1007/bf02294392</a>.
+</div>
+<div id="ref-lawley1940" class="csl-entry" role="listitem">
+Lawley, D. N. 1940. <span>„VI.<span></span>The Estimation of Factor Loadings by the Method of Maximum Likelihood”</span>. <em>Proceedings of the Royal Society of Edinburgh</em> 60 (1): 64–82. <a href="https://doi.org/10.1017/s037016460002006x">https://doi.org/10.1017/s037016460002006x</a>.
+</div>
+<div id="ref-lu2016" class="csl-entry" role="listitem">
+Lu, Zhao-Hua, Sy-Miin Chow, i Eric Loken. 2016. <span>„Bayesian Factor Analysis as a Variable-Selection Problem: Alternative Priors and Consequences”</span>. <em>Multivariate Behavioral Research</em> 51 (4): 519–39. <a href="https://doi.org/10.1080/00273171.2016.1168279">https://doi.org/10.1080/00273171.2016.1168279</a>.
+</div>
+<div id="ref-velicer1976" class="csl-entry" role="listitem">
+Velicer, Wayne F. 1976. <span>„Determining the Number of Components from the Matrix of Partial Correlations”</span>. <em>Psychometrika</em> 41 (3): 321–27. <a href="https://doi.org/10.1007/bf02293557">https://doi.org/10.1007/bf02293557</a>.
+</div>
+<div id="ref-wang2008" class="csl-entry" role="listitem">
+Wang, Xiaojing, Candace M. Kammerer, Stewart Anderson, Jiang Lu, i Eleanor Feingold. 2008. <span>„A Comparison of Principal Component Analysis and Factor Analysis Strategies for Uncovering Pleiotropic Factors”</span>. <em>Genetic Epidemiology</em> 33 (4): 325–31. <a href="https://doi.org/10.1002/gepi.20384">https://doi.org/10.1002/gepi.20384</a>.
+</div>
+</div>
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1713,8 +3211,8 @@ The 4 latent factors (varimax rotation) accounted for 47.78% of the total varian
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./sem.html" class="pagination-link" aria-label="Modele strukturalne">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modele strukturalne</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

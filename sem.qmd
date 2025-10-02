@@ -1,0 +1,1343 @@
+---
+output: html_document
+number-sections: false
+bibliography: references.bib
+editor_options: 
+  chunk_output_type: console
+---
+
+# Modele strukturalne
+
+Modele strukturalne (ang. *Structural Equation Models*) stanowią
+uogólnienie klasycznych modeli regresyjnych do układów wielu równań z
+jednoczesnymi zależnościami między zmiennymi. W najprostszym wariancie,
+zwanym *path analysis* (PA), wszystkie zmienne są obserwowalne, a celem
+jest estymacja współczynników ścieżek, dekompozycja efektów na
+bezpośrednie i pośrednie oraz wyjaśnienie współzmienności. Konfirmacyjna
+analiza czynnikowa (CFA) rozszerza to ujęcie o niewidoczne wprost
+czynniki latentne, modelując relację wskaźnik–czynnik i separując
+wariancję wspólną od swoistej. Modele strukturalne (SEM) integrują oba
+poziomy: pomiarowy (jak w CFA) i strukturalny (jak w *path analysis*),
+tworząc jedną ramę, w której czynniki latentne i zmienne obserwowalne
+łączą się w sieć równań opisujących zależności
+przyczynowo-interpretacyjne.
+
+Rys historyczny sięga prac Sewalla Wrighta z lat 1918–1934, który
+wprowadził *path analysis* i reguły śledzenia ścieżek, pozwalające
+dekomponować kowariancje na sumy iloczynów współczynników [@wright1934].
+Równolegle rozwijała się analiza czynnikowa: @spearman1961, który
+postulował czynnik ogólny, a @thurstone1931 wprowadził czynniki
+wielowymiarowe. Przełomem był formalny opis CFA i ujęcie SEM przez
+Jöreskoga (koniec lat 60.), który połączył model pomiarowy i
+strukturalny w system LISREL [@tarka2017]. Lata 80. i 90. przyniosły
+rozwój estymacji, wskaźników dopasowania i oprogramowania (m.in. EQS,
+AMOS), a podręcznikowa synteza Bollen’a (1989) ugruntowała teorię
+[@bollen1989]. W kolejnych dekadach pojawiały się metody odporne i dla
+zmiennych porządkowych oraz uogólnienia dla danych longitudalnych i
+wielopoziomowych, co uczyniło z SEM uniwersalną ramę modelowania.
+
+## Konfirmacyjna analiza czynnikowa
+
+Konfirmacyjna analiza czynnikowa (ang. *Confirmatory Factor Analysis*,
+CFA), stanowi ujęcie modelu pomiarowego, w którym a priori narzuca
+strukturę zależności między zmiennymi obserwowalnymi a czynnikami
+ukrytymi. W odróżnieniu od eksploracyjnej analizy czynnikowej, gdzie
+pozwala danym „odkrywać” wzorzec ładunków, w CFA określamy, które
+zmienne ładują się na których czynnikach, które ładunki są równe zeru, a
+które mogą się różnić, oraz czy dopuszczamy korelacje błędów pomiaru.
+Celem jest weryfikacja hipotezy o poprawnej budowie narzędzia
+pomiarowego i o liczbie oraz treści czynników, a następnie oceniamy
+dopasowanie modelu do macierzy kowariancji/średnich w populacji.
+
+Formalnie przyjmujemy ten sam model pomiarowy co w EFA, lecz z
+nałożonymi ograniczeniami strukturalnymi na macierz ładunków. Niech
+$\mathbf{x}\in\mathbb{R}^p$ oznacza wektor zmiennych obserwowalnych,
+$\mathbf{f}\in\mathbb{R}^m$ wektor czynników,
+$\Lambda\in\mathbb{R}^{p\times m}$ macierz ładunków,
+$\boldsymbol{\epsilon}\in\mathbb{R}^p$ wektor składników swoistych.
+Model przyjmuje wówczas postać $$
+\mathbf{x}=\boldsymbol{\mu}+\Lambda\,\mathbf{f}+\boldsymbol{\epsilon},\qquad
+\mathbb{E}(\mathbf{f})=\mathbf{0},\ \ \mathbb{E}(\boldsymbol{\epsilon})=\mathbf{0},\ \ \mathrm{Cov}(\mathbf{f})=\Phi,\ \ \mathrm{Cov}(\boldsymbol{\epsilon})=\Psi,
+$$ gdzie $\Phi$ jest dodatnio określoną macierzą kowariancji czynników
+(dla rotacji skośnych) lub macierzą jednostkową (dla czynników
+ortogonalnych), a $\Psi$ z reguły jest macierzą diagonalną, co odpowiada
+nieskorelowanym błędom pomiaru. Macierz kowariancji implikowana przez
+model ma postać $$
+\Sigma(\theta)=\Lambda\,\Phi\,\Lambda^\top + \Psi,
+$$ gdzie $\theta$ reprezentuje wszystkie parametry modelu.
+
+Klucz identyfikacji w CFA polegać na tym, że rotacyjna nieoznaczoność
+znika dzięki z góry zdefiniowanemu wzorcowi zer w $\Lambda$ (każdy
+wskaźnik ładujący się wyłącznie na „własnym” czynniku). Aby skalować
+czynniki, przyjmować jedną z równoważnych konwencji: ustalamy wariancję
+czynnika na 1 i estymujemy wszystkie ładunki, albo ustalamy po jednym
+ładunku na 1 w każdej kolumnie $\Lambda$ i estymujemy wariancje
+czynników. Praktycznie zapewniamy co najmniej trzy sensowne wskaźniki na
+czynnik; dwa wskaźniki bywają wystarczające przy dodatkowych
+ograniczeniach równości lub znanych błędach pomiaru.
+
+Estymujemy parametry zwykle metodą największej wiarygodności, co przy
+normalności wielowymiarowej oznacza minimalizowanie rozbieżność między
+$S$ a $\Sigma(\theta)$ i umożliwia wprowadzenie testu globalnego
+dopasowania $\chi^2$. Przy naruszeniach normalności stosujemy wersje
+odporne lub ważone metody najmniejszych kwadratów dla danych
+porządkowych (WLSMV) [@li2015].
+
+Interpretacja CFA opieramy na ładunkach w $\Lambda$ jako czułościach
+wskaźników na czynniki, wariancjach i korelacjach czynników w $\Phi$
+jako sile i współwystępowaniu wymiarów latentnych oraz na resztach i
+modyfikacjach jako sygnałach lokalnego niedopasowania. Siła CFA polega
+na tym, że pozwala wprost testować hipotezy o narzędziu pomiarowym,
+porównywać modele teoretycznie motywowane i zapewniać podstawę do
+dalszych modeli strukturalnych, SEM, w których czynniki stają się
+zmiennymi wyjaśniającymi i wyjaśnianymi.
+
+::: {#exm-1}
+Przeprowadzimy CFA na danych pochodzących z badania PISA 2009,
+dotyczących strategii uczenia się uczniów. Wybierzemy 13 pozycji z
+kwestionariusza ucznia, które mają odzwierciedlać trzy strategie:
+zapamiętywania (M), opracowywania (E) i kontroli (C). Sprawdzimy, czy
+dane z Wielkiej Brytanii potwierdzają tę strukturę trójczynnikową.
+
+```{r}
+#| fig-height: 12
+#| fig-width: 8
+
+#devtools::install_github("talbano/epmr")
+library(epmr)
+library(gt)
+library(lavaan)
+library(easystats)
+library(tidyverse)
+library(sjPlot)
+
+# wybór itemów z testu (łącznie 13), podzielonych wg założonej struktury, 
+# którą będziemy weryfikować
+# strategie zapamiętywania, opracowywania i kontroli
+mitems <- c("st27q01", "st27q03", "st27q05", "st27q07")
+eitems <- c("st27q04", "st27q08", "st27q10", "st27q12")
+citems <- c("st27q02", "st27q06", "st27q09", "st27q11", 
+  "st27q13")
+alitems <- c(mitems, eitems, citems)
+
+# Zawęzimy badania tylko go Wielkiej Brytanii
+pisagbr <- PISA09[PISA09$cnt == "GBR", alitems]
+pisagbr <- pisagbr[complete.cases(pisagbr[, c(mitems, 
+  eitems, citems)]), ]
+plot_likert(pisagbr, groups = c(rep("Zapamiętywanie", 
+  length(mitems)), rep("Opracowywanie", length(eitems)), 
+  rep("Kontrola", length(citems))))
+```
+
+Na potrzeby budowy modelu konfirmacyjnego użyjemy pakietu `lavaan`.
+Definiujemy model z trzema czynnikami, gdzie każdy czynnik jest ładowany
+przez odpowiednie pozycje kwestionariusza. Następnie estymujemy model
+metodą największej wiarygodności i sprawdzamy dopasowanie modelu do
+danych.
+
+```{r}
+# Definicja modelu CFA
+model_cfa <- '
+  # Definicja czynników
+  Zapamiętywanie =~ st27q01 + st27q03 + st27q05 + st27q07
+  Opracowywanie =~ st27q04 + st27q08 + st27q10 + st27q12
+  Kontrola =~ st27q02 + st27q06 + st27q09 + st27q11 + st27q13
+'
+
+# Estymacja modelu CFA
+fit_cfa <- cfa(model_cfa, data = pisagbr, auto.var = TRUE, auto.cov.lv.x = TRUE, std.lv = TRUE)
+```
+
+-   `auto.var = TRUE` - estymuje wariancje czynników i błędów
+    pomiarowych, bez potrzeby ręcznego ich dodawania.
+-   `auto.cov.lv.x = TRUE` - estymuje kowariancje pomiędzy wszystkimi
+    czynnikami latentnymi.
+-   `std.lv = TRUE` - ustawia wariancję czynników latentnych na 1, co
+    daje bezpośrednio interpretowalne ładunki czynnikowe jako korelacje.
+
+```{r}
+# Podsumowanie dopasowania
+model_performance(fit_cfa, metrics = c("p_Chi2", "GFI", "AGFI", "NFI", "NNFI", "CFI", "RMSEA", "RMR", "SRMR", "RFI")) %>% 
+  gt() %>% 
+  fmt_number(
+    columns = is.double,
+    decimals = 3)
+```
+
+Najpierw ocenimy dopasowanie modelu:
+
+-   Po pierwsze, test chi-kwadrat (p_Chi2 = 0.000) jest istotny, co
+    formalnie sugeruje, że model nie odtwarza idealnie macierzy
+    kowariancji w populacji. Jednakże, przy większych próbach test ten
+    jest nadwrażliwy i często prowadzi do odrzucenia nawet dobrze
+    dopasowanych modeli, dlatego nie należy go traktować jako jedynego
+    kryterium oceny.
+-   Jeśli chodzi o wskaźniki dopasowania absolutnego, wartości GFI =
+    0.936 oraz AGFI = 0.907 wskazują na przyzwoite dopasowanie – oba
+    mieszczą się powyżej progu 0.90, choć nie osiągają poziomu bardzo
+    dobrego (≥ 0.95). Podobnie RMR = 0.042 i SRMR = 0.057 sugerują, że
+    przeciętne reszty między obserwowaną a implikowaną macierzą są
+    umiarkowanie niskie – SRMR \< 0.08 jest zwykle uznawane za
+    akceptowalne.
+-   W przypadku wskaźników dopasowania przyrostowego (NFI = 0.881, NNFI
+    = 0.856, CFI = 0.885, RFI = 0.850), wszystkie wartości są poniżej
+    konwencjonalnego progu 0.90, co wskazuje na pewne niedopasowanie.
+-   Szczególnie ważny jest RMSEA = 0.081, który mieści się w strefie
+    dopuszczalnej, ale nie idealnej (0.05–0.08 uznaje się za
+    akceptowalne dopasowanie, a \> 0.10 za słabe). Wartość 0.081
+    wskazuje na model na granicy akceptowalności – można go uznać za
+    umiarkowanie dopasowany, ale istnieją przesłanki do jego ulepszania
+    (np. rozważenie korelacji błędów pomiarowych, dodanie lub
+    modyfikacja pozycji).
+
+Teraz przejdźmy do interpretacji parametrów modelu:
+
+```{r}
+model_parameters(fit_cfa, component = "loading", standardize = T) %>% 
+  gt() %>% 
+  fmt_number(
+    columns = is.double,
+    decimals = 3)
+
+model_parameters(fit_cfa, component = "correlation") %>% 
+  gt() %>% 
+  fmt_number(
+    columns = is.double,
+    decimals = 3)
+```
+
+-   W przypadku strategii zapamiętywania, wszystkie pozycje
+    (`st27q01, st27q03, st27q05, st27q07`) ładują się umiarkowanie
+    silnie na czynniku, z wartościami współczynników standaryzowanych w
+    przedziale 0.59–0.64. Oznacza to, że zmienne te są spójnymi
+    wskaźnikami tego konstruktu i wnoszą podobny wkład w jego pomiar.
+    Wysokie istotności statystyczne (p \< .001) potwierdzają, że każda z
+    tych zmiennych odgrywa istotną rolę w budowie czynnika.
+-   Dla strategii opracowywania obserwujemy wyższe wartości ładunków
+    czynnikowych – od 0.53 dla `st27q04` do 0.73 dla `st27q12`. Oznacza
+    to, że ta grupa pytań jest silnie związana z konstruktem
+    emocjonalnych strategii uczenia się, a zwłaszcza pozycje `st27q10` i
+    `st27q12` okazują się najbardziej reprezentatywne. Interpretować to
+    można jako silną spójność wskaźników i dużą trafność pomiarową tego
+    czynnika.
+-   Jeśli chodzi o strategie kontrolne, wszystkie pozycje mają dość
+    wysokie ładunki, od 0.55 do 0.67, co sugeruje dobrą konsystencję
+    wewnętrzną tego konstruktu. Szczególnie istotne są pozycje
+    `st27q06, st27q09 i st27q11`, które mają najwyższe wartości
+    współczynników, a więc najlepiej odzwierciedlają mechanizmy związane
+    z kontrolą uczenia się.
+-   Wyniki korelacji między trzema strategiami uczenia się wskazują, że
+    są one ze sobą istotnie powiązane, choć w różnym stopniu.
+    Najsilniejszy związek występuje między Zapamiętywaniem a Kontrolą (r
+    = 0.714, p \< 0.001), co sugeruje, że monitorowanie procesu uczenia
+    się jest ściśle powiązane ze stosowaniem technik zapamiętywania.
+    Nieco słabsze, ale nadal istotne powiązania obserwuje się między
+    Opracowywaniem a Kontrolą (r = 0.576, p \< 0.001) oraz między
+    Zapamiętywaniem a Opracowywaniem (r = 0.368, p \< 0.001), co
+    wskazuje, że przetwarzanie materiału oraz kontrola uczenia się są
+    umiarkowanie powiązane z technikami pamięciowymi. Łącznie wyniki te
+    potwierdzają, że strategie tworzą spójny, ale zróżnicowany zbiór
+    powiązanych ze sobą podejść do uczenia się.
+
+Model możemy również przedstawić graficznie.
+
+```{r}
+library(semPlot)
+library(RColorBrewer)
+
+# wybieramy pastelową paletę
+pastel_cols <- brewer.pal(3, "Pastel2")
+
+semPaths(fit_cfa,
+         whatLabels = "std",
+         what = 'std',
+         layout = "tree2",
+         groups = "latents",
+         sizeMan = 6,
+         sizeLat = 8,
+         nCharNodes = 0,
+         style = "lisrel",
+         # kolory pastelowe dla zmiennych latentnych i obserwowanych
+         color = pastel_cols,
+         colorLat = pastel_cols[1],
+         colorMan = pastel_cols[2],
+         edge.color = "grey70")
+```
+:::
+
+## *Path analysis*
+
+Analiza ścieżkowa (ang. *path analysis*) jest jedną z najwcześniejszych
+form modelowania strukturalnego i stanowi naturalne rozwinięcie regresji
+wielokrotnej. Jej głównym celem jest badanie złożonych układów
+zależności przyczynowo-skutkowych między zmiennymi obserwowalnymi, w tym
+układów obejmujących zmienne pośredniczące (mediatory). Została
+zaproponowana przez Sewalla Wrighta w latach 20. XX wieku jako narzędzie
+do formalizacji równań przyczynowych w biologii, a następnie rozwinęła
+się jako fundament współczesnych modeli SEM.
+
+Formalnie model analizy ścieżkowej można zapisać jako system równań
+liniowych $$
+\mathbf{y} = B\mathbf{y} + \Gamma \mathbf{x} + \zeta,
+$$ gdzie:
+
+-   $\mathbf{y}$ to wektor zmiennych endogenicznych (wyjaśnianych w
+    modelu),
+-   $\mathbf{x}$ to wektor zmiennych egzogenicznych (traktowanych jako
+    dane, nieobjaśniane w modelu),
+-   $B$ to macierz współczynników regresji pomiędzy zmiennymi
+    endogenicznymi,
+-   $\Gamma$ to macierz współczynników regresji łączących zmienne
+    egzogeniczne z endogenicznymi,
+-   $\zeta$ to wektor zakłóceń (błędów strukturalnych).
+
+Założenia analizy ścieżkowej są w dużej mierze zbieżne z klasycznymi
+założeniami regresji liniowej. Obejmują one liniowość zależności, brak
+silnej współliniowości między predyktorami, nieskorelowanie błędów
+$\zeta$ z egzogenicznymi zmiennymi $\mathbf{x}$ oraz odpowiednio dużą
+próbę, aby zapewnić stabilność estymacji. Dodatkowo zakłada się
+poprawność teoretyczną modelu – to badacz definiuje strukturę ścieżek na
+podstawie teorii lub wcześniejszych wyników, a analiza ma na celu jej
+statystyczną weryfikację.
+
+Estymacja parametrów w analizie ścieżkowej opiera się najczęściej na
+metodzie największej wiarygodności (*maximum likelihood*, ML), która
+minimalizuje różnicę między macierzą kowariancji obserwowanej a macierzą
+kowariancji implikowaną przez model. Alternatywnie stosuje się metody
+oparte na najmniejszych kwadratach (*generalized least squares*, GLS,
+*ordinary least squares*, OLS) [@principl2016], a w przypadku naruszenia
+normalności rozkładu dostępne są warianty odporne, takie jak *robust* ML
+[@principl2016] czy estymacja asymptotycznie niezależna (*asymptotically
+distribution free*, ADF) [@huang2015]. W nowszych zastosowaniach
+wykorzystuje się również metody bayesowskie, które pozwalają wprowadzić
+rozkłady a priori dla parametrów i prowadzić wnioskowanie
+probabilistyczne o strukturze zależności.
+
+::: {#exm-2}
+Wykonamy prostą analizę ścieżkową na danych `mtcars`, aby zbadać wpływ
+masy pojazdu (`wt`) na jego zużycie paliwa (`mpg`), za pośrednictwem
+mocy silnika (`hp`). Hipoteza zakłada, że masa wpływa na moc, która z
+kolei wpływa na zużycie paliwa.
+
+```{r}
+# Model ścieżkowy (wyłącznie zmienne obserwowalne)
+# hp jest mediatorem między wt a mpg
+model_pa <- '
+  # równania regresji (część strukturalna)
+  mpg ~ c*wt + b*hp
+  hp  ~ a*wt
+
+  # efekty pośrednie i całkowite
+  ind := a*b
+  tot := c + (a*b)
+'
+
+fit_pa <- sem(model_pa, data = mtcars,
+              estimator = "MLR")                         # estymator odporny (robust ML)
+
+# Podsumowanie wyników (standaryzacja, istotności, efekty zdefiniowane)
+summary(fit_pa, standardized = TRUE, ci = TRUE, rsquare = TRUE)
+
+# Wizualizacja diagramu ścieżek
+semPaths(fit_pa,
+         what = "std", 
+         whatLabels = "std",
+         layout = "circle",
+         style = "lisrel",
+         residuals = FALSE, intercepts = FALSE,
+         nCharNodes = 0, sizeMan = 7,
+         groups = "manifests",
+         color = brewer.pal(3, "Pastel2"),
+         edge.color = "grey60")
+```
+
+Model zapisujemy jako: $$
+\mathbf{y} = B\mathbf{y} + \Gamma \mathbf{x} + \zeta,
+$$ gdzie:
+
+-   $\mathbf{y} = \begin{bmatrix} mpg \\ hp \end{bmatrix}$ to zmienne
+    endogeniczne,
+-   $\mathbf{x} = wt$ to zmienna egzogeniczna,
+-   $B$ to macierz regresji pomiędzy zmiennymi endogenicznymi,
+-   $\Gamma$ to macierz efektów zmiennych egzogenicznych na
+    endogeniczne,
+-   $\zeta$ to wektor błędów strukturalnych.
+
+Estymowane równania $$
+\begin{aligned}
+mpg &= c \cdot wt + b \cdot hp + \zeta_{mpg}, \\
+hp  &= a \cdot wt + \zeta_{hp},
+\end{aligned}
+$$ gdzie:
+
+-   $a = 46.160$ (standaryzowane $0.659$) – wpływ masy (`wt`) na moc
+    (`hp`),
+
+-   $b = -0.032$ (standaryzowane $-0.361$) – wpływ mocy (`hp`) na
+    spalanie (`mpg`),
+
+-   $c = -3.878$ (standaryzowane $-0.630$) – bezpośredni wpływ masy
+    (`wt`) na spalanie (`mpg`).
+
+-   Macierz $B$ (zależności między endogenicznymi): $$
+    B =
+    \begin{bmatrix}
+    0 & b \\
+    0 & 0
+    \end{bmatrix},
+    \quad b = -0.032.
+    $$
+
+-   Macierz $\Gamma$ (wpływy egzogenicznej zmiennej $wt$): $$
+    \Gamma =
+    \begin{bmatrix}
+    c \\
+    a
+    \end{bmatrix},
+    \quad c = -3.878, \quad a = 46.160.
+    $$
+
+-   Wariancje resztowe (błędy strukturalne): $$
+    \mathrm{Var}(\zeta_{mpg}) = 6.095 \; (17.3\%),
+    \quad \mathrm{Var}(\zeta_{hp}) = 2577.777 \; (56.6\%).
+    $$
+
+Oznacza to, że model wyjaśnia 82.7% wariancji spalania i 43.4% wariancji
+mocy.
+
+-   Efekt pośredni masy na spalanie przez moc $$
+    ind = a \cdot b = 46.160 \cdot (-0.032) = -1.467
+    $$ istotny statystycznie ($p < 0.001$).
+
+-   Efekt całkowity masy na spalanie: $$
+    tot = c + a \cdot b = -3.878 + (-1.467) = -5.344.
+    $$ Oznacza to, że wzrost masy samochodu (o jednostkę standaryzowaną)
+    zmniejsza spalanie o 0.868 jednostki standardowej – w dużej części
+    bezpośrednio, a w mniejszej poprzez wzrost mocy.
+
+Model ścieżkowy wskazuje, że masa samochodu (`wt`) ma silny negatywny
+wpływ na oszczędność paliwa (`mpg`), zarówno bezpośrednio, jak i
+pośrednio poprzez zwiększanie mocy silnika (`hp`). Moc natomiast sama w
+sobie pogarsza spalanie. Wartości $R^2$ potwierdzają, że model bardzo
+dobrze wyjaśnia zmienność `mpg` (83%), ale umiarkowanie słabiej radzi
+sobie z `hp` (43%).
+:::
+
+## Modele strukturalne (SEM)
+
+Modele typu *covariance-based structural equation modeling* (CB-SEM),
+określane po prostu jako SEM, stanowią rozwinięcie i uogólnienie dwóch
+podejść: analizy czynnikowej (CFA) oraz analizy ścieżkowej (*path
+analysis*). Istota SEM polega na tym, że pozwala ono jednocześnie badamy
+trafność pomiaru zmiennych latentnych oraz testujemy hipotezy dotyczące
+relacji między tymi zmiennymi. Dzięki temu SEM stanowi narzędzie
+integrujące w sobie modelowanie pomiarowe i strukturalne, umożliwiając
+analizę złożonych układów zależności obserwowalnych i nieobserwowalnych.
+
+Formalnie model SEM zapisuje się jako system równań macierzowych. Model
+pomiarowy dla zmiennych egzogenicznych ma postać $$
+\mathbf{x} = \Lambda_x \boldsymbol{\xi} + \boldsymbol{\delta},
+$$ gdzie $\mathbf{x}$ to wektor zmiennych obserwowalnych,
+$\boldsymbol{\xi}$ – wektor latentnych zmiennych egzogenicznych,
+$\Lambda_x$ – macierz ładunków czynnikowych, a $\boldsymbol{\delta}$ –
+błędy pomiarowe. Analogicznie model pomiarowy dla zmiennych
+endogenicznych przyjmuje formę $$
+\mathbf{y} = \Lambda_y \boldsymbol{\eta} + \boldsymbol{\epsilon},
+$$ gdzie $\mathbf{y}$ oznacza obserwowalne zmienne endogeniczne,
+$\boldsymbol{\eta}$ – latentne zmienne endogeniczne, $\Lambda_y$ –
+macierz ładunków, a $\boldsymbol{\epsilon}$ – błędy pomiaru. Trzecim
+elementem jest model strukturalny $$
+\boldsymbol{\eta} = B \boldsymbol{\eta} + \Gamma \boldsymbol{\xi} + \boldsymbol{\zeta},
+$$ który opisuje relacje pomiędzy zmiennymi latentnymi endogenicznymi
+$(B)$ oraz wpływ zmiennych egzogenicznych na endogeniczne $(\Gamma)$, z
+uwzględnieniem zakłóceń strukturalnych $(\boldsymbol{\zeta})$.
+
+W modelach SEM kluczowe znaczenie mają zmienne latentne $(\xi, \eta)$,
+które reprezentują konstrukty teoretyczne trudne do bezpośredniego
+pomiaru, np. satysfakcję z życia czy strategie uczenia się. Zmienne
+obserwowalne $(x, y)$ stanowią wskaźniki tych konstruktów. Ładunki
+czynnikowe $\Lambda$ wskazują, jak silnie dana zmienna obserwowalna
+powiązana jest z konstruktem latentnym. Macierze $B$ i $\Gamma$ opisują
+odpowiednio zależności między konstruktami oraz ich uwarunkowania przez
+zmienne egzogeniczne. Błędy pomiarowe $(\delta, \epsilon)$ i zakłócenia
+strukturalne ($\zeta$) odzwierciedlają niewyjaśnioną wariancję.
+
+Parametry SEM mogą być estymowane różnymi metodami. Najczęściej stosuje
+się metodę największej wiarygodności (ML), która minimalizuje
+rozbieżność między macierzą kowariancji modelową a empiryczną.
+Alternatywą są metody najmniejszych kwadratów: GLS (ang. *Generalized
+Least Squares*), ULS (ang. *Unweighted Least Squares*, mniej wymagająca
+co do rozkładów, lecz bez klasycznych testów istotności) oraz DWLS (ang.
+*Diagonally Weighted Least Squares*), szczególnie polecana przy danych
+porządkowych. W przypadku naruszeń normalności rozkładu stosuje się
+wersje odporne, takie jak MLR (ang. *Maximum Likelihood Robust*) czy MLM
+(ang. *Maximum Likelihood Mean-adjusted*), które korygują wariancje i
+błędy standardowe [@suppleme2016; @kiliç2020; @li2021; @kyriazos2023].
+
+Znaczenie SEM polega na tym, że łączy ono analizę czynnikową i analizę
+ścieżkową w jeden spójny model. W części pomiarowej pozwala sprawdzić,
+czy narzędzie badawcze dobrze odwzorowuje zamierzone konstrukty,
+natomiast w części strukturalnej umożliwia testowanie hipotez o
+związkach między zmiennymi ukrytymi. Dzięki temu SEM jest traktowane
+jako złoty standard w psychometrii, naukach społecznych i zarządzaniu,
+oferując zarówno rzetelną ocenę jakości pomiaru, jak i analizę
+zależności przyczynowych.
+
+## Założenia modeli SEM
+
+1.  Oparcie na teorii - SEM z definicji służy testowaniu i potwierdzaniu
+    modelu teoretycznego. Dlatego punktem wyjścia musi być koncepcja
+    badawcza oparta na wcześniejszych badaniach i spójnej teorii. Model
+    powinien odzwierciedlać hipotezy dotyczące relacji między
+    konstruktami latentnymi i zmiennymi obserwowalnymi.
+
+2.  Wielkość próby - zaleca się próby liczące co najmniej około 200
+    obserwacji, choć ostateczny wymóg zależy od trzech czynników:
+
+    1.  rozkładu zmiennych,
+    2.  złożoności modelu,
+    3.  metody estymacji.
+
+    Duże próby zwiększają stabilność wyników i odporność na naruszenia
+    założeń.
+
+3.  Normalność rozkładu - ponieważ SEM opiera się na macierzy
+    kowariancji, standardowo zakłada się wielowymiarową normalność
+    rozkładu zmiennych. W praktyce odchylenia od normalności można
+    kompensować, stosując estymatory odporne, np. robust ML czy WLSMV.
+
+4.  Liniowość związków - zakłada się, że relacje między konstruktami
+    latentnymi a wskaźnikami obserwowalnymi oraz między zmiennymi
+    latentnymi mają charakter liniowy.
+
+5.  Brak silnej współliniowości - predyktory w modelu powinny być
+    możliwie niezależne. Choć umiarkowana współliniowość zwykle nie jest
+    problemem, silne korelacje mogą prowadzić do trudności w estymacji i
+    interpretacji ścieżek.
+
+6.  Kompletność danych - modele SEM wymagają pełnych danych. Można to
+    osiągnąć poprzez imputację (np. średnią, regresję) albo stosując
+    metody wykorzystujące pełną informację przy brakach danych, jak FIML
+    (Full Information Maximum Likelihood).
+
+7.  Niezależność błędów pomiarowych - standardowe założenie głosi, że
+    błędy pomiarowe są nieskorelowane. W praktyce jednak niekiedy
+    dopuszcza się ich korelacje, zwłaszcza gdy sugerują to indeksy
+    modyfikacyjne i uzasadnia teoria.
+
+## Ocena dopasowania modelu SEM
+
+| Wskaźnik | Wartość idealna | Wartość akceptowalna |
+|------------------------|-------------------------|------------------------|
+| Chi-kwadrat (CMIN) \* | p \> 0,05 (przy α = 0,05) | p \< 0,05 (przy α = 0,05) |
+| Standaryzowany chi-kwadrat (CMIN/df) \* | \< 3 | \< 5 |
+| GFI (Goodness of Fit Index) | \> 0,95 | \> 0,90 |
+| AGFI (Adjusted GFI) | \> 0,90 | \> 0,85 |
+| CFI (Comparative Fit Index) \* | \> 0,95 | \> 0,90 |
+| TLI (Tucker-Lewis Index, NNFI) | \> 0,90 | \> 0,85 |
+| NFI (Normed Fit Index) | \> 0,95 | \> 0,90 |
+| PGFI (Parsimonious GFI) | \> 0,50 | brak sztywnych progów |
+| PNFI (Parsimonious NFI) | \> 0,50 | brak sztywnych progów |
+| PCFI (Parsimonious CFI) | \> 0,50 | brak sztywnych progów |
+| SRMR (Standardized RMR) \* | \< 0,05 | \< 0,08 |
+| RMSEA (Root Mean Square Error of Approximation) \* | \< 0,05 \[90% CI\] | \< 0,10 \[90% CI\] |
+
+::: {#exm-3}
+Zbiór `HolzingerSwineford1939` (pakietu `lavaan`) zawiera wyniki uczniów
+w dziewięciu testach poznawczych oraz podstawowe cechy demograficzne i
+szkolne [@turney1939]. Dziewięć pozycji testowych tworzy trzy klasyczne
+domeny poznawcze: *visual* (postrzeganie wzrokowe), *textual*
+(kompetencje werbalne) i *speed* (szybkość przetwarzania), po trzy
+wskaźniki w każdej domenie. Oryginalne zmienne testowe oznaczone są jako
+`x1–x9` i w literaturze przypisuje się je do czynników: - `x1, x2, x3` →
+czynnik *Visual*, - `x4, x5, x6` → czynnik *Textual*, - `x7, x8, x9` →
+czynnik *Speed.*
+
+W danych można znaleźć też zmienne: `ageyr` (wiek w latach), `agemo`
+(nadwyżka miesięcy), `sex` (płeć, kod 1 = chłopiec, 2 = dziewczynka),
+school (szkoła), `grade` (klasa). Do modelu wprowadzony zostanie wiek w
+latach ciągłych: `age = ageyr + agemo/12`, a płeć zostanie przekodowana
+binarnie (`sex01`: 0 = dziewczynka, 1 = chłopiec) dla przejrzystości
+interpretacji.
+
+Hipotezy badawcze (wpływy bezpośrednie i pośrednie)
+
+Przyjmiemy klasyczną trójczynnikową strukturę pomiarową (*Visual,
+Textual, Speed*), a w części strukturalnej założymy wpływy wieku i płci
+na latentne zdolności oraz zależność między zdolnościami:
+
+-   $H_0^1:$ Wiek dodatnio wpływa na *Visual* i *Textual* oraz –
+    pośrednio – na *Speed*.
+-   $H_0^2:$ Płeć (kod 1 = chłopiec) różnicuje profile: dodatnio wpływa
+    na *Visual*, natomiast słabiej lub ujemnie na *Textual*; wpływ na
+    *Speed* występuje pośrednio poprzez *Visual* i *Textual*.
+-   $H_0^3:$ Czynnik *Speed* zależy wprost od *Visual* i *Textual*;
+    efekty wieku i płci na *Speed* będą zatem częściowo pośredniczone
+    przez *Visual* i *Textual*.
+
+```{r}
+data("HolzingerSwineford1939")
+
+# Przygotowanie zmiennych egzogenicznych
+hs <- within(HolzingerSwineford1939, {
+  age <- ageyr + agemo/12
+  sex01 <- as.numeric(sex == 1)  # 1=boy, 0=girl (w razie innego kodowania dostosować)
+})
+
+# Specyfikacja modelu SEM: część pomiarowa (CFA) + część strukturalna
+model_sem <- '
+  # Część pomiarowa (CFA)
+  Visual  =~ x1 + x2 + x3
+  Textual =~ x4 + x5 + x6
+  Speed   =~ x7 + x8 + x9
+
+  # Część strukturalna (path analysis na latentach)
+  Speed   ~ b1*Visual + b2*Textual
+  Visual  ~ a1*age + a2*sex01
+  Textual ~ a3*age + a4*sex01
+
+  # Efekty pośrednie wieku i płci na Speed
+  ind_age  := a1*b1 + a3*b2
+  ind_sex  := a2*b1 + a4*b2
+
+  # Efekty całkowite wieku i płci na Speed
+  tot_age  := ind_age
+  tot_sex  := ind_sex
+'
+
+fit_sem <- sem(model_sem, data = hs,
+               estimator = "MLR",      # robust ML
+               meanstructure = TRUE)
+```
+
+W części pomiarowej zdefiniowano trzy czynniki pierwszego rzędu z
+klasycznym mapowaniem wskaźników. W części strukturalnej założono, że
+`Visual` i `Textual` determinują `Speed`, a `age` i `sex01` oddziałują
+na `Visual` i `Textual.` Zdefiniowano także etykiety ścieżek, aby
+policzyć efekty pośrednie i całkowite (`:=`). Parametry raportowane są w
+skalach surowych i standaryzowanych.
+
+```{r}
+model_performance(fit_sem, c("Chi2","Chi2_df","p_Chi2","CFI","TLI","RMSEA","RMSEA_CI_low","RMSEA_CI_high","SRMR")) %>% 
+  print_html()
+```
+
+Ocena dopasowania modelu SEM zawsze powinna być przeprowadzona z kilku
+perspektyw: testu chi-kwadrat, wskaźników dopasowania przyrostowych
+(*incremental fit indices*) oraz wskaźników błędu aproksymacji. Wyniki
+uzyskane w analizie wskazują na istotne sygnały niedopasowania modelu.
+
+Test chi-kwadrat dla modelu dał wartość $\chi^2 = 172,77$ przy df = 39,
+co przy dużej liczności prowadzi do p \< 0.001. Oznacza to, że w sensie
+dosłownym odrzucamy hipotezę o pełnym zgodnym odwzorowaniu macierzy
+kowariancji w populacji przez model. Jednak test chi-kwadrat jest bardzo
+wrażliwy zarówno na rozmiar próby, jak i złożoność modelu, dlatego wynik
+ten traktuje się raczej jako punkt wyjścia niż rozstrzygające kryterium.
+
+Wskaźniki przyrostowe pokazują umiarkowanie słabe dopasowanie. Wartości
+CFI = 0.858 i TLI = 0.803 są wyraźnie poniżej rekomendowanego poziomu
+0.90, a tym bardziej 0.95, które zwykle przyjmuje się jako granicę
+bardzo dobrego dopasowania. To sugeruje, że model w obecnej postaci nie
+wyjaśnia wystarczająco dobrze struktury zależności obserwowanych w
+danych i potencjalnie wymaga modyfikacji – np. dodania powiązań reszt,
+rewizji struktury ścieżek lub przemyślenia samego modelu pomiarowego.
+
+Wskaźnik błędu aproksymacji RMSEA = 0.107 (90% CI: 0.091–0.123) jest
+stosunkowo wysoki i wykracza poza granicę akceptowalności (zwykle \<
+0.08, a najlepiej \< 0.05). Taki wynik sugeruje, że model charakteryzuje
+się zauważalnym błędem przybliżenia w stosunku do danych populacyjnych.
+Z kolei wskaźnik SRMR = 0.108 jest powyżej standardowego progu
+akceptowalności 0.08, co dodatkowo wskazuje na problemy z odwzorowaniem
+korelacji obserwowanych przez model.
+
+Chcąc poprawić dopasowanie modelu można zaproponować następujące
+modyfikacje:
+
+-   Po pierwsze, dopuścić kowariancję zaburzeń zmiennych latentnych
+    *Visual* i *Textual.* W praktyce te dwa konstrukty współdzielą
+    wariancję nie w pełni wyjaśnioną przez wiek i płeć. Dodanie
+    `Visual ~~ Textual` nie zmienia hipotez o wpływach na *Speed*, a
+    często istotnie obniża błąd aproksymacji.
+-   Po drugie, w części pomiarowej można dopuścić wyłącznie te
+    kowariancje reszt wskaźników, które mają jednoznaczne uzasadnienie
+    treściowe. W `HolzingerSwineford1939` typowe pary to `x1–x2, x2–x3`
+    (ten sam kanał wizualny), `x4–x5` (werbalne), `x7–x8` (szybkość). Te
+    powiązania korygują lokalne niedopasowania bez naruszania sensu
+    hipotez strukturalnych.
+-   Po trzecie, skontrolować jakość wskaźników. Jeżeli którykolwiek
+    ładunek w CFA jest niski (np. \< 0.40) i generuje duże reszty,
+    rozważyć jego usunięcie lub zamianę (jeśli masz silne uzasadnienie
+    teoretyczne). Usunięcie pojedynczego, słabego wskaźnika często
+    stabilizuje model.
+-   Po czwarte, uwzględnić współzmienność zmiennych egzogenicznych
+    (`age ~~ sex01`). To technicznie poprawne i zapobiega „wpychaniu”
+    ich korelacji w część strukturalną.
+-   Po piąte, upewniać się, że estymacja odpowiada naturze danych. Jeśli
+    wskaźniki są porządkowe, stosować estymację DWLS i macierz
+    polichoryczną; przy ciągłych pozostawić MLR (w naszym przypadku
+    wyniki nie są ze skali Likerta, oryginalne dane zawierały zmienne z
+    różnego zakresu).
+-   Po szóste, można rozważyć słabą nieliniowość wieku (`age^2`) tylko
+    wtedy, gdy wskazują na to reszty i teoria; nie zmienia to sensu
+    głównych hipotez (dalej wiek → Visual/Textual → Speed), ale bywa, że
+    poprawia dopasowanie.
+
+Poniżej wariant modelu z minimalnymi, teoretycznie uzasadnionymi
+modyfikacjami.
+
+```{r}
+model_sem_refined <- '
+  # CFA
+  Visual  =~ x1 + x2 + x3
+  Textual =~ x4 + x5 + x6
+  Speed   =~ x7 + x8 + x9
+
+  # Strukturalny (bez zmian hipotez)
+  Speed   ~ b1*Visual + b2*Textual
+  Visual  ~ a1*age + a2*sex01
+  Textual ~ a3*age + a4*sex01
+
+  # Dodatkowe kowariancje zgodne z teorią
+  Visual ~~ Textual          # współdzielona wariancja latentów
+  age ~~ sex01               # współzmienność egzogenicznych
+
+  # Skorelowane unikalności (tylko wewnątrz domen i z uzasadnieniem treściowym)
+  x1 ~~ x2
+  x2 ~~ x3
+  x4 ~~ x5
+  x7 ~~ x8
+
+  # Efekty pośrednie i całkowite (jak dotąd)
+  ind_age  := a1*b1 + a3*b2
+  ind_sex  := a2*b1 + a4*b2
+  tot_age  := ind_age
+  tot_sex  := ind_sex
+'
+
+fit_sem_refined <- sem(model_sem_refined, data = hs,
+                       estimator = "MLR", 
+                       meanstructure = TRUE)
+
+model_performance(fit_sem_refined, c("Chi2","Chi2_df","p_Chi2","CFI","TLI","RMSEA","RMSEA_CI_low","RMSEA_CI_high","SRMR")) %>% 
+  print_html()
+
+# Pomocniczo: gdzie są największe niedopasowania?
+modindices(fit_sem, sort.=TRUE, minimum.value = 10)[1:12, c("lhs","op","rhs","mi","epc","sepc.all")] %>% 
+  gt() %>% 
+  fmt_number(columns = c("mi","epc","sepc.all"), decimals = 3) 
+```
+
+Obecny model po modyfikacjach prezentuje już znacznie lepsze dopasowanie
+niż pierwotny, choć nadal nie jest idealny. Wskaźniki globalne wskazują,
+że dopasowanie można uznać za umiarkowanie dobre. Statystyka $\chi^2$
+(97.03, df = 34, p \< 0.001) nadal jest istotna, co przy relatywnie
+małej liczbie stopni swobody sygnalizuje pewne niedopasowanie modelu do
+danych. Jednak należy pamiętać, że test $\chi^2$ jest bardzo czuły i w
+praktyce często odrzuca modele nawet przy akceptowalnym dopasowaniu.
+Lepszą informację dają indeksy: CFI = 0.933 mieści się w strefie
+„akceptowalnej”, ale jeszcze poniżej progu 0.95 sugerującego bardzo
+dobre dopasowanie. TLI = 0.892 jest blisko progu 0.90 i również wskazuje
+na umiarkowane dopasowanie. RMSEA = 0.078 (90% CI: 0.060–0.097) mieści
+się w przedziale akceptowalnym (\< 0.10), a dolna granica jest blisko
+0.05, co sugeruje, że model jest względnie bliski dobrego dopasowania.
+SRMR = 0.055 jest niewiele powyżej granicy 0.05 i można go uznać za dość
+dobry wynik.
+
+Analiza indeksów modyfikacyjnych[^sem-1] pokazuje, że największe
+niedopasowania koncentrują się w kilku obszarach. Po pierwsze,
+sugerowane są dodatkowe powiązania strukturalne między czynnikami
+latentnymi a zmienną *Speed* (np. `Textual ~ Speed, Visual ~ Speed`),
+które jednak wykraczałyby poza pierwotnie założone hipotezy mediacyjne.
+Po drugie, wskazywane są silne powiązania między wskaźnikami tego samego
+czynnika (np. `x7 ~~ x8`), co można interpretować jako efekty metody lub
+nadmierne podobieństwo treściowe pozycji testowych. Po trzecie,
+pojawiają się sugestie dotyczące alternatywnych ładunków wskaźników (np.
+`Textual =~ x1, Visual =~ x9`), co wskazuje na pewne problemy z
+czystością czynników, ale ich wprowadzenie mogłoby zmienić interpretację
+teoretyczną czynników.
+
+Godząc się na nieidealne dopasowanie, można uznać, że model w obecnej
+formie jest wystarczająco dobry do testowania głównych hipotez
+badawczych. Wprowadzenie pewnych zmian sugerowanych przez indeksy
+modyfikacyjne mogłoby utrudnić weryfikację postawionych hipotez.
+
+```{r}
+model_parameters(fit_sem_refined, standardized = TRUE, ci = TRUE) 
+```
+
+**Model pomiarowy**
+
+Wyniki dla czynników latentnych (`Visual, Textual, Speed`) pokazują, że
+wszystkie wskaźniki (`x1–x9`) istotnie ładują się na odpowiednich
+czynnikach (p \< 0.001), co potwierdza poprawność konstrukcji
+pomiarowej. Ładunki są zróżnicowane: np. dla `Visual` zmienne `x2` i
+`x3` mają umiarkowane wartości (0.54, 0.69), natomiast dla `Textual`
+wskaźniki `x5` i `x6` są mocno związane z czynnikiem (ok. 1.1 i 0.94).
+Czynnik `Speed` jest silnie określony przez `x7–x9`, przy czym `x9` ma
+wyjątkowo wysoki ładunek (2.42), co może sugerować, że ta zmienna
+dominuje w definiowaniu konstruktu. Generalnie jednak wszystkie zmienne
+obserwowalne wnoszą istotny wkład, co wspiera trafność pomiarową.
+
+**Model strukturalny**
+
+Hipotezy dotyczące wpływów bezpośrednich częściowo się potwierdziły.
+Czynnik `Visual` istotnie przewiduje `Speed` (b1 = 0.23, p = 0.005), co
+oznacza, że im wyższe zdolności wizualne, tym lepsze wyniki w zadaniach
+szybkościowych. Z kolei wpływ `Textual` na `Speed` okazał się nieistotny
+(b2 ≈ 0, p = 0.786), co przeczy hipotezie o jego znaczącym wkładzie.
+Wśród zmiennych egzogenicznych, wiek istotnie i negatywnie wpływa na
+`Textual` (a3 = -0.23, p \< 0.001), co można interpretować tak, że
+starsze osoby mają gorsze wyniki w zadaniach tekstowych. Płeć (`sex01`)
+nie odgrywa istotnej roli ani w `Visual`, ani w `Textual` (p \> 0.05),
+choć dla `Visual` efekt był bliski istotności (a2 = 0.24, p = 0.074),
+sugerując potencjalny trend.
+
+**Zależności między czynnikami**
+
+Istnieje istotna korelacja między `Visual` i `Textual` (0.43, p \<
+.001), co wskazuje, że obie zdolności współwystępują, ale nie są
+tożsame. Korelacja ta wspiera tezę o współzależności różnych typów
+zdolności poznawczych. Dodatkowo, zidentyfikowano korelację między
+zmiennymi resztowymi `x7` i `x8` (0.34, p \< .001), co można
+interpretować jako częściowo wspólny czynnik specyficzny dla tych zadań
+szybkościowych.
+
+**Efekty pośrednie i całkowite**
+
+Ścieżki pośrednie przez `Visual` i `Textual` nie były istotne w
+przypadku wieku (`ind_age` ≈ 0, p = 0.828), natomiast dla płci
+(`ind_sex` = 0.05, p = 0.091) pojawił się trend w kierunku efektu
+pośredniego, choć bez pełnej istotności. Efekty całkowite (`tot_age`,
+`tot_sex`) powtarzają te same wnioski – brak efektów dla wieku i jedynie
+potencjalny, słaby wpływ płci.
+
+**Podsumowanie**
+
+Model po modyfikacjach w poprawny sposób mierzy czynniki i potwierdza
+istotną rolę zdolności wizualnych w wyjaśnianiu szybkości, podczas gdy
+zdolności tekstowe odgrywają mniejszą rolę. Wiek ma wyraźny negatywny
+wpływ na zdolności tekstowe, natomiast płeć nie wpływa istotnie na żaden
+z czynników, choć jej rola dla zdolności wizualnych może wymagać dalszej
+analizy. Wyniki wskazują, że hipotezy dotyczące bezpośredniego wpływu
+`Visual` na `Speed` oraz wieku na `Textual` znajdują potwierdzenie,
+natomiast hipotezy dotyczące `Textual` → `Speed` i `sex01` → czynniki
+nie znajdują mocnego wsparcia.
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+# Wizualizacja modelu SEM
+semPaths(fit_sem_refined,
+         what = "std", 
+         whatLabels = "std",
+         layout = "tree2",
+         style = "lisrel",
+         residuals = T, intercepts = F,
+         nCharNodes = 0, sizeMan = 5,
+         groups = "latent",
+         color = brewer.pal(3, "Pastel2"),
+         edge.color = "grey60")
+
+```
+:::
+
+[^sem-1]: Indeksy modyfikacyjne (*modification indices*, MI) wskazują, o
+    ile zmniejszyłby się chi-kwadrat modelu, gdyby wprowadzono daną
+    modyfikację (np. dodano ścieżkę lub skorelowano błędy). Wysokie
+    wartości MI sugerują potencjalne obszary niedopasowania modelu do
+    danych i mogą być punktem wyjścia do rozważań nad jego ulepszeniem.
+    Należy jednak podchodzić do nich ostrożnie i zawsze w kontekście
+    teorii, aby uniknąć nadmiernego dopasowania modelu do konkretnego
+    zbioru danych.
+
+## CB-SEM vs. PLS-SEM
+
+Analiza równań strukturalnych (SEM) rozwija się w dwóch głównych
+nurtach: CB-SEM (ang. *Covariance Based SEM*) oraz PLS-SEM (ang.
+*Partial Least Squares SEM*). Różnica pomiędzy CB-SEM a PLS-SEM
+sprowadza się przede wszystkim do podejścia badawczego i celu analizy.
+CB-SEM koncentruje się na globalnym dopasowaniu całego modelu do danych
+i jest metodą konfirmacyjną – służy do testowania hipotez wyprowadzonych
+z teorii. Wymaga dobrze zdefiniowanego modelu, dużych prób i spełnienia
+klasycznych założeń statystycznych, a w zamian dostarcza bogaty zestaw
+wskaźników dopasowania i rzetelnych testów statystycznych. Z kolei
+PLS-SEM opiera się na minimalizacji reszt na poziomie zależności między
+zmiennymi i traktuje model bardziej jako narzędzie predykcyjne niż
+potwierdzające [@partial2017]. Jest elastyczniejszy, lepiej sprawdza się
+przy małych próbach i nienormalnych danych, ale oferuje mniej rozwinięte
+kryteria dopasowania i bywa obciążony w sensie statystycznym. W praktyce
+CB-SEM wybiera się do badań potwierdzających teorię, a PLS-SEM – do
+badań eksploracyjnych i predykcyjnych.
+
+CB-SEM stosuje się głównie w sytuacjach, gdy badacz chce przetestować
+ugruntowany model teoretyczny, wymagający dużych prób i danych o
+normalnym rozkładzie. PLS-SEM natomiast okazuje się przydatny w
+badaniach eksploracyjnych, przy mniejszych próbach i danych
+odchylających się od normalności. Trzeba jednak pamiętać, że wyniki
+PLS-SEM mogą być bardziej obciążone, a sama metoda wciąż jest rozwijana.
+Najnowsze podejścia, takie jak PLSc-SEM, starają się połączyć zalety obu
+nurtów.
+
+| Kryterium | CB-SEM | PLS-SEM |
+|------------------|---------------------------|---------------------------|
+| Cel analizy | Potwierdzanie całościowego modelu i dobrze zdefiniowanej teorii | Eksploracja i predykcja, rozwój teorii w początkowej fazie |
+| Metoda estymacji | Najczęściej największa wiarygodność (ML), wymagająca normalności | Metoda najmniejszych kwadratów (*Partial Least Squares*), odporna na nienormalność |
+| Zmienne latentne | Modele czynnikowe (*factor-based*), akcent na konstrukty latentne | Modele kompozytowe (*composite-based*), akcent na wskaźniki i prognozowanie |
+| Dopasowanie modelu | Bogaty zestaw wskaźników globalnego dopasowania (χ², RMSEA, CFI, GFI) | Ograniczony zestaw wskaźników – głównie R², AVE, α Cronbacha |
+| Elastyczność modelu | Mniej elastyczny, restrykcyjny, wymaga dokładnego określenia teorii | Bardziej elastyczny, radzi sobie z małymi próbami i brakiem normalności |
+| Wymagania co do próby | Zwykle duża próba (≥200), dane normalne | Może być stosowany dla mniejszych prób, brak wymogu normalności |
+| Typ badań | Potwierdzające, weryfikacja teorii | Eksploracyjne, poszukujące nowych zależności |
+| Rozwój metody | Stabilna, ugruntowana tradycja | Wciąż rozwijana (np. PLSc-SEM), wyniki mogą być obciążone |
+
+## Tworzenie i adaptacja narzędzi pomiarowych w SEM
+
+Poniżej zostanie przedstawiona pełna, uporządkowana ścieżka tworzenia
+oraz adaptacji narzędzia pomiarowego (np. psychometrycznego) – od
+konceptualizacji do finalnego podręcznika – wraz z kluczowymi
+statystykami, ich wzorami, sposobem liczenia i interpretacją. Całość
+formułować w duchu klasycznej teorii testów, uzupełniając o elementy
+analizy czynnikowej oraz SEM.
+
+1.  Konceptualizacja konstruktu i specyfikacja treści
+
+Rozpoczynać od precyzyjnego zdefiniowania konstruktu (dziedzina, zakres,
+wymiary) na podstawie literatury. Tworzymy mapę treści (tzw.
+*blueprint*), która łączy wymiary teoretyczne z planowanymi obszarami
+itemów i formatem odpowiedzi. Już na tym etapie określamy typ modelu
+pomiarowego (refleksyjny czy formatywny)[^sem-2], bo determinuje to
+dalszą metodologię.
+
+[^sem-2]: Model refleksyjny zakłada, że konstrukt latentny wywołuje
+    pewien poziom odpowiedzi na pozycje: zmienne obserwowalne są
+    efektami wspólnej przyczyny, ich błędy są specyficzne i
+    niepowiązane, a wysoka współzależność pozycji jest oczekiwana. Model
+    formatywny zakłada przeciwny kierunek przyczynowy: wskaźniki
+    „tworzą” konstrukt (kompozyt), więc itemy nie muszą być skorelowane,
+    a miary spójności wewnętrznej nie mają zastosowania.
+
+![](images/indicators.png)
+
+2.  Generowanie puli pozycji i weryfikacja treści
+
+Budujemy szeroką pulę itemów o zróżnicowanej trudności/poziomie (w
+testach osiągnięć) lub „natężeniu” treści (w skalach postaw). Zapewniać
+jednoznaczność językową, unikać sformułowań *double-barreled* („Czy jest
+Pan zadowolony z obsługi i ceny usługi?” - pytanie jest jednocześnie o
+obsługę i cenę) i niepotrzebnych zaprzeczeń („Nie zgadzam się z tym, że
+nie powinno się zabraniać palenia w restauracjach”).
+
+Dla trafności treściowej stosuje się ocenę ekspertów. W praktyce używa
+się współczynnika Aikena $V$ dla ocen skali porządkowej (np. 1–4) $$
+V \;=\; \frac{\sum_{i=1}^{N} (s_i - s_{\min})}{N\,(s_{\max}-s_{\min})},
+$$ gdzie $s_i$ to ocena $i$-tego eksperta, a $N$ liczba ekspertów.
+Wysokie $V$ (np. $\ge 0,70$) sugeruje dobrą zgodność co do trafności
+treści.
+
+3.  Adaptacja językowo-kulturowa
+
+Przy przenoszeniu narzędzia między językami stosować *forward
+translation* (2 niezależne tłumaczenia), *back-translation*, konsensus
+zespołu i *decentering* (ew. korekta źródła). Wykonuje się *cognitive
+interviews* (parafrazy - powtarzanie pytań własnymi słowami,
+*think-aloud* - respondent mówi na głos, jak rozumie pytanie i dlaczego
+wybiera daną odpowiedź) w grupie docelowej, aby sprawdzić proces
+odpowiedzi. Wersję pilotażową poprzedza się audytem językowym i
+kulturowym przykładów/skal.
+
+4.  Pilotaż i analiza pozycji
+
+W badaniu pilotażowym szacuje się własności pozycji. W klasycznej teorii
+testów kluczowe są:
+
+-   korelacja pozycja–wynik całkowity (skorygowana o daną pozycję);
+    wartości $\ge 0.30$ wskazuje satysfakcjonującą dyskryminację;
+-   trudność pozycji (w testach osiągnięć) jako średni wynik lub odsetek
+    poprawnych odpowiedzi $p\in[0,1]$; pożądany rozkład trudności dla
+    zakresu zdolności badanych;
+-   wpływ usunięcia pozycji na rzetelność (*alpha if item deleted*).
+
+5.  Wstępna struktura czynnikowa (EFA)
+
+Na oddzielnej próbie wykonuje się eksploracyjną analizę czynnikową
+(EFA). Ustala się liczbę czynników stosując\* parallel analysis\* i
+kryterium MAP Velicera. Następnie stosuje się estymatjcę modelu za
+pomocą PAF lub ML, z rotacją ortogonalną (np. *varimax*) lub ukośną (np.
+*oblimin*), zależnie od oczekiwanej korelacji czynników. Wartości
+ładunków $|\lambda| \ge 0.40$ zwykle uznaje się za użyteczne; diagnozuje
+się ewentualne ładunki krzyżowe i jeśli takie wystąpią starami się je
+eliminować.
+
+6.  Konfirmacja analiza czynniowa (CFA) i model pomiarowy
+
+Ustalamy model $$
+\mathbf{x} \;=\; \Lambda \mathbf{f} \;+\; \boldsymbol{\epsilon},
+\qquad \mathrm{Cov}(\mathbf{f})=\Phi,\quad \mathrm{Cov}(\boldsymbol{\epsilon})=\Psi,
+$$ co implikuje macierz kowariancji $$
+\Sigma(\theta) \;=\; \Lambda \,\Phi\, \Lambda^\top \;+\; \Psi.
+$$ Estymujemy parametry metodą ML lub odporną (np. MLR), dla danych
+porządkowych – DWLS. Ocena globalna dopasowania opierać na:
+
+-   statystyce $\chi^2$ rozbieżności;
+-   RMSEA z 90% PU;
+-   CFI i TLI (przyrostowe w stosunku do modelu niezależnego):
+    -   $\mathrm{CFI} = 1 - \frac{\max(\chi^2_{\text{model}}-df_{\text{model}},\,0)}{\max(\chi^2_{\text{baseline}}-df_{\text{baseline}},\,0)},$
+    -   $\mathrm{TLI} = \frac{\chi^2_{\text{baseline}}/df_{\text{baseline}} - \chi^2_{\text{model}}/df_{\text{model}}}{\chi^2_{\text{baseline}}/df_{\text{baseline}} - 1};$
+-   SRMR jako średni moduł reszt standaryzowanych.
+
+7.  Rzetelność skali
+
+W klasycznym ujęciu rzetelność skali $\rho_{XX’}$ to udział wariancji
+prawdziwej w wariancji obserwowanej: $$
+\rho_{XX’} \;=\; \frac{\sigma_{T}^2}{\sigma_{X}^2}.
+$$ Najczęściej używane miary do oceny rzetelności to:
+
+-   alfa Cronbacha (spójność wewnętrzna), dla $k$ pozycji $$
+    \alpha \;=\; \frac{k}{k-1}\left(1 - \frac{\sum_{i=1}^{k}\sigma_i^2}{\sigma_X^2}\right)\!,
+    $$ gdzie $\sigma_i^2$ to wariancja pozycji, a $\sigma_X^2$ wariancja
+    sumy skali. $\alpha \ge 0.70$ często uznawane jest za akceptowalne
+    (zależnie od celu).
+
+-   omega McDonalda $$
+    \omega \;=\; \frac{\left(\sum_{i=1}^{k} \lambda_i\right)^2}{\left(\sum_{i=1}^{k} \lambda_i\right)^2 + \sum_{i=1}^{k}\psi_{ii}},
+    $$ gdzie $\lambda_i$ to ładunki czynnika ogólnego, a $\psi_{ii}$
+    wariancje unikalne. Dla rozwiązań hierarchicznych używamy $\omega_h$
+    (udział czynnika ogólnego).
+
+-   metoda split-half i korekta Spearmana–Browna dla dwóch równoległych
+    połówek z korelacją r: \rho\_{\text{SB}} ;=; \frac{2r}{1 + r}.
+
+8.  Trafność
+
+W CFA/SEM oceniamy trafność zbieżną i rozbieżną:
+
+-   *composite reliability* (CR) $$
+    \mathrm{CR} = \frac{\left(\sum \lambda_i\right)^2}{\left(\sum \lambda_i\right)^2 + \sum \theta_i},
+    $$ gdzie $\theta_i$ to wariancje błędu; wartości $\ge 0.70$
+    pożądane;
+-   *average variance extracted* (AVE) $$
+    \mathrm{AVE} = \frac{\sum \lambda_i^2}{\sum \lambda_i^2 + \sum \theta_i},
+    $$ $\mathrm{AVE} \ge 0.50$ sugeruje trafność zbieżną;
+-   kryterium Fornella–Larckera - $\sqrt{\mathrm{AVE}}$ czynnika powinna
+    przekraczać jego korelacje z innymi czynnikami;
+-   HTMT (*heterotrait–monotrait ratio*) -
+    $\mathrm{HTMT} \;=\; \frac{\text{średnia korelacja między pozycjami z różnych konstruktów}}{\text{średnia korelacja między pozycjami w obrębie konstruktów}},$
+    wartości $< 0.85{-}0.90$ wskazują rozróżnialność konstruktów.
+
+9.  Skalowanie, punktacja i normy
+
+Decydujemy o sposobie punktowania: suma/średnia pozycji (po ewentualnym
+odwróceniu kodowania) czy punktacja czynnikowa (regresyjna/
+Bartlett’a[^sem-3]). Ustalamy również normy na podstawie np. siatki
+stenowej (niski, przeciętny i wysoki poziom skali).
+
+[^sem-3]: Bartlett scores są nieobciążonymi estymatorami czynników
+    latentnych, ale mogą być mniej stabilne w małych próbach i przy
+    słabych ładunkach.
+
+::: {#exm-4}
+Dla ilustracji adaptacji narzędzia pomiarowego, wykorzystamy oszacowaną
+już strukturę czynnikową z @exm-1. Mieliśmy tam 13 pozycji opisujących
+trzy strategie: zapamiętywania, opracowywania i kontroli dla osób z
+Wielkiej Brytanii. Załóżmy, że tą samą strukturę chcemy przenieść na
+rynek Hiszpański. W tym celu sprawdzimy dopasowanie modelu
+konfirmacyjnego na danych hiszpańskich.
+
+```{r}
+pisaspa <- PISA09[PISA09$cnt == "ESP", c(alitems, "sex")]
+pisaspa <- pisaspa[complete.cases(pisaspa[, c(mitems, 
+  eitems, citems)]), ]
+
+# Definicja modelu CFA
+model_cfa <- '
+  # Definicja czynników
+  Zapamiętywanie =~ st27q01 + st27q03 + st27q05 + st27q07
+  Opracowywanie =~ st27q04 + st27q08 + st27q10 + st27q12
+  Kontrola =~ st27q02 + st27q06 + st27q09 + st27q11 + st27q13
+'
+
+# Estymacja modelu CFA
+fit_cfa_spa <- cfa(model_cfa, data = pisaspa, auto.var = TRUE, auto.cov.lv.x = TRUE, std.lv = TRUE)
+```
+
+```{r}
+compare_performance(fit_cfa, fit_cfa_spa, metrics = c("p_Chi2", "GFI", "AGFI", "NFI", "NNFI", "CFI", "RMSEA", "RMR", "SRMR", "RFI")) %>% 
+  gt() %>% 
+  fmt_number(
+    columns = is.double,
+    decimals = 3)
+```
+
+Ocena jakości dopasowania modelu pokazuje, że przyjęta struktura dla
+Wielkiej Brytanii sprawdza się również dla Hiszpanii. To dopiero
+pierwszy (oczywiście pominąwszy wszystkie wcześniejsze kroki jak
+tłumaczenie, czy analiza eksploracyjna) krok do adaptacji narzędzia do
+nowych warunków.
+
+Teraz ocenimy rzetelność skali.
+
+```{r}
+tab_itemscale(df = pisaspa, factor.groups = c(rep("Zapamiętywanie", 4), rep("Opracowanie", 4), rep("Kontrola", 5)), factor.groups.titles = c("Kontrola", "Opracowanie", "Zapamiętywanie")) 
+```
+
+**Spójność wewnętrzna poszczególnych komponentów**
+
+Każda z trzech skal (komponentów) osiąga akceptowalny poziom rzetelności
+wewnętrznej. Wartości współczynnika Cronbacha $\alpha$ wynoszą
+odpowiednio 0.738 dla strategii opracowywania, 0.744 dla kontroli oraz
+0.719 dla zapamiętywania. Są to wartości przekraczające próg 0.70, co w
+badaniach psychometrycznych uznaje się za wystarczające dla narzędzi we
+wczesnym etapie walidacji. Wskazuje to, że pozycje w każdej ze skal
+mierzą spójny konstrukt.
+
+Wartości korelacji między pozycjami (*mean inter-item correlation*)
+mieszczą się w zakresie 0.37–0.42, co uznaje się za optymalne (wartości
+zbyt niskie \<0.20 sugerują brak spójności, natomiast zbyt wysokie
+\>0.70 nadmiarowość). Oznacza to, że pozycje są ze sobą skorelowane w
+stopniu umiarkowanym, zachowując jednocześnie różnorodność treściową.
+
+**Analiza jakości pozycji**
+
+Wszystkie pozycje mają trudność (*item difficulty*) w przedziale
+0.50–0.79, co oznacza, że średnie odpowiedzi respondentów oscylują wokół
+środka skali, bez efektów podłogowych czy sufitowych. Pozycje mają także
+umiarkowane lub wysokie wartości dyskryminacji (*item discrimination* w
+przedziale 0.43–0.57), wskazujące, że dobrze różnicują osoby z wyższymi
+i niższymi wynikami ogólnymi. Żadna z pozycji nie obniża znacząco
+rzetelności całej skali (wszystkie wartości „α if deleted” pozostają na
+poziomie podobnym lub niższym niż pełne α).
+
+**Związki między komponentami**
+
+Korelacje pomiędzy skalami są wszystkie istotne statystycznie, ale mają
+zróżnicowaną siłę. Najsilniejszy związek występuje pomiędzy Kontrolą a
+Opracowaniem (r = 0.521, p \< .001). Można to interpretować tak, że
+osoby, które dbają o planowanie i monitorowanie swojego uczenia się,
+częściej stosują także strategie głębszego opracowywania materiału.
+Skala Zapamiętywanie koreluje umiarkowanie z Opracowaniem (r = 0.376, p
+\< .001), co jest zgodne z intuicją: aby skutecznie zapamiętać, często
+trzeba wcześniej przetworzyć materiał. Najsłabszy, choć istotny związek
+obserwujemy między Kontrolą a Zapamiętywaniem (r = 0.222, p \< .001), co
+sugeruje, że te dwie strategie są bardziej odrębne, a ich powiązanie
+jest ograniczone.
+
+**Podsumowanie**
+
+Otrzymane wyniki sugerują, że narzędzie jest psychometrycznie poprawne:
+ma akceptowalną spójność wewnętrzną, zrównoważony poziom trudności
+pozycji, dobre wskaźniki dyskryminacji oraz pozwala rozróżniać trzy
+powiązane, ale odrębne strategie uczenia się. Komponent 2 wydaje się
+pełnić rolę centralną, ponieważ jest najwyraźniej powiązany zarówno z
+komponentem 1, jak i 3. To może sugerować jego bardziej ogólny charakter
+lub funkcję „pomostu” między dwoma innymi wymiarami.
+
+Po wykonaniu analizy CFA i ocenie rzetelności kolejnym etapem adaptacji
+narzędzia jest przeprowadzenie rozszerzonych analiz stabilności, takich
+jak test–retest czy współczynnik ICC, które pozwalają ocenić
+powtarzalność wyników (tych nie wykonamy, ponieważ do tego potrzeba
+przeprowadzenia ankiety w dwóch momentach czasowych). Należy także
+zweryfikować trafność – konwergencyjną, dyskryminacyjną i kryterialną –
+aby upewnić się, że narzędzie mierzy to, co zakładano teoretycznie.
+
+```{r}
+library(semTools)
+AVE(fit_cfa_spa) 
+compRelSEM(fit_cfa_spa)
+htmt(model_cfa, data = pisaspa)
+```
+
+Wyniki można interpretować na trzech poziomach: rzetelności wewnętrznej
+(CR), trafności konwergencyjnej (AVE) oraz trafności dyskryminacyjnej
+(HTMT).
+
+-   Współczynniki *Composite Reliability* (CR) mieszczą się w przedziale
+    od 0.72 do 0.75. Są to wartości powyżej progu 0.70, co sugeruje
+    akceptowalną spójność wewnętrzną każdej ze skal. Oznacza to, że
+    wskaźniki w ramach czynnika zapamiętywania, opracowywania i kontroli
+    dostarczają relatywnie stabilnej informacji o zmiennej latentnej.
+-   Średnia wyjaśniona wariancja (AVE) dla wszystkich trzech czynników
+    jest niska: 0.395, 0.418 i 0.373. Kryterium akceptowalne to zwykle
+    AVE ≥ 0.50, co oznacza, że czynnik powinien wyjaśniać przynajmniej
+    połowę wariancji swoich wskaźników. Tutaj wartości poniżej 0.5
+    wskazują, że wyjaśniona część wariancji jest mniejsza niż ta
+    przypisana błędowi. Może to oznaczać, że wskaźniki są dość
+    zróżnicowane, a ich wspólna treść (latentna) nie jest wystarczająco
+    silnie uchwycona. W praktyce oznacza to ograniczoną trafność
+    konwergencyjną – czyli wskaźniki nie „zbiegają się” wystarczająco na
+    wspólny konstrukt.
+-   Macierz HTMT wskazuje na poziom rozróżnialności czynników (trafności
+    dyskryminacyjnej). Przyjmuje się, że wartości HTMT \< 0.85 (lub
+    bardziej liberalnie \< 0.90) oznaczają satysfakcjonującą
+    rozróżnialność. W tym przypadku: • Zapamiętywanie–Opracowywanie =
+    0.288 – bardzo niski współczynnik, dobra rozróżnialność, •
+    Zapamiętywanie–Kontrolne = 0.482 – umiarkowany, nadal bezpieczny, •
+    Opracowywanie–Kontrolne = 0.680 – wyższy, ale poniżej progu 0.85,
+    więc rozróżnialność jest zachowana.
+
+Podsumowując, model charakteryzuje się akceptowalną rzetelnością i
+zadowalającą trafnością dyskryminacyjną, ale ograniczoną trafnością
+konwergencyjną. W praktyce oznacza to, że choć skale mierzą różne
+konstrukty i są spójne wewnętrznie, to konstrukty te nie są jeszcze w
+pełni „czysto” uchwycone przez zestaw wskaźników – być może potrzebna
+byłaby rewizja niektórych pozycji, ich dodanie lub modyfikacja.
+
+Istotnym krokiem jest również badanie równoważności pomiaru
+(*measurement invariance*) przy użyciu CFA wielogrupowej, co umożliwia
+porównywanie wyników między grupami, np. ze względu na płeć czy wiek. My
+wykonamy analizę w podziale ze względu na płeć, aby dowiedzieć się czy
+narzędzie mierzy badane konstrukty podobnie w obu grupach.
+
+```{r}
+# równoważność konfiguracyjna 
+fit_config <- cfa(model_cfa, data = pisaspa, group = "sex", std.lv = TRUE)
+
+# równoważność metryczna (równe ładunki czynnikowe)
+fit_metric <- cfa(model_cfa, data = pisaspa, group = "sex", group.equal = "loadings", std.lv = TRUE)
+
+# równoważność skalowa (równe ładunki i przecięcia)
+fit_scalar <- cfa(model_cfa, data = pisaspa, group = "sex", group.equal = c("loadings", "intercepts"), std.lv = TRUE)
+
+# równoważność ścisła (ładunki, przecięcia i błędy pomiarowe)
+fit_strict <- cfa(model_cfa, data = pisaspa, group = "sex", group.equal = c("loadings", "intercepts", "residuals"), std.lv = TRUE)
+
+# Porównania dopasowania
+anova(fit_config, fit_metric, fit_scalar, fit_strict)
+
+fitMeasures(fit_config, c("cfi","rmsea","srmr"))
+fitMeasures(fit_metric, c("cfi","rmsea","srmr"))
+fitMeasures(fit_scalar, c("cfi","rmsea","srmr"))
+fitMeasures(fit_strict, c("cfi","rmsea","srmr"))
+```
+
+Wyniki analizy grupowej CFA wskazują, że proces sprawdzania
+równoważności pomiaru ze względu na płeć w tym narzędziu napotyka
+istotne ograniczenia.
+
+Model konfiguracyjny (czyli sam układ czynników i wskaźników, bez
+dodatkowych ograniczeń) osiąga umiarkowane dopasowanie: CFI = 0.886,
+RMSEA = 0.079, SRMR = 0.054. Oznacza to, że struktura czynnikowa jest w
+obu grupach podobna, choć model nie jest idealnie dopasowany.
+
+Dodanie ograniczenia równości ładunków czynnikowych (równoważność
+metryczna) nie powoduje znaczącego pogorszenia dopasowania – CFI spada
+minimalnie (0.886 → 0.884), RMSEA poprawia się nieznacznie (0.079 →
+0.076), a SRMR pozostaje na porównywalnym poziomie. Pomimo istotnego
+testu różnicy chi-kwadrat (Δχ² = 63.2, p \< 0.001), kryteria praktyczne
+(ΔCFI \< 0.01, ΔRMSEA \< 0.015) sugerują, że równoważność metryczna jest
+akceptowalna. Można więc uznać, że wskaźniki w równym stopniu
+odzwierciedlają konstrukty w obu grupach.
+
+Przejście do równoważność skalowej (dodanie równości przecięć) wyraźnie
+pogarsza dopasowanie – spadek CFI do 0.875 oraz brak poprawy w RMSEA i
+SRMR, przy bardzo dużym i istotnym przyroście χ² (Δχ² = 241.7, p \<
+0.001). To oznacza, że przecięcia nie są równoważne między płciami,
+czyli nie można bezpośrednio porównywać średnich czynników latentnych.
+
+W modelu ścisłym (zrównanie dodatkowo wariancji błędów) dopasowanie
+pozostaje na podobnym poziomie (CFI = 0.873, RMSEA = 0.074, SRMR =
+0.059), a test chi-kwadrat znów wskazuje istotne pogorszenie.
+
+Podsumowując, udało się uzyskać równoważność konfiguracyjną i metryczną,
+ale nie skalową. Oznacza to, że konstrukty są podobnie reprezentowane w
+obu grupach, lecz nie można ich średnich bezpośrednio porównywać, bo
+przecięcia różnią się w zależności od płci. W praktyce, w takim
+przypadku można rozważyć testowanie częściowej równoważność (*partial
+invariance)*, czyli identyfikowanie tych pozycji, które rzeczywiście
+spełniają warunek równości przecięć i opieranie porównań tylko na nich.
+
+Na koniec utworzymy skale, które można łatwo intepretować przez osoby,
+które nie znają narzędzia i jego konstrukcji dobrze.
+
+```{r}
+# --- KLUCZE SKAL (dokładnie jak w modelu) ---
+zap_items <- c("st27q01","st27q03","st27q05","st27q07")                 # Zapamiętywanie
+opr_items <- c("st27q04","st27q08","st27q10","st27q12")                 # Opracowywanie
+kon_items <- c("st27q02","st27q06","st27q09","st27q11","st27q13")       # Kontrola
+
+# Uwaga: jeśli jakieś pozycje wymagają odwrócenia, zastosować recoding przed agregacją.
+
+scores_simple <- pisaspa %>%
+  mutate(
+    Zapam_mean = rowMeans(across(all_of(zap_items)), na.rm = TRUE),
+    Oprac_mean = rowMeans(across(all_of(opr_items)), na.rm = TRUE),
+    Kontr_mean = rowMeans(across(all_of(kon_items)), na.rm = TRUE),
+    Zapam_sum  = rowSums(across(all_of(zap_items)), na.rm = TRUE),
+    Oprac_sum  = rowSums(across(all_of(opr_items)), na.rm = TRUE),
+    Kontr_sum  = rowSums(across(all_of(kon_items)), na.rm = TRUE)
+  )
+
+# Wyniki czynnikowe – metoda Bartletta (bardziej "czyste" wobec błędów specyficznych)
+fs_bartlett <- lavPredict(fit_cfa_spa, method = "Bartlett")
+
+# Złożyć do wspólnej ramki (zachowując ewentualne zmienne grupujące)
+scores_latent <- cbind(
+  pisaspa %>% select(any_of(c("sex","age"))),
+  as.data.frame(fs_bartlett)
+)
+```
+
+```{r}
+to_sten <- function(z){
+  # transformacja przybliżona; wyniki przycięte do 1..10
+  s <- round(2*z + 5.5)
+  pmin(10, pmax(1, s))
+}
+
+# Percentyle z ECDF
+perc_ecdf <- function(x) round(ecdf(x)(x)*100, 1)
+
+# --- NORMY GLOBALNE dla wyników latentnych Bartletta ---
+latent_names <- c("Zapamiętywanie","Opracowywanie","Kontrola")
+
+norms_global <- scores_latent %>%
+  mutate(
+    across(all_of(latent_names), scale, .names = "{.col}_z") %>% as.data.frame()
+  )
+
+# Dla wygody wylicz stens, percentyle dla każdej skali latentnej
+for(lat in latent_names){
+  zcol <- paste0(lat, "_z")
+  norms_global[[paste0(lat,"_sten")]]    <- to_sten(norms_global[[zcol]])
+  norms_global[[paste0(lat,"_pct")]]     <- perc_ecdf(scores_latent[[lat]])
+}
+
+# Podgląd wybranych kolumn
+head(norms_global %>% select(any_of(c("sex","age")),
+                             ends_with("_z"),
+                             ends_with("_sten"),
+                             ends_with("_pct")), n = 20) %>% 
+  gt() %>% 
+  fmt_number(columns = is.double, decimals = 2) %>% 
+  tab_options(
+    table.font.size = px(10), 
+  )
+
+# --- NORMY WEDŁUG PŁCI (grupowe) ---
+norms_by_sex <- scores_latent %>%
+  group_by(sex) %>%
+  mutate(
+    # z-score wewnątrz płci
+    across(all_of(latent_names),
+           ~ as.numeric(scale(.x)), .names = "{.col}_z_g"),
+    # stens wewnątrz płci
+    across(ends_with("_z_g"),
+           ~ to_sten(.x), .names = "{.col}_sten"),
+  ) %>%
+  # percentyle z ECDF wewnątrz płci
+  mutate(
+    across(all_of(latent_names),
+           ~ perc_ecdf(.x), .names = "{.col}_pct_g")
+  ) %>%
+  ungroup()
+
+# Podgląd
+head(norms_by_sex %>%
+       select(sex, starts_with("Zapamiętywanie_"),
+                    starts_with("Opracowywanie_"),
+                    starts_with("Kontrola_")), n = 20)%>% 
+  gt() %>% 
+  fmt_number(columns = is.double, decimals = 2) %>% 
+  tab_options(
+    table.font.size = px(10), 
+  )
+```
+:::
