@@ -387,8 +387,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Metody redukcji wymiarowości</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Literatura</span></a>
   </div>
 </li>
     </ul>
@@ -1142,8 +1148,8 @@ Statistics by number of factors
 </div>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 29%">
-<col style="width: 70%">
+<col style="width: 30%">
+<col style="width: 69%">
 </colgroup>
 <thead><tr class="header">
 <th>Wskaźnik</th>
@@ -1297,23 +1303,23 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 <details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="kgenbrywmv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kgenbrywmv table {
+<div id="ykkdawnkkf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ykkdawnkkf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kgenbrywmv thead, #kgenbrywmv tbody, #kgenbrywmv tfoot, #kgenbrywmv tr, #kgenbrywmv td, #kgenbrywmv th {
+#ykkdawnkkf thead, #ykkdawnkkf tbody, #ykkdawnkkf tfoot, #ykkdawnkkf tr, #ykkdawnkkf td, #ykkdawnkkf th {
   border-style: none;
 }
 
-#kgenbrywmv p {
+#ykkdawnkkf p {
   margin: 0;
   padding: 0;
 }
 
-#kgenbrywmv .gt_table {
+#ykkdawnkkf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1339,12 +1345,12 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-left-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_caption {
+#ykkdawnkkf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kgenbrywmv .gt_title {
+#ykkdawnkkf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1356,7 +1362,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-width: 0;
 }
 
-#kgenbrywmv .gt_subtitle {
+#ykkdawnkkf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1368,7 +1374,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-width: 0;
 }
 
-#kgenbrywmv .gt_heading {
+#ykkdawnkkf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1380,13 +1386,13 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_bottom_border {
+#ykkdawnkkf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_col_headings {
+#ykkdawnkkf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1401,7 +1407,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_col_heading {
+#ykkdawnkkf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1421,7 +1427,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#kgenbrywmv .gt_column_spanner_outer {
+#ykkdawnkkf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1433,15 +1439,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 4px;
 }
 
-#kgenbrywmv .gt_column_spanner_outer:first-child {
+#ykkdawnkkf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kgenbrywmv .gt_column_spanner_outer:last-child {
+#ykkdawnkkf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kgenbrywmv .gt_column_spanner {
+#ykkdawnkkf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1453,11 +1459,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   width: 100%;
 }
 
-#kgenbrywmv .gt_spanner_row {
+#ykkdawnkkf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kgenbrywmv .gt_group_heading {
+#ykkdawnkkf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1483,7 +1489,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   text-align: left;
 }
 
-#kgenbrywmv .gt_empty_group_heading {
+#ykkdawnkkf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1498,15 +1504,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: middle;
 }
 
-#kgenbrywmv .gt_from_md > :first-child {
+#ykkdawnkkf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kgenbrywmv .gt_from_md > :last-child {
+#ykkdawnkkf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kgenbrywmv .gt_row {
+#ykkdawnkkf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1525,7 +1531,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#kgenbrywmv .gt_stub {
+#ykkdawnkkf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1538,7 +1544,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#kgenbrywmv .gt_stub_row_group {
+#ykkdawnkkf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1552,15 +1558,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: top;
 }
 
-#kgenbrywmv .gt_row_group_first td {
+#ykkdawnkkf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kgenbrywmv .gt_row_group_first th {
+#ykkdawnkkf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kgenbrywmv .gt_summary_row {
+#ykkdawnkkf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1570,16 +1576,16 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#kgenbrywmv .gt_first_summary_row {
+#ykkdawnkkf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_first_summary_row.thick {
+#ykkdawnkkf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kgenbrywmv .gt_last_summary_row {
+#ykkdawnkkf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1589,7 +1595,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_grand_summary_row {
+#ykkdawnkkf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1599,7 +1605,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#kgenbrywmv .gt_first_grand_summary_row {
+#ykkdawnkkf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1609,7 +1615,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_last_grand_summary_row_top {
+#ykkdawnkkf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1619,11 +1625,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_striped {
+#ykkdawnkkf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kgenbrywmv .gt_table_body {
+#ykkdawnkkf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1632,7 +1638,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_footnotes {
+#ykkdawnkkf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1646,7 +1652,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_footnote {
+#ykkdawnkkf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1655,7 +1661,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#kgenbrywmv .gt_sourcenotes {
+#ykkdawnkkf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1669,7 +1675,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#kgenbrywmv .gt_sourcenote {
+#ykkdawnkkf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1677,72 +1683,72 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#kgenbrywmv .gt_left {
+#ykkdawnkkf .gt_left {
   text-align: left;
 }
 
-#kgenbrywmv .gt_center {
+#ykkdawnkkf .gt_center {
   text-align: center;
 }
 
-#kgenbrywmv .gt_right {
+#ykkdawnkkf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kgenbrywmv .gt_font_normal {
+#ykkdawnkkf .gt_font_normal {
   font-weight: normal;
 }
 
-#kgenbrywmv .gt_font_bold {
+#ykkdawnkkf .gt_font_bold {
   font-weight: bold;
 }
 
-#kgenbrywmv .gt_font_italic {
+#ykkdawnkkf .gt_font_italic {
   font-style: italic;
 }
 
-#kgenbrywmv .gt_super {
+#ykkdawnkkf .gt_super {
   font-size: 65%;
 }
 
-#kgenbrywmv .gt_footnote_marks {
+#ykkdawnkkf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kgenbrywmv .gt_asterisk {
+#ykkdawnkkf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kgenbrywmv .gt_indent_1 {
+#ykkdawnkkf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kgenbrywmv .gt_indent_2 {
+#ykkdawnkkf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kgenbrywmv .gt_indent_3 {
+#ykkdawnkkf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kgenbrywmv .gt_indent_4 {
+#ykkdawnkkf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kgenbrywmv .gt_indent_5 {
+#ykkdawnkkf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kgenbrywmv .katex-display {
+#ykkdawnkkf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kgenbrywmv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ykkdawnkkf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2003,23 +2009,23 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 <span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model_5</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fxnknkhbbo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fxnknkhbbo table {
+<div id="qjidgoplin" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qjidgoplin table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fxnknkhbbo thead, #fxnknkhbbo tbody, #fxnknkhbbo tfoot, #fxnknkhbbo tr, #fxnknkhbbo td, #fxnknkhbbo th {
+#qjidgoplin thead, #qjidgoplin tbody, #qjidgoplin tfoot, #qjidgoplin tr, #qjidgoplin td, #qjidgoplin th {
   border-style: none;
 }
 
-#fxnknkhbbo p {
+#qjidgoplin p {
   margin: 0;
   padding: 0;
 }
 
-#fxnknkhbbo .gt_table {
+#qjidgoplin .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2045,12 +2051,12 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-left-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_caption {
+#qjidgoplin .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fxnknkhbbo .gt_title {
+#qjidgoplin .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2062,7 +2068,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-width: 0;
 }
 
-#fxnknkhbbo .gt_subtitle {
+#qjidgoplin .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2074,7 +2080,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-width: 0;
 }
 
-#fxnknkhbbo .gt_heading {
+#qjidgoplin .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2086,13 +2092,13 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_bottom_border {
+#qjidgoplin .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_col_headings {
+#qjidgoplin .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2107,7 +2113,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_col_heading {
+#qjidgoplin .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2127,7 +2133,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#fxnknkhbbo .gt_column_spanner_outer {
+#qjidgoplin .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2139,15 +2145,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 4px;
 }
 
-#fxnknkhbbo .gt_column_spanner_outer:first-child {
+#qjidgoplin .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fxnknkhbbo .gt_column_spanner_outer:last-child {
+#qjidgoplin .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fxnknkhbbo .gt_column_spanner {
+#qjidgoplin .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2159,11 +2165,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   width: 100%;
 }
 
-#fxnknkhbbo .gt_spanner_row {
+#qjidgoplin .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fxnknkhbbo .gt_group_heading {
+#qjidgoplin .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2189,7 +2195,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   text-align: left;
 }
 
-#fxnknkhbbo .gt_empty_group_heading {
+#qjidgoplin .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2204,15 +2210,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: middle;
 }
 
-#fxnknkhbbo .gt_from_md > :first-child {
+#qjidgoplin .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fxnknkhbbo .gt_from_md > :last-child {
+#qjidgoplin .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fxnknkhbbo .gt_row {
+#qjidgoplin .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2231,7 +2237,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#fxnknkhbbo .gt_stub {
+#qjidgoplin .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2244,7 +2250,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fxnknkhbbo .gt_stub_row_group {
+#qjidgoplin .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2258,15 +2264,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: top;
 }
 
-#fxnknkhbbo .gt_row_group_first td {
+#qjidgoplin .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fxnknkhbbo .gt_row_group_first th {
+#qjidgoplin .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fxnknkhbbo .gt_summary_row {
+#qjidgoplin .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2276,16 +2282,16 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fxnknkhbbo .gt_first_summary_row {
+#qjidgoplin .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_first_summary_row.thick {
+#qjidgoplin .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fxnknkhbbo .gt_last_summary_row {
+#qjidgoplin .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2295,7 +2301,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_grand_summary_row {
+#qjidgoplin .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2305,7 +2311,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fxnknkhbbo .gt_first_grand_summary_row {
+#qjidgoplin .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2315,7 +2321,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_last_grand_summary_row_top {
+#qjidgoplin .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2325,11 +2331,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_striped {
+#qjidgoplin .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fxnknkhbbo .gt_table_body {
+#qjidgoplin .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2338,7 +2344,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_footnotes {
+#qjidgoplin .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2352,7 +2358,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_footnote {
+#qjidgoplin .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2361,7 +2367,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fxnknkhbbo .gt_sourcenotes {
+#qjidgoplin .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2375,7 +2381,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#fxnknkhbbo .gt_sourcenote {
+#qjidgoplin .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2383,72 +2389,72 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fxnknkhbbo .gt_left {
+#qjidgoplin .gt_left {
   text-align: left;
 }
 
-#fxnknkhbbo .gt_center {
+#qjidgoplin .gt_center {
   text-align: center;
 }
 
-#fxnknkhbbo .gt_right {
+#qjidgoplin .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fxnknkhbbo .gt_font_normal {
+#qjidgoplin .gt_font_normal {
   font-weight: normal;
 }
 
-#fxnknkhbbo .gt_font_bold {
+#qjidgoplin .gt_font_bold {
   font-weight: bold;
 }
 
-#fxnknkhbbo .gt_font_italic {
+#qjidgoplin .gt_font_italic {
   font-style: italic;
 }
 
-#fxnknkhbbo .gt_super {
+#qjidgoplin .gt_super {
   font-size: 65%;
 }
 
-#fxnknkhbbo .gt_footnote_marks {
+#qjidgoplin .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fxnknkhbbo .gt_asterisk {
+#qjidgoplin .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fxnknkhbbo .gt_indent_1 {
+#qjidgoplin .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fxnknkhbbo .gt_indent_2 {
+#qjidgoplin .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fxnknkhbbo .gt_indent_3 {
+#qjidgoplin .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fxnknkhbbo .gt_indent_4 {
+#qjidgoplin .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fxnknkhbbo .gt_indent_5 {
+#qjidgoplin .gt_indent_5 {
   text-indent: 25px;
 }
 
-#fxnknkhbbo .katex-display {
+#qjidgoplin .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#fxnknkhbbo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qjidgoplin div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

@@ -13,7 +13,7 @@ book:
       Dariusz Majerek ©2025
   favicon: images/cover.png
   cover-image: images/cover.png  
-  repo-url: https://dariuszmajerek.github.io/WAD_new/
+  repo-url: https://github.com/DariuszMajerek/WAD_new
   repo-actions: [issue]
   sharing: [twitter]
   search: true
@@ -29,6 +29,7 @@ book:
     - cca.qmd
     - fa.qmd
     - sem.qmd
+    - pca.qmd
     - references.qmd
 
 bibliography: references.bib
