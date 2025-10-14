@@ -398,7 +398,7 @@ interpretacyjna:
     pierwsze składowe, które umożliwiają wykresy 2D lub 3D.
 
 | Kryterium | Opis | Zalety | Ograniczenia |
-|--------------------|-------------------|-------------------|----------------------|
+|--------------------|--------------------|--------------------|---------------------|
 | **Udział wariancji (np. ≥90%)** | Zachowaj tyle składowych, by wyjaśnić określony procent całkowitej wariancji | Proste i intuicyjne | Wybór progu bywa arbitralny |
 | **Wykres osypiska (*scree plot*)** | Wybór punktu „kolana” na krzywej wartości własnych | Wizualnie czytelne | Subiektywne, zależy od interpretacji obserwatora |
 | **Wartość własna \> 1 (Kaiser–Guttman)** | Zachowaj składowe, których wartości własne przekraczają 1 (dla macierzy korelacji) | Łatwe obliczeniowo | Często zbyt liberalne – wybiera zbyt wiele składowych |

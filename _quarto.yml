@@ -30,6 +30,7 @@ book:
     - fa.qmd
     - sem.qmd
     - pca.qmd
+    - cluster.qmd
     - references.qmd
 
 bibliography: references.bib
