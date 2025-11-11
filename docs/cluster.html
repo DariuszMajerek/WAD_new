@@ -410,6 +410,20 @@ window.Quarto = {
   <li><a href="#clara-i-clarans" id="toc-clara-i-clarans" class="nav-link" data-scroll-target="#clara-i-clarans">CLARA i CLARANS</a></li>
   </ul>
 </li>
+  <li>
+<a href="#metody-oparte-na-g%C4%99sto%C5%9Bci" id="toc-metody-oparte-na-gęstości" class="nav-link" data-scroll-target="#metody-oparte-na-g%C4%99sto%C5%9Bci">Metody oparte na gęstości</a>
+  <ul class="collapse">
+<li><a href="#algorytm-dbscan" id="toc-algorytm-dbscan" class="nav-link" data-scroll-target="#algorytm-dbscan">Algorytm DBSCAN</a></li>
+  <li><a href="#algorytm-optics" id="toc-algorytm-optics" class="nav-link" data-scroll-target="#algorytm-optics">Algorytm OPTICS</a></li>
+  <li><a href="#algorytm-hdbscan" id="toc-algorytm-hdbscan" class="nav-link" data-scroll-target="#algorytm-hdbscan">Algorytm HDBSCAN</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#metody-oparte-na-modelach-probabilistycznych" id="toc-metody-oparte-na-modelach-probabilistycznych" class="nav-link" data-scroll-target="#metody-oparte-na-modelach-probabilistycznych">Metody oparte na modelach probabilistycznych</a>
+  <ul class="collapse">
+<li><a href="#model-mieszanin-gaussowskich-gmm" id="toc-model-mieszanin-gaussowskich-gmm" class="nav-link" data-scroll-target="#model-mieszanin-gaussowskich-gmm">Model mieszanin Gaussowskich (GMM)</a></li>
+  </ul>
+</li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DariuszMajerek/WAD_new/issues/new" class="toc-action"><i class="bi bi-github"></i>Zgłoś problem</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -512,16 +526,31 @@ D\big((C_i\!\cup\!C_j),C_k\big)=\frac{n_i+n_k}{n_i+n_j+n_k}D(C_i,C_k)+\frac{n_j+
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">X</span>, method <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 3. Budowa dendrogramów dla różnych metod łączenia</span></span>
-<span><span class="va">hc_single</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span></span>
+<span><span class="va">hc_single</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span></span>
 <span><span class="va">hc_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span></span>
-<span><span class="va">hc_average</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"average"</span><span class="op">)</span>     <span class="co"># UPGMA</span></span>
-<span><span class="va">hc_ward</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"ward.D2"</span><span class="op">)</span>     <span class="co"># Ward (zalecany wariant .D2)</span></span>
+<span><span class="va">hc_average</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"average"</span><span class="op">)</span> <span class="co"># UPGMA</span></span>
+<span><span class="va">hc_ward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"ward.D2"</span><span class="op">)</span> <span class="co"># Ward (zalecany wariant .D2)</span></span>
 <span></span>
 <span><span class="co"># 4. Wizualizacja dendrogramów z linią cięcia na K=3</span></span>
-<span><span class="va">p_d_single</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc_single</span>,   k <span class="op">=</span> <span class="fl">3</span>, cex <span class="op">=</span> <span class="fl">0.6</span>, main <span class="op">=</span> <span class="st">"single linkage (K=3)"</span><span class="op">)</span></span>
-<span><span class="va">p_d_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc_complete</span>, k <span class="op">=</span> <span class="fl">3</span>, cex <span class="op">=</span> <span class="fl">0.6</span>, main <span class="op">=</span> <span class="st">"complete linkage (K=3)"</span><span class="op">)</span></span>
-<span><span class="va">p_d_average</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc_average</span>,  k <span class="op">=</span> <span class="fl">3</span>, cex <span class="op">=</span> <span class="fl">0.6</span>, main <span class="op">=</span> <span class="st">"average linkage (K=3)"</span><span class="op">)</span></span>
-<span><span class="va">p_d_ward</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc_ward</span>,     k <span class="op">=</span> <span class="fl">3</span>, cex <span class="op">=</span> <span class="fl">0.6</span>, main <span class="op">=</span> <span class="st">"Ward.D2 (K=3)"</span><span class="op">)</span></span>
+<span><span class="va">p_d_single</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span></span>
+<span>  <span class="va">hc_single</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  cex <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"single linkage (K=3)"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">p_d_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span></span>
+<span>  <span class="va">hc_complete</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  cex <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"complete linkage (K=3)"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">p_d_average</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span></span>
+<span>  <span class="va">hc_average</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  cex <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"average linkage (K=3)"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">p_d_ward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc_ward</span>, k <span class="op">=</span> <span class="fl">3</span>, cex <span class="op">=</span> <span class="fl">0.6</span>, main <span class="op">=</span> <span class="st">"Ward.D2 (K=3)"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrange</a></span><span class="op">(</span><span class="va">p_d_single</span>, <span class="va">p_d_complete</span>, <span class="va">p_d_average</span>, <span class="va">p_d_ward</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
@@ -531,23 +560,35 @@ D\big((C_i\!\cup\!C_j),C_k\big)=\frac{n_i+n_k}{n_i+n_j+n_k}D(C_i,C_k)+\frac{n_j+
 </div>
 </div>
 <details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 5. Uzyskanie etykiet klastrów dla K=3 i rzutowanie grup w przestrzeń PCA</span></span>
-<span><span class="va">cl_single</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc_single</span>,   k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">cl_single</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc_single</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">cl_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc_complete</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="va">cl_average</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc_average</span>,  k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="va">cl_ward</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc_ward</span>,     k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">cl_average</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc_average</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">cl_ward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc_ward</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p_c_single</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">cl_single</span><span class="op">)</span>,</span>
-<span>                             geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span> <span class="st">"norm"</span>,</span>
-<span>                             main <span class="op">=</span> <span class="st">"single linkage"</span><span class="op">)</span></span>
-<span><span class="va">p_c_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">cl_complete</span><span class="op">)</span>,</span>
-<span>                             geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span> <span class="st">"norm"</span>,</span>
-<span>                             main <span class="op">=</span> <span class="st">"complete linkage"</span><span class="op">)</span></span>
-<span><span class="va">p_c_average</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">cl_average</span><span class="op">)</span>,</span>
-<span>                             geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span> <span class="st">"norm"</span>,</span>
-<span>                             main <span class="op">=</span> <span class="st">"average linkage"</span><span class="op">)</span></span>
-<span><span class="va">p_c_ward</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">cl_ward</span><span class="op">)</span>,</span>
-<span>                             geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span> <span class="st">"norm"</span>,</span>
-<span>                             main <span class="op">=</span> <span class="st">"Ward.D2"</span><span class="op">)</span></span>
+<span><span class="va">p_c_single</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">cl_single</span><span class="op">)</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>  ellipse.type <span class="op">=</span> <span class="st">"norm"</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"single linkage"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">p_c_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">cl_complete</span><span class="op">)</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>  ellipse.type <span class="op">=</span> <span class="st">"norm"</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"complete linkage"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">p_c_average</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">cl_average</span><span class="op">)</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>  ellipse.type <span class="op">=</span> <span class="st">"norm"</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"average linkage"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">p_c_ward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">cl_ward</span><span class="op">)</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>  ellipse.type <span class="op">=</span> <span class="st">"norm"</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"Ward.D2"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrange</a></span><span class="op">(</span><span class="va">p_c_single</span>, <span class="va">p_c_complete</span>, <span class="va">p_c_average</span>, <span class="va">p_c_ward</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
@@ -686,10 +727,10 @@ J_{\text{k-median}} = \sum_{k=1}^{K}\sum_{i=1}^{n} u_{ik} \, \|x_i - m_k\|_1.
 </div>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 18%">
-<col style="width: 28%">
-<col style="width: 29%">
-<col style="width: 23%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Cechy</th>
@@ -756,25 +797,30 @@ J(M_S) = \sum_{i=1}^{n} \min_{m_k \in M_S} d(x_i, m_k),
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/cluster/">cluster</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">44</span><span class="op">)</span></span>
-<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">44</span><span class="op">)</span> </span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> </span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 1. k-means</span></span>
-<span><span class="va">kmeans_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">X</span>, centers <span class="op">=</span> <span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">kmeans_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">X</span>, centers <span class="op">=</span> <span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">25</span><span class="op">)</span> </span>
 <span><span class="va">p_kmeans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="va">kmeans_res</span>, data <span class="op">=</span> <span class="va">X</span>, geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span><span class="st">"norm"</span>, main <span class="op">=</span> <span class="st">"k-means"</span><span class="op">)</span></span>
-<span><span class="co"># 2. k-medoids (PAM)</span></span>
-<span><span class="va">pam_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/pam.html">pam</a></span><span class="op">(</span><span class="va">X</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="va">p_pam</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="va">pam_res</span>, geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span><span class="st">"norm"</span>, main <span class="op">=</span> <span class="st">"PAM (k-medoids)"</span><span class="op">)</span></span>
-<span><span class="co"># 3. CLARA</span></span>
-<span><span class="va">clara_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/clara.html">clara</a></span><span class="op">(</span><span class="va">X</span>, k <span class="op">=</span> <span class="fl">3</span>, samples <span class="op">=</span> <span class="fl">5</span>, pamLike<span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 2. k-medoids (PAM) </span></span>
+<span><span class="va">pam_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/pam.html">pam</a></span><span class="op">(</span><span class="va">X</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> </span>
+<span><span class="va">p_pam</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="va">pam_res</span>, geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span><span class="st">"norm"</span>, main <span class="op">=</span> <span class="st">"PAM</span></span>
+<span><span class="st">(k-medoids)"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 3. CLARA </span></span>
+<span><span class="va">clara_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/clara.html">clara</a></span><span class="op">(</span><span class="va">X</span>, k <span class="op">=</span> <span class="fl">3</span>, samples <span class="op">=</span> <span class="fl">5</span>, pamLike<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> </span>
 <span><span class="va">p_clara</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="va">clara_res</span>, geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span></span>
-<span>                               <span class="st">"norm"</span>, main <span class="op">=</span> <span class="st">"CLARA"</span><span class="op">)</span></span>
-<span><span class="co"># 4. CLARANS</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fastkmedoids</span><span class="op">)</span></span>
-<span><span class="va">clarans_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/fastkmedoids/man/fastclarans.html">fastclarans</a></span><span class="op">(</span><span class="va">d</span>, k <span class="op">=</span> <span class="fl">3</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">p_clarans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">clara_res</span><span class="op">$</span><span class="va">clustering</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span></span>
-<span>                                 <span class="st">"norm"</span>, main <span class="op">=</span> <span class="st">"CLARANS"</span><span class="op">)</span></span>
+<span><span class="st">"norm"</span>, main <span class="op">=</span> <span class="st">"CLARA"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 4. CLARANS </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fastkmedoids</span><span class="op">)</span> </span>
+<span><span class="va">clarans_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/fastkmedoids/man/fastclarans.html">fastclarans</a></span><span class="op">(</span><span class="va">d</span>, k <span class="op">=</span> <span class="fl">3</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="va">p_clarans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X</span>, cluster <span class="op">=</span> <span class="va">clara_res</span><span class="op">$</span><span class="va">clustering</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span> <span class="st">"norm"</span>, main <span class="op">=</span></span>
+<span><span class="st">"CLARANS"</span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrange</a></span><span class="op">(</span><span class="va">p_kmeans</span>, <span class="va">p_pam</span>, <span class="va">p_clara</span>, <span class="va">p_clarans</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
@@ -784,9 +830,773 @@ J(M_S) = \sum_{i=1}^{n} \min_{m_k \in M_S} d(x_i, m_k),
 </div>
 </div>
 </div>
+</section></section></section><section id="metody-oparte-na-gęstości" class="level2"><h2 class="anchored" data-anchor-id="metody-oparte-na-gęstości">Metody oparte na gęstości</h2>
+<p>Metody oparte na gęstości traktują klaster jako obszar przestrzeni cech, w którym punkty występują gęściej niż w otoczeniu. Zamiast narzucać kuliste kształty lub minimalizować wariancję, jak w metodach centroidowych, identyfikuje się spójne „wyspy” wysokiej gęstości oddzielone obszarami niskiej gęstości. Kluczową konsekwencją jest naturalna obsługa szumu: punkty w rzadkich rejonach pozostają nieprzypisane, co sprzyja detekcji anomalii. Klasyczny przedstawiciel, czyli DBSCAN (ang. <em>Density-Based Spatial Clustering of Applications with Noise</em>), definiuje gęstość lokalnie przez promień <span class="math inline">\(\varepsilon\)</span> oraz próg liczności <em>MinPts</em>. Punkt rdzeniowy (ang. <em>core point</em>) to taki, który ma co najmniej <em>MinPts</em> sąsiadów w kuli o promieniu <span class="math inline">\(\varepsilon\)</span>. Punkty w zasięgu rdzeniowych tworzą łańcuchy dostępności gęstościowej, a maksymalne zbiory tak połączone stanowią klastry. Punkty w zasięgu <span class="math inline">\(\varepsilon\)</span>, które same nie są rdzeniowe, traktujemy jako brzegowe i dołączamy do pobliskich klastrów; pozostałe uznajemy za szum. Zaletą jest możliwość wykrywania klastrów o dowolnym kształcie, odporność na pojedyncze wartości odstające i brak konieczności z góry podawania liczby klastrów.</p>
+<p>Głównym ograniczeniem DBSCAN jest konieczność ustalenia globalnego parametr <span class="math inline">\(\varepsilon\)</span>: przy zróżnicowanej gęstości danych jedno ustawienie nie odzwierciedla wszystkich struktur (dla małego <span class="math inline">\(\varepsilon\)</span> drobne, gęste klastry są poprawne, ale rzadkie są traktowane rozłącznie; dla dużego <span class="math inline">\(\varepsilon\)</span> rzadkie się łączą, a gęste zlewają). Problem może łagodzić metoda OPTICS (ang. <em>Ordering Points To Identify the Clustering Structure</em>). W metodzie OPTICS pojęcia <em>core-distance</em> i <em>reachability-distance</em> służą do opisania lokalnej gęstości punktów w sposób ciągły, bez potrzeby ustalania z góry jednego progu <span class="math inline">\(\varepsilon\)</span>, jak w klasycznym DBSCAN.</p>
+<p>Algorytm HDBSCAN (ang. <em>Hierarchical Density-Based Spatial Clustering of Applications with Noise</em>) jest uogólnieniem metody DBSCAN do jej hierarchicznego rozwinięcia. Główna idea polega na tym, by nie wybierać z góry jednego progu gęstości (czyli parametru <span class="math inline">\(\varepsilon\)</span>), lecz analizować strukturę skupień w szerokim zakresie poziomów gęstości i budować ich hierarchię. W klasycznym DBSCAN wynik zależy od jednego promienia <span class="math inline">\(\varepsilon\)</span>: jeśli dane zawierają obszary o różnej gęstości, trudno dobrać jedną wartość odpowiednią dla wszystkich. HDBSCAN eliminuje tę słabość, zastępując stałe <span class="math inline">\(\varepsilon\)</span> ciągłym parametrem opisującym zmienność gęstości i tworząc dendrogram gęstości – czyli hierarchiczne drzewo pokazujące, jak klastry pojawiają się i łączą przy stopniowym „rozluźnianiu” kryterium gęstości.</p>
+<section id="algorytm-dbscan" class="level3"><h3 class="anchored" data-anchor-id="algorytm-dbscan">Algorytm DBSCAN</h3>
+<p>Niech <span class="math inline">\(X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p\)</span> oznaczać zbiór obserwacji, a <span class="math inline">\(d(\cdot,\cdot)\)</span> dowolną metrykę w tej przestrzeni (np. euklidesową). Algorytm DBSCAN opiera się na dwóch parametrach:</p>
+<ul>
+<li>promieniu sąsiedztwa <span class="math inline">\(\varepsilon &gt; 0\)</span>,</li>
+<li>minimalnej liczbie punktów w sąsiedztwie <span class="math inline">\(\text{MinPts} \in \mathbb{N}\)</span>.</li>
+</ul>
+<p>Na tej podstawie definiuje się następujące pojęcia:</p>
+<ol type="1">
+<li>
+<span class="math inline">\(\varepsilon\)</span>-sąsiedztwo punktu</li>
+</ol>
+<p>Dla każdego punktu <span class="math inline">\(x \in X\)</span> definiuje się jego sąsiedztwo w promieniu <span class="math inline">\(\varepsilon\)</span> <span class="math display">\[
+\mathcal{N}_\varepsilon(x) = \{ y \in X : d(x,y) \le \varepsilon \}.
+\]</span> Liczność tego zbioru, oznaczona jako <span class="math inline">\(|\mathcal{N}_\varepsilon(x)| = \rho_\varepsilon(x)\)</span>, stanowi miarę lokalnej gęstości wokół punktu <span class="math inline">\(x\)</span>.</p>
+<ol start="2" type="1">
+<li>Punkt rdzeniowy (<em>core point</em>)</li>
+</ol>
+<p>Punkt <span class="math inline">\(x \in X\)</span> nazywamy rdzeniowym, jeśli liczba punktów w jego sąsiedztwie jest co najmniej równa progowi gęstości <span class="math display">\[
+x \ \text{jest rdzeniowy} \quad \Longleftrightarrow \quad |\mathcal{N}_\varepsilon(x)| \ge \text{MinPts}.
+\]</span> Zbiór wszystkich punktów rdzeniowych oznaczamy jako <span class="math display">\[
+C_{\text{core}} = \{x \in X : |\mathcal{N}_\varepsilon(x)| \ge \text{MinPts}\}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Osiągalność gęstościowa (<em>density reachability</em>)</li>
+</ol>
+<p>Punkt <span class="math inline">\(y \in X\)</span> jest bezpośrednio osiągalny gęstościowo z punktu rdzeniowego <span class="math inline">\(x\)</span>, jeśli <span class="math display">\[
+y \in \mathcal{N}_\varepsilon(x) \quad \text{i} \quad x \in C_{\text{core}}.
+\]</span> Oznaczamy tę relację jako <span class="math inline">\(y \leftarrow x\)</span>.</p>
+<p>Punkt <span class="math inline">\(y\)</span> jest osiągalny gęstościowo z <span class="math inline">\(x\)</span>, jeśli istnieje ciąg punktów <span class="math inline">\((x_1, x_2, \dots, x_m) \subset X\)</span> taki, że <span class="math display">\[
+x_1 = x, \quad x_m = y, \quad \text{oraz} \quad x_{i+1} \leftarrow x_i \ \text{dla każdego } i=1,\dots,m-1.
+\]</span> Zapisujemy wtedy <span class="math inline">\(y \overset{*}{\leftarrow} x\)</span>.</p>
+<p>Relacja osiągalności gęstościowej jest przechodnia, lecz nie jest symetryczna, ponieważ ostatni punkt łańcucha nie musi być rdzeniowy.</p>
+<ol start="4" type="1">
+<li>Połączenie gęstościowe (<em>density connectivity</em>)</li>
+</ol>
+<p>Dwa punkty <span class="math inline">\(x, y \in X\)</span> są połączone gęstościowo, jeśli istnieje punkt rdzeniowy <span class="math inline">\(o \in X\)</span> taki, że oba są osiągalne gęstościowo od <span class="math inline">\(o\)</span> <span class="math display">\[
+x \leftrightarrow y \quad \Longleftrightarrow \quad \exists_o \in C_{\text{core}}: \ x \overset{}{\leftarrow} o \ \text{i} \ y \overset{}{\leftarrow} o.
+\]</span> Relacja ta jest symetryczna i służy do definiowania klastrów.</p>
+<p><a href="images/dens_reach.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="images/dens_reach.png" class="img-fluid" data-fig-width="70%" width="700"></a></p>
+<ol start="5" type="1">
+<li>Klaster DBSCAN</li>
+</ol>
+<p>Klaster jest maksymalnym względem inkluzji zbiorem punktów, w którym wszystkie punkty są połączone gęstościowo <span class="math display">\[
+C = \{ x \in X : \exists o \in C_{\text{core}} \ \text{takie, że} \ x \overset{*}{\leftarrow} o \}.
+\]</span> Zbiory <span class="math inline">\(C_1, C_2, \dots, C_K\)</span> tworzą nieprzecinający się podział punktów rdzeniowych i brzegowych (tych osiągalnych od rdzeniowych), a pozostałe punkty <span class="math display">\[
+N = X \setminus \bigcup_{k=1}^K C_k
+\]</span> traktujemy jako szum lub punkty odosobnione (<em>noise</em>).</p>
+<p><a href="images/dbscan.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="images/dbscan.png" class="img-fluid" data-fig-width="70%" width="700"></a></p>
+<div id="exm-3" class="theorem example">
+<p><span class="theorem-title"><strong>Przykład 6.3</strong></span> &nbsp;</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- Pakiety ---</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhahsler/dbscan">dbscan</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- Dane iris (4D) i standaryzacja ---</span></span>
+<span><span class="va">X4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- 1. Dobór parametrów eps i minPts ---</span></span>
+<span><span class="co"># eps określa promień sąsiedztwa; minPts – minimalną liczbę punktów w klastrze.</span></span>
+<span><span class="co"># Dobrym sposobem jest analiza wykresu kNN-dist (tzw. "elbow method")</span></span>
+<span></span>
+<span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fl">5</span>  <span class="co"># zazwyczaj minPts = liczba wymiarów + 1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/dbscan/man/kNNdist.html">kNNdistplot</a></span><span class="op">(</span><span class="va">X4</span>, k <span class="op">=</span> <span class="va">k</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0.79</span>, col <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># przykładowy próg eps</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span>main <span class="op">=</span> <span class="st">"Wykres kNN-dist (pomoc przy wyborze eps)"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="cluster_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- 2. Klasteryzacja DBSCAN w przestrzeni 4D ---</span></span>
+<span><span class="va">eps_val</span> <span class="op">&lt;-</span> <span class="fl">0.79</span></span>
+<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dbscan/man/dbscan.html">dbscan</a></span><span class="op">(</span><span class="va">X4</span>, eps <span class="op">=</span> <span class="va">eps_val</span>, minPts <span class="op">=</span> <span class="va">k</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Liczba klastrów (bez szumu):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">db</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Liczba klastrów (bez szumu): 2 </code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Liczba punktów zaklasyfikowanych jako szum:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">db</span><span class="op">$</span><span class="va">cluster</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Liczba punktów zaklasyfikowanych jako szum: 4 </code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- 3. PCA tylko do wizualizacji (2D) ---</span></span>
+<span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">X4</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, scale. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">scores</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PC1"</span>, <span class="st">"PC2"</span><span class="op">)</span></span>
+<span><span class="va">scores</span><span class="op">$</span><span class="va">cluster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">db</span><span class="op">$</span><span class="va">cluster</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"noise"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="va">db</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">scores</span><span class="op">$</span><span class="va">species</span> <span class="op">&lt;-</span> <span class="va">iris</span><span class="op">$</span><span class="va">Species</span></span>
+<span></span>
+<span><span class="co"># --- 4. Wykres klastrów DBSCAN w PCA (2D) ---</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">db</span><span class="op">$</span><span class="va">cluster</span> <span class="op">==</span> <span class="fl">0</span>, <span class="cn">NA</span>, <span class="va">db</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"point"</span>, ellipse <span class="op">=</span> <span class="cn">FALSE</span>, show.clust.cent <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">scores</span>, <span class="va">cluster</span> <span class="op">==</span> <span class="st">"noise"</span><span class="op">)</span>,</span>
+<span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">PC1</span>, <span class="va">PC2</span><span class="op">)</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>             shape <span class="op">=</span> <span class="fl">4</span>, size <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"grey40"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Klasteryzacja DBSCAN na iris"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"eps ="</span>, <span class="va">eps_val</span>, <span class="st">", minPts ="</span>, <span class="va">k</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-3-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="cluster_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section><section id="algorytm-optics" class="level3"><h3 class="anchored" data-anchor-id="algorytm-optics">Algorytm OPTICS</h3>
+<p>Niech <span class="math inline">\(X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p\)</span> oznaczać zbiór obserwacji, a <span class="math inline">\(d(\cdot,\cdot)\)</span> — dowolną metrykę w tej przestrzeni (np. euklidesową). Algorytm OPTICS rozszerza koncepcję DBSCAN, eliminując konieczność ustalania jednej wartości promienia sąsiedztwa. Zamiast tego wprowadza się dwa parametry:</p>
+<ul>
+<li>maksymalny promień sąsiedztwa <span class="math inline">\(\varepsilon_{\max} &gt; 0\)</span>,</li>
+<li>minimalną liczbę punktów w sąsiedztwie <span class="math inline">\(\text{MinPts} \in \mathbb{N}\)</span>.</li>
+</ul>
+<ol type="1">
+<li>Maksymalne sąsiedztwo punktu</li>
+</ol>
+<p>Dla każdego punktu <span class="math inline">\(x \in X\)</span> definiuje się jego sąsiedztwo w promieniu <span class="math inline">\(\varepsilon_{\max}\)</span> <span class="math display">\[
+\mathcal{N}_{\varepsilon_{\max}}(x) = \{ y \in X : d(x,y) \le \varepsilon_{\max} \}.
+\]</span> Jest to zbiór wszystkich punktów w zasięgu maksymalnym, z którego będą obliczane lokalne miary gęstości.</p>
+<ol start="2" type="1">
+<li>Odległość rdzeniowa (<em>core-distance</em>)</li>
+</ol>
+<p>Dla punktu <span class="math inline">\(x \in X,\)</span> jeśli w jego sąsiedztwie znajduje się co najmniej <span class="math inline">\(\text{MinPts}\)</span> punktów, to jego odległość rdzeniowa jest zdefiniowana jako <span class="math display">\[
+\text{core-dist}(x) =
+\begin{cases}
+d(x, x{(\text{MinPts})}), &amp; \text{jeśli } |\mathcal{N}_{\varepsilon_{\max}}(x)| \ge \text{MinPts}, \\[6pt]
+\text{niezdefiniowana}, &amp; \text{w przeciwnym razie.}
+\end{cases}
+\]</span> gdzie <span class="math inline">\(x_{(\text{MinPts})}\)</span> oznacza <em>MinPts</em>-ty najbliższy punkt względem <span class="math inline">\(x\)</span> w zbiorze <span class="math inline">\(\mathcal{N}_{\varepsilon_{\max}}(x)\)</span>. Intuicyjnie, <span class="math inline">\(\text{core-dist}(x)\)</span> opisuje minimalny promień kuli wokół <span class="math inline">\(x\)</span>, który zawiera co najmniej <span class="math inline">\(\text{MinPts}\)</span> punktów, a więc jest lokalną miarą gęstości.</p>
+<ol start="3" type="1">
+<li>Odległość osiągalności (<em>reachability-distance</em>)</li>
+</ol>
+<p>Dla dwóch punktów <span class="math inline">\(x, y \in X\)</span> takich, że <span class="math inline">\(y \in \mathcal{N}_{\varepsilon_{\max}}(x)\)</span>, definiuje się <span class="math display">\[
+\text{reach-dist}(y \mid x) =
+\max\{\text{core-dist}(x),\, d(x, y)\}.
+\]</span> Wartość ta mierzy minimalną odległość, przy której punkt <span class="math inline">\(y\)</span> jest osiągalny z punktu <span class="math inline">\(x\)</span> przy zachowaniu zadanej gęstości. Jeśli <span class="math inline">\(\text{core-dist}(x)\)</span> jest mała, to region wokół <span class="math inline">\(x\)</span> jest gęsty, a punkty w jego sąsiedztwie mają niską odległość osiągalności.</p>
+<p><a href="images/core_dist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="images/core_dist.png" class="img-fluid"></a></p>
+<ol start="4" type="1">
+<li>Kolejka priorytetowa (<em>SeedList</em>)</li>
+</ol>
+<p>Podczas przetwarzania punktów, OPTICS utrzymuje kolejkę priorytetową punktów sąsiednich (<em>SeedList</em>). Każdy punkt <span class="math inline">\(y\)</span> wstawia się do tej kolejki z priorytetem równym <span class="math inline">\(\text{reach-dist}(y)\)</span>. Algorytm zawsze wybiera do dalszego przetwarzania punkt o najmniejszej wartości <span class="math inline">\(\text{reach-dist}\)</span>, co gwarantuje eksplorację przestrzeni od regionów gęstych ku rzadszym.</p>
+<ol start="5" type="1">
+<li>Kolejność przetwarzania punktów</li>
+</ol>
+<p>Dla każdego nieodwiedzonego punktu <span class="math inline">\(x_i \in X\)</span></p>
+<ul>
+<li>Oblicza się <span class="math inline">\(\mathcal{N}_{\varepsilon_{\max}}(x_i)\)</span>.</li>
+<li>Dodaje się <span class="math inline">\(x_i\)</span> do listy <em>OrderList</em> (kolejności odwiedzin).</li>
+<li>Jeśli <span class="math inline">\(x_i\)</span> jest rdzeniowy, oblicza się jego <span class="math inline">\(\text{core-dist}(x_i)\)</span> i aktualizuje odległości osiągalności wszystkich punktów <span class="math inline">\(y \in \mathcal{N}_{\varepsilon_{\max}}(x_i)\)</span> <span class="math display">\[
+\text{reach-dist}(y) = \min\big( \text{reach-dist}(y),\ \max\{\text{core-dist}(x_i), d(x_i, y)\} \big).
+\]</span> Każdy taki punkt dodaje się do <em>SeedList</em> z priorytetem równym zaktualizowanej wartości <span class="math inline">\(\text{reach-dist}(y)\)</span>.</li>
+<li>Następnie wybiera się z <em>SeedList</em> punkt o najmniejszej wartości <span class="math inline">\(\text{reach-dist}\)</span> i powtarza proces, aż kolejka będzie pusta.</li>
+</ul>
+<p>W ten sposób powstaje uporządkowana lista punktów wraz z przypisaną im wartością <span class="math inline">\(\text{reach-dist}\)</span>.</p>
+<ol start="6" type="1">
+<li>Wynik algorytmu</li>
+</ol>
+<p>Po przetworzeniu wszystkich punktów algorytm zwraca:</p>
+<ul>
+<li>uporządkowaną listę punktów <span class="math inline">\(\text{OrderList} = (x_{i_1}, x_{i_2}, \dots, x_{i_n})\)</span>,</li>
+<li>odpowiadające im wartości odległości osiągalności <span class="math display">\[
+R(x_{i_j}) = \text{reach-dist}(x_{i_j}).
+\]</span>
+</li>
+</ul>
+<p>Na tej podstawie tworzy się wykres osiągalności (<em>reachability plot</em>), na którym oś pozioma przedstawia kolejność punktów z <em>OrderList</em>, a oś pionowa – wartości <span class="math inline">\(R(x)\)</span>.</p>
+<p>Doliny (lokalne minima <span class="math inline">\(R(x)\)</span>) odpowiadają klastrom o wysokiej gęstości, a szczyty – granicom między nimi lub obszarom szumu.</p>
+<ol start="7" type="1">
+<li>Relacja z DBSCAN</li>
+</ol>
+<p>Z wyników OPTICS można odtworzyć rozwiązania DBSCAN dla dowolnego progu gęstości <span class="math inline">\(\varepsilon \le \varepsilon_{\max}\)</span> <span class="math display">\[
+C_k(\varepsilon) = \{ x \in X : R(x) \le \varepsilon \}.
+\]</span> W odróżnieniu od DBSCAN, który tworzy pojedynczy podział dla jednej wartości , OPTICS analizuje ciągłe spektrum gęstości i ujawnia strukturę klastrów wieloskalarowo.</p>
+<div class="{$#exm-4}">
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- Pakiety ---</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhahsler/dbscan">dbscan</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- Dane iris (4D) i standaryzacja ---</span></span>
+<span><span class="va">X4</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">X4s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">X4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- PCA wyłącznie do wizualizacji (2D) ---</span></span>
+<span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">X4s</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, scale. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">scores2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">scores2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PC1"</span>, <span class="st">"PC2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- OPTICS w 4D ---</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span><span class="va">minPts</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span><span class="va">opt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dbscan/man/optics.html">optics</a></span><span class="op">(</span><span class="va">X4s</span>, minPts <span class="op">=</span> <span class="va">minPts</span>, eps <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">opt</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>OPTICS ordering/clustering for 150 objects.
+Parameters: minPts = 10, eps = 10, eps_cl = NA, xi = NA
+Available fields: order, reachdist, coredist, predecessor, minPts, eps,
+                  eps_cl, xi</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># core distances</span></span>
+<span><span class="va">opt</span><span class="op">$</span><span class="va">coredist</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>  [1] 0.3858795 0.5216255 0.4325508 0.3624815 0.4778513 0.6595814 0.5377608
+  [8] 0.3311773 0.7294317 0.3755259 0.5405840 0.4625350 0.5037468 0.7174030
+ [15] 0.9855183 1.5786111 0.5983583 0.4240501 0.7750003 0.5839000 0.5526259
+ [22] 0.5187340 0.7271930 0.5552259 0.5139214 0.5846393 0.3741885 0.3795916
+ [29] 0.3624815 0.4435393 0.3331252 0.5059113 0.9579891 1.1066196 0.3518639
+ [36] 0.4961615 0.5466384 0.5187340 0.5846393 0.3666919 0.3731971 1.6831481
+ [43] 0.6557953 0.5838299 0.7099379 0.5037468 0.5467463 0.4961615 0.5307731
+ [50] 0.4435393 0.9143787 0.7269364 0.7132600 0.8758985 0.5535324 0.5258100
+ [57] 0.7834236 0.9979460 0.6204957 0.7824508 1.3840715 0.5338632 0.9966110
+ [64] 0.5535324 0.6175831 0.7346173 0.6175831 0.5848110 1.1564647 0.5467463
+ [71] 0.7463942 0.5599681 0.7489668 0.6050408 0.5612685 0.5535324 0.7346173
+ [78] 0.6237576 0.5027299 0.6221790 0.7174030 0.6845254 0.5207927 0.6097954
+ [85] 0.7600350 1.0203670 0.6797003 1.0364478 0.6373124 0.6018501 0.5770279
+ [92] 0.5859036 0.5679510 1.0959819 0.5286138 0.5945837 0.4785192 0.5306769
+ [99] 0.9130341 0.4863634 0.8365465 0.7333838 0.6693883 0.5853250 0.5954263
+[106] 1.1087525 1.1809265 0.9266707 1.0414409 1.2995268 0.6534500 0.6627507
+[113] 0.5539087 0.9790367 0.9577993 0.5873773 0.6190683 1.8712349 1.6496314
+[120] 1.1081839 0.5920862 0.8024896 1.3678948 0.6159250 0.6732405 0.8451719
+[127] 0.5468030 0.5753843 0.6686542 0.8520646 0.9596625 2.0008804 0.7097367
+[134] 0.5770279 0.8333085 1.1009468 0.8694743 0.6657451 0.6239106 0.5621610
+[141] 0.4805930 0.6639890 0.7333838 0.6018501 0.7176060 0.6183622 0.7604949
+[148] 0.5419296 0.9421324 0.6440723</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># reachability</span></span>
+<span><span class="va">opt</span><span class="op">$</span><span class="va">reachdist</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>  [1]       Inf 0.3331252 0.3331252 0.3331252 0.3731971 0.5405840 0.4625350
+  [8] 0.3624815 0.5216255 0.3331252 0.5185405 0.3311773 0.3331252 0.5024401
+ [15] 0.5983583 0.9855183 0.5405840 0.3624815 0.5405840 0.4955334 0.3624815
+ [22] 0.4778513 0.5187340 0.3741885 0.3311773 0.3331252 0.3311773 0.3624815
+ [29] 0.3666919 0.4435393 0.3518639 0.3624815 0.6607751 0.7485815 0.4435393
+ [36] 0.4435393 0.3795916 0.3731971 0.3624815 0.3731971 0.3858795 1.3892251
+ [43] 0.4435393 0.3741885 0.5187340 0.3518639 0.4878204 0.4435393 0.4744817
+ [50] 0.3666919 0.6797003 0.5535324 0.5535324 0.5467463 0.5306769 0.4785192
+ [57] 0.6615890 0.7591833 0.5306769 0.5286138 0.9979460 0.4785192 0.7771899
+ [64] 0.5027299 0.4785192 0.5535324 0.4785192 0.4863634 0.7489668 0.5348792
+ [71] 0.5753843 0.4863634 0.6097954 0.5027299 0.5306769 0.5535324 0.5535324
+ [78] 0.5535324 0.4785192 0.5207927 0.5467463 0.5467463 0.4863634 0.5468030
+ [85] 0.5306769 0.7269364 0.5535324 0.7489668 0.4785192 0.9130341 0.5207927
+ [92] 0.5027299 0.4955334 0.9130341 0.6018501 0.4785192 0.4863634 0.5027299
+ [99] 1.6831481 0.5286138 0.5873773 0.5762550 0.5539087 0.5468030 0.5419296
+[106] 0.7223803 0.7824508 0.6693883 0.6627507 0.9432249 0.5419296 0.5468030
+[113] 0.5419296 0.7333838 0.7333838 0.4805930 0.5419296 1.2995268 0.9596625
+[120] 0.7798708 0.4805930 0.6507573 0.9266707 0.5468030 0.5621610 0.6693883
+[127] 0.5429150 0.5229417 0.5419296 0.6693883 0.6693883 1.2995268 0.5853250
+[134] 0.5468030 0.6052435 0.7789081 0.5873773 0.5419296 0.5027299 0.4805930
+[141] 0.5539087 0.5539087 0.5762550 0.4805930 0.4805930 0.5419296 0.6159250
+[148] 0.5753843 0.5873773 0.5753843</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># order</span></span>
+<span><span class="va">opt</span><span class="op">$</span><span class="va">order</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>  [1]   1  41  40  50  29  32  28  21  18   8  27  25  12  38   5  44  24  37
+ [19]  36  30  48  43  35  46  31  26  13  10   4   3   2  39   7  49  22  47
+ [37]  20  14  11  45  23   9  19  17   6  15  33  34  16  42  99  94  90  95
+ [55] 100  97  96  89  79  67  65  62  56  83  72  68  93 139  98  92  74  64
+ [73]  91  80 128  60  85  75  59  55  70 127  82  81  54 134 124 112 104  84
+ [91]  76  87  78  66  53  52  77 150 148 146 138 129 117 113 111 105 142 141
+[109] 145 144 140 121 116 103 125  71 143 102 133 149 137 101 135  73 147 122
+[127]  57 109 131 130 126 108  51 106  86 115 114  88  69  58  63 136 120 107
+[145] 123 110 119  61 132 118</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- 1) Wykres reachability (porządek OPTICS) ---</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">opt</span>,</span>
+<span>     main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"OPTICS: reachability plot (minPts = %d)"</span>, <span class="va">minPts</span><span class="op">)</span>,</span>
+<span>     ylab <span class="op">=</span> <span class="st">"reachability"</span>, xlab <span class="op">=</span> <span class="st">"porządek OPTICS"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="cluster_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- 2) Wydobycie klastrów metodą Xi ---</span></span>
+<span><span class="co"># --- Lista wartości Xi ---</span></span>
+<span><span class="va">xi_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.03</span>, <span class="fl">0.05</span>, <span class="fl">0.10</span>, <span class="fl">0.15</span>, <span class="fl">0.20</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- Funkcja pomocnicza do generowania wykresu dla danej wartości xi ---</span></span>
+<span><span class="va">plot_xi</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">xi_val</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">opt_xi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dbscan/man/optics.html">extractXi</a></span><span class="op">(</span><span class="va">opt</span>, xi <span class="op">=</span> <span class="va">xi_val</span><span class="op">)</span></span>
+<span>  <span class="co"># Ustaw parametry graficzne i wygeneruj wykres</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">opt_xi</span>,</span>
+<span>       main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"OPTICS + extractXi (xi = %.2f)"</span>, <span class="va">xi_val</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># --- Rysowanie wszystkich wykresów w układzie grid ---</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">xi_val</span> <span class="kw">in</span> <span class="va">xi_vals</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">plot_xi</span><span class="op">(</span><span class="va">xi_val</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="cluster_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="cluster_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="cluster_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="cluster_files/figure-html/unnamed-chunk-4-5.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="cluster_files/figure-html/unnamed-chunk-4-6.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="cluster_files/figure-html/unnamed-chunk-4-7.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- 3) Klastery Xi na rzutowaniu PCA (2D) ---</span></span>
+<span><span class="va">opt_xi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dbscan/man/optics.html">extractXi</a></span><span class="op">(</span><span class="va">opt</span>, xi <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span></span>
+<span><span class="va">lab_xi</span> <span class="op">&lt;-</span> <span class="va">opt_xi</span><span class="op">$</span><span class="va">cluster</span></span>
+<span><span class="va">scores2</span><span class="op">$</span><span class="va">cluster_xi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">lab_xi</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"noise"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="va">lab_xi</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p_xi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_pca.html">fviz_pca_ind</a></span><span class="op">(</span></span>
+<span>  <span class="va">pca</span>, geom <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>  habillage <span class="op">=</span> <span class="va">scores2</span><span class="op">$</span><span class="va">cluster_xi</span>, addEllipses <span class="op">=</span> <span class="cn">FALSE</span>, show.legend <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># wyróżnić szum krzyżykiem</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">scores2</span>, <span class="va">cluster_xi</span> <span class="op">==</span> <span class="st">"noise"</span><span class="op">)</span>,</span>
+<span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">PC1</span>, <span class="va">PC2</span><span class="op">)</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>             shape <span class="op">=</span> <span class="fl">4</span>, size <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"OPTICS + Xi na iris: wizualizacja w PCA (2D)"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"Klasteryzacja w 4D, xi = %.2f; szum oznaczony 'x'"</span>, <span class="va">xi_val</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p_xi</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="cluster_files/figure-html/unnamed-chunk-4-8.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- 4) (opcjonalnie) Wydobycie klastrów DBSCAN z trajektorii OPTICS ---</span></span>
+<span><span class="co"># Pozwala zasymulować wynik DBSCAN dla zadanego eps bez ponownego uruchamiania DBSCAN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/dbscan/man/kNNdist.html">kNNdistplot</a></span><span class="op">(</span><span class="va">X4s</span>, k <span class="op">=</span> <span class="va">minPts</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0.76</span>, lty<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="cluster_files/figure-html/unnamed-chunk-4-9.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eps_val</span> <span class="op">&lt;-</span> <span class="fl">0.76</span> <span class="co"># dobrać na podstawie kNNdistplot(X4s, k = minPts)</span></span>
+<span><span class="va">opt_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dbscan/man/optics.html">extractDBSCAN</a></span><span class="op">(</span><span class="va">opt</span>, eps <span class="op">=</span> <span class="va">eps_val</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">scores2</span><span class="op">$</span><span class="va">cluster_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">opt_db</span><span class="op">$</span><span class="va">cluster</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"noise"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="va">opt_db</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_pca.html">fviz_pca_ind</a></span><span class="op">(</span></span>
+<span>  <span class="va">pca</span>, geom <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>  habillage <span class="op">=</span> <span class="va">scores2</span><span class="op">$</span><span class="va">cluster_db</span>, addEllipses <span class="op">=</span> <span class="cn">FALSE</span>, show.legend <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">scores2</span>, <span class="va">cluster_db</span> <span class="op">==</span> <span class="st">"noise"</span><span class="op">)</span>,</span>
+<span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">PC1</span>, <span class="va">PC2</span><span class="op">)</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>             shape <span class="op">=</span> <span class="fl">4</span>, size <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"grey40"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Klastry z extractDBSCAN(optics, eps) na iris"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"eps = %.2f, minPts = %d (klasteryzacja w 4D, rzut PCA 2D)"</span>, <span class="va">eps_val</span>, <span class="va">minPts</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p_db</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-4-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="cluster_files/figure-html/unnamed-chunk-4-10.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section><section id="algorytm-hdbscan" class="level3"><h3 class="anchored" data-anchor-id="algorytm-hdbscan">Algorytm HDBSCAN</h3>
+<p>Przymijmy metrykę <span class="math inline">\(d(\cdot, \cdot)\)</span>, zbiór danych <span class="math inline">\(X=\{x_1,\dots,x_n\}\subset\mathbb{R}^p\)</span> oraz parametry minimalny rozmiar klastra <span class="math inline">\(m_c\)</span> i opcjonalnie minimalną wielkość klastra <span class="math inline">\(m_s\)</span> (gdy brak — przyjmujemy <span class="math inline">\(m_s=m_c\)</span>).</p>
+<ol type="1">
+<li>Definicje i wielkości pomocnicze</li>
+</ol>
+<p>Określmy sąsiedztwo w promieniu <span class="math inline">\(\varepsilon\)</span> <span class="math display">\[
+\mathcal{N}_\varepsilon(x)=\{y\in X:\ d(x,y)\le \varepsilon\}.
+\]</span> Odległość rdzeniowa (<em>core-distance</em>) dla zadanego <span class="math inline">\(m_s\)</span> określamy jako <span class="math display">\[
+\operatorname{core-dist}(x)=d\!\big(x,\ x_{(m_s)}\big),
+\]</span> gdzie <span class="math inline">\(x_{(k)}\)</span> oznacza <span class="math inline">\(k\)</span>-tego najbliższego sąsiada <span class="math inline">\(x\)</span>. Odległość wzajemnej osiągalności (<em>mutual reachability distance</em>) określamy jako <span class="math display">\[
+d_{\text{mreach}}(x,y)=\max\big\{\operatorname{core-dist}(x),\ \operatorname{core-dist}(y),\ d(x,y)\big\}.
+\]</span> Ta metryka „spłaszcza” różnice gęstości: dwa punkty są „bliskie” tylko jeśli oba leżą w porównywalnie gęstych regionach. Następnie dokonujemy transformacji gęstościowej <span class="math display">\[
+\lambda(x,y)=\frac{1}{d_{\text{mreach}}(x,y)}\quad(\text{większa } \lambda \Rightarrow większa gęstość).
+\]</span> 2. Graf sąsiedztwa i drzewo minimalnego rozpinającego</p>
+<p>Budujemy graf sąsiedztwa nad <span class="math inline">\(X\)</span> z wagami <span class="math inline">\(d_{\text{mreach}}(\cdot,\cdot)\)</span>. W praktyce stosujemy graf k-NN (z <span class="math inline">\(k=m_s\)</span> lub większym) w celu ograniczenia liczby krawędzi. Następnie obliczamy <em>minimum spanning tree</em> (MST) wagi <span class="math inline">\(d_{\text{mreach}}\)</span>. Drzewo MST koduje „najtańsze” (najgęstsze) połączenia między punktami — z nim powiązana jest hierarchia klastrów.</p>
+<ol start="3" type="1">
+<li>Tworzenie hierarchii klastrów gęstości</li>
+</ol>
+<p>Najczęściej stosując metodę <em>single linkage</em>, przechodzimy po krawędziach MST w kolejności rosnących wag <span class="math inline">\(d_{\text{mreach}}\)</span> (czyli malejących <span class="math inline">\(\lambda\)</span>), łącząc punkty/klastry w miarę obniżania progu gęstości. W wyniku powstaje hierarchia klastrów gęstości — drzewo, w którym każdy poziom odpowiada pewnemu progowi gęstości <span class="math inline">\(\lambda\)</span> (lub <span class="math inline">\(d_{\text{mreach}}\)</span>), a gałęzie reprezentują klastry pojawiające się i łączące w miarę zmiany tego progu.</p>
+<ol start="4" type="1">
+<li>Kondensacja drzewa (<em>condensed cluster tree</em>)</li>
+</ol>
+<p>Przechodzimy po drzewie klastrów gęstości od najwyższego poziomu (gęstości) w dół, usuwając gałęzie o liczności mniejszej niż <span class="math inline">\(m_c\)</span>. W efekcie powstaje skondensowane drzewo, w którym każda gałąź reprezentuje klaster o co najmniej <span class="math inline">\(m_c\)</span> punktach, a zmiany liczności są rejestrowane na poziomach gęstości, przy których klastry się łączą lub rozszczepiają.</p>
+<ol start="5" type="1">
+<li>Miara stabilności klastra i wybór rozkroju</li>
+</ol>
+<p>Dla każdej gałęzi (klastra) <span class="math inline">\(C\)</span> w skondensowanym drzewie definiujemy miarę stabilności jako <span class="math display">\[
+\mathrm{Stab}(C) = \sum_{x_i \in C} \big(\lambda_{\text{death}}(x_i) - \lambda_{\text{birth}}(C)\big),
+\]</span> gdzie <span class="math inline">\(\lambda_{\text{birth}}(C)\)</span> to poziom gęstości, przy którym klaster <span class="math inline">\(C\)</span> się pojawia (rodzi), a <span class="math inline">\(\lambda_{\text{death}}(x_i)\)</span> to poziom, przy którym punkt <span class="math inline">\(x_i\)</span> opuszcza klaster (gdy <span class="math inline">\(C\)</span> się rozszczepia lub znika). Intuicyjnie, stabilność mierzy „czas życia” punktów w klastrze ważony przez gęstość. Następnie wybieramy zbiór gałęzi maksymalizujący łączną stabilność, przy czym gałęzie nie mogą się nakładać (rodzic-potomkowie). Ten zbiór stanowi ostateczny podział danych na klastry</p>
+<ol start="6" type="1">
+<li>Przypisanie punktów i „miękkie” przynależności</li>
+</ol>
+<p>Punkty należące do wybranych gałęzi otrzymują etykiety klastrów. Punkty nieprzypisane traktujemy jako szum. Opcjonalnie można obliczyć „miękkie” przynależności do klastrów na podstawie stabilności oraz odległości do klastrów, a także wskaźnik <em>outlier score</em> opisujący stopień bycia punktem odstającym.</p>
+<ol start="7" type="1">
+<li>Parametry modelu</li>
+</ol>
+<ul>
+<li>minimalny rozmiar klastra <span class="math inline">\(m_c\)</span> — określa najmniejszą liczbę punktów, aby gałąź była uznana za klaster podczas kondensacji;</li>
+<li>minimalny rozmiar próbki <span class="math inline">\(m_s\)</span> — używany do obliczenia odległości rdzeniowej; zwykle przyjmuje się <span class="math inline">\(m_s = m_c\)</span> lub nieco większe.</li>
+</ul>
+<div class="{$#exm-5}">
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- Pakiety ---</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhahsler/dbscan">dbscan</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- Dane iris (4D) i standaryzacja ---</span></span>
+<span><span class="va">X4</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">X4s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">X4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- PCA wyłącznie do wizualizacji (2D) ---</span></span>
+<span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">X4s</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, scale. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">scores2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">scores2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PC1"</span>, <span class="st">"PC2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- HDBSCAN ---</span></span>
+<span><span class="va">minPts</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dbscan/man/hdbscan.html">hdbscan</a></span><span class="op">(</span><span class="va">X4s</span>, minPts <span class="op">=</span> <span class="va">minPts</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- Pełne drzewo hierarchii (HDBSCAN*, nieskondensowane) ---</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cl</span><span class="op">$</span><span class="va">hc</span>, main <span class="op">=</span> <span class="st">"nieskondensowane drzewo hierarchi gęstości (HDBSCAN*)"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="cluster_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- Skondensowane drzewo hierarchii gęstości ---</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cl</span>, show_flat <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Skondensowane drzewo hierarchii gęstości (HDBSCAN)"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-5-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="cluster_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- Obliczenie metryki mutual reachability ---</span></span>
+<span><span class="va">k</span> <span class="op">&lt;-</span> <span class="va">minPts</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span><span class="va">core_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/dbscan/man/kNNdist.html">kNNdist</a></span><span class="op">(</span><span class="va">X4s</span>, k <span class="op">=</span> <span class="va">k</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">D_eu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">X4s</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">X4s</span><span class="op">)</span></span>
+<span><span class="va">core_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="va">core_dist</span>, <span class="va">n</span>, <span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">core_j</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">core_i</span><span class="op">)</span></span>
+<span><span class="va">Dmreach</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span><span class="op">(</span><span class="va">core_i</span>, <span class="va">core_j</span>, <span class="va">D_eu</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">Dmreach</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span></span>
+<span><span class="co"># --- Graf pełny i MST ---</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">Dmreach</span>, mode <span class="op">=</span> <span class="st">"undirected"</span>, weighted <span class="op">=</span> <span class="cn">TRUE</span>, diag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">mst_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/mst.html">mst</a></span><span class="op">(</span><span class="va">g</span>, weights <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/E.html">E</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- Przygotowanie danych do ggraph ---</span></span>
+<span><span class="co"># Współrzędne wierzchołków</span></span>
+<span><span class="va">layout_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">scores2</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">scores2</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Skala kolorów wg d_mreach</span></span>
+<span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/E.html">E</a></span><span class="op">(</span><span class="va">mst_g</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/E.html">E</a></span><span class="op">(</span><span class="va">mst_g</span><span class="op">)</span><span class="op">$</span><span class="va">color</span> <span class="op">&lt;-</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/col_numeric.html">col_numeric</a></span><span class="op">(</span></span>
+<span>  palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"cyan"</span>, <span class="st">"yellow"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
+<span>  domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">(</span><span class="va">w</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># --- Wizualizacja MST w ggraph ---</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">mst_g</span>, layout <span class="op">=</span> <span class="va">layout_df</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">weight</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">1.2</span>, alpha <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"gray20"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_color_gradientn</a></span><span class="op">(</span></span>
+<span>    colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"cyan"</span>, <span class="st">"yellow"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="va">mreach</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="st">"Minimalne drzewo rozpinające w metryce "</span> <span class="op">*</span> <span class="va">d</span><span class="op">[</span><span class="va">mreach</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    legend.position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>, hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-5-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="cluster_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- Wykres klastrów w 2D ---</span></span>
+<span><span class="va">scores2</span><span class="op">$</span><span class="va">cluster_hdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">cl</span><span class="op">$</span><span class="va">cluster</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"noise"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="va">cl</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p_hdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_pca.html">fviz_pca_ind</a></span><span class="op">(</span></span>
+<span>  <span class="va">pca</span>, geom <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>  habillage <span class="op">=</span> <span class="va">scores2</span><span class="op">$</span><span class="va">cluster_hdb</span>,    <span class="co"># kolor wg klastrów HDBSCAN</span></span>
+<span>  addEllipses <span class="op">=</span> <span class="cn">FALSE</span>, show.legend <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># Nakładka: szum jako krzyżyki</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">scores2</span>, <span class="va">cluster_hdb</span> <span class="op">==</span> <span class="st">"noise"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">PC1</span>, <span class="va">PC2</span><span class="op">)</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    shape <span class="op">=</span> <span class="fl">4</span>, size <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"grey40"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"HDBSCAN na iris: wizualizacja w PCA (2D)"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"Klasteryzacja w 4D, minPts = %d; 'x' = szum"</span>, <span class="va">minPts</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p_hdb</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-5-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="cluster_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="metody-oparte-na-modelach-probabilistycznych" class="level2"><h2 class="anchored" data-anchor-id="metody-oparte-na-modelach-probabilistycznych">Metody oparte na modelach probabilistycznych</h2>
+<section id="model-mieszanin-gaussowskich-gmm" class="level3"><h3 class="anchored" data-anchor-id="model-mieszanin-gaussowskich-gmm">Model mieszanin Gaussowskich (GMM)</h3>
+<p>Model mieszanek Gaussa (ang. <em>Gaussian Mixture Model</em>, GMM) jest jednym z klasycznych probabilistycznych modeli klasteryzacyjnych. W przeciwieństwie do metod geometrycznych, takich jak k-means czy DBSCAN, które dzielą przestrzeń na obszary na podstawie odległości, GMM opisuje rozkład danych jako kombinację (mieszaninę) wielu rozkładów normalnych. Dzięki temu umożliwia modelowanie złożonych, nakładających się struktur oraz ocenę niepewności przypisań punktów do klastrów.</p>
+<ol type="1">
+<li>Idea modelu mieszanek Gaussa</li>
+</ol>
+<p>Zakłada się, że populacja danych pochodzi z mieszaniny <span class="math inline">\(K\)</span> rozkładów normalnych, z których każdy odpowiada jednemu klastrowi. Dla obserwacji <span class="math inline">\(x_i \in \mathbb{R}^d\)</span> zakłada się <span class="math display">\[
+p(x_i) = \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k)
+\]</span> gdzie</p>
+<ul>
+<li>
+<span class="math inline">\(\pi_k\)</span> – waga (udział) <span class="math inline">\(k\)</span>-tej składowej, <span class="math inline">\(\pi_k \ge 0\)</span> i <span class="math inline">\(\sum_{k=1}^{K} \pi_k = 1\)</span>,</li>
+<li>
+<span class="math inline">\(\mu_k\)</span> – wektor średnich (centrum) <span class="math inline">\(k\)</span>-tej składowej,</li>
+<li>
+<span class="math inline">\(\Sigma_k\)</span> – macierz kowariancji <span class="math inline">\(k\)</span>-tej składowej,</li>
+<li>
+<span class="math inline">\(\mathcal{N}(x_i \mid \mu_k, \Sigma_k)\)</span> – gęstość wielowymiarowego rozkładu normalnego <span class="math display">\[
+\mathcal{N}(x \mid \mu, \Sigma) = \frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}} \exp\!\left[-\frac{1}{2}(x-\mu)^\top \Sigma^{-1}(x-\mu)\right].
+\]</span> W ten sposób model GMM stanowi probabilistyczną wersję klasteryzacji, w której każdy punkt może należeć do kilku klastrów z określonymi prawdopodobieństwami.</li>
+</ul>
+<ol start="2" type="1">
+<li>Zmienne ukryte i interpretacja probabilistyczna</li>
+</ol>
+<p>Wprowadza się zmienną ukrytą <span class="math inline">\(z_i \in \{1, \dots, K\}\)</span>, oznaczającą, z którego składnika mieszaniny pochodzi obserwacja <span class="math inline">\(x_i\)</span>. Model przyjmuje wtedy postać <span class="math display">\[
+P(x_i, z_i = k) = \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k).
+\]</span> Dla każdego punktu oblicza się <em>posterior probability</em> (prawdopodobieństwo przynależności do klastra) <span class="math display">\[
+\gamma_{ik} = P(z_i = k \mid x_i) =
+\frac{\pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k)}{\sum_{j=1}^{K} \pi_j \, \mathcal{N}(x_i \mid \mu_j, \Sigma_j)}.
+\]</span> Wartość <span class="math inline">\(\gamma_{ik}\)</span> mieści się w przedziale <span class="math inline">\([0,1]\)</span> i można ją interpretować jako miękkie przypisanie punktu do klastra. W przeciwieństwie do k-means, które wymusza jednoznaczne etykiety, GMM dopuszcza probabilistyczne przypisania.</p>
+<ol start="3" type="1">
+<li>Funkcja wiarygodności</li>
+</ol>
+<p>Zadaniem estymacji parametrów jest maksymalizacja funkcji wiarygodności <span class="math display">\[
+L(\pi, \mu, \Sigma \mid X) = \prod_{i=1}^{n} \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k).
+\]</span> Bezpośrednia maksymalizacja tej funkcji jest trudna, ponieważ zawiera sumę w logarytmie. Z tego powodu stosuje się algorytm EM (<em>Expectation–Maximization</em>), który iteracyjnie przybliża rozwiązanie.</p>
+<ol start="4" type="1">
+<li>Algorytm EM dla GMM</li>
+</ol>
+<p>Algorytm EM (Dempster, Laird i Rubin, 1977) składa się z dwóch naprzemiennych etapów:</p>
+<ul>
+<li>Krok <em>Expectation</em> - obliczanie <em>posterior probabilities</em> (odpowiedzialności) dla każdego punktu i komponentu <span class="math display">\[
+\gamma_{ik}^{(t)} =
+\frac{\pi_k^{(t)} \, \mathcal{N}(x_i \mid \mu_k^{(t)}, \Sigma_k^{(t)})}{
+\sum_{j=1}^{K} \pi_j^{(t)} \, \mathcal{N}(x_i \mid \mu_j^{(t)}, \Sigma_j^{(t)}) }.
+\]</span>
+</li>
+<li>Krok <em>Maximization</em> - aktualizacja parametrów mieszaniny, traktując <span class="math inline">\(\gamma_{ik}\)</span> jako wagi <span class="math display">\[
+N_k^{(t+1)} = \sum_{i=1}^{n} \gamma_{ik}^{(t)}, \quad
+\pi_k^{(t+1)} = \frac{N_k^{(t+1)}}{n},
+\]</span> <span class="math display">\[
+\mu_k^{(t+1)} = \frac{1}{N_k^{(t+1)}} \sum_{i=1}^{n} \gamma_{ik}^{(t)} x_i,
+\]</span> <span class="math display">\[
+\Sigma_k^{(t+1)} = \frac{1}{N_k^{(t+1)}} \sum_{i=1}^{n} \gamma_{ik}^{(t)} (x_i - \mu_k^{(t+1)})(x_i - \mu_k^{(t+1)})^\top.
+\]</span> Proces powtarza się aż do zbieżności log-wiarygodności <span class="math display">\[
+\ell^{(t)} = \sum_{i=1}^{n} \log \left[ \sum_{k=1}^{K} \pi_k^{(t)} \, \mathcal{N}(x_i \mid \mu_k^{(t)}, \Sigma_k^{(t)}) \right].
+\]</span>
+</li>
+</ul>
+<ol start="5" type="1">
+<li>Wybór liczby składników <span class="math inline">\(K\)</span>
+</li>
+</ol>
+<p>Liczbę składników mieszaniny (liczbę klastrów) nie określa się z góry, lecz dobiera na podstawie kryteriów informacyjnych, np.:</p>
+<ul>
+<li>BIC (<em>Bayesian Information Criterion</em>) - <span class="math inline">\(\mathrm{BIC} = -2 \log L_{\max} + p \log n\)</span>, gdzie <span class="math inline">\(p\)</span> to liczba parametrów modelu, <span class="math inline">\(n\)</span> liczba obserwacji. Najmniejsza wartość BIC wskazuje najlepszy kompromis między dopasowaniem a złożonością modelu.</li>
+<li>AIC (<em>Akaike Information Criterion</em>) – która mniej penalizuje złożoność <span class="math inline">\(\mathrm{AIC} = -2 \log L_{\max} + 2p.\)</span>
+</li>
+</ul>
+<ol start="6" type="1">
+<li>Struktury kowariancji w GMM</li>
+</ol>
+<p>Każdy komponent posiada macierz kowariancji <span class="math inline">\(\Sigma_k\)</span>, która może mieć różne ograniczenia:</p>
+<ul>
+<li>
+<em>spherical</em> – <span class="math inline">\(\Sigma_k = \sigma^2 I\)</span> - klastry kuliste, identyczne wariancje,</li>
+<li>
+<em>diagonal</em> – tylko wariancje na przekątnej, brak korelacji między cechami,</li>
+<li>
+<em>ellipsoidal</em> – pełne macierze kowariancji (dowolne orientacje i rozciągnięcia).</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 23%">
+<col style="width: 42%">
+<col style="width: 10%">
+</colgroup>
+<thead><tr class="header">
+<th>Pozycja</th>
+<th>Oznaczenie</th>
+<th>Co kontroluje</th>
+<th>Możliwe wartości</th>
+<th>Znaczenie</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>1. litera</td>
+<td>V / E / I</td>
+<td>Objętość (<em>Volume</em>)</td>
+<td>V = różna, E = jednakowa, I = jednostkowa</td>
+<td>Jak duży jest klaster – rozmiar elipsoidy</td>
+</tr>
+<tr class="even">
+<td>2. litera</td>
+<td>V / E / I</td>
+<td>Kształt (<em>Shape</em>)</td>
+<td>V = różny, E = jednakowy, I = sferyczny</td>
+<td>Proporcje długości osi elipsoidy</td>
+</tr>
+<tr class="odd">
+<td>3. litera</td>
+<td>V / E / I</td>
+<td>Orientacja (<em>Orientation</em>)</td>
+<td>V = różna, E = wspólna, I = brak (sferyczna)</td>
+<td>Ustawienie elipsoidy w przestrzeni</td>
+</tr>
+</tbody>
+</table>
+<ol start="7" type="1">
+<li>Ograniczenia i wady</li>
+</ol>
+<ul>
+<li>Założenie o normalności – każdy klaster ma rozkład Gaussa, co bywa nieadekwatne dla struktur nieregularnych.</li>
+<li>Wrażliwość na inicjalizację – EM może zbiec do lokalnego maksimum; często używa się wielu startów lub wstępnej inicjalizacji metodą k-means.</li>
+<li>Brak odporności na odstające obserwacje – skrajne punkty mogą zaburzać estymację kowariancji.</li>
+<li>Wymóg dodatnio określonych macierzy kowariancji – błędne dane lub współliniowość mogą prowadzić do problemów numerycznych.</li>
+</ul>
+<div class="{$#exm-6}">
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Pakiety</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mclust-org.github.io/mclust/">mclust</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Dane: 4D i standaryzacja</span></span>
+<span><span class="va">X4</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">X4s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">X4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Mieszanki Gaussa (GMM) z wyborem liczby komponentów po BIC</span></span>
+<span><span class="co"># Model domyślnie przeszukuje różne struktury kowariancji i liczby G</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span><span class="va">gmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mclust-org.github.io/mclust/reference/Mclust.html">Mclust</a></span><span class="op">(</span><span class="va">X4s</span>, G <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span>  <span class="co"># można zmienić zakres G</span></span>
+<span><span class="va">gmm</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>'Mclust' model object: (VVV,2) 
+
+Available components: 
+ [1] "call"           "data"           "modelName"      "n"             
+ [5] "d"              "G"              "BIC"            "loglik"        
+ [9] "df"             "bic"            "icl"            "hypvol"        
+[13] "parameters"     "z"              "classification" "uncertainty"   </code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Podstawowe informacje</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Wybrana liczba komponentów (G):"</span>, <span class="va">gmm</span><span class="op">$</span><span class="va">G</span>, <span class="st">"\n"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Wybrana liczba komponentów (G): 2 </code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Struktura kowariancji:"</span>, <span class="va">gmm</span><span class="op">$</span><span class="va">modelName</span>, <span class="st">"\n"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Struktura kowariancji: VVV </code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># PCA wyłącznie do wizualizacji (2D)</span></span>
+<span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">X4s</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, scale. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">scores2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">scores2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PC1"</span>,<span class="st">"PC2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Etykiety i niepewności (posterior) z GMM</span></span>
+<span><span class="va">scores2</span><span class="op">$</span><span class="va">cluster_gmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="va">gmm</span><span class="op">$</span><span class="va">classification</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">scores2</span><span class="op">$</span><span class="va">uncertainty</span> <span class="op">&lt;-</span> <span class="va">gmm</span><span class="op">$</span><span class="va">uncertainty</span>                 <span class="co"># 1 - max posterior prob.</span></span>
+<span></span>
+<span><span class="co"># Wykres BIC wyboru modelu</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gmm</span>, what <span class="op">=</span> <span class="st">"BIC"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="cluster_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Wizualizacja przypisań w PCA (2D) z factoextra</span></span>
+<span><span class="va">p_gmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_pca.html">fviz_pca_ind</a></span><span class="op">(</span></span>
+<span>  <span class="va">pca</span>, geom <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>  habillage <span class="op">=</span> <span class="va">scores2</span><span class="op">$</span><span class="va">cluster_gmm</span>, addEllipses <span class="op">=</span> <span class="cn">FALSE</span>, show.legend <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Mieszanki Gaussa (GMM) na iris: wizualizacja w PCA (2D)"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"Klasteryzacja w 4D, BIC wybrał G = %d, model = %s"</span>, <span class="va">gmm</span><span class="op">$</span><span class="va">G</span>, <span class="va">gmm</span><span class="op">$</span><span class="va">modelName</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p_gmm</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="cluster_files/figure-html/unnamed-chunk-6-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="cluster_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Porównanie z gatunkami</span></span>
+<span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span>Cluster <span class="op">=</span> <span class="va">gmm</span><span class="op">$</span><span class="va">classification</span>, Species <span class="op">=</span> <span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>       Species
+Cluster setosa versicolor virginica
+      1     50          0         0
+      2      0         50        50</code></pre>
+</div>
+</div>
+</div>
 
 
-</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
