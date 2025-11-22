@@ -31,6 +31,7 @@ book:
     - sem.qmd
     - pca.qmd
     - cluster.qmd
+    - correspondence.qmd
     - references.qmd
 
 bibliography: references.bib

@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Analiza korespondencji – Wielowymiarowa analiza danych</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./cluster.html" rel="prev">
+<link href="./images/cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6b8c1b7f874bdd152064db223e7d36ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-7becdd8e1b79f26ea566d6ea537c1a09.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6b8c1b7f874bdd152064db223e7d36ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Brak wyników",
+    "search-matching-documents-text": "dopasowane dokumenty",
+    "search-copy-link-title": "Kopiuj link do wyszukiwania",
+    "search-hide-matches-text": "Ukryj dodatkowe dopasowania",
+    "search-more-match-text": "więcej dopasowań w tym dokumencie",
+    "search-more-matches-text": "więcej dopasowań w tym dokumencie",
+    "search-clear-button-title": "Wyczyść",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Anuluj",
+    "search-submit-button-title": "Zatwierdź",
+    "search-label": "Szukaj"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./correspondence.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analiza korespondencji</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Szukaj" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/logo.jpg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="./images/logo.jpg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Wielowymiarowa analiza danych</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/DariuszMajerek/WAD_new" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Przełącz tryb ciemny"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Przełącz tryb czytnika">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Szukaj"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wstęp</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multi_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Testy wielowymiarowe</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analiza kanoniczna</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analiza czynnikowa</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modele strukturalne</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Metody redukcji wymiarowości</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analiza skupień</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./correspondence.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analiza korespondencji</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Literatura</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Spis treści</h2>
+   
+  <ul>
+<li><a href="#rys-historyczny" id="toc-rys-historyczny" class="nav-link active" data-scroll-target="#rys-historyczny">Rys historyczny</a></li>
+  <li><a href="#cele-analizy-korespondencji" id="toc-cele-analizy-korespondencji" class="nav-link" data-scroll-target="#cele-analizy-korespondencji">Cele analizy korespondencji</a></li>
+  <li><a href="#definicja-matematyczna-modelu" id="toc-definicja-matematyczna-modelu" class="nav-link" data-scroll-target="#definicja-matematyczna-modelu">Definicja matematyczna modelu</a></li>
+  <li>
+<a href="#miary-jako%C5%9Bci-odtworzenia-przestrzeni-czynnikowej" id="toc-miary-jakości-odtworzenia-przestrzeni-czynnikowej" class="nav-link" data-scroll-target="#miary-jako%C5%9Bci-odtworzenia-przestrzeni-czynnikowej">Miary jakości odtworzenia przestrzeni czynnikowej</a>
+  <ul class="collapse">
+<li><a href="#korelacja-punktu-z-osi%C4%85-cos2" id="toc-korelacja-punktu-z-osią-cos2" class="nav-link" data-scroll-target="#korelacja-punktu-z-osi%C4%85-cos2">Korelacja punktu z osią (<span class="math inline">\(\cos^2\)</span>)</a></li>
+  <li><a href="#udzia%C5%82-punktu-w-tworzeniu-wymiaru-ang.-contribution" id="toc-udział-punktu-w-tworzeniu-wymiaru-ang.-contribution" class="nav-link" data-scroll-target="#udzia%C5%82-punktu-w-tworzeniu-wymiaru-ang.-contribution">Udział punktu w tworzeniu wymiaru (ang. <em>contribution</em>)</a></li>
+  <li><a href="#udzia%C5%82-wymiaru-w-inercji-ca%C5%82kowitej" id="toc-udział-wymiaru-w-inercji-całkowitej" class="nav-link" data-scroll-target="#udzia%C5%82-wymiaru-w-inercji-ca%C5%82kowitej">Udział wymiaru w inercji całkowitej</a></li>
+  </ul>
+</li>
+  <li><a href="#interpretacja-element%C3%B3w-sk%C5%82adowych-modelu" id="toc-interpretacja-elementów-składowych-modelu" class="nav-link" data-scroll-target="#interpretacja-element%C3%B3w-sk%C5%82adowych-modelu">Interpretacja elementów składowych modelu</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/DariuszMajerek/WAD_new/issues/new" class="toc-action"><i class="bi bi-github"></i>Zgłoś problem</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Analiza korespondencji</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="rys-historyczny" class="level2"><h2 class="anchored" data-anchor-id="rys-historyczny">Rys historyczny</h2>
+<p>Analizę korespondencji (ang. <em>correspondence analysis</em>) warto osadzić w szerszym tle historycznym, ponieważ metoda ta powstała jako odpowiedź na potrzebę opisywania złożonych zależności między zmiennymi jakościowymi. Jej korzenie sięgają pierwszej połowy XX wieku, kiedy francuscy statystycy zaczęli rozwijać techniki umożliwiające graficzne przedstawianie relacji w dużych tabelach kontyngencji. Jednym z kluczowych momentów było wprowadzenie pojęcia profili wierszy i kolumn oraz koncepcji przestrzeni czynnikowej, która pozwalała redukować wielowymiarowe dane do kilku najważniejszych wymiarów interpretacyjnych.</p>
+<p>Istotną rolę odegrała praca <span class="citation" data-cites="Benzecri1997">Benzécri (<a href="references.html#ref-Benzecri1997" role="doc-biblioref">1977</a>)</span>, uznawanego za twórcę szkoły analizy danych we Francji. Zaproponował on sformalizowaną wersję analizy korespondencji jako metody opartej na dekompozycji wartości osobliwych, łączącej elegancję geometrycznego podejścia z praktyczną interpretowalnością wyników. W kolejnych dekadach metoda została rozbudowana o warianty takie jak analiza korespondencji wieloraka czy analiza korespondencji kanonicznej, które umożliwiały analizowanie bardziej złożonych struktur, w tym zbiorów wielu tabel lub relacji między zestawami zmiennych.</p>
+<p>Zastosowania analizy korespondencji zaczęły pojawiać się w socjologii, psychologii, biologii, marketingu i politologii, zwłaszcza tam, gdzie dominowały dane kategoryczne. Dzięki czytelnym mapom percepcyjnym, metoda pozwalała identyfikować ukryte wzorce, grupy podobnych kategorii oraz kierunki dominujących zależności. Jej popularność wzrosła wraz z rozwojem komputerów, które umożliwiły wykonywanie bardziej złożonych obliczeń oraz wizualizacji.</p>
+<p>Obecnie analiza korespondencji stanowi ważne narzędzie wielowymiarowej statystyki opisowej. Umożliwia przedstawianie danych w sposób intuicyjny, a jednocześnie bazuje na ścisłych podstawach matematycznych. Pozwala to wykorzystywać ją zarówno jako metodę eksploracji danych, jak i wsparcie dla interpretacji zależności obserwowanych w tabelach kontyngencji, szczególnie wtedy, gdy relacje między kategoriami nie są bezpośrednio uchwytne w formie tabelarycznej.</p>
+</section><section id="cele-analizy-korespondencji" class="level2"><h2 class="anchored" data-anchor-id="cele-analizy-korespondencji">Cele analizy korespondencji</h2>
+<p>Celem stosowania analizy korespondencji jest uchwycenie oraz zobrazowanie struktury zależności między zmiennymi jakościowymi zapisanymi w tabeli kontyngencji. Metoda pozwala przedstawiać profile wierszy i kolumn w zredukowanej przestrzeni wymiarów, tak aby odległości między punktami odzwierciedlały odchylenia od modelu niezależności. Umożliwia to identyfikowanie zbliżonych kategorii, wykrywanie ukrytych wzorców oraz interpretowanie relacji, które trudno dostrzec jedynie na podstawie tabeli liczebności. Dzięki temu analiza korespondencji służy zarówno eksploracji danych, jak i wspieraniu interpretacji statystycznej zależności między cechami nominalnymi.</p>
+<p>Istotnym elementem analizy korespondencji jest tworzenie tzw. mapy percepcji, czyli graficznego odwzorowania kategorii wierszy i kolumn w przestrzeni o dwóch lub trzech wymiarach. Taka mapa umożliwia analizowanie relacji między kategoriami w sposób intuicyjny: punkty położone blisko siebie reprezentują profile o podobnej strukturze, a duże odległości wskazują na wyraźne różnice względem modelu niezależności. Mapa percepcji ułatwia więc identyfikowanie grup powiązanych kategorii, obserwowanie kierunków dominujących zależności oraz wyciąganie wniosków, które w układzie tabelarycznym pozostałyby trudne do zauważenia.</p>
+</section><section id="definicja-matematyczna-modelu" class="level2"><h2 class="anchored" data-anchor-id="definicja-matematyczna-modelu">Definicja matematyczna modelu</h2>
+<p>Zakłada się, że punktem wyjścia jest tabela kontyngencji <span class="math display">\[
+N = (n_{ij})_{i=1,\dots,I;\, j=1,\dots,J},
+\]</span> gdzie <span class="math inline">\(n_{ij}\)</span> jest liczebnością obserwacji należących jednocześnie do kategorii wiersza <span class="math inline">\(i\)</span> i kolumny <span class="math inline">\(j\)</span>. <span class="math display">\[
+\begin{array}{c|cccc|c}
+X/Y&amp; j=1 &amp; j=2 &amp; \cdots &amp; j=J &amp; \text{Razem} \\
+\hline
+i=1 &amp; n_{11} &amp; n_{12} &amp; \cdots &amp; n_{1J} &amp; n_{1\cdot} \\
+i=2 &amp; n_{21} &amp; n_{22} &amp; \cdots &amp; n_{2J} &amp; n_{2\cdot} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
+i=I &amp; n_{I1} &amp; n_{I2} &amp; \cdots &amp; n_{IJ} &amp; n_{I\cdot} \\
+\hline
+\text{Razem} &amp; n_{\cdot 1} &amp; n_{\cdot 2} &amp; \cdots &amp; n_{\cdot J} &amp; n
+\end{array}
+\]</span> gdzie <span class="math inline">\(n_{i\cdot} = \sum_{j=1}^J n_{ij}\)</span> oznacza liczebność brzegową wiersza <span class="math inline">\(i\)</span>, <span class="math inline">\(n_{\cdot j} = \sum_{i=1}^I n_{ij}\)</span> oznacza liczebność brzegową kolumny <span class="math inline">\(j\)</span>, a <span class="math inline">\(n = \sum_{i=1}^I \sum_{j=1}^J n_{ij}\)</span> jest liczebnością całkowitą.</p>
+<p>Wprowadza wówczas się macierz częstości względnych <span class="math inline">\(P = (p_{ij})\)</span> postaci</p>
+<p><span class="math display">\[
+\begin{array}{c|cccc|c}
+X/Y &amp; j=1 &amp; j=2 &amp; \cdots &amp; j=J &amp; \text{Razem} \\
+\hline
+i=1 &amp; p_{11} &amp; p_{12} &amp; \cdots &amp; p_{1J} &amp; r_{1} \\
+i=2 &amp; p_{21} &amp; p_{22} &amp; \cdots &amp; p_{2J} &amp; r_{2} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
+i=I &amp; p_{I1} &amp; p_{I2} &amp; \cdots &amp; p_{IJ} &amp; r_{I} \\
+\hline
+\text{Razem} &amp; c_{1} &amp; c_{2} &amp; \cdots &amp; c_{J} &amp; 1
+\end{array}
+\]</span> gdzie <span class="math inline">\(p_{ij} = n_{ij}/n\)</span> są częstościami względnymi, <span class="math inline">\(r_i = \sum_{j=1}^J p_{ij}\)</span> oznacza masę wiersza (udział kategorii <span class="math inline">\(i\)</span>), <span class="math inline">\(c_j = \sum_{i=1}^I p_{ij}\)</span> oznacza masę kolumny, a liczba w prawym dolnym rogu równa 1 jest sumą całej macierzy częstości względnych. Przeciętny profil wierszowy definiujemy jako wektor proporcji kategorii kolumnowych w całej tabeli. Tworzą go masy kolumnowe <span class="math inline">\((c_1, c_2, \dots, c_J)\)</span>. Oznacza to, że przeciętny wiersz „zachowuje się” tak, jak średnia struktura rozkładu kategorii kolumnowych w całej próbie — stanowi więc naturalny punkt referencyjny przy ocenie, czy dany wiersz nadreprezentuje lub niedoreprezentuje wybrane kolumny względem tego średniego rozkładu. Analogicznie przeciętny profil kolumnowy jest wektorem <span class="math inline">\((r_1, r_2, \dots, r_I),\)</span> czyli masami wierszy. Profil ten pokazuje przeciętny udział kategorii wierszowych w całej tabeli i służy porównaniu rzeczywistych profili kolumn ze strukturą „typową” wynikającą z rozkładu marginalnego wierszy.</p>
+<p>Podstawowym modelem odniesienia jest model niezależności zmiennych jakościowych: <span class="math display">\[
+p_{ij}^{(0)} = r_i c_j,\quad i=1,\dots,I,\ j=1,\dots,J.
+\]</span> Oznacza to, że przy braku zależności między kategoriami wierszy i kolumn, częstość wspólna powinna być równa iloczynowi częstości brzegowych. Analiza korespondencji bada odchylenia rzeczywistych częstości <span class="math inline">\(p_{ij}\)</span> od wartości oczekiwanych <span class="math inline">\(r_i\cdot c_j\)</span> oraz przedstawia je w zredukowanej przestrzeni wymiarów.</p>
+<p>Odchylenia od modelu niezależności można zapisać jako <span class="math display">\[
+\Delta_{ij} = p_{ij} - r_i c_j.
+\]</span> Ważone odchylenia od niezależności leżą u podstaw konstrukcji statystyki chi-kwadrat oraz pojęcia inercji w analizie korespondencji. Wprowadza się macierze diagonalne z masami wierszy i kolumn: <span class="math display">\[\begin{align*}
+D_r =&amp; \mathrm{diag}(r_1,\dots,r_I),\\
+D_c =&amp; \mathrm{diag}(c_1,\dots,c_J).
+\end{align*}\]</span> Znormalizowane reszty definiuje się jako <span class="math display">\[
+S = D_r^{-1/2}\,(P - r c^\top)\,D_c^{-1/2}.
+\]</span> Element o indeksach <span class="math inline">\((i,j)\)</span> ma postać <span class="math display">\[
+s_{ij} = \frac{p_{ij} - r_i c_j}{\sqrt{r_i c_j}}.
+\]</span> Całkowita „inercja” analizowanej tabeli jest równa średniej ważonej kwadratu tych reszt i jest powiązana ze statystyką chi-kwadrat: <span class="math display">\[
+\chi^2 = n \sum_{i=1}^I \sum_{j=1}^J \frac{(p_{ij} - r_i c_j)^2}{r_i c_j},
+\quad
+I_{\text{całk.}} = \sum_{i,j} \frac{(p_{ij} - r_i c_j)^2}{r_i c_j}
+= \frac{\chi^2}{n}.
+\]</span> Analiza korespondencji dąży do takiego odwzorowania kategorii wierszy i kolumn w przestrzeni euklidesowej, aby odległości w tej przestrzeni odzwierciedlały właśnie te ważone odchylenia od modelu niezależności.</p>
+<p>Kluczowym krokiem w wyznaczeniu współrzędnych nowego układu współrzędnych (zwanego mapą percepcji) jest dekompozycja wartości osobliwych macierzy znormalizowanych reszt <span class="math inline">\(S\)</span>: <span class="math display">\[
+S = U\,\Sigma\,V^\top,
+\]</span> gdzie <span class="math inline">\(U\)</span> jest macierzą <span class="math inline">\(I \times K\)</span> ortonormalnych wektorów własnych (dla wierszy), <span class="math inline">\(V\)</span> jest macierzą <span class="math inline">\(J \times K\)</span> ortonormalnych wektorów własnych (dla kolumn), <span class="math inline">\(\Sigma = \mathrm{diag}(\sigma_1,\dots,\sigma_K)\)</span> zawiera dodatnie wartości osobliwe, a <span class="math inline">\(K = \min(I-1, J-1)\)</span> jest maksymalną liczbą niezerowych wymiarów (po odjęciu wymiaru związanego z sumą do 1).</p>
+<p>Wartości własne analizy korespondencji definiuje się jako <span class="math display">\[
+\lambda_k = \sigma_k^2, \quad k = 1,\dots,K,
+\]</span> a suma tych wartości <span class="math display">\[
+\sum_{k=1}^K \lambda_k = I_{\text{całk.}}
+\]</span> odpowiada całkowitej inercji tabeli. Poszczególne osie czynnikowe (wymiary) są więc uporządkowane malejąco według wyjaśnianej części inercji.</p>
+<p>O doborze <span class="math inline">\(K\)</span> mogą decydować kryteria takie, jak kryterium wyjaśnionej inerncji (co najmniej 60%), kryterium osypiska czy kryterium liczby cech, lecz najczęściej wybiera się 2 wymiary aby móc profile przedstawić w dwuwymiarowej mapie percepcji.</p>
+<p>Wynik analizy korespondencji przedstawia się jako współrzędne kategorii w przestrzeni czynnikowej, przyjmując <span class="math display">\[
+F = D_r^{-1/2} U \Sigma,
+\]</span> oraz <span class="math display">\[
+G = D_c^{-1/2} V \Sigma.
+\]</span> Wiersz <span class="math inline">\(i\)</span> jest więc reprezentowany przez wektor współrzędnych <span class="math inline">\(f_i = (f_{i1},\dots,f_{iK})\)</span> – <span class="math inline">\(i\)</span>-ty wiersz macierzy <span class="math inline">\(F\)</span>, kolumna <span class="math inline">\(j\)</span> przez wektor <span class="math inline">\(g_j = (g_{j1},\dots,g_{jK})\)</span> – <span class="math inline">\(j\)</span>-ty wiersz macierzy <span class="math inline">\(G\)</span>. W takim ujęciu odległości euklidesowe między punktami odpowiadają odległościom chi-kwadrat między profilami, przy czym:</p>
+<p>– profil wiersza <span class="math inline">\(i\)</span> to wektor warunkowych częstości <span class="math display">\[
+(p_{i1}/r_i,\dots,p_{iJ}/r_i),
+\]</span> – profil kolumny <span class="math inline">\(j\)</span> to wektor <span class="math display">\[
+(p_{1j}/c_j,\dots,p_{Ij}/c_j).
+\]</span></p>
+<p>Analiza korespondencji może być także interpretowana jako rodzaj ważonej analizy głównych składowych zastosowanej do zbioru profilów wierszy (lub kolumn) z metryką chi-kwadrat.</p>
+<p>Istotną własnością modelu jest tzw. własność barycentryczna. Współrzędne wiersza są średnią ważoną współrzędnych kolumn, z wagami równymi warunkowym prawdopodobieństwom kategorii kolumnowych w danym wierszu, i odwrotnie. Dokładniej: <span class="math display">\[
+f_i = \frac{1}{r_i} \sum_{j=1}^J p_{ij}\, D_c^{-1}\, g_j
+\]</span> oraz analogicznie dla kolumn. Intuicyjnie, punkt reprezentujący kategorię wiersza znajduje się w geometrycznym środku (barycentrum) punktów kolumnowych, ważonym strukturą profilu tego wiersza. To zapewnia spójność geometryczną i ułatwia interpretację wykresów.</p>
+</section><section id="miary-jakości-odtworzenia-przestrzeni-czynnikowej" class="level2"><h2 class="anchored" data-anchor-id="miary-jakości-odtworzenia-przestrzeni-czynnikowej">Miary jakości odtworzenia przestrzeni czynnikowej</h2>
+<p>Miary jakości odtworzenia przestrzeni czynnikowej opisują, jak dobrze poszczególne kategorie oraz poszczególne wymiary (osie) oddają strukturę zależności zakodowaną w tabeli kontyngencji. Obejmują trzy grupy wskaźników: korelację punktu z osią (tzw. <span class="math inline">\(\cos^2\)</span>), udział punktu w wymiarze oraz udział wymiaru w inercji. Poniżej znajduje się opis każdej z miar, ich interpretacja oraz wzory.</p>
+<section id="korelacja-punktu-z-osią-cos2" class="level3"><h3 class="anchored" data-anchor-id="korelacja-punktu-z-osią-cos2">Korelacja punktu z osią (<span class="math inline">\(\cos^2\)</span>)</h3>
+<p>Korelacja punktu z daną osią mierzy, jaka część inercji danego punktu (wiersza lub kolumny) jest odwzorowana w przestrzeni czynnikowej wzdłuż tej osi. Stanowi to odpowiednik „jakości reprezentacji” punktu. Dla punktu wiersza <span class="math inline">\(i\)</span> w wymiarze <span class="math inline">\(k\)</span> definiujemy: <span class="math display">\[
+\cos^2(i,k) = \frac{f_{ik}^2}{\sum_{l=1}^{K} f_{il}^2},
+\]</span> gdzie <span class="math inline">\(f_{ik}\)</span> jest współrzędną punktu <span class="math inline">\(i\)</span> na osi <span class="math inline">\(k\)</span>. Analogicznie dla kolumn: <span class="math display">\[
+\cos^2(j,k) = \frac{g_{jk}^2}{\sum_{l=1}^{K} g_{jl}^2}.
+\]</span> Interpretacja polega na ocenie, czy punkt leży „blisko osi” i czy dane wymiary dobrze go opisują. Wartości bliskie 1 oznaczają dobrą jakość odwzorowania, wartości małe — że punkt jest słabo reprezentowany w danym wymiarze i jego położenia nie należy nadmiernie interpretować.</p>
+</section><section id="udział-punktu-w-tworzeniu-wymiaru-ang.-contribution" class="level3"><h3 class="anchored" data-anchor-id="udział-punktu-w-tworzeniu-wymiaru-ang.-contribution">Udział punktu w tworzeniu wymiaru (ang. <em>contribution</em>)</h3>
+<p>Udział punktu w tworzeniu danego wymiaru mierzy, jak duży wkład dana kategoria wnosi do inercji na danej osi. W przeciwieństwie do <span class="math inline">\(\cos^2\)</span>, które mierzą jakość reprezentacji punktu, <em>contribution</em> mierzy „ważność” punktu dla danej osi. Dla wierszy: <span class="math display">\[
+\mathrm{ctr}(i,k) = \frac{r_i f_{ik}^2}{\lambda_k},
+\]</span> gdzie <span class="math inline">\(r_i\)</span> jest masą wiersza, a <span class="math inline">\(\lambda_k\)</span> wartością własną odpowiadającą osi <span class="math inline">\(k\)</span>. Dla kolumn: <span class="math display">\[
+\mathrm{ctr}(j,k) = \frac{c_j g_{jk}^2}{\lambda_k}.
+\]</span> Interpretujemy to jako względną część wariancji danego wymiaru „pochodzącą” od danego punktu. Punkty o dużych wartościach <em>contribution</em> dominują dany wymiar i wskazują, które kategorie determinują kierunek zależności uchwycony przez oś.</p>
+</section><section id="udział-wymiaru-w-inercji-całkowitej" class="level3"><h3 class="anchored" data-anchor-id="udział-wymiaru-w-inercji-całkowitej">Udział wymiaru w inercji całkowitej</h3>
+<p>Udział wymiaru w inercji określa, jaka część całkowitej zmienności reszt z modelu niezależności jest odtwarzana przez daną oś. Wynika bezpośrednio z wartości własnych: <span class="math display">\[
+\text{Udział osi } k = \frac{\lambda_k}{\sum_{l=1}^{K} \lambda_l}.
+\]</span> Wartości własne <span class="math inline">\(\lambda_k\)</span> odzwierciedlają siłę zróżnicowania uchwyconą w danym wymiarze. Im większa wartość, tym większy wpływ danej osi na odwzorowanie zależności między kategoriami.</p>
+</section></section><section id="interpretacja-elementów-składowych-modelu" class="level2"><h2 class="anchored" data-anchor-id="interpretacja-elementów-składowych-modelu">Interpretacja elementów składowych modelu</h2>
+<p>Poszczególne elementy modelu mają następujące znaczenie interpretacyjne:</p>
+<p>– macierz <span class="math inline">\(P\)</span> - rzeczywista struktura częstości wspólnych badanych kategorii; – wektory <span class="math inline">\(r\)</span> i <span class="math inline">\(c\)</span> - „wielkość” kategorii (częstości brzegowe), określające masy punktów wierszy i kolumn; – macierz <span class="math inline">\(P - r c^\top\)</span> - odchylenia od modelu niezależności; – macierz znormalizowanych reszt <span class="math inline">\(S\)</span> - odchylenia wyrażone w jednostkach odpowiadających testowi chi-kwadrat, co umożliwia porównywanie kategorii o różnych masach; – wartości własne <span class="math inline">\(\lambda_k\)</span> - wyjaśniana inercja wzdłuż kolejnych osi, interpretowana jako siła zróżnicowania struktury zależności w tym wymiarze; – wektory własne (kolumny <span class="math inline">\(U\)</span> i <span class="math inline">\(V\)</span>) - kierunki głównych inercji odpowiednio w przestrzeni wierszy i kolumn; – współrzędne <span class="math inline">\(F\)</span> i <span class="math inline">\(G\)</span> - położenie kategorii w przestrzeni czynnikowej, wykorzystywane do wizualizacji; ich rozrzut wokół środka odzwierciedla strukturę zależności między kategoriami.</p>
+<p>Na mapie czynnikowej kategorie wierszy i kolumn, które leżą blisko siebie, interpretuje się jako powiązane: wiersze „preferują” te kolumny (mają ponadprzeciętne częstości względem modelu niezależności), a kategorie oddalone od siebie są rzadko łączone. Odległości między punktami wierszy są interpretowane jako odległości chi-kwadrat między profilami wierszy, a analogicznie dla kolumn.</p>
+<p>W praktyce interpretacji najczęściej ogranicza się do dwóch lub trzech pierwszych wymiarów (o największych wartościach własnych) i bada położenie kategorii względem osi oraz względem siebie nawzajem. Dodatkowo można analizować wkłady kategorii do inercji poszczególnych wymiarów oraz cosinusy kwadratów kątów (miary jakości reprezentacji), ale są to już bardziej szczegółowe wskaźniki opierające się na opisanej wyżej strukturze własnych wektorów i wartości.</p>
+<div id="exm-1" class="theorem example">
+<p><span class="theorem-title"><strong>Przykład 7.1</strong></span> &nbsp;</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://factominer.free.fr">FactoMineR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span>
+<span><span class="va">HairEyeColor</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>, , Sex = Male
+
+       Eye
+Hair    Brown Blue Hazel Green
+  Black    32   11    10     3
+  Brown    53   50    25    15
+  Red      10   10     7     7
+  Blond     3   30     5     8
+
+, , Sex = Female
+
+       Eye
+Hair    Brown Blue Hazel Green
+  Black    36    9     5     2
+  Brown    66   34    29    14
+  Red      16    7     7     7
+  Blond     4   64     5     8</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># wybieramy tylko kolory oczu i włosów bez podziału na płeć</span></span>
+<span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/marginSums.html">margin.table</a></span><span class="op">(</span><span class="va">HairEyeColor</span>, margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tab</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>       Eye
+Hair    Brown Blue Hazel Green
+  Black    68   20    15     5
+  Brown   119   84    54    29
+  Red      26   17    14    14
+  Blond     7   94    10    16</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Analiza korespondencji</span></span>
+<span><span class="va">res.ca</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/FactoMineR/man/CA.html">CA</a></span><span class="op">(</span><span class="va">tab</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Wyniki modelu</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">res.ca</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+CA(X = tab, graph = FALSE) 
+
+The chi square of independence between the two variables is equal to 138.2898 (p-value =  2.325287e-25 ).
+
+Eigenvalues
+                       Dim.1   Dim.2   Dim.3
+Variance               0.209   0.022   0.003
+% of var.             89.373   9.515   1.112
+Cumulative % of var.  89.373  98.888 100.000
+
+Rows
+        Iner*1000     Dim.1     ctr    cos2     Dim.2     ctr    cos2     Dim.3
+Black |    55.425 |   0.505  22.246   0.838 |  -0.215  37.877   0.152 |  -0.056
+Brown |    12.284 |   0.148   5.086   0.864 |   0.033   2.319   0.042 |   0.049
+Red   |    15.095 |   0.130   0.964   0.133 |   0.320  55.131   0.812 |  -0.083
+Blond |   150.793 |  -0.835  71.704   0.993 |  -0.070   4.673   0.007 |  -0.016
+          ctr    cos2  
+Black  21.633   0.010 |
+Brown  44.284   0.094 |
+Red    31.913   0.055 |
+Blond   2.171   0.000 |
+
+Columns
+        Iner*1000     Dim.1     ctr    cos2     Dim.2     ctr    cos2     Dim.3
+Brown |    93.086 |   0.492  43.116   0.967 |  -0.088  13.042   0.031 |  -0.022
+Blue  |   111.337 |  -0.547  52.128   0.977 |  -0.083  11.244   0.022 |   0.005
+Hazel |    13.089 |   0.213   3.401   0.542 |   0.167  19.804   0.336 |   0.101
+Green |    16.085 |  -0.162   1.355   0.176 |   0.339  55.910   0.773 |  -0.088
+          ctr    cos2  
+Brown   6.680   0.002 |
+Blue    0.310   0.000 |
+Hazel  61.086   0.121 |
+Green  31.925   0.052 |</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Podstawowe podsumowanie wyników</span></span>
+<span><span class="va">res.ca</span><span class="op">$</span><span class="va">eig</span>          <span class="co"># wartości własne i udział inercji</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>       eigenvalue percentage of variance cumulative percentage of variance
+dim 1 0.208772652              89.372732                          89.37273
+dim 2 0.022226615               9.514911                          98.88764
+dim 3 0.002598439               1.112356                         100.00000</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res.ca</span><span class="op">$</span><span class="va">row</span><span class="op">$</span><span class="va">coord</span>    <span class="co"># współrzędne wierszy</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>           Dim 1       Dim 2       Dim 3
+Black  0.5045624 -0.21482046 -0.05550909
+Brown  0.1482527  0.03266635  0.04880414
+Red    0.1295233  0.31964240 -0.08315117
+Blond -0.8353478 -0.06957934 -0.01621471</code></pre>
+</div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res.ca</span><span class="op">$</span><span class="va">col</span><span class="op">$</span><span class="va">coord</span>    <span class="co"># współrzędne kolumn</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>           Dim 1       Dim 2        Dim 3
+Brown  0.4921577 -0.08832151 -0.021611305
+Blue  -0.5474139 -0.08295428  0.004709408
+Hazel  0.2125969  0.16739109  0.100518284
+Green -0.1617534  0.33903957 -0.087597437</code></pre>
+</div>
+</div>
+<ul>
+<li>Na początku można stwierdzić, że statystyka chi-kwadrat jest bardzo wysoka, a wartość p-value praktycznie równa zeru. Oznacza to zdecydowane odrzucenie modelu niezależności, czyli istnienie silnego związku pomiędzy kolorem włosów a kolorem oczu. Związek ten nie jest przypadkową fluktuacją liczebności, lecz strukturalnym odchyleniem od przeciętnych profili.</li>
+<li>Wartości własne pokazują, że pierwszy wymiar wyjaśnia około dziewięćdziesiąt procent całej inercji. Drugi wymiar wnosi niespełna dziesięć procent, a trzeci ma znaczenie znikome. W praktyce interpretacja zależności między kategoriami ograniczać się będzie do dwóch pierwszych wymiarów, ponieważ to one odzwierciedlają niemal całą strukturę odchyleń od modelu niezależności. Silna dominacja wymiaru pierwszego wskazuje, że główna oś różnicowania tabeli jest jednoznaczna i przedstawia podstawowy kierunek współwystępowania kolorów włosów i oczu.</li>
+<li>W kategoriach wierszy największą inercją charakteryzuje się „Blond”, która tworzy wyraźnie silny sygnał odróżniający ją od pozostałych kategorii. Wysoka wartość <span class="math inline">\(\cos^2\)</span> na wymiarze pierwszym oznacza, że jej położenie na mapie jest niemal w pełni opisane przez ten jeden wymiar, a zatem interpretacja tej kategorii powinna opierać się przede wszystkim na pierwszej osi. Podobnie kategorię „Black” również dobrze opisuje wymiar pierwszy, choć jej pozycja częściowo opiera się również na wymiarze drugim. Kategoria „Red” natomiast jest silnie związana z wymiarem drugim: jej <span class="math inline">\(\cos^2\)</span> w osi drugiej dominuje nad pozostałymi współrzędnymi, co sugeruje, że ta kategoria wnosi zróżnicowanie względnie prostopadłe do podstawowej osi.</li>
+<li>W zakresie wkładów (<em>contributions</em>) wierszy wymiar pierwszy jest w głównej mierze kształtowany przez kategorię „Blond”, która odpowiada za zdecydowaną większość inercji tej osi. „Black” daje istotny wkład, natomiast kategorie „Red” i „Brown” mają względnie niewielki wpływ. To wskazuje, że wymiar ten opisuje przeciwstawność dwóch skrajnych charakterystyk: jasnych i bardzo ciemnych kolorów włosów. Natomiast wymiar drugi jest definiowany przede wszystkim przez kategorię „Red”, co potwierdza jej szczególne znaczenie w drugorzędnym kierunku zależności.</li>
+<li>W odniesieniu do kolumn widoczna jest podobna struktura. Wymiar pierwszy jest silnie ukształtowany przez „Brown” i „Blue”, które leżą na przeciwnych stronach osi, a ich <span class="math inline">\(\cos^2\)</span> oraz wysoki wkład w ten wymiar wskazują, że to te kategorie określają jego znaczenie. Wymiar drugi zdominowany jest przez „Green” i „Hazel”, co sugeruje, że te dwa kolory oczu odpowiadają za dodatkowe zróżnicowanie, nieuchwycone przez wymiar pierwszy.</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Mapa percepcji: wiersze i kolumny na jednym wykresie</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_ca.html">fviz_ca_biplot</a></span><span class="op">(</span></span>
+<span>  <span class="va">res.ca</span>,</span>
+<span>  repel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Mapa percepcji: kolor włosów vs kolor oczu"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="correspondence_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="correspondence_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mapa percepcji przedstawia zależności między kategoriami koloru włosów (punkty niebieskie) i koloru oczu (punkty czerwone) w przestrzeni dwóch wymiarów analizy korespondencji. Oś pierwsza odpowiada za zdecydowaną większość inercji, dlatego to ona wyznacza główny kierunek różnicowania kategorii. Na osi poziomej widoczne jest wyraźne zagęszczenie między kategoriami „Blond” i „Blue” po stronie ujemnej oraz kategoriami „Black” i „Brown eyes” po stronie dodatniej. Interpretuejmy to jako dominujące współwystępowanie jasnych włosów z niebieskimi oczami oraz ciemnych włosów z brązowymi oczami. Oś ta odwzorowuje więc gradient od jasnych do ciemnych fenotypów. Oś pionowa, wyjaśniająca znacznie mniejszą część inercji, wprowadza drugi — subtelniejszy — wymiar struktury. W górnej części wykresu znajdują się „Red” oraz „Green”, co sugeruje, że te rzadziej występujące cechy współwystępują częściej niż wynikałoby to z modelu niezależności. Z kolei „Hazel” pozycjonuje się w dodatniej części osi pierwszej i jednocześnie nieco dodatniej części osi drugiej, co wskazuje, że jej profil jest nieznacznie zbliżony do ciemniejszych kolorów włosów, choć z pewnym odchyleniem kierunkowym widocznym na drugiej osi. Punkty „Brown hair” oraz „Brown eyes” znajdują się bliżej środka niż pozostałe kategorie. Interpretujemy to jako cechy bardziej „przeciętne”, których profile nie odbiegają silnie od profili przeciętnych.</p>
+<p>Mapa ta potwierdza klasyczną strukturę zależności fenotypowych: jasne włosy częściej współwystępują z jasnymi oczami, ciemne włosy z ciemnymi oczami, a odmienne kombinacje są rzadsze. Drugi wymiar wyodrębnia rzadkie kombinacje związane z czerwonymi włosami oraz zielonymi oczami, tworząc charakterystyczny kierunek dodatkowy. Taka konfiguracja jest typowa dla danych fenotypowych, w których dominują jedna lub dwie silne osie zróżnicowania, a dodatkowe kierunki odzwierciedlają rzadsze, ale strukturalnie spójne wzorce współwystępowania.</p>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Benzecri1997" class="csl-entry" role="listitem">
+Benzécri, J. P. 1977. <span>„Histoire et préhistoire de l’analyse des données. <span>Partie</span> <span>V</span> <span>L’analyse</span> des correspondances”</span>. <em>Les cahiers de l’analyse des données</em> 2 (1): 9–40. <a href="https://www.numdam.org/item/CAD_1977__2_1_9_0/">https://www.numdam.org/item/CAD_1977__2_1_9_0/</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Skopiowano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Skopiowano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./cluster.html" class="pagination-link" aria-label="Analiza skupień">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analiza skupień</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="Literatura">
+        <span class="nav-page-text">Literatura</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Wielowymiarowa analiza danych</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DariuszMajerek/WAD_new/issues/new" class="toc-action"><i class="bi bi-github"></i>Zgłoś problem</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Dariusz Majerek ©2025</p>
+</div>
+  </div>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+</body></html>
