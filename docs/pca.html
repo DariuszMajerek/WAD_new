@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.26">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Metody redukcji wymiarowości – Wielowymiarowa analiza danych</title>
 <style>
@@ -86,18 +86,19 @@ div.csl-indent {
 <link href="./images/cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2d449610c6da6b3fd31ed0a9984c1b47.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-f7ccbded210020a5533f6fd86e3f20c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-2d449610c6da6b3fd31ed0a9984c1b47.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-6b8c1b7f874bdd152064db223e7d36ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-7becdd8e1b79f26ea566d6ea537c1a09.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6b8c1b7f874bdd152064db223e7d36ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
@@ -137,7 +138,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -333,7 +334,7 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/logo.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <img src="./images/logo.jpg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="./images/logo.jpg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Wielowymiarowa analiza danych</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -400,7 +401,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./correspondence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Rys historyczny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analiza korespondencji</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -506,7 +507,7 @@ X_{k}=T_{k}V_{k}^\top=U_{k}D_{k}V_{k}^\top.
 <li>Braki danych - PCA wymaga pełnej macierzy danych (bez braków). W przypadku braków stosuje się najczęściej imputację (np. metodą średnich czy metody oparte na modelach).</li>
 </ol></section><section id="interpretacja-graficzna-i-praktyczna" class="level3"><h3 class="anchored" data-anchor-id="interpretacja-graficzna-i-praktyczna">Interpretacja graficzna i praktyczna</h3>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Pakiety</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Pakiety</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
@@ -583,7 +584,7 @@ X_{k}=T_{k}V_{k}^\top=U_{k}D_{k}V_{k}^\top.
 <span>       subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Udział wariancji: PC1 = "</span>, <span class="va">expl</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">", PC2 = "</span>, <span class="va">expl</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span>,</span>
-<span>        plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>        plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="pca_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></a></p>
@@ -680,7 +681,7 @@ X_{k}=T_{k}V_{k}^\top=U_{k}D_{k}V_{k}^\top.
 <div id="exm-1" class="theorem example">
 <p><span class="theorem-title"><strong>Przykład 5.1 (PCA na danych irysów)</strong></span> &nbsp;</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/easystats/">easystats</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span></span>
@@ -689,7 +690,7 @@ X_{k}=T_{k}V_{k}^\top=U_{k}D_{k}V_{k}^\top.
 <span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu">principal_components</span><span class="op">(</span><span class="va">iris</span>, n <span class="op">=</span> <span class="fl">4</span>, rotate <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="co"># domyślnie standaryzuje zmienne</span></span>
 <span></span>
 <span><span class="co"># Wykres osypiska</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/eigenvalue.html">fviz_eig</a></span><span class="op">(</span><span class="va">pca_iris</span>, addlabels <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/eigenvalue.html">fviz_eig</a></span><span class="op">(</span><span class="va">pca_iris</span>, addlabels <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="pca_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
@@ -699,8 +700,8 @@ X_{k}=T_{k}V_{k}^\top=U_{k}D_{k}V_{k}^\top.
 </div>
 <p>Jak widać z powyższego wykresu osypiska pierwsza składowa wyjaśnia około 73% całkowitej wariancji, a druga 23%. Jeśli chcieć opierać wybór liczby składowych głównych na kryteriach (również takich, które nie były prezentowane powyżej), to można użyć funkcji <code>n_components()</code> pakietu <code>parameters</code> w ekosystemie <code>easystats</code>.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu">n_components</span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>,<span class="op">-</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu">n_components</span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>,<span class="op">-</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>   n_Factors              Method       Family
 1          0          Scree (R2)     Scree_SE
@@ -717,7 +718,7 @@ X_{k}=T_{k}V_{k}^\top=U_{k}D_{k}V_{k}^\top.
 12         3            Anderson      Barlett
 13         3              Lawley      Barlett</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="pca_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
@@ -727,8 +728,8 @@ X_{k}=T_{k}V_{k}^\top=U_{k}D_{k}V_{k}^\top.
 </div>
 <p>Choć większość kryteriów wskazuje na 1 składową, to na potrzeby przykładu wykorzystamy dwie składowe. Wyjaśniają one blisko 96% całkowitej wariancji (patrz poniżej). Możemy teraz przejrzeć wyniki PCA, czyli macierz ładunków (wektorów własnych) i macierz wyników projekcji (<em>scores</em>).</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Udział wariancji</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pca_iris</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Udział wariancji</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pca_iris</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Importance of components:
                           PC1    PC2     PC3     PC4
@@ -736,8 +737,8 @@ Standard deviation     1.7084 0.9560 0.38309 0.14393
 Proportion of Variance 0.7296 0.2285 0.03669 0.00518
 Cumulative Proportion  0.7296 0.9581 0.99482 1.00000</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Ładunki (wektory własne)</span></span>
-<span><span class="va">pca_iris</span><span class="op">$</span><span class="va">rotation</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Ładunki (wektory własne)</span></span>
+<span><span class="va">pca_iris</span><span class="op">$</span><span class="va">rotation</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>                    PC1         PC2        PC3        PC4
 Sepal.Length  0.5210659 -0.37741762  0.7195664  0.2612863
@@ -745,8 +746,8 @@ Sepal.Width  -0.2693474 -0.92329566 -0.2443818 -0.1235096
 Petal.Length  0.5804131 -0.02449161 -0.1421264 -0.8014492
 Petal.Width   0.5648565 -0.06694199 -0.6342727  0.5235971</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># scores</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pca_iris</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># scores</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pca_iris</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>           PC1        PC2         PC3          PC4
 [1,] -2.257141 -0.4784238  0.12727962  0.024087508
@@ -761,10 +762,10 @@ Petal.Width   0.5648565 -0.06694199 -0.6342727  0.5235971</code></pre>
 <p>Druga składowa główna (<code>PC2</code>) ma zupełnie inną strukturę ładunków. Zdominowana jest przez bardzo silny ujemny współczynnik dla <code>Sepal.Width</code> oraz mniejszy, również ujemny, dla <code>Sepal.Length</code>. Wpływ płatków na tę składową jest niewielki. PC2 odzwierciedla zatem zmienność w obrębie kształtu działki kielicha, a zwłaszcza jej proporcji długości do szerokości. Kwiaty o węższych działkach mają wyższe wartości PC2, natomiast te o szerszych – niższe.</p>
 <p>Interpretując wspólnie obie składowe, można stwierdzić, że <code>PC1</code> opisuje rozmiar kwiatu, natomiast <code>PC2</code> – proporcje i kształt działki. W przestrzeni <code>PC1–PC2</code> dane tworzą układ, w którym <code>setosa</code> jest wyraźnie oddzielona od pozostałych gatunków poprzez niskie wartości <code>PC1</code> i wysokie <code>PC2</code>, a <code>versicolor</code> i <code>virginica</code> różnią się między sobą głównie wzdłuż drugiej osi. W rezultacie te dwie składowe pozwalają na niemal pełne odwzorowanie i wizualne rozdzielenie gatunków, przy czym <code>PC1</code> odpowiada za wymiar wielkościowy, a <code>PC2</code> – za wymiar kształtowy. Na potrzeby wizualizacji możemy narysować wykres <em>biplot</em> łączący obiekty i zmienne w przestrzeni dwóch pierwszych składowych.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_pca.html">fviz_pca_biplot</a></span><span class="op">(</span><span class="va">pca_iris</span>, repel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_pca.html">fviz_pca_biplot</a></span><span class="op">(</span><span class="va">pca_iris</span>, repel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                col.var <span class="op">=</span> <span class="st">"blue"</span>, <span class="co"># kolor zmiennych</span></span>
 <span>                col.ind <span class="op">=</span> <span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span> <span class="op">+</span> <span class="co"># kolor obiektów wg gatunku</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="pca_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
@@ -782,7 +783,7 @@ X = A s,\qquad A \in \mathbb{R}^{p\times m},
 Z = V A s \equiv R\, s,
 \]</span> gdzie <span class="math inline">\(R\)</span> jest macierzą ortogonalną (dla przypadku <span class="math inline">\(m=p\)</span>). Poszukujemy więc wektorów w jednostkowej normie, dla których skalarna projekcja <span class="math inline">\(y=w^\top Z\)</span> jest możliwie „nienormalna” (niesymetryczna lub ciężkoogonowa), co stanowi praktyczne kryterium niezależności.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Pakiety</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Pakiety</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fastICA</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
@@ -810,13 +811,13 @@ Z = V A s \equiv R\, s,
 <span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">V</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span>                    <span class="co"># Z = V X (w wierszach obserwacje)</span></span>
 <span></span>
 <span><span class="co"># Kontrola: kowariancja Z ~ I</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    1    0
 [2,]    0    1</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 4) ICA (FastICA) na danych whitened (można też na X bo fastICA automatycznie wykonuje whitening)</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 4) ICA (FastICA) na danych whitened (można też na X bo fastICA automatycznie wykonuje whitening)</span></span>
 <span><span class="va">ica</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/fastICA/man/fastICA.html">fastICA</a></span><span class="op">(</span><span class="va">Z</span>, n.comp <span class="op">=</span> <span class="fl">2</span>, method <span class="op">=</span> <span class="st">"C"</span><span class="op">)</span>  <span class="co"># odzyskane źródła Y i mieszanie A_ICA</span></span>
 <span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">ica</span><span class="op">$</span><span class="va">S</span>                                   <span class="co"># szacowane źródła niezależne (kolumny ~ komponenty)</span></span>
 <span><span class="va">W</span> <span class="op">&lt;-</span> <span class="va">ica</span><span class="op">$</span><span class="va">K</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">ica</span><span class="op">$</span><span class="va">W</span>                         <span class="co"># łączne "demiksowanie" względem X (tu pracowaliśmy na Z)</span></span>
@@ -869,14 +870,14 @@ Z = V A s \equiv R\, s,
 <span>       x <span class="op">=</span> <span class="st">"Y[,1]"</span>, y <span class="op">=</span> <span class="st">"Y[,2]"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="op">(</span><span class="va">pX</span> <span class="op">|</span> <span class="va">pZ</span> <span class="op">|</span> <span class="va">pY</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">(</span><span class="va">pX</span> <span class="op">|</span> <span class="va">pZ</span> <span class="op">|</span> <span class="va">pY</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="pca_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1440"></a></p>
 </figure>
 </div>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 8) Dodatkowo: marginesowe histogramy pokazujące „nienormalność”</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 8) Dodatkowo: marginesowe histogramy pokazujące „nienormalność”</span></span>
 <span><span class="va">hX</span> <span class="op">&lt;-</span> <span class="va">df_X</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c1"</span>,<span class="st">"c2"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"col"</span>, values_to <span class="op">=</span> <span class="st">"val"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">col</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c1"</span>,<span class="st">"c2"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -898,15 +899,15 @@ Z = V A s \equiv R\, s,
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">stage</span> <span class="op">~</span> <span class="va">col</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Marginalne rozkłady: przed whiteningiem, po whitening, po ICA"</span>,</span>
 <span>       x <span class="op">=</span> <span class="st">"wartość"</span>, y <span class="op">=</span> <span class="st">"liczność"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-6-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="pca_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="1440"></a></p>
 </figure>
 </div>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 9) Krótka kontrola: kowariancje i korelacje</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\nKowariancja X:\n"</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 9) Krótka kontrola: kowariancje i korelacje</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\nKowariancja X:\n"</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>
 Kowariancja X:</code></pre>
@@ -916,7 +917,7 @@ Kowariancja X:</code></pre>
 [1,] 6.295 4.620
 [2,] 4.620 5.123</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\nKowariancja Z (powinna być bliska I):\n"</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\nKowariancja Z (powinna być bliska I):\n"</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>
 Kowariancja Z (powinna być bliska I):</code></pre>
@@ -926,12 +927,12 @@ Kowariancja Z (powinna być bliska I):</code></pre>
 [1,]    1    0
 [2,]    0    1</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\nKorelacje pomiędzy kolumnami Y (powinny być bliskie 0; niezależność jest mocniejsza niż brak korelacji):\n"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\nKorelacje pomiędzy kolumnami Y (powinny być bliskie 0; niezależność jest mocniejsza niż brak korelacji):\n"</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>
 Korelacje pomiędzy kolumnami Y (powinny być bliskie 0; niezależność jest mocniejsza niż brak korelacji):</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    1    0
@@ -954,7 +955,7 @@ w \leftarrow \mathbb{E}\{Z\,g(w^\top Z)\}-\mathbb{E}\{g’(w^\top Z)\}\, w,\qqua
 <div class="no-row-height column-margin column-container"><div id="fn5"><p><sup>5</sup>&nbsp;Wyobraźmy sobie, że ICA rozdziela dwa źródła dźwięku — skrzypce i fortepian. Jeśli algorytm zwróci sygnał, który jest odwrócony w fazie (czyli pomnożony przez -1), to dźwięk fortepianu jest ten sam fizycznie, tylko wszystkie amplitudy mają odwrotny znak. Dlatego znak (i skala) nie mają znaczenia dla jakości separacji — są arbitralne.</p></div><div id="fn6"><p><sup>6</sup>&nbsp;W sygnałach biologicznych, takich jak EEG, ICA może oddzielić artefakty ruchowe od sygnałów mózgowych. Artefakty te mogą być silnie nienormalne i niezależne od sygnałów mózgowych, co czyni ICA skuteczną metodą ich identyfikacji i usunięcia.</p></div></div><div id="exm-2" class="theorem example">
 <p><span class="theorem-title"><strong>Przykład 5.2 (ICA na mieszance sygnałów)</strong></span> &nbsp;</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"EuStockMarkets"</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"EuStockMarkets"</span><span class="op">)</span></span>
 <span><span class="va">P</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">EuStockMarkets</span><span class="op">)</span>              <span class="co"># poziomy indeksów: DAX, SMI, CAC, FTSE</span></span>
 <span><span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">P</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  <span class="co"># dzienne log-zwroty</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">R</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">P</span><span class="op">)</span></span>
@@ -965,12 +966,12 @@ w \leftarrow \mathbb{E}\{Z\,g(w^\top Z)\}-\mathbb{E}\{g’(w^\top Z)\}\, w,\qqua
 <span><span class="va">S_est</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">ica_res</span><span class="op">$</span><span class="va">S</span><span class="op">)</span>               <span class="co"># odzyskane źród</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">S_est</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"IC"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">A_est</span> <span class="op">&lt;-</span> <span class="va">ica_res</span><span class="op">$</span><span class="va">A</span>                              <span class="co"># macierz mieszająca</span></span>
-<span><span class="va">W_est</span> <span class="op">&lt;-</span> <span class="va">ica_res</span><span class="op">$</span><span class="va">K</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">ica_res</span><span class="op">$</span><span class="va">W</span>                <span class="co"># macierz demiksująca</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">W_est</span> <span class="op">&lt;-</span> <span class="va">ica_res</span><span class="op">$</span><span class="va">K</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">ica_res</span><span class="op">$</span><span class="va">W</span>                <span class="co"># macierz demiksująca</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Macierz <code>A_est</code>, czyli macierz mieszania, opisuje sposób, w jaki oryginalne zmienne obserwowalne — w tym przypadku cztery indeksy giełdowe: DAX, SMI, CAC i FTSE — powstają jako liniowe kombinacje ukrytych, niezależnych czynników. Każdy wiersz tej macierzy odpowiada jednemu indeksowi, a każda kolumna jednej składowej niezależnej. Wartości liczbowe oznaczają współczynniki liniowych kombinacji, czyli wpływ danej składowej na dany indeks. Wartość dodatnia wskazuje, że wzrost komponentu powoduje wzrost indeksu, wartość ujemna — że ruch komponentu przekłada się na spadek indeksu, a wartość bliska zeru oznacza brak istotnego związku.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">A_est</span>, <span class="fl">3</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">A_est</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>       [,1]   [,2]   [,3]   [,4]
 [1,] -0.001 -0.001 -0.002 -0.006
@@ -986,7 +987,7 @@ w \leftarrow \mathbb{E}\{Z\,g(w^\top Z)\}-\mathbb{E}\{g’(w^\top Z)\}\, w,\qqua
 <li>Czwarty komponent (<code>IC4</code>) ma współczynniki bardzo małe, rzędu 10<sup>-3</sup>–10<sup>-2</sup>, co sugeruje, że jego wpływ na strukturę indeksów jest marginalny. Prawdopodobnie odpowiada on za szum lub krótkotrwałe, lokalne fluktuacje, które nie mają znaczenia ekonomicznego.</li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">W_est</span>, <span class="fl">3</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">W_est</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]    [,3]    [,4]
 [1,]   43.737  112.245 -74.794 -85.258
@@ -1004,8 +1005,8 @@ w \leftarrow \mathbb{E}\{Z\,g(w^\top Z)\}-\mathbb{E}\{g’(w^\top Z)\}\, w,\qqua
 </ul>
 <p>Znaki współczynników w ICA są arbitralne (zmiana wszystkich znaków w jednym wierszu nie zmienia modelu), dlatego przy interpretacji należy zwracać uwagę na względne zależności między indeksami, a nie na samą polaryzację znaków. Wartości bezwzględne wag pokazują natomiast, które indeksy mają największy udział w kształtowaniu danego czynnika.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kurt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">S_est</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">4</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>  <span class="co"># kurtozy odzyskanych źródeł</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">kurt</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>                           <span class="co"># kurtozy (nienormalność)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kurt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">S_est</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">4</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>  <span class="co"># kurtozy odzyskanych źródeł</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">kurt</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>                           <span class="co"># kurtozy (nienormalność)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>  IC1   IC2   IC3   IC4 
 5.601 1.985 8.206 2.274 </code></pre>
@@ -1023,9 +1024,9 @@ w \leftarrow \mathbb{E}\{Z\,g(w^\top Z)\}-\mathbb{E}\{g’(w^\top Z)\}\, w,\qqua
 <code>IC4</code> (2.274) wykazuje umiarkowaną kurtozę, zbliżoną do IC2. Można go interpretować jako dodatkowy, mniej wyraźny czynnik poboczny, który w pewnym stopniu odbiega od normalności, ale nie ma charakteru dominującego.</li>
 </ul>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Sprawdzenie korelacji między oryginalnymi a odzyskanymi sygnałami</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Sprawdzenie korelacji między oryginalnymi a odzyskanymi sygnałami</span></span>
 <span><span class="va">cor_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">R</span>, <span class="va">S_est</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">cor_matrix</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">cor_matrix</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>        IC1    IC2    IC3   IC4
 DAX  -0.076  0.287 -0.954 0.037
@@ -1043,7 +1044,7 @@ FTSE -0.788  0.001 -0.602 0.125</code></pre>
 </ul>
 <p>Na koniec wizualizacja ICA.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># odzyskane komponenty </span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># odzyskane komponenty </span></span>
 <span><span class="va">S_est_long</span> <span class="op">&lt;-</span> <span class="va">S_est</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Time <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">S_est</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"IC"</span><span class="op">)</span>,</span>
@@ -1069,7 +1070,7 @@ FTSE -0.788  0.001 -0.602 0.125</code></pre>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="pca_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="1152"></a></p>
@@ -1186,7 +1187,7 @@ S(X) = \sqrt{\frac{\sum_{i&lt;j} \bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)^2}{\sum_
 <div id="exm-3" class="theorem example">
 <p><span class="theorem-title"><strong>Przykład 5.3 (MDS na danych o odległościach między miastami)</strong></span> &nbsp;</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span>        <span class="co"># isoMDS, UScitiesD</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span>        <span class="co"># isoMDS, UScitiesD</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adeckmyn/maps">maps</a></span><span class="op">)</span>        <span class="co"># zarysy map</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggrepel.slowkow.com/">ggrepel</a></span><span class="op">)</span></span>
 <span></span>
@@ -1196,7 +1197,7 @@ S(X) = \sqrt{\frac{\sum_{i&lt;j} \bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)^2}{\sum_
 <span></span>
 <span><span class="co"># 1) Metryczny MDS</span></span>
 <span><span class="va">mds_metric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cmdscale.html">cmdscale</a></span><span class="op">(</span><span class="va">UScitiesD</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="va">mds_metric</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">mds_metric</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>                    [,1]       [,2]
 Atlanta        -718.7594  142.99427
@@ -1210,8 +1211,8 @@ SanFrancisco   1420.6033  112.58920
 Seattle        1341.7225 -579.73928
 Washington.DC  -979.6220 -335.47281</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 2) Niemetryczny MDS</span></span>
-<span><span class="va">mds_nonmetric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html">isoMDS</a></span><span class="op">(</span><span class="va">UScitiesD</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">points</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 2) Niemetryczny MDS</span></span>
+<span><span class="va">mds_nonmetric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html">isoMDS</a></span><span class="op">(</span><span class="va">UScitiesD</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">points</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>initial  value 0.049975 
 iter   5 value 0.049265
@@ -1227,7 +1228,7 @@ iter  50 value 0.041278
 final  value 0.041278 
 stopped after 50 iterations</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mds_nonmetric</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mds_nonmetric</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>                    [,1]       [,2]
 Atlanta        -718.7595  142.99430
@@ -1241,7 +1242,7 @@ SanFrancisco   1420.6036  112.58922
 Seattle        1341.6768 -579.41626
 Washington.DC  -979.6222 -335.47288</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 3) Ramy danych do wykresu MDS</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 3) Ramy danych do wykresu MDS</span></span>
 <span><span class="va">mds_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  City <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">mds_metric</span><span class="op">)</span>,</span>
 <span>  Metric_X <span class="op">=</span> <span class="va">mds_metric</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,</span>
@@ -1299,7 +1300,7 @@ Washington.DC  -979.6222 -335.47288</code></pre>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 8) Prezentacja obok siebie (patchwork)</span></span>
-<span><span class="va">p1</span><span class="op">/</span> <span class="va">p2</span> <span class="op">/</span> <span class="va">p3</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">p1</span><span class="op">/</span> <span class="va">p2</span> <span class="op">/</span> <span class="va">p3</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="pca_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="864"></a></p>
@@ -1333,7 +1334,7 @@ C = \operatorname{KL}(P \| Q) = \sum_{i \neq j} p_{ij} \log \frac{p_{ij}}{q_{ij}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ważne kroki przy stosowaniu t-SNE
+<span class="screen-reader-only">Adnotacja</span>Ważne kroki przy stosowaniu t-SNE
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1349,7 +1350,7 @@ Ważne kroki przy stosowaniu t-SNE
 <div id="exm-4" class="theorem example">
 <p><span class="theorem-title"><strong>Przykład 5.4 (t-SNE na danych <code>iris</code>)</strong></span> &nbsp;</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jkrijthe/Rtsne">Rtsne</a></span><span class="op">)</span>      <span class="co"># t-SNE</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jkrijthe/Rtsne">Rtsne</a></span><span class="op">)</span>      <span class="co"># t-SNE</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">44</span><span class="op">)</span></span>
 <span></span>
@@ -1364,7 +1365,7 @@ Ważne kroki przy stosowaniu t-SNE
 <span>  <span class="va">iris_data</span>,</span>
 <span>  dims <span class="op">=</span> <span class="fl">2</span>, perplexity <span class="op">=</span> <span class="fl">30</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  max_iter <span class="op">=</span> <span class="fl">500</span>, check_duplicates <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Performing PCA
 Read the 150 x 4 data matrix successfully!
@@ -1373,19 +1374,19 @@ Computing input similarities...
 Building tree...
 Done in 0.00 seconds (sparsity = 0.711156)!
 Learning embedding...
-Iteration 50: error is 45.359701 (50 iterations in 0.01 seconds)
-Iteration 100: error is 44.348491 (50 iterations in 0.01 seconds)
-Iteration 150: error is 43.459291 (50 iterations in 0.01 seconds)
-Iteration 200: error is 45.385876 (50 iterations in 0.01 seconds)
-Iteration 250: error is 45.872962 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.661337 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.165504 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.161554 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.160806 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.157935 (50 iterations in 0.01 seconds)
+Iteration 50: error is 45.359967 (50 iterations in 0.01 seconds)
+Iteration 100: error is 46.332059 (50 iterations in 0.01 seconds)
+Iteration 150: error is 47.179047 (50 iterations in 0.01 seconds)
+Iteration 200: error is 45.111348 (50 iterations in 0.01 seconds)
+Iteration 250: error is 46.009835 (50 iterations in 0.01 seconds)
+Iteration 300: error is 0.394921 (50 iterations in 0.01 seconds)
+Iteration 350: error is 0.167269 (50 iterations in 0.01 seconds)
+Iteration 400: error is 0.147481 (50 iterations in 0.01 seconds)
+Iteration 450: error is 0.147297 (50 iterations in 0.01 seconds)
+Iteration 500: error is 0.145512 (50 iterations in 0.01 seconds)
 Fitting performed in 0.07 seconds.</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tsne_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tsne_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  Dim1 <span class="op">=</span> <span class="va">tsne_result</span><span class="op">$</span><span class="va">Y</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,</span>
 <span>  Dim2 <span class="op">=</span> <span class="va">tsne_result</span><span class="op">$</span><span class="va">Y</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,</span>
 <span>  Species <span class="op">=</span> <span class="va">iris</span><span class="op">$</span><span class="va">Species</span></span>
@@ -1415,7 +1416,7 @@ Fitting performed in 0.07 seconds.</code></pre>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="pca_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="1344"></a></p>
@@ -1453,7 +1454,7 @@ C = \sum_{i &lt; j} \left[ -p_{ij}\log(q_{ij}) - (1 - p_{ij})\log(1 - q_{ij}) \r
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ważne kroki przy stosowaniu UMAP
+<span class="screen-reader-only">Adnotacja</span>Ważne kroki przy stosowaniu UMAP
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1469,7 +1470,7 @@ Ważne kroki przy stosowaniu UMAP
 <div id="exm-5" class="theorem example">
 <p><span class="theorem-title"><strong>Przykład 5.5 (UMAP na danych <code>iris</code>)</strong></span> &nbsp;</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jlmelville/uwot">uwot</a></span><span class="op">)</span>     <span class="co"># UMAP</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jlmelville/uwot">uwot</a></span><span class="op">)</span>     <span class="co"># UMAP</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">44</span><span class="op">)</span></span>
 <span></span>
@@ -1523,7 +1524,7 @@ Ważne kroki przy stosowaniu UMAP
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Wyświetlenie obok siebie</span></span>
-<span><span class="va">p_umap</span> <span class="op">|</span> <span class="va">p_pca</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">p_umap</span> <span class="op">|</span> <span class="va">p_pca</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="pca_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="1344"></a></p>
@@ -1534,7 +1535,7 @@ Ważne kroki przy stosowaniu UMAP
 </div>
 <p>Poniżej prezentuję zbiorcze porównanie wszystkich omówionych metod redukcji wymiarowości na tym samym zbiorze danych <code>iris</code>. Wykorzystuję PCA, ICA, MDS, t-SNE oraz UMAP, aby zobaczyć, jak różne techniki odwzorowują strukturę danych.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">44</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">44</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Usuń duplikaty (t-SNE i MDS niemetryczny są na to wrażliwe)</span></span>
 <span><span class="va">iris_unique</span> <span class="op">&lt;-</span> <span class="va">iris</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="op">-</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>, <span class="op">]</span></span>
@@ -1569,13 +1570,13 @@ Ważne kroki przy stosowaniu UMAP
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># MDS niemetryczny (isoMDS)</span></span>
-<span><span class="va">mds_nonmetric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html">isoMDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">points</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">mds_nonmetric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html">isoMDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">points</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>initial  value 4.818373 
 final  value 4.818117 
 converged</code></pre>
 </div>
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_mds_nonmetric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_mds_nonmetric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  Dim1 <span class="op">=</span> <span class="va">mds_nonmetric</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,</span>
 <span>  Dim2 <span class="op">=</span> <span class="va">mds_nonmetric</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>,</span>
 <span>  Method <span class="op">=</span> <span class="st">"MDS (niemet.)"</span>,</span>
@@ -1633,7 +1634,7 @@ converged</code></pre>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
 <span>    strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="pca_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="pca_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="1440"></a></p>
@@ -1727,13 +1728,14 @@ Torgerson, Warren S. 1952. <span>„Multidimensional Scaling: I. Theory and Meth
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

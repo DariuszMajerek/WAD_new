@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.26">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Analiza czynnikowa – Wielowymiarowa analiza danych</title>
 <style>
@@ -86,18 +86,19 @@ div.csl-indent {
 <link href="./images/cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2d449610c6da6b3fd31ed0a9984c1b47.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-f7ccbded210020a5533f6fd86e3f20c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-2d449610c6da6b3fd31ed0a9984c1b47.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-6b8c1b7f874bdd152064db223e7d36ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-7becdd8e1b79f26ea566d6ea537c1a09.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6b8c1b7f874bdd152064db223e7d36ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
@@ -137,7 +138,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -333,7 +334,7 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/logo.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <img src="./images/logo.jpg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none"><img src="./images/logo.jpg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Wielowymiarowa analiza danych</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -395,6 +396,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./cluster.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analiza skupień</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./correspondence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Analiza korespondencji</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -515,7 +522,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Dowód
+<span class="screen-reader-only">Adnotacja</span>Dowód
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -654,7 +661,7 @@ F(\Lambda,\Psi) = \log |\Sigma| + \operatorname{tr}(\Sigma^{-1} S) - \log |S| - 
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Wstępne oszacowania zasobów zmienności wspólnej
+<span class="screen-reader-only">Adnotacja</span>Wstępne oszacowania zasobów zmienności wspólnej
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -945,10 +952,10 @@ G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) 
 <div id="exm-1" class="theorem example">
 <p><span class="theorem-title"><strong>Przykład 3.1</strong></span> Na potrzeby ilustracji budowy modelu EFA wykorzystamy dane z pakietu <code>psych</code>, które zawierają wyniki różnych testów poznawczych <span class="citation" data-cites="horn1969">(<a href="references.html#ref-horn1969" role="doc-biblioref">Horn 1969</a>)</span>. Dane te są często używane jako przykład w literaturze dotyczącej analizy czynnikowej.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Dane: macierz korelacji testów poznawczych</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"Harman74.cor"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"Harman74.cor"</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <table class="caption-top table">
@@ -1088,10 +1095,10 @@ G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) 
 <p>Widać, że testy można grupować w pięć głównych obszarów: <strong>przestrzenne/percepcyjne</strong> (np. <em>Cubes, VisualPerception</em>), <strong>werbalne</strong> (np. <em>WordMeaning, SentenceCompletion</em>), <strong>numeryczne</strong> (np. <em>Addition, ArithmeticProblems</em>), <strong>pamięciowe</strong> (np. <em>WordRecognition, NumberRecognition</em>), oraz <strong>rozumowania i logiczne</strong> (np. <em>Deduction, SeriesCompletion</em>). To właśnie takie powiązania w macierzy korelacji uzasadniają zastosowanie analizy czynnikowej w celu identyfikacji ukrytych wymiarów inteligencji.</p>
 <p>Najpierw sprawdzimy czy dane nadają się do analizy czynnikowej, obliczając test KMO i test sferyczności Bartletta.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/easystats/">easystats</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">check_factorstructure</span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, n <span class="op">=</span> <span class="fl">145</span><span class="op">)</span> </span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">check_factorstructure</span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, n <span class="op">=</span> <span class="fl">145</span><span class="op">)</span> </span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code># Is the data suitable for Factor Analysis?
 
@@ -1103,8 +1110,8 @@ G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) 
 <p>Test sferyczności Bartletta dostarcza podstawowego potwierdzenia, że w zbiorze danych występują istotne statystycznie korelacje pomiędzy zmiennymi. Wynik <span class="math inline">\(\chi^2(276) = 1545.86,\ p &lt; 0.001\)</span> oznacza, że hipoteza zerowa o macierzy korelacji równej macierzy jednostkowej zostaje odrzucona. Innymi słowy, zmienne nie są niezależne, a ich struktura korelacyjna uzasadnia dalsze poszukiwanie wspólnych czynników. Gdyby test okazał się nieistotny, sugerowałby brak uzasadnienia do stosowania analizy czynnikowej, ponieważ nie byłoby wystarczających zależności między zmiennymi.</p>
 <p>Miara adekwatności próby KMO (Kaiser–Meyer–Olkin) wskazuje, na ile obserwowane korelacje mogą być wyjaśnione przez czynniki wspólne w porównaniu z korelacjami cząstkowymi. Wynik ogólny KMO = 0.88 mieści się w przedziale uznawanym za „bardzo dobry” (powyżej 0.80). Oznacza to, że dane dobrze nadają się do analizy czynnikowej i możemy oczekiwać stabilnych, interpretowalnych rozwiązań. Wartości indywidualne dla poszczególnych zmiennych mieszczą się między 0.78 a 0.93, a więc wszystkie osiągają poziom „dobry” lub „bardzo dobry”. Najwyższe wartości, takie jak Deduction (0.93), ProblemReasoning (0.93) czy ArithmeticProblems (0.92), wskazują na wyjątkowo silną reprezentację tych testów w przestrzeni czynnikowej. Z kolei najniższe, jak PaperFormBoard (0.78), są nadal akceptowalne, ale sugerują nieco słabszą integrację tej zmiennej z pozostałymi. Całościowo zarówno wynik globalny, jak i rozkład wartości cząstkowych KMO jednoznacznie potwierdzają zasadność prowadzenia analizy czynnikowej na tym zbiorze danych.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Parallel analysis</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.parallel.html">fa.parallel</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, fa <span class="op">=</span> <span class="st">"fa"</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Parallel analysis</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.parallel.html">fa.parallel</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, fa <span class="op">=</span> <span class="st">"fa"</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="fa_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="fa_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
@@ -1117,8 +1124,8 @@ G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) 
 </div>
 <p>Samo kryterium paralelne wskazuje na 4 czynniki, choć gdyby brać pod uwagę samo kryterium osypiska to rozwiązanie z 5 czynnikami też wydaje się być właściwe.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Kryterium MAP</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/VSS.html">VSS</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, plot <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Kryterium MAP</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/VSS.html">VSS</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, plot <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>
 Very Simple Structure
@@ -1231,11 +1238,11 @@ Statistics by number of factors
 <p>Kryterium MAP Velicera wskazuje, że minimalna wartość statystyki została osiągnięta przy czterech czynnikach (MAP = 0.017). Oznacza to, że w ujęciu tego kryterium, czynniki te najlepiej redukują korelacje cząstkowe między zmiennymi – czyli eliminują największą część wariancji niepowiązanej ze wspólną strukturą czynnikową. Innymi słowy, przy czterech czynnikach model najefektywniej odwzorowuje wspólne zależności bez pozostawiania nadmiernych reszt.</p>
 <p>Warto jednak zauważyć, że różne kryteria sugerują odmienne liczby czynników. Kryterium BIC wskazuje na trzy czynniki jako najbardziej oczekiwane rozwiązanie, natomiast skorygowany BIC (SABIC) preferuje pięć czynników. Z kolei wskaźniki VSS (Very Simple Structure) sugerują jedno– lub dwuczynnikowe rozwiązania, maksymalizujące prostotę struktury. Ostateczna decyzja wymaga zatem kompromisu: MAP sugeruje cztery czynniki jako najpełniej oddające wspólną strukturę zmiennych, BIC preferuje trzy jako prostsze, a SABIC wskazuje na pięć. Interpretacja powinna uwzględniać nie tylko statystyki, lecz także sensowność teoretyczną i interpretowalność uzyskanych czynników w kontekście badanego materiału.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Analiza czynnikowa</span></span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Analiza czynnikowa</span></span>
 <span><span class="va">fa_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.html">fa</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, nfactors <span class="op">=</span> <span class="fl">4</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, </span>
 <span>               fm <span class="op">=</span> <span class="st">"ml"</span>, rotate <span class="op">=</span> <span class="st">"varimax"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">fa_model</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">fa_model</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Factor Analysis using method =  ml
 Call: fa(r = Harman74.cor$cov, nfactors = 4, n.obs = 145, rotate = "varimax", 
@@ -1306,26 +1313,26 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 <p>Ostatecznie wyniki wskazują, że struktura czteroczynnikowa jest dobrze uzasadniona empirycznie i teoretycznie. Każdy czynnik odpowiada odmiennym zdolnościom poznawczym – werbalnym, numerycznym, przestrzennym i percepcyjno-pamięciowym – a ich interpretacje są zgodne z psychologicznymi ujęciami inteligencji wielowymiarowej.</p>
 <p>Dla większej czytelności przedstawiamy ładunki czynnikowe po rotacji varimax w formie tabelarycznej, z wyciętymi ładunkami o niskich wartościach.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
-<div id="rxbjbrpbsv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rxbjbrpbsv table {
+<div id="uwnyxwweqc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uwnyxwweqc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rxbjbrpbsv thead, #rxbjbrpbsv tbody, #rxbjbrpbsv tfoot, #rxbjbrpbsv tr, #rxbjbrpbsv td, #rxbjbrpbsv th {
+#uwnyxwweqc thead, #uwnyxwweqc tbody, #uwnyxwweqc tfoot, #uwnyxwweqc tr, #uwnyxwweqc td, #uwnyxwweqc th {
   border-style: none;
 }
 
-#rxbjbrpbsv p {
+#uwnyxwweqc p {
   margin: 0;
   padding: 0;
 }
 
-#rxbjbrpbsv .gt_table {
+#uwnyxwweqc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1351,12 +1358,12 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-left-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_caption {
+#uwnyxwweqc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rxbjbrpbsv .gt_title {
+#uwnyxwweqc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1368,7 +1375,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-width: 0;
 }
 
-#rxbjbrpbsv .gt_subtitle {
+#uwnyxwweqc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1380,7 +1387,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-width: 0;
 }
 
-#rxbjbrpbsv .gt_heading {
+#uwnyxwweqc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1392,13 +1399,13 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_bottom_border {
+#uwnyxwweqc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_col_headings {
+#uwnyxwweqc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1413,7 +1420,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_col_heading {
+#uwnyxwweqc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1433,7 +1440,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#rxbjbrpbsv .gt_column_spanner_outer {
+#uwnyxwweqc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1445,15 +1452,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 4px;
 }
 
-#rxbjbrpbsv .gt_column_spanner_outer:first-child {
+#uwnyxwweqc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rxbjbrpbsv .gt_column_spanner_outer:last-child {
+#uwnyxwweqc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rxbjbrpbsv .gt_column_spanner {
+#uwnyxwweqc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1465,11 +1472,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   width: 100%;
 }
 
-#rxbjbrpbsv .gt_spanner_row {
+#uwnyxwweqc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rxbjbrpbsv .gt_group_heading {
+#uwnyxwweqc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1495,7 +1502,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   text-align: left;
 }
 
-#rxbjbrpbsv .gt_empty_group_heading {
+#uwnyxwweqc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1510,15 +1517,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: middle;
 }
 
-#rxbjbrpbsv .gt_from_md > :first-child {
+#uwnyxwweqc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rxbjbrpbsv .gt_from_md > :last-child {
+#uwnyxwweqc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rxbjbrpbsv .gt_row {
+#uwnyxwweqc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1537,7 +1544,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#rxbjbrpbsv .gt_stub {
+#uwnyxwweqc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1550,7 +1557,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#rxbjbrpbsv .gt_stub_row_group {
+#uwnyxwweqc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1564,15 +1571,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: top;
 }
 
-#rxbjbrpbsv .gt_row_group_first td {
+#uwnyxwweqc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rxbjbrpbsv .gt_row_group_first th {
+#uwnyxwweqc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rxbjbrpbsv .gt_summary_row {
+#uwnyxwweqc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1582,16 +1589,16 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#rxbjbrpbsv .gt_first_summary_row {
+#uwnyxwweqc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_first_summary_row.thick {
+#uwnyxwweqc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rxbjbrpbsv .gt_last_summary_row {
+#uwnyxwweqc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1601,7 +1608,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_grand_summary_row {
+#uwnyxwweqc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1611,7 +1618,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#rxbjbrpbsv .gt_first_grand_summary_row {
+#uwnyxwweqc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1621,7 +1628,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_last_grand_summary_row_top {
+#uwnyxwweqc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1631,11 +1638,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_striped {
+#uwnyxwweqc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rxbjbrpbsv .gt_table_body {
+#uwnyxwweqc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1644,7 +1651,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_footnotes {
+#uwnyxwweqc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1658,7 +1665,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_footnote {
+#uwnyxwweqc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1667,7 +1674,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#rxbjbrpbsv .gt_sourcenotes {
+#uwnyxwweqc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1681,7 +1688,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#rxbjbrpbsv .gt_sourcenote {
+#uwnyxwweqc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1689,79 +1696,79 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#rxbjbrpbsv .gt_left {
+#uwnyxwweqc .gt_left {
   text-align: left;
 }
 
-#rxbjbrpbsv .gt_center {
+#uwnyxwweqc .gt_center {
   text-align: center;
 }
 
-#rxbjbrpbsv .gt_right {
+#uwnyxwweqc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rxbjbrpbsv .gt_font_normal {
+#uwnyxwweqc .gt_font_normal {
   font-weight: normal;
 }
 
-#rxbjbrpbsv .gt_font_bold {
+#uwnyxwweqc .gt_font_bold {
   font-weight: bold;
 }
 
-#rxbjbrpbsv .gt_font_italic {
+#uwnyxwweqc .gt_font_italic {
   font-style: italic;
 }
 
-#rxbjbrpbsv .gt_super {
+#uwnyxwweqc .gt_super {
   font-size: 65%;
 }
 
-#rxbjbrpbsv .gt_footnote_marks {
+#uwnyxwweqc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rxbjbrpbsv .gt_asterisk {
+#uwnyxwweqc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rxbjbrpbsv .gt_indent_1 {
+#uwnyxwweqc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rxbjbrpbsv .gt_indent_2 {
+#uwnyxwweqc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rxbjbrpbsv .gt_indent_3 {
+#uwnyxwweqc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rxbjbrpbsv .gt_indent_4 {
+#uwnyxwweqc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rxbjbrpbsv .gt_indent_5 {
+#uwnyxwweqc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#rxbjbrpbsv .katex-display {
+#uwnyxwweqc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#rxbjbrpbsv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uwnyxwweqc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<th colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border">Rotated loadings from Factor Analysis (varimax-rotation)</th>
+<td colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border">Rotated loadings from Factor Analysis (varimax-rotation)</td>
 </tr>
 <tr class="gt_col_headings even">
 <th id="Variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable</th>
@@ -2000,7 +2007,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 </div>
 <p>Możemy też przedstawić model graficznie.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.diagram.html">fa.diagram</a></span><span class="op">(</span><span class="va">fa_model</span>, marg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, rsize <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.diagram.html">fa.diagram</a></span><span class="op">(</span><span class="va">fa_model</span>, marg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, rsize <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><a href="fa_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="fa_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1152"></a></p>
@@ -2010,28 +2017,28 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 </div>
 <p>Można spróbować estymować model z pięcioma czynnikami, co odpowiadałoby pierwotnemu rozpoznaniu obszarów.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fa_model_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.html">fa</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, nfactors <span class="op">=</span> <span class="fl">5</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, </span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fa_model_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.html">fa</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, nfactors <span class="op">=</span> <span class="fl">5</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, </span>
 <span>                 fm <span class="op">=</span> <span class="st">"ml"</span>, rotate <span class="op">=</span> <span class="st">"varimax"</span><span class="op">)</span></span>
 <span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model_5</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
-<div id="jefqgqvryc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jefqgqvryc table {
+<div id="fajnhuckrr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fajnhuckrr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jefqgqvryc thead, #jefqgqvryc tbody, #jefqgqvryc tfoot, #jefqgqvryc tr, #jefqgqvryc td, #jefqgqvryc th {
+#fajnhuckrr thead, #fajnhuckrr tbody, #fajnhuckrr tfoot, #fajnhuckrr tr, #fajnhuckrr td, #fajnhuckrr th {
   border-style: none;
 }
 
-#jefqgqvryc p {
+#fajnhuckrr p {
   margin: 0;
   padding: 0;
 }
 
-#jefqgqvryc .gt_table {
+#fajnhuckrr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2057,12 +2064,12 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-left-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_caption {
+#fajnhuckrr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jefqgqvryc .gt_title {
+#fajnhuckrr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2074,7 +2081,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-width: 0;
 }
 
-#jefqgqvryc .gt_subtitle {
+#fajnhuckrr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2086,7 +2093,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-width: 0;
 }
 
-#jefqgqvryc .gt_heading {
+#fajnhuckrr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2098,13 +2105,13 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_bottom_border {
+#fajnhuckrr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_col_headings {
+#fajnhuckrr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2119,7 +2126,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_col_heading {
+#fajnhuckrr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2139,7 +2146,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#jefqgqvryc .gt_column_spanner_outer {
+#fajnhuckrr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2151,15 +2158,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 4px;
 }
 
-#jefqgqvryc .gt_column_spanner_outer:first-child {
+#fajnhuckrr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jefqgqvryc .gt_column_spanner_outer:last-child {
+#fajnhuckrr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jefqgqvryc .gt_column_spanner {
+#fajnhuckrr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2171,11 +2178,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   width: 100%;
 }
 
-#jefqgqvryc .gt_spanner_row {
+#fajnhuckrr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jefqgqvryc .gt_group_heading {
+#fajnhuckrr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2201,7 +2208,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   text-align: left;
 }
 
-#jefqgqvryc .gt_empty_group_heading {
+#fajnhuckrr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2216,15 +2223,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: middle;
 }
 
-#jefqgqvryc .gt_from_md > :first-child {
+#fajnhuckrr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jefqgqvryc .gt_from_md > :last-child {
+#fajnhuckrr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jefqgqvryc .gt_row {
+#fajnhuckrr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2243,7 +2250,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#jefqgqvryc .gt_stub {
+#fajnhuckrr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2256,7 +2263,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#jefqgqvryc .gt_stub_row_group {
+#fajnhuckrr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2270,15 +2277,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: top;
 }
 
-#jefqgqvryc .gt_row_group_first td {
+#fajnhuckrr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jefqgqvryc .gt_row_group_first th {
+#fajnhuckrr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jefqgqvryc .gt_summary_row {
+#fajnhuckrr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2288,16 +2295,16 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#jefqgqvryc .gt_first_summary_row {
+#fajnhuckrr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_first_summary_row.thick {
+#fajnhuckrr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jefqgqvryc .gt_last_summary_row {
+#fajnhuckrr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2307,7 +2314,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_grand_summary_row {
+#fajnhuckrr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2317,7 +2324,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#jefqgqvryc .gt_first_grand_summary_row {
+#fajnhuckrr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2327,7 +2334,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_last_grand_summary_row_top {
+#fajnhuckrr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2337,11 +2344,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_striped {
+#fajnhuckrr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jefqgqvryc .gt_table_body {
+#fajnhuckrr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2350,7 +2357,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_footnotes {
+#fajnhuckrr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2364,7 +2371,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_footnote {
+#fajnhuckrr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2373,7 +2380,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#jefqgqvryc .gt_sourcenotes {
+#fajnhuckrr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2387,7 +2394,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#jefqgqvryc .gt_sourcenote {
+#fajnhuckrr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2395,79 +2402,79 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#jefqgqvryc .gt_left {
+#fajnhuckrr .gt_left {
   text-align: left;
 }
 
-#jefqgqvryc .gt_center {
+#fajnhuckrr .gt_center {
   text-align: center;
 }
 
-#jefqgqvryc .gt_right {
+#fajnhuckrr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jefqgqvryc .gt_font_normal {
+#fajnhuckrr .gt_font_normal {
   font-weight: normal;
 }
 
-#jefqgqvryc .gt_font_bold {
+#fajnhuckrr .gt_font_bold {
   font-weight: bold;
 }
 
-#jefqgqvryc .gt_font_italic {
+#fajnhuckrr .gt_font_italic {
   font-style: italic;
 }
 
-#jefqgqvryc .gt_super {
+#fajnhuckrr .gt_super {
   font-size: 65%;
 }
 
-#jefqgqvryc .gt_footnote_marks {
+#fajnhuckrr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jefqgqvryc .gt_asterisk {
+#fajnhuckrr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jefqgqvryc .gt_indent_1 {
+#fajnhuckrr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jefqgqvryc .gt_indent_2 {
+#fajnhuckrr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jefqgqvryc .gt_indent_3 {
+#fajnhuckrr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jefqgqvryc .gt_indent_4 {
+#fajnhuckrr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jefqgqvryc .gt_indent_5 {
+#fajnhuckrr .gt_indent_5 {
   text-indent: 25px;
 }
 
-#jefqgqvryc .katex-display {
+#fajnhuckrr .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#jefqgqvryc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#fajnhuckrr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<th colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border">Rotated loadings from Factor Analysis (varimax-rotation)</th>
+<td colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border">Rotated loadings from Factor Analysis (varimax-rotation)</td>
 </tr>
 <tr class="gt_col_headings even">
 <th id="Variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable</th>
@@ -2870,13 +2877,14 @@ Wang, Xiaojing, Candace M. Kammerer, Stewart Anderson, Jiang Lu, i Eleanor Feing
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
