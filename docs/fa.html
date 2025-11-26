@@ -617,7 +617,7 @@ F(\Lambda,\Psi) = \log |\Sigma| + \operatorname{tr}(\Sigma^{-1} S) - \log |S| - 
 <li>Ustala się początkowe wartości <span class="math inline">\(\Lambda, \Psi\)</span><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</li>
 <li>Iteracyjnie poprawia się parametry, rozwiązując równania warunków pierwszego rzędu</li>
 </ol>
-<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;wybór liczby czynników zostanie przedstawiony nieco później</p></div><div id="fn3"><p><sup>3</sup>&nbsp;spsoby ewstępnej estymacji zostaną omówione w dalszej części</p></div></div><p><span class="math display">\[
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;wybór liczby czynników zostanie przedstawiony nieco później</p></div><div id="fn3"><p><sup>3</sup>&nbsp;W metodzie największej wiarygodności estymacja macierzy ładunków czynnikowych <span class="math inline">\(\Lambda\)</span> oraz macierzy wariancji specyficznych <span class="math inline">\(\Psi\)</span> jest procedurą iteracyjną i wymaga ustalenia wartości startowych. W praktyce wartości te nie wynikają z jednej ścisłej reguły, lecz z podejścia zapewniającego stabilność i szybkie zbieganie algorytmu. W typowych implementacjach w R (np. w <code><a href="https://rdrr.io/r/stats/factanal.html">stats::factanal</a></code> lub <code><a href="https://rdrr.io/pkg/psych/man/fa.html">psych::fa</a></code> z metodą ml) stosuje się kilka sprawdzonych metod inicjalizacji. Wartości początkowe macierzy <span class="math inline">\(\Lambda\)</span> ustala się najczęściej poprzez wykorzystanie wyników analizy głównych składowych. Ustalenie polega na wyznaczeniu wartości własnych i wektorów własnych macierzy korelacji, a następnie pobraniu pierwszych <span class="math inline">\(m\)</span> kolumn tej macierzy wektorów własnych jako punktu startowego. Zastosowanie PCA jako inicjalizacji wynika z tego, że wektory własne dobrze odzwierciedlają dominujące kierunki wariancji, co pozwala rozpocząć optymalizację w okolicy sensownego rozwiązania. Wartości początkowe macierzy <span class="math inline">\(\Psi\)</span> wyznacza się poprzez oszacowanie wariancji niewyjaśnionej przez czynniki wstępne. Standardowym zabiegiem jest przypisanie <span class="math inline">\(\Psi\)</span> jako macierzy diagonalnej, w której diagonalne elementy równe są różnicom pomiędzy jednością a komunalnościami wynikającymi z inicjalnych ładunków z PCA. Oznacza to, że jeżeli zmienna ma początkową komunalność równą <span class="math inline">\(c\)</span>, to jej wariancja specyficzna w punkcie startowym wynosi <span class="math inline">\(1 – c\)</span>. W niektórych implementacjach ustala się <span class="math inline">\(\Psi\)</span> jako macierz jednostkową, co jest rozwiązaniem neutralnym, jednak prowadzi zwykle do wolniejszej zbieżności.</p></div></div><p><span class="math display">\[
 \frac{\partial \ell}{\partial \Lambda} = 0, \quad \frac{\partial \ell}{\partial \Psi} = 0.
 \]</span></p>
 <ol start="4" type="1">
@@ -655,6 +655,18 @@ F(\Lambda,\Psi) = \log |\Sigma| + \operatorname{tr}(\Sigma^{-1} S) - \log |S| - 
 \mathbf{R}^* = [r_{ij}^*], \quad r_{jj}^* = h_j^2.
 \]</span></p>
 <p>Macierz <span class="math inline">\(\mathbf{R}^*\)</span> ma więc charakter „zredukowany”, ponieważ na jej diagonali pozostaje tylko ta część wariancji zmiennej, którą model czynnikowy ma szansę wyjaśnić. Dzięki temu macierz ta może być przybliżana przez strukturę <span class="math inline">\(\Lambda \Lambda^\top\)</span>, co odpowiada wspólnej wariancji wszystkich zmiennych.</p>
+</section><section id="rozkład-na-wartości-własne" class="level4"><h4 class="anchored" data-anchor-id="rozkład-na-wartości-własne">Rozkład na wartości własne</h4>
+<p>W metodzie PAF zakładamy, że tylko część wariancji każdej zmiennej jest wspólna. Oznacza to, że zamiast pełnej macierzy korelacji <span class="math inline">\(\mathbf{R}\)</span>, rozważamy macierz zredukowanych korelacji: <span class="math display">\[
+\mathbf{R}^* = \mathbf{R} - \Psi,
+\]</span> gdzie na diagonali znajdują się oszacowane zasoby zmienności wspólnej <span class="math inline">\(\hat{h}_j^2\)</span>, zamiast jedynek.</p>
+<p>Następnie wykonujemy dekompozycję spektralną tej macierzy: <span class="math display">\[
+\mathbf{R}^* = \mathbf{Q}^* \mathbf{D}^* {\mathbf{Q}^*}^\top,
+\]</span> gdzie <span class="math inline">\(\mathbf{Q}^*\)</span> i <span class="math inline">\(\mathbf{D}^*\)</span> są odpowiednio wektorami i wartościami własnymi macierzy <span class="math inline">\(\mathbf{R}^*\)</span>.</p>
+<p>Estymator ładunków czynnikowych w PAF ma więc postać <span class="math display">\[
+\hat{\Lambda} = \mathbf{Q}^*_m (\mathbf{D}^*_m)^{1/2},
+\]</span></p>
+<p>bazującą na zmodyfikowanej macierzy korelacji, w której uwzględniono oszacowane komunalności, przy czym <span class="math inline">\(\mathbf{Q}^*_m\)</span> i <span class="math inline">\(\mathbf{D}^*_m\)</span> oznaczają zredukowane macierze <span class="math inline">\(\mathbf{Q}\)</span> i <span class="math inline">\(\mathbf{D}\)</span> do pierwszych <span class="math inline">\(m\)</span> kolumn odpowiadających pierwszym <span class="math inline">\(m\)</span> czynnikom.</p>
+<p>Ponieważ <span class="math inline">\(\hat{h}_j^2\)</span> same zależą od ładunków (są ich sumą kwadratów), w praktyce stosuje się procedurę iteracyjną: zaczynamy od pewnych wartości początkowych, obliczamy dekompozycję spektralną, aktualizujemy komunalności i powtarzamy procedurę aż do zbieżności.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -682,18 +694,6 @@ h_j^2=\frac{r_{jj'}r_{jj''}}{r_{j'j''}}, \quad j\ne j' \ne j''
 </ul>
 </div>
 </div>
-</section><section id="rozkład-na-wartości-własne" class="level4"><h4 class="anchored" data-anchor-id="rozkład-na-wartości-własne">Rozkład na wartości własne</h4>
-<p>W metodzie PAF zakładamy, że tylko część wariancji każdej zmiennej jest wspólna. Oznacza to, że zamiast pełnej macierzy korelacji <span class="math inline">\(\mathbf{R}\)</span>, rozważamy macierz zredukowanych korelacji: <span class="math display">\[
-\mathbf{R}^* = \mathbf{R} - \Psi,
-\]</span> gdzie na diagonali znajdują się oszacowane zasoby zmienności wspólnej <span class="math inline">\(\hat{h}_j^2\)</span>, zamiast jedynek.</p>
-<p>Następnie wykonujemy dekompozycję spektralną tej macierzy: <span class="math display">\[
-\mathbf{R}^* = \mathbf{Q}^* \mathbf{D}^* {\mathbf{Q}^*}^\top,
-\]</span> gdzie <span class="math inline">\(\mathbf{Q}^*\)</span> i <span class="math inline">\(\mathbf{D}^*\)</span> są odpowiednio wektorami i wartościami własnymi macierzy <span class="math inline">\(\mathbf{R}^*\)</span>.</p>
-<p>Estymator ładunków czynnikowych w PAF ma więc postać <span class="math display">\[
-\hat{\Lambda} = \mathbf{Q}^*_m (\mathbf{D}^*_m)^{1/2},
-\]</span></p>
-<p>bazującą na zmodyfikowanej macierzy korelacji, w której uwzględniono oszacowane komunalności.</p>
-<p>Ponieważ <span class="math inline">\(\hat{h}_j^2\)</span> same zależą od ładunków (są ich sumą kwadratów), w praktyce stosuje się procedurę iteracyjną: zaczynamy od pewnych wartości początkowych, obliczamy dekompozycję spektralną, aktualizujemy komunalności i powtarzamy procedurę aż do zbieżności.</p>
 </section><section id="iteracyjna-poprawa-komunalności" class="level4"><h4 class="anchored" data-anchor-id="iteracyjna-poprawa-komunalności">Iteracyjna poprawa komunalności</h4>
 <p>Ponieważ początkowe komunalności są przybliżone, PAF stosuje procedurę iteracyjną:</p>
 <ol type="1">
@@ -706,7 +706,7 @@ h_j^2=\frac{r_{jj'}r_{jj''}}{r_{j'j''}}, \quad j\ne j' \ne j''
 </section><section id="własności-1" class="level4"><h4 class="anchored" data-anchor-id="własności-1">Własności</h4>
 <ul>
 <li>
-<strong>Dopasowanie do wariancji wspólnej</strong> – PAF minimalizuje różnice pomiędzy macierzą zredukowanych korelacji <span class="math inline">\(\mathbf{R}^*\)</span> a aproksymacją <span class="math inline">\(\Lambda \Lambda^\top\)</span>. Sskupia się na wariancji wspólnej.</li>
+<strong>Dopasowanie do wariancji wspólnej</strong> – PAF minimalizuje różnice pomiędzy macierzą zredukowanych korelacji <span class="math inline">\(\mathbf{R}^*\)</span> a aproksymacją <span class="math inline">\(\Lambda \Lambda^\top\)</span>. Skupia się na wariancji wspólnej.</li>
 <li>
 <strong>Iteracyjność oszacowań</strong> – estymatory w PAF powstają w procesie iteracyjnym, w którym kolejne przybliżenia komunalności są poprawiane na podstawie sumy kwadratów aktualnych ładunków czynnikowych. Dzięki temu metoda zbiega do rozwiązań lepiej oddających strukturę wspólną niż proste metody jednorazowe.</li>
 <li>
@@ -736,8 +736,7 @@ h_j^2=\frac{r_{jj'}r_{jj''}}{r_{j'j''}}, \quad j\ne j' \ne j''
 <section id="idea-metody" class="level4"><h4 class="anchored" data-anchor-id="idea-metody">Idea metody</h4>
 <p>W metodzie PCM zakładamy, że cała wariancja zmiennej jest wariancją wspólną, tzn. <span class="math display">\[
 h_j^2 = 1, \quad j=1,\ldots,p.
-\]</span></p>
-<p>Oznacza to, że macierz zredukowanych korelacji jest po prostu zwykłą macierzą korelacji <span class="math inline">\(\mathbf{R}\)</span>: <span class="math display">\[
+\]</span> W praktyce przyjęcie takiego założenia sprawia, że estymacja ładunków czynnikowych staje się równoznaczna z pobraniem wektorów własnych macierzy korelacji lub kowariancji, odpowiednio do liczby czynników. Oznacza to, że metoda <em>Principal Component Method</em> nie estymuje parametrów modelu czynnikowego w sensie statystycznym, lecz wykonuje dekompozycję macierzy korelacji i interpretuje jej wynik jako osadzenia czynnikowe. Oznacza to też, że macierz zredukowanych korelacji <span class="math inline">\(\mathbf{R}^*\)</span> jest po prostu zwykłą macierzą korelacji <span class="math inline">\(\mathbf{R}\)</span>: <span class="math display">\[
 \mathbf{R} = \Lambda \Lambda^\top + \Psi,
 \]</span> przy czym w PCM przyjmujemy <span class="math inline">\(\Psi = \mathbf{0}\)</span>.</p>
 <p>Następnie wykonujemy dekompozycję spektralną <span class="math display">\[
@@ -799,16 +798,20 @@ F(\Lambda) = | \mathbf{R} - (\Lambda \Lambda' + \Psi)|^2_{off},
 \]</span> gdzie <span class="math inline">\(|\cdot|_{off}\)</span> oznacza normę Frobeniusa liczona tylko na częściach pozadiagonalnych macierzy.</p>
 </section><section id="procedura-estymacyjna" class="level4"><h4 class="anchored" data-anchor-id="procedura-estymacyjna">Procedura estymacyjna</h4>
 <ol type="1">
-<li>Zaczynamy od przybliżonych wartości komunalności <span class="math inline">\(\hat{h}_j^2\)</span>, tak jak w PAF.</li>
-<li>Budujemy macierz reszt <span class="math display">\[
+<li><p>Zaczynamy od przybliżonych wartości komunalności <span class="math inline">\(\hat{h}_j^2\)</span>, tak jak w PAF.</p></li>
+<li><p>Budujemy macierz reszt <span class="math display">\[
 \mathbf{U} = \mathbf{R} - (\Lambda \Lambda^\top + \Psi).
-\]</span>
+\]</span></p></li>
+<li>
+<p>Szukamy takich ładunków <span class="math inline">\(\Lambda\)</span>, które minimalizują sumę kwadratów elementów <span class="math inline">\(\mathbf{U}\)</span> poza przekątną. Realizowane jest to w dwóch krokach:</p>
+<ul>
+<li>Pierwszy krok polega na ustaleniu bieżących komunalności jako sum kwadratów ładunków dla każdej zmiennej, co zapewnia zgodność z ograniczeniem modelu. Te komunalności wprowadza się następnie do macierzy korelacji w celu uzyskania nowej macierzy zredukowanej.</li>
+<li>Drugi element obejmuje rozwiązanie problemu wartości własnych tej macierzy, które prowadzi do nowej macierzy osadzeń. Taki krok aktualizuje ładunki w sposób zmniejszający reszty pozadiagonalne bez użycia pochodnych funkcji <span class="math inline">\(F\)</span>.</li>
+</ul>
+<p>W algorytmie MINRES nie wyznacza się gradientu funkcji <span class="math inline">\(F\)</span>, lecz wykorzystuje się fakt, że macierz reszt można zredukować, dopasowując kierunki własne macierzy korelacji zredukowanej do struktury reszt. Aktualizacja ładunków jest więc realizowana przez wybór tych wektorów własnych, które najlepiej redukują różnice poza przekątną. Po każdej aktualizacji ponownie oblicza się macierz odtworzoną, wyznacza macierz reszt i sprawdza, czy zmiany funkcji <span class="math inline">\(F\)</span> są wystarczająco małe.</p>
 </li>
-<li>Szukamy takich ładunków <span class="math inline">\(\Lambda\)</span>, które minimalizują sumę kwadratów elementów <span class="math inline">\(\mathbf{U}\)</span> poza przekątną.</li>
-<li>W praktyce problem redukuje się do iteracyjnego rozwiązywania układów równań własnych, bardzo podobnie jak w PAF, ale z innym warunkiem minimalizacji (PAF dopasowuje wartości własne macierzy zredukowanych korelacji, MINRES – reszty pozadiagonalne).</li>
-</ol></section><section id="związek-z-dekompozycją-spektralną" class="level4"><h4 class="anchored" data-anchor-id="związek-z-dekompozycją-spektralną">Związek z dekompozycją spektralną</h4>
-<p>W przeciwieństwie do PCM czy PAF, metoda MINRES <strong>nie ma bezpośredniego prostego rozwiązania w postaci pierwiastków z wartości własnych</strong>. Wymaga zastosowania iteracyjnych algorytmów numerycznych, które szukają <span class="math inline">\(\Lambda\)</span> minimalizującej <span class="math inline">\(F(\Lambda)\)</span>. Jednak podobnie jak w PAF, punktem startowym mogą być wektory własne macierzy zredukowanych korelacji. Następnie algorytm minimalizacji dopasowuje ładunki tak, by reszty pozadiagonalne były jak najmniejsze.</p>
-</section><section id="właściwości-i-ograniczenia" class="level4"><h4 class="anchored" data-anchor-id="właściwości-i-ograniczenia">Właściwości i ograniczenia</h4>
+<li><p>W praktyce problem redukuje się do iteracyjnego rozwiązywania układów równań własnych, bardzo podobnie jak w PAF, ale z innym warunkiem minimalizacji (PAF dopasowuje wartości własne macierzy zredukowanych korelacji, MINRES – reszty pozadiagonalne).</p></li>
+</ol></section><section id="właściwości-i-ograniczenia" class="level4"><h4 class="anchored" data-anchor-id="właściwości-i-ograniczenia">Właściwości i ograniczenia</h4>
 <ul>
 <li>
 <em>MINRES</em> skupia się tylko na korelacjach pomiędzy zmiennymi, ignorując elementy diagonalne – co sprawia, że estymacja jest mniej wrażliwa na problem ujemnych komunalności (tzw. <em>Heywood cases</em>).</li>
@@ -817,11 +820,16 @@ F(\Lambda) = | \mathbf{R} - (\Lambda \Lambda' + \Psi)|^2_{off},
 </ul></section></section><section id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls-jöreskog1972" class="level3"><h3 class="anchored" data-anchor-id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls-jöreskog1972">Metoda uogólnionych najmniejszych kwadratów (ang. <em>Generalized Least Squares, GLS</em>) <span class="citation" data-cites="jöreskog1972">(<a href="references.html#ref-j%C3%B6reskog1972" role="doc-biblioref">Jöreskog i Goldberger 1972</a>)</span>
 </h3>
 <section id="idea-metody-1" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-1">Idea metody</h4>
-<p>GLS, podobnie jak MINRES czy ML, polega na porównaniu macierzy obserwowanej <span class="math inline">\(\mathbf{S}\)</span> (kowariancji lub korelacji) z macierzą odtworzoną przez model czynnikowy <span class="math inline">\(\hat{\Sigma} = \Lambda \Lambda^\top + \Psi\)</span>. Różnica w stosunku do MINRES polega na tym, że w <strong>GLS ważymy reszty</strong>, czyli błędy odwzorowania poszczególnych elementów macierzy <span class="math inline">\(\mathbf{S}\)</span>.</p>
+<p>GLS, podobnie jak MINRES czy ML, polega na porównaniu macierzy obserwowanej <span class="math inline">\(\mathbf{S}\)</span> (kowariancji lub korelacji) z macierzą odtworzoną przez model czynnikowy <span class="math inline">\(\hat{\Sigma} = \Lambda \Lambda^\top + \Psi.\)</span> Różnica w stosunku do MINRES polega na tym, że w <strong>GLS ważymy reszty</strong>, czyli błędy odwzorowania poszczególnych elementów macierzy <span class="math inline">\(\mathbf{S}\)</span>.</p>
 <p>Formalnie kryterium minimalizacji ma postać <span class="math display">\[
 F_{\text{GLS}}(\Lambda, \Psi) = \mathrm{tr}\Big[ \big( S - \hat{\Sigma} \big) W \big( S - \hat{\Sigma} \big) W \Big],
 \]</span></p>
 <p>gdzie <span class="math inline">\(W\)</span> to <strong>macierz wag</strong>, zwykle przyjmowana jako odwrotność (lub pseudoodwrotność) wariancji estymatora elementów macierzy <span class="math inline">\(\mathbf{S}\)</span>.</p>
+<p>Estymacja metodą GLS przebiega poprzez iteracyjne aktualizowanie <span class="math inline">\(\Lambda\)</span> i <span class="math inline">\(\Psi\)</span>. W pierwszej kolejności przyjmuje się początkową postać <span class="math inline">\(\Psi\)</span> (np. oszacowaną z wariancji resztowych lub metodą <em>principal factor/axis</em>). Następnie przekształca się zmienne przy użyciu macierzy <span class="math inline">\(\Psi^{-1/2}\)</span> w celu uzyskania tzw. zmiennych zważonych. Dla tak przekształconych danych stosuje się klasyczną metodę estymacji, ponieważ przekształcenie usuwa heteroskedastyczność składników specyficznych. Przykładowo, po przeprowadzeniu transformacji <span class="math inline">\(Y = \Psi^{-1/2}X\)</span>, model przyjmuje postać</p>
+<p><span class="math display">\[
+Y = (\Psi^{-1/2}\Lambda)f+\Psi^{-1/2}\varepsilon,
+\]</span> gdzie składnik losowy ma kowariancję równą macierzy jednostkowej. Ładunki czynnikowe szacujemy więc przez zwykłą metodę najmniejszych kwadratów dla zmiennych <span class="math inline">\(Y\)</span>. Następnie uzyskane ładunki transformujemy z powrotem, otrzymując aktualizację <span class="math inline">\(\Lambda\)</span>. Po tej aktualizacji wyznaczamy nową <span class="math inline">\(\Psi\)</span> i powtarzamy procedurę aż do zbieżności.</p>
+<p>Metoda GLS pozwala włączać do analizy informację o strukturze wariancji specyficznych i ograniczać wpływ zmiennych o małej precyzji pomiaru. Takie podejście zapewnia lepszą stabilność estymacji i większą zgodność modelu z empiryczną strukturą kowariancji, zwłaszcza gdy zmienne charakteryzują się wyraźnie zróżnicowaną wariancją błędu.</p>
 <p>W przeciwieństwie do MINRES (gdzie wszystkie reszty traktowane są jednakowo), w GLS różne elementy macierzy kowariancji otrzymują różne wagi. Wagi te wynikają z asymptotycznych własności estymatora macierzy kowariancji i uwzględniają fakt, że elementy macierzy nie są niezależne i mają różne wariancje. Dzięki temu GLS jest bardziej efektywny statystycznie niż MINRES, ale jednocześnie mniej wymagający niż ML (który zakłada pełną normalność wielowymiarową).</p>
 </section><section id="własności-3" class="level4"><h4 class="anchored" data-anchor-id="własności-3">Własności</h4>
 <ul>
@@ -850,9 +858,9 @@ Adnotacja
 </section></section></section><section id="oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynników" class="level2"><h2 class="anchored" data-anchor-id="oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynników">Oceny dopasowania modelu i kryteria doboru liczby czynników</h2>
 <p>Ocena dopasowania modelu EFA opiera się na kilku uzupełniających się perspektywach: globalnym dopasowaniu implikowanej macierzy kowariancji do macierzy empirycznej, analizie reszt korelacyjnych, doborze liczby czynników, stabilności rozwiązania oraz jakości lokalnej (ładunki i zasoby zmienności wspólnej). Poniżej przedstawiam najważniejsze procedury wraz z ich interpretacją oraz typowymi pułapkami.</p>
 <section id="proporcja-wyjaśnionej-wariancji-przez-czynniki" class="level3"><h3 class="anchored" data-anchor-id="proporcja-wyjaśnionej-wariancji-przez-czynniki">Proporcja wyjaśnionej wariancji przez czynniki</h3>
-<p>Proporcja wariancji wyjaśnionej przez model czynnikowy, czyli stosunek sumy wariancji wspólnej do całkowitej wariancji wszystkich zmiennych, stanowi podstawową miarę jakości dopasowania. W przypadku standaryzowanych zmiennych całkowita wariancja wynosi <span class="math inline">\(p\)</span>, więc proporcja ta ma postać <span class="math display">\[
-\text{Proporcja wyjaśnionej wariancji} = \frac{\sum_{j=1}^p h_j^2}{p}.
-\]</span> Wyższe wartości (np. powyżej <span class="math inline">\(0,6\)</span>) wskazują na dobrą reprezentację zmiennych przez czynniki, natomiast niskie wartości (np. poniżej <span class="math inline">\(0,4\)</span>) sugerują, że model nie uchwytuje istotnej części struktury danych. Jednak sama proporcja nie uwzględnia liczby czynników ani złożoności modelu, dlatego powinna być interpretowana w kontekście innych wskaźników dopasowania.</p>
+<p>Proporcja wariancji wyjaśnionej przez model czynnikowy, czyli stosunek sumy wariancji wspólnej do całkowitej wariancji wszystkich zmiennych, stanowi podstawową miarę jakości dopasowania. W przypadku standaryzowanych zmiennych całkowita wariancja wynosi <span class="math inline">\(p\)</span>, więc proporcja wariancji wyjaśniona przez model składający się z <span class="math inline">\(m\)</span> czynników ma postać <span class="math display">\[
+\text{Proporcja wyjaśnionej wariancji} = \frac{\operatorname{tr}(\Lambda_m\Lambda_m^\top)}{\operatorname{tr}(S)}=\frac{\sum_{j=1}^p h_j^2}{p}.
+\]</span>Wyższe wartości (np. powyżej <span class="math inline">\(0,6\)</span>) wskazują na dobrą reprezentację zmiennych przez czynniki, natomiast niskie wartości (np. poniżej <span class="math inline">\(0,4\)</span>) sugerują, że model nie uchwytuje istotnej części struktury danych. Jednak sama proporcja nie uwzględnia liczby czynników ani złożoności modelu, dlatego powinna być interpretowana w kontekście innych wskaźników dopasowania.</p>
 </section><section id="test-chi-kwadrat" class="level3"><h3 class="anchored" data-anchor-id="test-chi-kwadrat">Test chi-kwadrat</h3>
 <p>W metodzie ML został przedstawiony test dopasowania oparty na <em>maximum likelihood</em>. Przy założeniu normalności wielowymiarowej i zidentyfikowanym modelu postaci <span class="math display">\[
 \Sigma=\Lambda\Lambda^\top + \Psi
@@ -862,7 +870,7 @@ Adnotacja
 \mathrm{RMSEA}=\sqrt{\max\left\{\frac{\chi^2-df}{df(n-1)},0\right\}},
 \]</span> a ocenę uzupełniamy o przedział ufności oparty na niecentralnym rozkładzie chi-kwadrat. Wartości rzędu <span class="math inline">\(0,05-0,08\)</span> tradycyjnie uznawane są za akceptowalne, traktując progi orientacyjnie: wzrost liczby zmiennych i stopni swobody sprzyja niższym RMSEA, natomiast małe próby destabilizują oszacowanie.</p>
 </section><section id="analiza-reszt" class="level3"><h3 class="anchored" data-anchor-id="analiza-reszt">Analiza reszt</h3>
-<p>Analiza reszt macierzy korelacji stanowi podstawową kontrolę lokalnego dopasowania, niezależnie od sposobu estymacji. Wyznaczamy reszty <span class="math inline">\(r_{ij}-\hat r_{ij}\)</span> i przeglądamy rozkład wartości bezwzględnych, a dokładnie odsetek przekraczających praktyczne progi (np. <span class="math inline">\(0,05\)</span>). Wskaźniki zbiorcze, takie jak <em>RMSR</em> (<em>root mean square residual</em>) oraz <em>SRMR</em> (<em>standardized RMSR</em>), agregują wielkość reszt poza diagonalą - mniejsze wartości świadczą o lepszym dopasowaniu. Mapa ciepła reszt ułatwia wykrywanie klastrów niedopasowania sugerujących brakujący czynnik lub zbyt małą liczbę czynników.</p>
+<p>Analiza reszt macierzy korelacji stanowi podstawową kontrolę lokalnego dopasowania, niezależnie od sposobu estymacji. Wyznaczamy reszty <span class="math inline">\(r_{ij}-\hat r_{ij}\)</span> i przeglądamy rozkład wartości bezwzględnych, a dokładnie odsetek przekraczających praktyczne progi (np. <span class="math inline">\(0,05\)</span> lub <span class="math inline">\(0,1\)</span>). Wskaźniki zbiorcze, takie jak <em>RMSR</em> (<em>root mean square residual</em>) oraz <em>SRMR</em> (<em>standardized RMSR</em>), agregują wielkość reszt poza diagonalą - mniejsze wartości świadczą o lepszym dopasowaniu. Mapa ciepła reszt ułatwia wykrywanie klastrów niedopasowania sugerujących brakujący czynnik lub zbyt małą liczbę czynników.</p>
 </section><section id="kryteria-informacyjne" class="level3"><h3 class="anchored" data-anchor-id="kryteria-informacyjne">Kryteria informacyjne</h3>
 <p>Kryteria informacyjne, takie jak <em>AIC</em> i <em>BIC</em>, służą do porównywania modeli o różnej liczbie czynników, karząc nadmierną złożoność. Definiujemy je przez logarytm funkcji wiarogodności i liczbę parametrów. <em>BIC</em> silniej faworyzuje prostsze modele przy dużych próbach. Bardzo ważne jest aby używać tych metod do porównywania modeli otrzymanych tą samą metodą.</p>
 </section><section id="inne-wskaźniki-dopasowania" class="level3"><h3 class="anchored" data-anchor-id="inne-wskaźniki-dopasowania">Inne wskaźniki dopasowania</h3>
@@ -943,7 +951,7 @@ F(\Lambda^*) = \sum_{i=1}^p \sum_{j=1}^m \left(\lambda_{ij}^{*2} - \gamma \frac{
 <li><p>Geomin <span class="citation" data-cites="everitt1989">(<a href="references.html#ref-everitt1989" role="doc-biblioref">Everitt i Yates 1989</a>)</span> - minimalizuje średnią geometryczną kwadratów ładunków, co prowadzi do sytuacji, w której każda zmienna ma niewiele istotnych ładunków. Funkcja celu <span class="math display">\[
 G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) \right)^{1/m},
 \]</span> gdzie <span class="math inline">\(\epsilon\)</span> to mały parametr stabilizujący.</p></li>
-<li><p>Simplimax <span class="citation" data-cites="kiers1994">(<a href="references.html#ref-kiers1994" role="doc-biblioref">Kiers 1994</a>)</span> - uogólnienie kryteriów prostoty, które minimalizuje liczbę dużych i małych ładunków w macierzy, pozwalając użytkownikowi sterować liczbą „prostych” elementów.</p></li>
+<li><p>Simplimax <span class="citation" data-cites="kiers1994">(<a href="references.html#ref-kiers1994" role="doc-biblioref">Kiers 1994</a>)</span> - uogólnienie kryteriów upraszczających jak <em>varimax</em> czy <em>quartimax</em>, które minimalizuje liczbę dużych i małych ładunków w macierzy, pozwalając użytkownikowi sterować liczbą „prostych” elementów.</p></li>
 </ul></section><section id="wybór-rodzaju-rotacji" class="level3"><h3 class="anchored" data-anchor-id="wybór-rodzaju-rotacji">Wybór rodzaju rotacji</h3>
 <ul>
 <li>Rotacje ortogonalne są preferowane, gdy zakładamy, że czynniki powinny być niezależne teoretycznie.</li>
@@ -1161,8 +1169,8 @@ Statistics by number of factors
 </div>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 69%">
+<col style="width: 32%">
+<col style="width: 67%">
 </colgroup>
 <thead><tr class="header">
 <th>Wskaźnik</th>
@@ -1311,28 +1319,70 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 <p>Czwarty czynnik (<code>ML4</code>) wydaje się związany z rozpoznawaniem wzrokowym i pamięcią wzrokową. Największe ładunki dotyczą zmiennych takich jak <code>WordRecognition</code> (0.55), <code>NumberRecognition</code> (0.52), <code>FigureRecognition</code> (0.53) czy <code>ObjectNumber</code> (0.57). Sugeruje to wymiar rozpoznawania i szybkiego identyfikowania bodźców wzrokowych.</p>
 <p>Łącznie cztery czynniki wyjaśniają 48% wariancji całkowitej, co w psychometrii jest uznawane za wartość akceptowalną przy tego typu danych. Dopasowanie globalne modelu również jest dobre: RMSEA = 0.038 (z przedziałem ufności 0.016–0.056) wskazuje na bardzo dobre dopasowanie, a Tucker-Lewis Index wynosi 0.951, co również świadczy o wysokiej jakości modelu. Niskie wartości RMSR (0.04) oraz wysoka zgodność dopasowania poza przekątną (0.98) potwierdzają, że model trafnie odwzorowuje strukturę korelacji między zmiennymi.</p>
 <p>Ostatecznie wyniki wskazują, że struktura czteroczynnikowa jest dobrze uzasadniona empirycznie i teoretycznie. Każdy czynnik odpowiada odmiennym zdolnościom poznawczym – werbalnym, numerycznym, przestrzennym i percepcyjno-pamięciowym – a ich interpretacje są zgodne z psychologicznymi ujęciami inteligencji wielowymiarowej.</p>
+<p>Poniżej została przedstawiona macierz wartości bezwzględnych reszt. Jak widać warunek <span class="math inline">\(|R-\hat{R}\)</span>|&lt;0.1$ jest spełniony dla prawie wszystkich reszt.</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># macierz reszt (R - R_hat)</span></span>
+<span><span class="va">res_mat</span> <span class="op">&lt;-</span> <span class="va">fa_model</span><span class="op">$</span><span class="va">residual</span></span>
+<span></span>
+<span><span class="co"># interesuje nas |R - R_hat|</span></span>
+<span><span class="va">res_abs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">res_mat</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># diagonalna nie jest informacyjna</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">res_abs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span></span>
+<span><span class="co"># ramka danych w formacie długim</span></span>
+<span><span class="va">res_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">res_abs</span><span class="op">)</span></span>
+<span><span class="va">res_df</span><span class="op">$</span><span class="va">var1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">res_df</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res_long</span> <span class="op">&lt;-</span> <span class="va">res_df</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    cols      <span class="op">=</span> <span class="op">-</span><span class="va">var1</span>,</span>
+<span>    names_to  <span class="op">=</span> <span class="st">"var2"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"resid"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># heatmap</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">res_long</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">var1</span>, y <span class="op">=</span> <span class="va">var2</span>, fill <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">resid</span><span class="op">)</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">resid</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"white"</span>, high <span class="op">=</span> <span class="st">"red"</span>, na.value <span class="op">=</span> <span class="st">"grey90"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">0</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span><span class="op">)</span>,</span>
+<span>    axis.title  <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu">latex2exp</span><span class="fu">::</span><span class="fu"><a href="https://www.stefanom.io/latex2exp/reference/TeX.html">TeX</a></span><span class="op">(</span><span class="st">"$|R - \\hat{R}|$"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="fa_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="fa_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1152"></a></p>
+</figure>
+</div>
+</div>
+</div>
 <p>Dla większej czytelności przedstawiamy ładunki czynnikowe po rotacji varimax w formie tabelarycznej, z wyciętymi ładunkami o niskich wartościach.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
-<div id="uwnyxwweqc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uwnyxwweqc table {
+<div id="zivcozolzk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zivcozolzk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uwnyxwweqc thead, #uwnyxwweqc tbody, #uwnyxwweqc tfoot, #uwnyxwweqc tr, #uwnyxwweqc td, #uwnyxwweqc th {
+#zivcozolzk thead, #zivcozolzk tbody, #zivcozolzk tfoot, #zivcozolzk tr, #zivcozolzk td, #zivcozolzk th {
   border-style: none;
 }
 
-#uwnyxwweqc p {
+#zivcozolzk p {
   margin: 0;
   padding: 0;
 }
 
-#uwnyxwweqc .gt_table {
+#zivcozolzk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1358,12 +1408,12 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-left-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_caption {
+#zivcozolzk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uwnyxwweqc .gt_title {
+#zivcozolzk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1375,7 +1425,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-width: 0;
 }
 
-#uwnyxwweqc .gt_subtitle {
+#zivcozolzk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1387,7 +1437,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-width: 0;
 }
 
-#uwnyxwweqc .gt_heading {
+#zivcozolzk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1399,13 +1449,13 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_bottom_border {
+#zivcozolzk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_col_headings {
+#zivcozolzk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1420,7 +1470,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_col_heading {
+#zivcozolzk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1440,7 +1490,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#uwnyxwweqc .gt_column_spanner_outer {
+#zivcozolzk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1452,15 +1502,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 4px;
 }
 
-#uwnyxwweqc .gt_column_spanner_outer:first-child {
+#zivcozolzk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uwnyxwweqc .gt_column_spanner_outer:last-child {
+#zivcozolzk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uwnyxwweqc .gt_column_spanner {
+#zivcozolzk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1472,11 +1522,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   width: 100%;
 }
 
-#uwnyxwweqc .gt_spanner_row {
+#zivcozolzk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uwnyxwweqc .gt_group_heading {
+#zivcozolzk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1502,7 +1552,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   text-align: left;
 }
 
-#uwnyxwweqc .gt_empty_group_heading {
+#zivcozolzk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1517,15 +1567,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: middle;
 }
 
-#uwnyxwweqc .gt_from_md > :first-child {
+#zivcozolzk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uwnyxwweqc .gt_from_md > :last-child {
+#zivcozolzk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uwnyxwweqc .gt_row {
+#zivcozolzk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1544,7 +1594,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#uwnyxwweqc .gt_stub {
+#zivcozolzk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1557,7 +1607,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#uwnyxwweqc .gt_stub_row_group {
+#zivcozolzk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1571,15 +1621,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: top;
 }
 
-#uwnyxwweqc .gt_row_group_first td {
+#zivcozolzk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uwnyxwweqc .gt_row_group_first th {
+#zivcozolzk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uwnyxwweqc .gt_summary_row {
+#zivcozolzk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1589,16 +1639,16 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#uwnyxwweqc .gt_first_summary_row {
+#zivcozolzk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_first_summary_row.thick {
+#zivcozolzk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uwnyxwweqc .gt_last_summary_row {
+#zivcozolzk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1608,7 +1658,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_grand_summary_row {
+#zivcozolzk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1618,7 +1668,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#uwnyxwweqc .gt_first_grand_summary_row {
+#zivcozolzk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1628,7 +1678,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_last_grand_summary_row_top {
+#zivcozolzk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1638,11 +1688,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_striped {
+#zivcozolzk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uwnyxwweqc .gt_table_body {
+#zivcozolzk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1651,7 +1701,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_footnotes {
+#zivcozolzk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1665,7 +1715,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_footnote {
+#zivcozolzk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1674,7 +1724,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#uwnyxwweqc .gt_sourcenotes {
+#zivcozolzk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1688,7 +1738,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#uwnyxwweqc .gt_sourcenote {
+#zivcozolzk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1696,72 +1746,72 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#uwnyxwweqc .gt_left {
+#zivcozolzk .gt_left {
   text-align: left;
 }
 
-#uwnyxwweqc .gt_center {
+#zivcozolzk .gt_center {
   text-align: center;
 }
 
-#uwnyxwweqc .gt_right {
+#zivcozolzk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uwnyxwweqc .gt_font_normal {
+#zivcozolzk .gt_font_normal {
   font-weight: normal;
 }
 
-#uwnyxwweqc .gt_font_bold {
+#zivcozolzk .gt_font_bold {
   font-weight: bold;
 }
 
-#uwnyxwweqc .gt_font_italic {
+#zivcozolzk .gt_font_italic {
   font-style: italic;
 }
 
-#uwnyxwweqc .gt_super {
+#zivcozolzk .gt_super {
   font-size: 65%;
 }
 
-#uwnyxwweqc .gt_footnote_marks {
+#zivcozolzk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uwnyxwweqc .gt_asterisk {
+#zivcozolzk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uwnyxwweqc .gt_indent_1 {
+#zivcozolzk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uwnyxwweqc .gt_indent_2 {
+#zivcozolzk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uwnyxwweqc .gt_indent_3 {
+#zivcozolzk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uwnyxwweqc .gt_indent_4 {
+#zivcozolzk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uwnyxwweqc .gt_indent_5 {
+#zivcozolzk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#uwnyxwweqc .katex-display {
+#zivcozolzk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#uwnyxwweqc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zivcozolzk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2007,38 +2057,38 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 </div>
 <p>Możemy też przedstawić model graficznie.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.diagram.html">fa.diagram</a></span><span class="op">(</span><span class="va">fa_model</span>, marg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, rsize <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.diagram.html">fa.diagram</a></span><span class="op">(</span><span class="va">fa_model</span>, marg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, rsize <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="fa_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="fa_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1152"></a></p>
+<figure class="figure"><p><a href="fa_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="fa_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="1152"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Można spróbować estymować model z pięcioma czynnikami, co odpowiadałoby pierwotnemu rozpoznaniu obszarów.</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fa_model_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.html">fa</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, nfactors <span class="op">=</span> <span class="fl">5</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, </span>
+<details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fa_model_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.html">fa</a></span><span class="op">(</span><span class="va">Harman74.cor</span><span class="op">$</span><span class="va">cov</span>, nfactors <span class="op">=</span> <span class="fl">5</span>, n.obs <span class="op">=</span> <span class="fl">145</span>, </span>
 <span>                 fm <span class="op">=</span> <span class="st">"ml"</span>, rotate <span class="op">=</span> <span class="st">"varimax"</span><span class="op">)</span></span>
 <span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model_5</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
-<div id="fajnhuckrr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fajnhuckrr table {
+<div id="mnpglqqnyn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mnpglqqnyn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fajnhuckrr thead, #fajnhuckrr tbody, #fajnhuckrr tfoot, #fajnhuckrr tr, #fajnhuckrr td, #fajnhuckrr th {
+#mnpglqqnyn thead, #mnpglqqnyn tbody, #mnpglqqnyn tfoot, #mnpglqqnyn tr, #mnpglqqnyn td, #mnpglqqnyn th {
   border-style: none;
 }
 
-#fajnhuckrr p {
+#mnpglqqnyn p {
   margin: 0;
   padding: 0;
 }
 
-#fajnhuckrr .gt_table {
+#mnpglqqnyn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2064,12 +2114,12 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-left-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_caption {
+#mnpglqqnyn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fajnhuckrr .gt_title {
+#mnpglqqnyn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2081,7 +2131,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-width: 0;
 }
 
-#fajnhuckrr .gt_subtitle {
+#mnpglqqnyn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2093,7 +2143,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-width: 0;
 }
 
-#fajnhuckrr .gt_heading {
+#mnpglqqnyn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2105,13 +2155,13 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_bottom_border {
+#mnpglqqnyn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_col_headings {
+#mnpglqqnyn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2126,7 +2176,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_col_heading {
+#mnpglqqnyn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2146,7 +2196,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#fajnhuckrr .gt_column_spanner_outer {
+#mnpglqqnyn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2158,15 +2208,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 4px;
 }
 
-#fajnhuckrr .gt_column_spanner_outer:first-child {
+#mnpglqqnyn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fajnhuckrr .gt_column_spanner_outer:last-child {
+#mnpglqqnyn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fajnhuckrr .gt_column_spanner {
+#mnpglqqnyn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2178,11 +2228,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   width: 100%;
 }
 
-#fajnhuckrr .gt_spanner_row {
+#mnpglqqnyn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fajnhuckrr .gt_group_heading {
+#mnpglqqnyn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2208,7 +2258,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   text-align: left;
 }
 
-#fajnhuckrr .gt_empty_group_heading {
+#mnpglqqnyn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2223,15 +2273,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: middle;
 }
 
-#fajnhuckrr .gt_from_md > :first-child {
+#mnpglqqnyn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fajnhuckrr .gt_from_md > :last-child {
+#mnpglqqnyn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fajnhuckrr .gt_row {
+#mnpglqqnyn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2250,7 +2300,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#fajnhuckrr .gt_stub {
+#mnpglqqnyn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2263,7 +2313,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fajnhuckrr .gt_stub_row_group {
+#mnpglqqnyn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2277,15 +2327,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: top;
 }
 
-#fajnhuckrr .gt_row_group_first td {
+#mnpglqqnyn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fajnhuckrr .gt_row_group_first th {
+#mnpglqqnyn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fajnhuckrr .gt_summary_row {
+#mnpglqqnyn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2295,16 +2345,16 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fajnhuckrr .gt_first_summary_row {
+#mnpglqqnyn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_first_summary_row.thick {
+#mnpglqqnyn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fajnhuckrr .gt_last_summary_row {
+#mnpglqqnyn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2314,7 +2364,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_grand_summary_row {
+#mnpglqqnyn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2324,7 +2374,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fajnhuckrr .gt_first_grand_summary_row {
+#mnpglqqnyn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2334,7 +2384,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_last_grand_summary_row_top {
+#mnpglqqnyn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2344,11 +2394,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_striped {
+#mnpglqqnyn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fajnhuckrr .gt_table_body {
+#mnpglqqnyn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2357,7 +2407,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_footnotes {
+#mnpglqqnyn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2371,7 +2421,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_footnote {
+#mnpglqqnyn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2380,7 +2430,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fajnhuckrr .gt_sourcenotes {
+#mnpglqqnyn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2394,7 +2444,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#fajnhuckrr .gt_sourcenote {
+#mnpglqqnyn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2402,72 +2452,72 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#fajnhuckrr .gt_left {
+#mnpglqqnyn .gt_left {
   text-align: left;
 }
 
-#fajnhuckrr .gt_center {
+#mnpglqqnyn .gt_center {
   text-align: center;
 }
 
-#fajnhuckrr .gt_right {
+#mnpglqqnyn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fajnhuckrr .gt_font_normal {
+#mnpglqqnyn .gt_font_normal {
   font-weight: normal;
 }
 
-#fajnhuckrr .gt_font_bold {
+#mnpglqqnyn .gt_font_bold {
   font-weight: bold;
 }
 
-#fajnhuckrr .gt_font_italic {
+#mnpglqqnyn .gt_font_italic {
   font-style: italic;
 }
 
-#fajnhuckrr .gt_super {
+#mnpglqqnyn .gt_super {
   font-size: 65%;
 }
 
-#fajnhuckrr .gt_footnote_marks {
+#mnpglqqnyn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fajnhuckrr .gt_asterisk {
+#mnpglqqnyn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fajnhuckrr .gt_indent_1 {
+#mnpglqqnyn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fajnhuckrr .gt_indent_2 {
+#mnpglqqnyn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fajnhuckrr .gt_indent_3 {
+#mnpglqqnyn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fajnhuckrr .gt_indent_4 {
+#mnpglqqnyn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fajnhuckrr .gt_indent_5 {
+#mnpglqqnyn .gt_indent_5 {
   text-indent: 25px;
 }
 
-#fajnhuckrr .katex-display {
+#mnpglqqnyn .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#fajnhuckrr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mnpglqqnyn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

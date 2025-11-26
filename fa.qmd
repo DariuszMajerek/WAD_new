@@ -324,7 +324,29 @@ $$
 
 [^fa-2]: wybór liczby czynników zostanie przedstawiony nieco później
 
-[^fa-3]: spsoby ewstępnej estymacji zostaną omówione w dalszej części
+[^fa-3]: W metodzie największej wiarygodności estymacja macierzy ładunków
+    czynnikowych $\Lambda$ oraz macierzy wariancji specyficznych $\Psi$ jest
+    procedurą iteracyjną i wymaga ustalenia wartości startowych. W praktyce
+    wartości te nie wynikają z jednej ścisłej reguły, lecz z podejścia
+    zapewniającego stabilność i szybkie zbieganie algorytmu. W typowych
+    implementacjach w R (np. w `stats::factanal` lub `psych::fa` z metodą ml)
+    stosuje się kilka sprawdzonych metod inicjalizacji. Wartości początkowe
+    macierzy $\Lambda$ ustala się najczęściej poprzez wykorzystanie wyników
+    analizy głównych składowych. Ustalenie polega na wyznaczeniu wartości
+    własnych i wektorów własnych macierzy korelacji, a następnie pobraniu
+    pierwszych $m$ kolumn tej macierzy wektorów własnych jako punktu
+    startowego. Zastosowanie PCA jako inicjalizacji wynika z tego, że wektory
+    własne dobrze odzwierciedlają dominujące kierunki wariancji, co pozwala
+    rozpocząć optymalizację w okolicy sensownego rozwiązania. Wartości
+    początkowe macierzy $\Psi$ wyznacza się poprzez oszacowanie wariancji
+    niewyjaśnionej przez czynniki wstępne. Standardowym zabiegiem jest
+    przypisanie $\Psi$ jako macierzy diagonalnej, w której diagonalne elementy
+    równe są różnicom pomiędzy jednością a komunalnościami wynikającymi z
+    inicjalnych ładunków z PCA. Oznacza to, że jeżeli zmienna ma początkową
+    komunalność równą $c$, to jej wariancja specyficzna w punkcie startowym
+    wynosi $1 – c$. W niektórych implementacjach ustala się $\Psi$ jako macierz
+    jednostkową, co jest rozwiązaniem neutralnym, jednak prowadzi zwykle do
+    wolniejszej zbieżności.
 
 #### Własności
 
@@ -389,6 +411,34 @@ diagonali pozostaje tylko ta część wariancji zmiennej, którą model czynniko
 ma szansę wyjaśnić. Dzięki temu macierz ta może być przybliżana przez strukturę
 $\Lambda \Lambda^\top$, co odpowiada wspólnej wariancji wszystkich zmiennych.
 
+#### Rozkład na wartości własne
+
+W metodzie PAF zakładamy, że tylko część wariancji każdej zmiennej jest
+wspólna. Oznacza to, że zamiast pełnej macierzy korelacji $\mathbf{R}$,
+rozważamy macierz zredukowanych korelacji: $$
+\mathbf{R}^* = \mathbf{R} - \Psi,
+$$ gdzie na diagonali znajdują się oszacowane zasoby zmienności wspólnej
+$\hat{h}_j^2$, zamiast jedynek.
+
+Następnie wykonujemy dekompozycję spektralną tej macierzy: $$
+\mathbf{R}^* = \mathbf{Q}^* \mathbf{D}^* {\mathbf{Q}^*}^\top,
+$$ gdzie $\mathbf{Q}^*$ i $\mathbf{D}^*$ są odpowiednio wektorami i wartościami
+własnymi macierzy $\mathbf{R}^*$.
+
+Estymator ładunków czynnikowych w PAF ma więc postać $$
+\hat{\Lambda} = \mathbf{Q}^*_m (\mathbf{D}^*_m)^{1/2},
+$$
+
+bazującą na zmodyfikowanej macierzy korelacji, w której uwzględniono oszacowane
+komunalności, przy czym $\mathbf{Q}^*_m$ i $\mathbf{D}^*_m$ oznaczają
+zredukowane macierze $\mathbf{Q}$ i $\mathbf{D}$ do pierwszych $m$ kolumn
+odpowiadających pierwszym $m$ czynnikom.
+
+Ponieważ $\hat{h}_j^2$ same zależą od ładunków (są ich sumą kwadratów), w
+praktyce stosuje się procedurę iteracyjną: zaczynamy od pewnych wartości
+początkowych, obliczamy dekompozycję spektralną, aktualizujemy komunalności i
+powtarzamy procedurę aż do zbieżności.
+
 ::: callout-note
 ## Wstępne oszacowania zasobów zmienności wspólnej
 
@@ -418,32 +468,6 @@ najczęściej stosowanych metod należą:
     korelacji $j$-tej zmiennej z innymi zmiennymi.
 :::
 
-#### Rozkład na wartości własne
-
-W metodzie PAF zakładamy, że tylko część wariancji każdej zmiennej jest
-wspólna. Oznacza to, że zamiast pełnej macierzy korelacji $\mathbf{R}$,
-rozważamy macierz zredukowanych korelacji: $$
-\mathbf{R}^* = \mathbf{R} - \Psi,
-$$ gdzie na diagonali znajdują się oszacowane zasoby zmienności wspólnej
-$\hat{h}_j^2$, zamiast jedynek.
-
-Następnie wykonujemy dekompozycję spektralną tej macierzy: $$
-\mathbf{R}^* = \mathbf{Q}^* \mathbf{D}^* {\mathbf{Q}^*}^\top,
-$$ gdzie $\mathbf{Q}^*$ i $\mathbf{D}^*$ są odpowiednio wektorami i wartościami
-własnymi macierzy $\mathbf{R}^*$.
-
-Estymator ładunków czynnikowych w PAF ma więc postać $$
-\hat{\Lambda} = \mathbf{Q}^*_m (\mathbf{D}^*_m)^{1/2},
-$$
-
-bazującą na zmodyfikowanej macierzy korelacji, w której uwzględniono oszacowane
-komunalności.
-
-Ponieważ $\hat{h}_j^2$ same zależą od ładunków (są ich sumą kwadratów), w
-praktyce stosuje się procedurę iteracyjną: zaczynamy od pewnych wartości
-początkowych, obliczamy dekompozycję spektralną, aktualizujemy komunalności i
-powtarzamy procedurę aż do zbieżności.
-
 #### Iteracyjna poprawa komunalności
 
 Ponieważ początkowe komunalności są przybliżone, PAF stosuje procedurę
@@ -462,7 +486,7 @@ i zasobów zmienności wspólnej.
 
 -   **Dopasowanie do wariancji wspólnej** – PAF minimalizuje różnice pomiędzy
     macierzą zredukowanych korelacji $\mathbf{R}^*$ a aproksymacją
-    $\Lambda \Lambda^\top$. Sskupia się na wariancji wspólnej.
+    $\Lambda \Lambda^\top$. Skupia się na wariancji wspólnej.
 -   **Iteracyjność oszacowań** – estymatory w PAF powstają w procesie
     iteracyjnym, w którym kolejne przybliżenia komunalności są poprawiane na
     podstawie sumy kwadratów aktualnych ładunków czynnikowych. Dzięki temu
@@ -517,10 +541,14 @@ odtworzyć część wspólną wariancji.
 W metodzie PCM zakładamy, że cała wariancja zmiennej jest wariancją wspólną,
 tzn. $$
 h_j^2 = 1, \quad j=1,\ldots,p.
-$$
-
-Oznacza to, że macierz zredukowanych korelacji jest po prostu zwykłą macierzą
-korelacji $\mathbf{R}$: $$
+$$ W praktyce przyjęcie takiego założenia sprawia, że estymacja ładunków
+czynnikowych staje się równoznaczna z pobraniem wektorów własnych macierzy
+korelacji lub kowariancji, odpowiednio do liczby czynników. Oznacza to, że
+metoda *Principal Component Method* nie estymuje parametrów modelu czynnikowego
+w sensie statystycznym, lecz wykonuje dekompozycję macierzy korelacji i
+interpretuje jej wynik jako osadzenia czynnikowe. Oznacza to też, że macierz
+zredukowanych korelacji $\mathbf{R}^*$ jest po prostu zwykłą macierzą korelacji
+$\mathbf{R}$: $$
 \mathbf{R} = \Lambda \Lambda^\top + \Psi,
 $$ przy czym w PCM przyjmujemy $\Psi = \mathbf{0}$.
 
@@ -610,25 +638,35 @@ pozadiagonalnych macierzy.
 
 1.  Zaczynamy od przybliżonych wartości komunalności $\hat{h}_j^2$, tak jak w
     PAF.
+
 2.  Budujemy macierz reszt $$
     \mathbf{U} = \mathbf{R} - (\Lambda \Lambda^\top + \Psi).
     $$
+
 3.  Szukamy takich ładunków $\Lambda$, które minimalizują sumę kwadratów
-    elementów $\mathbf{U}$ poza przekątną.
+    elementów $\mathbf{U}$ poza przekątną. Realizowane jest to w dwóch krokach:
+
+    -   Pierwszy krok polega na ustaleniu bieżących komunalności jako sum
+        kwadratów ładunków dla każdej zmiennej, co zapewnia zgodność z
+        ograniczeniem modelu. Te komunalności wprowadza się następnie do
+        macierzy korelacji w celu uzyskania nowej macierzy zredukowanej.
+    -   Drugi element obejmuje rozwiązanie problemu wartości własnych tej
+        macierzy, które prowadzi do nowej macierzy osadzeń. Taki krok
+        aktualizuje ładunki w sposób zmniejszający reszty pozadiagonalne bez
+        użycia pochodnych funkcji $F$.
+
+    W algorytmie MINRES nie wyznacza się gradientu funkcji $F$, lecz
+    wykorzystuje się fakt, że macierz reszt można zredukować, dopasowując
+    kierunki własne macierzy korelacji zredukowanej do struktury reszt.
+    Aktualizacja ładunków jest więc realizowana przez wybór tych wektorów
+    własnych, które najlepiej redukują różnice poza przekątną. Po każdej
+    aktualizacji ponownie oblicza się macierz odtworzoną, wyznacza macierz
+    reszt i sprawdza, czy zmiany funkcji $F$ są wystarczająco małe.
+
 4.  W praktyce problem redukuje się do iteracyjnego rozwiązywania układów
     równań własnych, bardzo podobnie jak w PAF, ale z innym warunkiem
     minimalizacji (PAF dopasowuje wartości własne macierzy zredukowanych
     korelacji, MINRES – reszty pozadiagonalne).
-
-#### Związek z dekompozycją spektralną
-
-W przeciwieństwie do PCM czy PAF, metoda MINRES **nie ma bezpośredniego
-prostego rozwiązania w postaci pierwiastków z wartości własnych**. Wymaga
-zastosowania iteracyjnych algorytmów numerycznych, które szukają $\Lambda$
-minimalizującej $F(\Lambda)$. Jednak podobnie jak w PAF, punktem startowym mogą
-być wektory własne macierzy zredukowanych korelacji. Następnie algorytm
-minimalizacji dopasowuje ładunki tak, by reszty pozadiagonalne były jak
-najmniejsze.
 
 #### Właściwości i ograniczenia
 
@@ -647,7 +685,7 @@ najmniejsze.
 
 GLS, podobnie jak MINRES czy ML, polega na porównaniu macierzy obserwowanej
 $\mathbf{S}$ (kowariancji lub korelacji) z macierzą odtworzoną przez model
-czynnikowy $\hat{\Sigma} = \Lambda \Lambda^\top + \Psi$. Różnica w stosunku do
+czynnikowy $\hat{\Sigma} = \Lambda \Lambda^\top + \Psi.$ Różnica w stosunku do
 MINRES polega na tym, że w **GLS ważymy reszty**, czyli błędy odwzorowania
 poszczególnych elementów macierzy $\mathbf{S}$.
 
@@ -657,6 +695,30 @@ $$
 
 gdzie $W$ to **macierz wag**, zwykle przyjmowana jako odwrotność (lub
 pseudoodwrotność) wariancji estymatora elementów macierzy $\mathbf{S}$.
+
+Estymacja metodą GLS przebiega poprzez iteracyjne aktualizowanie $\Lambda$ i
+$\Psi$. W pierwszej kolejności przyjmuje się początkową postać $\Psi$ (np.
+oszacowaną z wariancji resztowych lub metodą *principal factor/axis*).
+Następnie przekształca się zmienne przy użyciu macierzy $\Psi^{-1/2}$ w celu
+uzyskania tzw. zmiennych zważonych. Dla tak przekształconych danych stosuje się
+klasyczną metodę estymacji, ponieważ przekształcenie usuwa heteroskedastyczność
+składników specyficznych. Przykładowo, po przeprowadzeniu transformacji
+$Y = \Psi^{-1/2}X$, model przyjmuje postać
+
+$$
+Y = (\Psi^{-1/2}\Lambda)f+\Psi^{-1/2}\varepsilon,
+$$
+gdzie składnik losowy ma kowariancję równą macierzy jednostkowej. Ładunki
+czynnikowe szacujemy więc przez zwykłą metodę najmniejszych kwadratów dla
+zmiennych $Y$. Następnie uzyskane ładunki transformujemy z powrotem, otrzymując
+aktualizację $\Lambda$. Po tej aktualizacji wyznaczamy nową $\Psi$ i powtarzamy
+procedurę aż do zbieżności.
+
+Metoda GLS pozwala włączać do analizy informację o strukturze wariancji
+specyficznych i ograniczać wpływ zmiennych o małej precyzji pomiaru. Takie
+podejście zapewnia lepszą stabilność estymacji i większą zgodność modelu z
+empiryczną strukturą kowariancji, zwłaszcza gdy zmienne charakteryzują się
+wyraźnie zróżnicowaną wariancją błędu.
 
 W przeciwieństwie do MINRES (gdzie wszystkie reszty traktowane są jednakowo), w
 GLS różne elementy macierzy kowariancji otrzymują różne wagi. Wagi te wynikają
@@ -704,13 +766,14 @@ interpretacją oraz typowymi pułapkami.
 Proporcja wariancji wyjaśnionej przez model czynnikowy, czyli stosunek sumy
 wariancji wspólnej do całkowitej wariancji wszystkich zmiennych, stanowi
 podstawową miarę jakości dopasowania. W przypadku standaryzowanych zmiennych
-całkowita wariancja wynosi $p$, więc proporcja ta ma postać $$
-\text{Proporcja wyjaśnionej wariancji} = \frac{\sum_{j=1}^p h_j^2}{p}.
-$$ Wyższe wartości (np. powyżej $0,6$) wskazują na dobrą reprezentację
-zmiennych przez czynniki, natomiast niskie wartości (np. poniżej $0,4$)
-sugerują, że model nie uchwytuje istotnej części struktury danych. Jednak sama
-proporcja nie uwzględnia liczby czynników ani złożoności modelu, dlatego
-powinna być interpretowana w kontekście innych wskaźników dopasowania.
+całkowita wariancja wynosi $p$, więc proporcja wariancji wyjaśniona przez model
+składający się z $m$ czynników ma postać $$
+\text{Proporcja wyjaśnionej wariancji} = \frac{\operatorname{tr}(\Lambda_m\Lambda_m^\top)}{\operatorname{tr}(S)}=\frac{\sum_{j=1}^p h_j^2}{p}.
+$$Wyższe wartości (np. powyżej $0,6$) wskazują na dobrą reprezentację zmiennych
+przez czynniki, natomiast niskie wartości (np. poniżej $0,4$) sugerują, że
+model nie uchwytuje istotnej części struktury danych. Jednak sama proporcja nie
+uwzględnia liczby czynników ani złożoności modelu, dlatego powinna być
+interpretowana w kontekście innych wskaźników dopasowania.
 
 ### Test chi-kwadrat
 
@@ -740,11 +803,12 @@ swobody sprzyja niższym RMSEA, natomiast małe próby destabilizują oszacowani
 Analiza reszt macierzy korelacji stanowi podstawową kontrolę lokalnego
 dopasowania, niezależnie od sposobu estymacji. Wyznaczamy reszty
 $r_{ij}-\hat r_{ij}$ i przeglądamy rozkład wartości bezwzględnych, a dokładnie
-odsetek przekraczających praktyczne progi (np. $0,05$). Wskaźniki zbiorcze,
-takie jak *RMSR* (*root mean square residual*) oraz *SRMR* (*standardized
-RMSR*), agregują wielkość reszt poza diagonalą - mniejsze wartości świadczą o
-lepszym dopasowaniu. Mapa ciepła reszt ułatwia wykrywanie klastrów
-niedopasowania sugerujących brakujący czynnik lub zbyt małą liczbę czynników.
+odsetek przekraczających praktyczne progi (np. $0,05$ lub $0,1$). Wskaźniki
+zbiorcze, takie jak *RMSR* (*root mean square residual*) oraz *SRMR*
+(*standardized RMSR*), agregują wielkość reszt poza diagonalą - mniejsze
+wartości świadczą o lepszym dopasowaniu. Mapa ciepła reszt ułatwia wykrywanie
+klastrów niedopasowania sugerujących brakujący czynnik lub zbyt małą liczbę
+czynników.
 
 ### Kryteria informacyjne
 
@@ -939,9 +1003,10 @@ Podstawowe rodzaje:
     G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) \right)^{1/m},
     $$ gdzie $\epsilon$ to mały parametr stabilizujący.
 
--   Simplimax [@kiers1994] - uogólnienie kryteriów prostoty, które minimalizuje
-    liczbę dużych i małych ładunków w macierzy, pozwalając użytkownikowi
-    sterować liczbą „prostych” elementów.
+-   Simplimax [@kiers1994] - uogólnienie kryteriów upraszczających jak
+    *varimax* czy *quartimax*, które minimalizuje liczbę dużych i małych
+    ładunków w macierzy, pozwalając użytkownikowi sterować liczbą „prostych”
+    elementów.
 
 ### Wybór rodzaju rotacji
 
@@ -1047,7 +1112,7 @@ VSS(Harman74.cor$cov, n.obs = 145, plot = F)
 ```
 
 | Wskaźnik | Interpretacja |
-|------------------------|-------------------------------------------------------|
+|--------------------------|-----------------------------------------------------|
 | **vss1** | Dopasowanie Very Simple Structure przy założeniu jednego czynnika na zmienną; wyższe = lepsze. |
 | **vss2** | Dopasowanie VSS przy założeniu maksymalnie dwóch czynników na zmienną; wyższe = lepsze. |
 | **map** | Kryterium Velicera; minimum wskazuje optymalną liczbę czynników (eliminuje korelacje cząstkowe). |
@@ -1135,6 +1200,47 @@ uzasadniona empirycznie i teoretycznie. Każdy czynnik odpowiada odmiennym
 zdolnościom poznawczym – werbalnym, numerycznym, przestrzennym i
 percepcyjno-pamięciowym – a ich interpretacje są zgodne z psychologicznymi
 ujęciami inteligencji wielowymiarowej.
+
+Poniżej została przedstawiona macierz wartości bezwzględnych reszt. Jak widać
+warunek $|R-\hat{R}$|<0.1$ jest spełniony dla prawie wszystkich reszt.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 10
+# macierz reszt (R - R_hat)
+res_mat <- fa_model$residual
+
+# interesuje nas |R - R_hat|
+res_abs <- abs(res_mat)
+
+# diagonalna nie jest informacyjna
+diag(res_abs) <- NA
+
+# ramka danych w formacie długim
+res_df <- as.data.frame(res_abs)
+res_df$var1 <- rownames(res_df)
+
+res_long <- res_df |>
+  pivot_longer(
+    cols      = -var1,
+    names_to  = "var2",
+    values_to = "resid"
+  )
+
+# heatmap
+ggplot(res_long, aes(x = var1, y = var2, fill = resid)) +
+  geom_tile() +
+  geom_text(aes(label = ifelse(is.na(resid), "", round(resid, 2))), size = 3)+
+  scale_fill_gradient(low = "white", high = "red", na.value = "grey90") +
+  coord_equal() +
+  scale_x_discrete(position = "bottom") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 0, vjust = -0.1),
+    axis.title  = element_blank()
+  ) +
+  labs(fill = latex2exp::TeX("$|R - \\hat{R}|$"))
+```
 
 Dla większej czytelności przedstawiamy ładunki czynnikowe po rotacji varimax w
 formie tabelarycznej, z wyciętymi ładunkami o niskich wartościach.
