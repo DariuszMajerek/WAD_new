@@ -707,8 +707,7 @@ $Y = \Psi^{-1/2}X$, model przyjmuje postać
 
 $$
 Y = (\Psi^{-1/2}\Lambda)f+\Psi^{-1/2}\varepsilon,
-$$
-gdzie składnik losowy ma kowariancję równą macierzy jednostkowej. Ładunki
+$$ gdzie składnik losowy ma kowariancję równą macierzy jednostkowej. Ładunki
 czynnikowe szacujemy więc przez zwykłą metodę najmniejszych kwadratów dla
 zmiennych $Y$. Następnie uzyskane ładunki transformujemy z powrotem, otrzymując
 aktualizację $\Lambda$. Po tej aktualizacji wyznaczamy nową $\Psi$ i powtarzamy
@@ -1112,7 +1111,7 @@ VSS(Harman74.cor$cov, n.obs = 145, plot = F)
 ```
 
 | Wskaźnik | Interpretacja |
-|--------------------------|-----------------------------------------------------|
+|--------------------------|----------------------------------------------------|
 | **vss1** | Dopasowanie Very Simple Structure przy założeniu jednego czynnika na zmienną; wyższe = lepsze. |
 | **vss2** | Dopasowanie VSS przy założeniu maksymalnie dwóch czynników na zmienną; wyższe = lepsze. |
 | **map** | Kryterium Velicera; minimum wskazuje optymalną liczbę czynników (eliminuje korelacje cząstkowe). |
@@ -1202,7 +1201,7 @@ percepcyjno-pamięciowym – a ich interpretacje są zgodne z psychologicznymi
 ujęciami inteligencji wielowymiarowej.
 
 Poniżej została przedstawiona macierz wartości bezwzględnych reszt. Jak widać
-warunek $|R-\hat{R}$|<0.1$ jest spełniony dla prawie wszystkich reszt.
+warunek $|R-\hat{R}$\|\<0.1\$ jest spełniony dla prawie wszystkich reszt.
 
 ```{r}
 #| fig-width: 12

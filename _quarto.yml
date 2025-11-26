@@ -32,6 +32,7 @@ book:
     - pca.qmd
     - cluster.qmd
     - correspondence.qmd
+    - log_linear.qmd
     - references.qmd
 
 bibliography: references.bib

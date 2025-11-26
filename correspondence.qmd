@@ -8,6 +8,220 @@ editor_options:
 
 # Analiza korespondencji
 
+## Miary związków między zmiennymi jakościowymi
+
+W analizie zależności między zmiennymi jakościowymi stosuje się zestaw
+wyspecjalizowanych miar, które różnią się w zależności od poziomu pomiaru. W
+przypadku zmiennych nominalnych wykorzystuje się miary oparte na tabelach
+kontyngencji i odchyleniu od niezależności. Dla zmiennych porządkowych
+uwzględnia się dodatkowo informację o uporządkowaniu kategorii. Poniżej
+przedstawiono katalog najczęściej stosowanych miar wraz z ich definicjami,
+sposobem obliczania, zakresem wartości oraz interpretacją.
+
+### Miary dla zmiennych nominalnych
+
+#### V Craméra
+
+Miara symetryczna oparta na statystyce chi-kwadrat.
+$$
+V = \sqrt{\frac{\chi^{2}}{n(k-1)}},
+$$ 
+gdzie $n$ oznacza liczność próby, a $k$ mniejszą z liczby kategorii obu
+zmiennych. Zakres wartości to \[0, 1\]. Wartość 0 oznacza brak związku,
+wartości bliskie 1 sygnalizują silny związek, ale nie określają kierunku.
+
+#### Współczynnik kontyngencji Pearsona
+
+Opiera się na tej samej statystyce co V Craméra. 
+$$
+C = \sqrt{ \frac{\chi^{2}}{\chi^{2} + n} }.
+$$ 
+Zakres wartości to $[0, C_{\max}]$, gdzie $C_{\max}<1$ i zależy od liczby
+kategorii. Wartość 0 oznacza niezależność, wyższe wartości sugerują silniejszy
+związek, lecz brak standaryzacji utrudnia porównania.
+
+#### Współczynnik Tschuprowa T
+
+Miara symetryczna, pośrednia między Cramérem a współczynnikiem kontyngencji. 
+$$
+T = \sqrt{ \frac{\chi^{2}}{n\sqrt{(r-1)(c-1)}} },
+$$ 
+gdzie $r$ i $c$ to liczby kategorii obu zmiennych. Zakres wartości to [0,
+1]. Interpretacja analogiczna do V Craméra.
+
+#### Współczynnik Phi
+
+Używany dla tabel 2×2. W przypadku większych tabel traci interpretowalność. 
+$$
+\phi = \sqrt{\frac{\chi^{2}}{n}}.
+$$ 
+Zakres wartości to [0, 1] w tabeli 2×2. 0 oznacza brak związku, 1 związek
+doskonały. Przy większych tabelach traci interpretowalność.
+
+### Miary dla zmiennych porządkowych
+
+Dla zmiennych porządkowych wykorzystuje się informację o uporządkowaniu
+kategorii. Miary te opisują monotoniczne zależności pomiędzy rangami.
+
+#### $\tau_a$ Kendalla
+
+Miara oparta na liczbie par zgodnych i niezgodnych. 
+$$
+\tau_a = \frac{N_c - N_d}{\binom{n}{2}},
+$$ gdzie $N_c$ to liczba par zgodnych (ang. *concordant*), a $N_d$ (ang. *discordant*) liczba par niezgodnych
+[^correspondence-1]. Zakres wartości to [−1, 1]. Wartość 0 oznacza brak
+monotonicznej zależności, wartości dodatnie związek rosnący, wartości ujemne
+malejący.
+
+[^correspondence-1]: Rozważmy dwie obserwacje $(X_i, Y_i)$ i $(X_j, Y_j)$, gdzie każda zmienna ma uporządkowane kategorie. Para ta jest traktowana jako jednostka porównania. Parę uważamy za zgodną, jeśli uporządkowanie obserwacji w zmiennej $X$ i zmiennej $Y$ jest spójne. Oznacza to spełnienie warunku
+$$
+(X_i - X_j)(Y_i - Y_j) > 0.
+$$
+Jeżeli różnice mają ten sam znak (obie dodatnie albo obie ujemne), relacja jest zgodna. Interpretujemy to jako sytuację, w której wyższa wartość $X$ towarzyszy wyższej wartości $Y$ albo niższej wartości $X$ towarzyszy niższa wartość $Y$. Parę uważamy za niezgodną, jeśli uporządkowanie obserwacji w zmiennej $X$ i zmiennej $Y$ nie jest spójne. Zachodzi wówczas
+$$
+(X_i - X_j)(Y_i - Y_j) < 0.
+$$
+Różnice mają przeciwne znaki: wzrost jednej zmiennej towarzyszy spadkowi drugiej. Oznacza to monotonicznie przeciwstawną relację w tej parze. W sytuacji, gdy jedna z różnic jest równa zero (czyli kategorie w jednej zmiennej są równe), para nie jest klasyfikowana jako zgodna ani niezgodna. Wówczas mówi się o remisie, a liczba par remisowych w zmiennej $X$ i $Y$ oznaczana jest odpowiednio przez $T_x$ i $T_y$ (ang. *ties*).
+
+#### $\tau_b$ Kendalla
+
+Miara ta uwzględnia remisy w obu zmiennych.
+$$
+\tau_b = \frac{N_c - N_d}{\sqrt{(N_c + N_d + T_x)(N_c + N_d + T_y)}},
+$$
+gdzie $T_x$ i $T_y$ oznaczają liczby remisów w każdej zmiennej. Zakres wartości to [−1, 1]. Miara zalecana przy danych z powtarzającymi się kategoriami.
+
+#### $\tau_c$ Kendalla
+
+Dostosowana do tabel prostokątnych (nie kwadratowych).
+$$
+\tau_c = \frac{2m}{m-1}\tau_a,
+$$
+gdzie $m$ oznacza mniejszą z liczby kategorii w obu zmiennych. Zakres [−1, 1]. Interpretacja analogiczna jak dla innych wersji miar Kendalla.
+
+#### Gamma Goodmana–Kruskal
+
+Ignoruje remisy, opiera się tylko na parach zgodnych i niezgodnych.
+$$
+\gamma = \frac{N_c - N_d}{N_c + N_d}.
+$$
+Zakres [−1, 1]. Wartość 0 oznacza brak monotonicznej zależności, wartości bliskie 1 lub −1 związek silny. Należy pamiętać, że ignorowanie remisów może prowadzić do przeszacowań siły związku.
+
+#### $D$ Somersa
+
+Miara asymetryczna, bada poprawę przewidywania jednej zmiennej na podstawie drugiej.
+$$
+D_{Y|X} = \frac{N_c - N_d}{N_c + N_d + T_y}.
+$$
+Wersja $D_{X|Y}$ definiowana analogicznie. Zakres wartości to [−1, 1]. Miara opisuje, o ile lepsze jest uporządkowanie jednej zmiennej, gdy znana jest druga zmienna, niż gdyby zmienna wyjaśniana była uporządkowana losowo. Wersja $D_{Y|X}$ mówi o jakości przewidywania $Y$ na podstawie $X$. Oznacza to, że im większa wartość współczynnika, tym lepiej zmienna $X$ porządkuje obserwacje względem $Y$.
+
+#### $\kappa$ Cohen'a
+
+Współczynnik $\kappa$ Cohena stosuje się do oceny zgodności dwóch klasyfikatorów lub dwóch sędziów kodujących te same obiekty do kategorii jakościowych. Miara uwzględnia, że pewien poziom zgodności może wynikać z czystego przypadku, dlatego $\kappa$ porównuje zgodność obserwowaną z tą, która byłaby oczekiwana przy losowym przypisywaniu kategorii.
+$$
+\kappa = \frac{p_o - p_e}{1 - p_e},
+$$
+gdzie $p_o$ stanowi proporcję zgodności rzeczywiście zaobserwowanej, natomiast $p_e=\sum_{i=1}^k\left(\frac{n}{n_{i\cdot}}\frac{n}{n_{\cdot j}}\right)$ (patrz Tab. -@eq-tab_contingency) proporcję zgodności oczekiwanej przy losowym przypisywaniu kategorii zgodnie z rozkładami brzegowymi. Zakres wartości współczynnika wynosi od −1 do 1. Wartość 1 oznacza pełną zgodność, wartość 0 poziom zgodności zgodny z przypadkiem, wartości ujemne wskazują na zgodność mniejszą niż oczekiwana przy losowym przypisywaniu kategorii.
+
+:::{#exm-0}
+```{r}
+x <- c(1, 2, 2, 3, 3)
+y <- c(1, 2, 1, 3, 2)
+
+data.frame(obs = 1:5, x, y)
+
+pairs <- t(combn(1:5, 2))
+colnames(pairs) <- c("i", "j")
+pairs
+
+classify_pairs <- function(x, y) {
+  pairs <- t(combn(seq_along(x), 2))
+  colnames(pairs) <- c("i", "j")
+  
+  Nc  <- 0  # liczba par zgodnych
+  Nd  <- 0  # liczba par niezgodnych
+  Tx  <- 0  # liczba par z remisem w X (x_i == x_j, y_i != y_j)
+  Ty  <- 0  # liczba par z remisem w Y (y_i == y_j, x_i != x_j)
+  Txy <- 0  # liczba par z remisem w obu zmiennych (x_i == x_j, y_i == y_j)
+  
+  details <- data.frame(
+    i   = integer(0),
+    j   = integer(0),
+    xi  = numeric(0),
+    xj  = numeric(0),
+    yi  = numeric(0),
+    yj  = numeric(0),
+    dx  = numeric(0),
+    dy  = numeric(0),
+    typ = character(0)
+  )
+  
+  for (k in seq_len(nrow(pairs))) {
+    i <- pairs[k, 1]
+    j <- pairs[k, 2]
+    
+    dx <- x[j] - x[i]
+    dy <- y[j] - y[i]
+    
+    typ <- ""
+    
+    if (dx > 0 & dy > 0 || dx < 0 & dy < 0) {
+      Nc <- Nc + 1
+      typ <- "zgodne"
+    } else if (dx > 0 & dy < 0 || dx < 0 & dy > 0) {
+      Nd <- Nd + 1
+      typ <- "niezgodne"
+    } else if (dx == 0 & dy == 0) {
+      Txy <- Txy + 1
+      typ <- "remis w obu"
+    } else if (dx == 0 & dy != 0) {
+      Tx <- Tx + 1
+      typ <- "remis w x"
+    } else if (dx != 0 & dy == 0) {
+      Ty <- Ty + 1
+      typ <- "remis w y"
+    }
+    
+    details <- rbind(
+      details,
+      data.frame(i, j,
+                 xi = x[i], xj = x[j],
+                 yi = y[i], yj = y[j],
+                 dx, dy,
+                 typ)
+    )
+  }
+  
+  list(Nc = Nc, Nd = Nd, Tx = Tx, Ty = Ty, Txy = Txy, details = details)
+}
+
+res <- classify_pairs(x, y)
+res$details
+res[c("Nc", "Nd", "Tx", "Ty", "Txy")]
+
+n  <- length(x)
+Nc <- res$Nc
+Nd <- res$Nd
+
+tau_a <- (Nc - Nd) / choose(n, 2)
+tau_a
+
+Tx <- res$Tx + res$Txy  # remisy w X (wliczamy też remisy w obu)
+Ty <- res$Ty + res$Txy  # remisy w Y (wliczamy też remisy w obu)
+
+tau_b <- (Nc - Nd) / sqrt((Nc + Nd + Tx) * (Nc + Nd + Ty))
+tau_b
+
+# Można to też liczyć z wykorzystaniem pakietu DescTools
+library(DescTools)
+
+tau_a <- KendallTauA(x, y)
+tau_b <- KendallTauB(x, y)
+print(c(tau_a = tau_a, tau_b = tau_b))
+```
+
+:::
+
 ## Rys historyczny
 
 Analizę korespondencji (ang. *correspondence analysis*) warto osadzić w
@@ -46,17 +260,35 @@ tabelarycznej.
 
 ## Cele analizy korespondencji
 
-Celem stosowania analizy korespondencji jest uchwycenie oraz zobrazowanie struktury zależności między zmiennymi jakościowymi zapisanymi w tabeli kontyngencji. Metoda pozwala przedstawiać profile wierszy i kolumn w zredukowanej przestrzeni wymiarów, tak aby odległości między punktami odzwierciedlały odchylenia od modelu niezależności. Umożliwia to identyfikowanie zbliżonych kategorii, wykrywanie ukrytych wzorców oraz interpretowanie relacji, które trudno dostrzec jedynie na podstawie tabeli liczebności. Dzięki temu analiza korespondencji służy zarówno eksploracji danych, jak i wspieraniu interpretacji statystycznej zależności między cechami nominalnymi.
+Celem stosowania analizy korespondencji jest uchwycenie oraz zobrazowanie
+struktury zależności między zmiennymi jakościowymi zapisanymi w tabeli
+kontyngencji. Metoda pozwala przedstawiać profile wierszy i kolumn w
+zredukowanej przestrzeni wymiarów, tak aby odległości między punktami
+odzwierciedlały odchylenia od modelu niezależności. Umożliwia to
+identyfikowanie zbliżonych kategorii, wykrywanie ukrytych wzorców oraz
+interpretowanie relacji, które trudno dostrzec jedynie na podstawie tabeli
+liczebności. Dzięki temu analiza korespondencji służy zarówno eksploracji
+danych, jak i wspieraniu interpretacji statystycznej zależności między cechami
+nominalnymi.
 
-Istotnym elementem analizy korespondencji jest tworzenie tzw. mapy percepcji, czyli graficznego odwzorowania kategorii wierszy i kolumn w przestrzeni o dwóch lub trzech wymiarach. Taka mapa umożliwia analizowanie relacji między kategoriami w sposób intuicyjny: punkty położone blisko siebie reprezentują profile o podobnej strukturze, a duże odległości wskazują na wyraźne różnice względem modelu niezależności. Mapa percepcji ułatwia więc identyfikowanie grup powiązanych kategorii, obserwowanie kierunków dominujących zależności oraz wyciąganie wniosków, które w układzie tabelarycznym pozostałyby trudne do zauważenia.
+Istotnym elementem analizy korespondencji jest tworzenie tzw. mapy percepcji,
+czyli graficznego odwzorowania kategorii wierszy i kolumn w przestrzeni o dwóch
+lub trzech wymiarach. Taka mapa umożliwia analizowanie relacji między
+kategoriami w sposób intuicyjny: punkty położone blisko siebie reprezentują
+profile o podobnej strukturze, a duże odległości wskazują na wyraźne różnice
+względem modelu niezależności. Mapa percepcji ułatwia więc identyfikowanie grup
+powiązanych kategorii, obserwowanie kierunków dominujących zależności oraz
+wyciąganie wniosków, które w układzie tabelarycznym pozostałyby trudne do
+zauważenia.
 
 ## Definicja matematyczna modelu
 
-Zakłada się, że punktem wyjścia jest tabela kontyngencji
+Zakłada się, że punktem wyjścia jest tabela kontyngencji 
 $$
 N = (n_{ij})_{i=1,\dots,I;\, j=1,\dots,J},
-$$
-gdzie $n_{ij}$ jest liczebnością obserwacji należących jednocześnie do kategorii wiersza $i$ i kolumny $j$. 
+$$ 
+gdzie $n_{ij}$ jest liczebnością obserwacji należących jednocześnie do
+kategorii wiersza $i$ i kolumny $j$. 
 $$
 \begin{array}{c|cccc|c}
 X/Y& j=1 & j=2 & \cdots & j=J & \text{Razem} \\
@@ -68,11 +300,12 @@ i=I & n_{I1} & n_{I2} & \cdots & n_{IJ} & n_{I\cdot} \\
 \hline
 \text{Razem} & n_{\cdot 1} & n_{\cdot 2} & \cdots & n_{\cdot J} & n
 \end{array}
-$$
-gdzie $n_{i\cdot} = \sum_{j=1}^J n_{ij}$ oznacza liczebność brzegową wiersza $i$, $n_{\cdot j} = \sum_{i=1}^I n_{ij}$ oznacza liczebność brzegową kolumny $j$, a $n = \sum_{i=1}^I \sum_{j=1}^J n_{ij}$ jest liczebnością całkowitą.
+$${#eq-tab_contingency}
+gdzie $n_{i\cdot} = \sum_{j=1}^J n_{ij}$ oznacza liczebność brzegową wiersza
+$i$, $n_{\cdot j} = \sum_{i=1}^I n_{ij}$ oznacza liczebność brzegową kolumny
+$j$, a $n = \sum_{i=1}^I \sum_{j=1}^J n_{ij}$ jest liczebnością całkowitą.
 
-Wprowadza wówczas się macierz częstości względnych
-$P = (p_{ij})$ postaci 
+Wprowadza wówczas się macierz częstości względnych $P = (p_{ij})$ postaci
 
 $$
 \begin{array}{c|cccc|c}
@@ -85,142 +318,187 @@ i=I & p_{I1} & p_{I2} & \cdots & p_{IJ} & r_{I} \\
 \hline
 \text{Razem} & c_{1} & c_{2} & \cdots & c_{J} & 1
 \end{array}
-$$
-gdzie $p_{ij} = n_{ij}/n$ są częstościami względnymi, $r_i = \sum_{j=1}^J p_{ij}$ oznacza masę wiersza (udział kategorii $i$), $c_j = \sum_{i=1}^I p_{ij}$ oznacza masę kolumny, a liczba w prawym dolnym rogu równa 1 jest sumą całej macierzy częstości względnych. Przeciętny profil wierszowy definiujemy jako wektor proporcji kategorii kolumnowych w całej tabeli. Tworzą go masy kolumnowe
-$(c_1, c_2, \dots, c_J)$. Oznacza to, że przeciętny wiersz „zachowuje się” tak, jak średnia struktura rozkładu kategorii kolumnowych w całej próbie — stanowi więc naturalny punkt referencyjny przy ocenie, czy dany wiersz nadreprezentuje lub niedoreprezentuje wybrane kolumny względem tego średniego rozkładu. Analogicznie przeciętny profil kolumnowy jest wektorem $(r_1, r_2, \dots, r_I),$
-czyli masami wierszy. Profil ten pokazuje przeciętny udział kategorii wierszowych w całej tabeli i służy porównaniu rzeczywistych profili kolumn ze strukturą „typową” wynikającą z rozkładu marginalnego wierszy.
+$$ 
+gdzie $p_{ij} = n_{ij}/n$ są częstościami względnymi,
+$r_i = \sum_{j=1}^J p_{ij}$ oznacza masę wiersza (udział kategorii $i$),
+$c_j = \sum_{i=1}^I p_{ij}$ oznacza masę kolumny, a liczba w prawym dolnym rogu
+równa 1 jest sumą całej macierzy częstości względnych. Przeciętny profil
+wierszowy definiujemy jako wektor proporcji kategorii kolumnowych w całej
+tabeli. Tworzą go masy kolumnowe $(c_1, c_2, \dots, c_J)$. Oznacza to, że
+przeciętny wiersz „zachowuje się” tak, jak średnia struktura rozkładu kategorii
+kolumnowych w całej próbie — stanowi więc naturalny punkt referencyjny przy
+ocenie, czy dany wiersz nadreprezentuje lub niedoreprezentuje wybrane kolumny
+względem tego średniego rozkładu. Analogicznie przeciętny profil kolumnowy jest
+wektorem $(r_1, r_2, \dots, r_I),$ czyli masami wierszy. Profil ten pokazuje
+przeciętny udział kategorii wierszowych w całej tabeli i służy porównaniu
+rzeczywistych profili kolumn ze strukturą „typową” wynikającą z rozkładu
+marginalnego wierszy.
 
-Podstawowym modelem odniesienia jest model niezależności zmiennych jakościowych:
-$$
+Podstawowym modelem odniesienia jest model niezależności zmiennych
+jakościowych: $$
 p_{ij}^{(0)} = r_i c_j,\quad i=1,\dots,I,\ j=1,\dots,J.
-$$
-Oznacza to, że przy braku zależności między kategoriami wierszy i kolumn, częstość wspólna powinna być równa iloczynowi częstości brzegowych. Analiza korespondencji bada odchylenia rzeczywistych częstości $p_{ij}$ od wartości oczekiwanych $r_i\cdot c_j$ oraz przedstawia je w zredukowanej przestrzeni wymiarów.
+$$ Oznacza to, że przy braku zależności między kategoriami wierszy i kolumn,
+częstość wspólna powinna być równa iloczynowi częstości brzegowych. Analiza
+korespondencji bada odchylenia rzeczywistych częstości $p_{ij}$ od wartości
+oczekiwanych $r_i\cdot c_j$ oraz przedstawia je w zredukowanej przestrzeni
+wymiarów.
 
-Odchylenia od modelu niezależności można zapisać jako
-$$
+Odchylenia od modelu niezależności można zapisać jako $$
 \Delta_{ij} = p_{ij} - r_i c_j.
-$$
-Ważone odchylenia od niezależności leżą u podstaw konstrukcji statystyki chi-kwadrat oraz pojęcia inercji w analizie korespondencji. Wprowadza się macierze diagonalne z masami wierszy i kolumn:
-\begin{align*}
+$$ Ważone odchylenia od niezależności leżą u podstaw konstrukcji statystyki
+chi-kwadrat oraz pojęcia inercji w analizie korespondencji. Wprowadza się
+macierze diagonalne z masami wierszy i kolumn: \begin{align*}
 D_r =& \mathrm{diag}(r_1,\dots,r_I),\\
 D_c =& \mathrm{diag}(c_1,\dots,c_J).
-\end{align*}
-Znormalizowane reszty definiuje się jako
-$$
+\end{align*} Znormalizowane reszty definiuje się jako $$
 S = D_r^{-1/2}\,(P - r c^\top)\,D_c^{-1/2}.
-$$
-Element o indeksach $(i,j)$ ma postać
-$$
+$$ Element o indeksach $(i,j)$ ma postać $$
 s_{ij} = \frac{p_{ij} - r_i c_j}{\sqrt{r_i c_j}}.
-$$
-Całkowita „inercja” analizowanej tabeli jest równa średniej ważonej kwadratu tych reszt i jest powiązana ze statystyką chi-kwadrat:
-$$
+$$ Całkowita „inercja” analizowanej tabeli jest równa średniej ważonej kwadratu
+tych reszt i jest powiązana ze statystyką chi-kwadrat: $$
 \chi^2 = n \sum_{i=1}^I \sum_{j=1}^J \frac{(p_{ij} - r_i c_j)^2}{r_i c_j},
 \quad
 I_{\text{całk.}} = \sum_{i,j} \frac{(p_{ij} - r_i c_j)^2}{r_i c_j}
 = \frac{\chi^2}{n}.
-$$
-Analiza korespondencji dąży do takiego odwzorowania kategorii wierszy i kolumn w przestrzeni euklidesowej, aby odległości w tej przestrzeni odzwierciedlały właśnie te ważone odchylenia od modelu niezależności.
+$$ Analiza korespondencji dąży do takiego odwzorowania kategorii wierszy i
+kolumn w przestrzeni euklidesowej, aby odległości w tej przestrzeni
+odzwierciedlały właśnie te ważone odchylenia od modelu niezależności.
 
-Kluczowym krokiem w wyznaczeniu współrzędnych nowego układu współrzędnych (zwanego mapą percepcji) jest dekompozycja wartości osobliwych macierzy znormalizowanych reszt $S$:
-$$
+Kluczowym krokiem w wyznaczeniu współrzędnych nowego układu współrzędnych
+(zwanego mapą percepcji) jest dekompozycja wartości osobliwych macierzy
+znormalizowanych reszt $S$: $$
 S = U\,\Sigma\,V^\top,
-$$
-gdzie $U$ jest macierzą $I \times K$ ortonormalnych wektorów własnych (dla wierszy), $V$ jest macierzą $J \times K$ ortonormalnych wektorów własnych (dla kolumn), $\Sigma = \mathrm{diag}(\sigma_1,\dots,\sigma_K)$ zawiera dodatnie wartości osobliwe, a $K = \min(I-1, J-1)$ jest maksymalną liczbą niezerowych wymiarów (po odjęciu wymiaru związanego z sumą do 1).
+$$ gdzie $U$ jest macierzą $I \times K$ ortonormalnych wektorów własnych (dla
+wierszy), $V$ jest macierzą $J \times K$ ortonormalnych wektorów własnych (dla
+kolumn), $\Sigma = \mathrm{diag}(\sigma_1,\dots,\sigma_K)$ zawiera dodatnie
+wartości osobliwe, a $K = \min(I-1, J-1)$ jest maksymalną liczbą niezerowych
+wymiarów (po odjęciu wymiaru związanego z sumą do 1).
 
-Wartości własne analizy korespondencji definiuje się jako
-$$
+Wartości własne analizy korespondencji definiuje się jako $$
 \lambda_k = \sigma_k^2, \quad k = 1,\dots,K,
-$$
-a suma tych wartości
-$$
+$$ a suma tych wartości $$
 \sum_{k=1}^K \lambda_k = I_{\text{całk.}}
-$$
-odpowiada całkowitej inercji tabeli. Poszczególne osie czynnikowe (wymiary) są więc uporządkowane malejąco według wyjaśnianej części inercji.
+$$ odpowiada całkowitej inercji tabeli. Poszczególne osie czynnikowe (wymiary)
+są więc uporządkowane malejąco według wyjaśnianej części inercji.
 
-O doborze $K$ mogą decydować kryteria takie, jak kryterium wyjaśnionej inerncji (co najmniej 60%), kryterium osypiska czy kryterium liczby cech, lecz najczęściej wybiera się 2 wymiary aby móc profile przedstawić w dwuwymiarowej mapie percepcji.
+O doborze $K$ mogą decydować kryteria takie, jak kryterium wyjaśnionej inerncji
+(co najmniej 60%), kryterium osypiska czy kryterium liczby cech, lecz
+najczęściej wybiera się 2 wymiary aby móc profile przedstawić w dwuwymiarowej
+mapie percepcji.
 
-Wynik analizy korespondencji przedstawia się jako współrzędne kategorii w przestrzeni czynnikowej, przyjmując
-$$
+Wynik analizy korespondencji przedstawia się jako współrzędne kategorii w
+przestrzeni czynnikowej, przyjmując $$
 F = D_r^{-1/2} U \Sigma,
-$$
-oraz
-$$
+$$ oraz $$
 G = D_c^{-1/2} V \Sigma.
-$$
-Wiersz $i$ jest więc reprezentowany przez wektor współrzędnych $f_i = (f_{i1},\dots,f_{iK})$ – $i$-ty wiersz macierzy $F$, kolumna $j$ przez wektor $g_j = (g_{j1},\dots,g_{jK})$ – $j$-ty wiersz macierzy $G$. W takim ujęciu odległości euklidesowe między punktami odpowiadają odległościom chi-kwadrat między profilami, przy czym:
+$$ Wiersz $i$ jest więc reprezentowany przez wektor współrzędnych
+$f_i = (f_{i1},\dots,f_{iK})$ – $i$-ty wiersz macierzy $F$, kolumna $j$ przez
+wektor $g_j = (g_{j1},\dots,g_{jK})$ – $j$-ty wiersz macierzy $G$. W takim
+ujęciu odległości euklidesowe między punktami odpowiadają odległościom
+chi-kwadrat między profilami, przy czym:
 
-– profil wiersza $i$ to wektor warunkowych częstości
-$$
+– profil wiersza $i$ to wektor warunkowych częstości $$
 (p_{i1}/r_i,\dots,p_{iJ}/r_i),
-$$
-– profil kolumny $j$ to wektor
-$$
+$$ – profil kolumny $j$ to wektor $$
 (p_{1j}/c_j,\dots,p_{Ij}/c_j).
 $$
 
-Analiza korespondencji może być także interpretowana jako rodzaj ważonej analizy głównych składowych zastosowanej do zbioru profilów wierszy (lub kolumn) z metryką chi-kwadrat.
+Analiza korespondencji może być także interpretowana jako rodzaj ważonej
+analizy głównych składowych zastosowanej do zbioru profilów wierszy (lub
+kolumn) z metryką chi-kwadrat.
 
-Istotną własnością modelu jest tzw. własność barycentryczna. Współrzędne wiersza są średnią ważoną współrzędnych kolumn, z wagami równymi warunkowym prawdopodobieństwom kategorii kolumnowych w danym wierszu, i odwrotnie. Dokładniej:
-$$
+Istotną własnością modelu jest tzw. własność barycentryczna. Współrzędne
+wiersza są średnią ważoną współrzędnych kolumn, z wagami równymi warunkowym
+prawdopodobieństwom kategorii kolumnowych w danym wierszu, i odwrotnie.
+Dokładniej: $$
 f_i = \frac{1}{r_i} \sum_{j=1}^J p_{ij}\, D_c^{-1}\, g_j
-$$
-oraz analogicznie dla kolumn. Intuicyjnie, punkt reprezentujący kategorię wiersza znajduje się w geometrycznym środku (barycentrum) punktów kolumnowych, ważonym strukturą profilu tego wiersza. To zapewnia spójność geometryczną i ułatwia interpretację wykresów.
+$$ oraz analogicznie dla kolumn. Intuicyjnie, punkt reprezentujący kategorię
+wiersza znajduje się w geometrycznym środku (barycentrum) punktów kolumnowych,
+ważonym strukturą profilu tego wiersza. To zapewnia spójność geometryczną i
+ułatwia interpretację wykresów.
 
 ## Miary jakości odtworzenia przestrzeni czynnikowej
 
-Miary jakości odtworzenia przestrzeni czynnikowej opisują, jak dobrze poszczególne kategorie oraz poszczególne wymiary (osie) oddają strukturę zależności zakodowaną w tabeli kontyngencji. Obejmują trzy grupy wskaźników: korelację punktu z osią (tzw. $\cos^2$), udział punktu w wymiarze oraz udział wymiaru w inercji. Poniżej znajduje się opis każdej z miar, ich interpretacja oraz wzory.
+Miary jakości odtworzenia przestrzeni czynnikowej opisują, jak dobrze
+poszczególne kategorie oraz poszczególne wymiary (osie) oddają strukturę
+zależności zakodowaną w tabeli kontyngencji. Obejmują trzy grupy wskaźników:
+korelację punktu z osią (tzw. $\cos^2$), udział punktu w wymiarze oraz udział
+wymiaru w inercji. Poniżej znajduje się opis każdej z miar, ich interpretacja
+oraz wzory.
 
 ### Korelacja punktu z osią ($\cos^2$)
 
-Korelacja punktu z daną osią mierzy, jaka część inercji danego punktu (wiersza lub kolumny) jest odwzorowana w przestrzeni czynnikowej wzdłuż tej osi. Stanowi to odpowiednik „jakości reprezentacji” punktu. Dla punktu wiersza $i$ w wymiarze $k$ definiujemy:
-$$
+Korelacja punktu z daną osią mierzy, jaka część inercji danego punktu (wiersza
+lub kolumny) jest odwzorowana w przestrzeni czynnikowej wzdłuż tej osi. Stanowi
+to odpowiednik „jakości reprezentacji” punktu. Dla punktu wiersza $i$ w
+wymiarze $k$ definiujemy: $$
 \cos^2(i,k) = \frac{f_{ik}^2}{\sum_{l=1}^{K} f_{il}^2},
-$$
-gdzie $f_{ik}$ jest współrzędną punktu $i$ na osi $k$. Analogicznie dla kolumn:
-$$
+$$ gdzie $f_{ik}$ jest współrzędną punktu $i$ na osi $k$. Analogicznie dla
+kolumn: $$
 \cos^2(j,k) = \frac{g_{jk}^2}{\sum_{l=1}^{K} g_{jl}^2}.
-$$
-Interpretacja polega na ocenie, czy punkt leży „blisko osi” i czy dane wymiary dobrze go opisują. Wartości bliskie 1 oznaczają dobrą jakość odwzorowania, wartości małe — że punkt jest słabo reprezentowany w danym wymiarze i jego położenia nie należy nadmiernie interpretować.
+$$ Interpretacja polega na ocenie, czy punkt leży „blisko osi” i czy dane
+wymiary dobrze go opisują. Wartości bliskie 1 oznaczają dobrą jakość
+odwzorowania, wartości małe — że punkt jest słabo reprezentowany w danym
+wymiarze i jego położenia nie należy nadmiernie interpretować.
 
 ### Udział punktu w tworzeniu wymiaru (ang. *contribution*)
 
-Udział punktu w tworzeniu danego wymiaru mierzy, jak duży wkład dana kategoria wnosi do inercji na danej osi. W przeciwieństwie do $\cos^2$, które mierzą jakość reprezentacji punktu, *contribution* mierzy „ważność” punktu dla danej osi. Dla wierszy:
-$$
+Udział punktu w tworzeniu danego wymiaru mierzy, jak duży wkład dana kategoria
+wnosi do inercji na danej osi. W przeciwieństwie do $\cos^2$, które mierzą
+jakość reprezentacji punktu, *contribution* mierzy „ważność” punktu dla danej
+osi. Dla wierszy: $$
 \mathrm{ctr}(i,k) = \frac{r_i f_{ik}^2}{\lambda_k},
-$$
-gdzie $r_i$ jest masą wiersza, a $\lambda_k$ wartością własną odpowiadającą osi $k$. Dla kolumn:
-$$
+$$ gdzie $r_i$ jest masą wiersza, a $\lambda_k$ wartością własną odpowiadającą
+osi $k$. Dla kolumn: $$
 \mathrm{ctr}(j,k) = \frac{c_j g_{jk}^2}{\lambda_k}.
-$$
-Interpretujemy to jako względną część wariancji danego wymiaru „pochodzącą” od danego punktu. Punkty o dużych wartościach *contribution* dominują dany wymiar i wskazują, które kategorie determinują kierunek zależności uchwycony przez oś.
+$$ Interpretujemy to jako względną część wariancji danego wymiaru „pochodzącą”
+od danego punktu. Punkty o dużych wartościach *contribution* dominują dany
+wymiar i wskazują, które kategorie determinują kierunek zależności uchwycony
+przez oś.
 
 ### Udział wymiaru w inercji całkowitej
 
-Udział wymiaru w inercji określa, jaka część całkowitej zmienności reszt z modelu niezależności jest odtwarzana przez daną oś. Wynika bezpośrednio z wartości własnych:
-$$
+Udział wymiaru w inercji określa, jaka część całkowitej zmienności reszt z
+modelu niezależności jest odtwarzana przez daną oś. Wynika bezpośrednio z
+wartości własnych: $$
 \text{Udział osi } k = \frac{\lambda_k}{\sum_{l=1}^{K} \lambda_l}.
-$$
-Wartości własne $\lambda_k$ odzwierciedlają siłę zróżnicowania uchwyconą w danym wymiarze. Im większa wartość, tym większy wpływ danej osi na odwzorowanie zależności między kategoriami.
-
+$$ Wartości własne $\lambda_k$ odzwierciedlają siłę zróżnicowania uchwyconą w
+danym wymiarze. Im większa wartość, tym większy wpływ danej osi na odwzorowanie
+zależności między kategoriami.
 
 ## Interpretacja elementów składowych modelu
 
 Poszczególne elementy modelu mają następujące znaczenie interpretacyjne:
 
-– macierz $P$ - rzeczywista struktura częstości wspólnych badanych kategorii;
-– wektory $r$ i $c$ - „wielkość” kategorii (częstości brzegowe), określające masy punktów wierszy i kolumn;
-– macierz $P - r c^\top$ - odchylenia od modelu niezależności;
-– macierz znormalizowanych reszt $S$ - odchylenia wyrażone w jednostkach odpowiadających testowi chi-kwadrat, co umożliwia porównywanie kategorii o różnych masach;
-– wartości własne $\lambda_k$ - wyjaśniana inercja wzdłuż kolejnych osi, interpretowana jako siła zróżnicowania struktury zależności w tym wymiarze;
-– wektory własne (kolumny $U$ i $V$) - kierunki głównych inercji odpowiednio w przestrzeni wierszy i kolumn;
-– współrzędne $F$ i $G$ - położenie kategorii w przestrzeni czynnikowej, wykorzystywane do wizualizacji; ich rozrzut wokół środka odzwierciedla strukturę zależności między kategoriami.
+– macierz $P$ - rzeczywista struktura częstości wspólnych badanych kategorii; –
+wektory $r$ i $c$ - „wielkość” kategorii (częstości brzegowe), określające masy
+punktów wierszy i kolumn; – macierz $P - r c^\top$ - odchylenia od modelu
+niezależności; – macierz znormalizowanych reszt $S$ - odchylenia wyrażone w
+jednostkach odpowiadających testowi chi-kwadrat, co umożliwia porównywanie
+kategorii o różnych masach; – wartości własne $\lambda_k$ - wyjaśniana inercja
+wzdłuż kolejnych osi, interpretowana jako siła zróżnicowania struktury
+zależności w tym wymiarze; – wektory własne (kolumny $U$ i $V$) - kierunki
+głównych inercji odpowiednio w przestrzeni wierszy i kolumn; – współrzędne $F$
+i $G$ - położenie kategorii w przestrzeni czynnikowej, wykorzystywane do
+wizualizacji; ich rozrzut wokół środka odzwierciedla strukturę zależności
+między kategoriami.
 
-Na mapie czynnikowej kategorie wierszy i kolumn, które leżą blisko siebie, interpretuje się jako powiązane: wiersze „preferują” te kolumny (mają ponadprzeciętne częstości względem modelu niezależności), a kategorie oddalone od siebie są rzadko łączone. Odległości między punktami wierszy są interpretowane jako odległości chi-kwadrat między profilami wierszy, a analogicznie dla kolumn.
+Na mapie czynnikowej kategorie wierszy i kolumn, które leżą blisko siebie,
+interpretuje się jako powiązane: wiersze „preferują” te kolumny (mają
+ponadprzeciętne częstości względem modelu niezależności), a kategorie oddalone
+od siebie są rzadko łączone. Odległości między punktami wierszy są
+interpretowane jako odległości chi-kwadrat między profilami wierszy, a
+analogicznie dla kolumn.
 
-W praktyce interpretacji najczęściej ogranicza się do dwóch lub trzech pierwszych wymiarów (o największych wartościach własnych) i bada położenie kategorii względem osi oraz względem siebie nawzajem. Dodatkowo można analizować wkłady kategorii do inercji poszczególnych wymiarów oraz cosinusy kwadratów kątów (miary jakości reprezentacji), ale są to już bardziej szczegółowe wskaźniki opierające się na opisanej wyżej strukturze własnych wektorów i wartości.
+W praktyce interpretacji najczęściej ogranicza się do dwóch lub trzech
+pierwszych wymiarów (o największych wartościach własnych) i bada położenie
+kategorii względem osi oraz względem siebie nawzajem. Dodatkowo można
+analizować wkłady kategorii do inercji poszczególnych wymiarów oraz cosinusy
+kwadratów kątów (miary jakości reprezentacji), ale są to już bardziej
+szczegółowe wskaźniki opierające się na opisanej wyżej strukturze własnych
+wektorów i wartości.
 
-:::{#exm-1}
+::: {#exm-1}
 ```{r}
 library(FactoMineR)
 library(factoextra)
@@ -242,11 +520,44 @@ res.ca$row$coord    # współrzędne wierszy
 res.ca$col$coord    # współrzędne kolumn
 ```
 
-- Na początku można stwierdzić, że statystyka chi-kwadrat jest bardzo wysoka, a wartość p-value praktycznie równa zeru. Oznacza to zdecydowane odrzucenie modelu niezależności, czyli istnienie silnego związku pomiędzy kolorem włosów a kolorem oczu. Związek ten nie jest przypadkową fluktuacją liczebności, lecz strukturalnym odchyleniem od przeciętnych profili.
-- Wartości własne pokazują, że pierwszy wymiar wyjaśnia około dziewięćdziesiąt procent całej inercji. Drugi wymiar wnosi niespełna dziesięć procent, a trzeci ma znaczenie znikome. W praktyce interpretacja zależności między kategoriami ograniczać się będzie do dwóch pierwszych wymiarów, ponieważ to one odzwierciedlają niemal całą strukturę odchyleń od modelu niezależności. Silna dominacja wymiaru pierwszego wskazuje, że główna oś różnicowania tabeli jest jednoznaczna i przedstawia podstawowy kierunek współwystępowania kolorów włosów i oczu.
-- W kategoriach wierszy największą inercją charakteryzuje się „Blond”, która tworzy wyraźnie silny sygnał odróżniający ją od pozostałych kategorii. Wysoka wartość $\cos^2$ na wymiarze pierwszym oznacza, że jej położenie na mapie jest niemal w pełni opisane przez ten jeden wymiar, a zatem interpretacja tej kategorii powinna opierać się przede wszystkim na pierwszej osi. Podobnie kategorię „Black” również dobrze opisuje wymiar pierwszy, choć jej pozycja częściowo opiera się również na wymiarze drugim. Kategoria „Red” natomiast jest silnie związana z wymiarem drugim: jej $\cos^2$ w osi drugiej dominuje nad pozostałymi współrzędnymi, co sugeruje, że ta kategoria wnosi zróżnicowanie względnie prostopadłe do podstawowej osi.
-- W zakresie wkładów (*contributions*) wierszy wymiar pierwszy jest w głównej mierze kształtowany przez kategorię „Blond”, która odpowiada za zdecydowaną większość inercji tej osi. „Black” daje istotny wkład, natomiast kategorie „Red” i „Brown” mają względnie niewielki wpływ. To wskazuje, że wymiar ten opisuje przeciwstawność dwóch skrajnych charakterystyk: jasnych i bardzo ciemnych kolorów włosów. Natomiast wymiar drugi jest definiowany przede wszystkim przez kategorię „Red”, co potwierdza jej szczególne znaczenie w drugorzędnym kierunku zależności.
-- W odniesieniu do kolumn widoczna jest podobna struktura. Wymiar pierwszy jest silnie ukształtowany przez „Brown” i „Blue”, które leżą na przeciwnych stronach osi, a ich $\cos^2$ oraz wysoki wkład w ten wymiar wskazują, że to te kategorie określają jego znaczenie. Wymiar drugi zdominowany jest przez „Green” i „Hazel”, co sugeruje, że te dwa kolory oczu odpowiadają za dodatkowe zróżnicowanie, nieuchwycone przez wymiar pierwszy.
+-   Na początku można stwierdzić, że statystyka chi-kwadrat jest bardzo wysoka,
+    a wartość p-value praktycznie równa zeru. Oznacza to zdecydowane odrzucenie
+    modelu niezależności, czyli istnienie silnego związku pomiędzy kolorem
+    włosów a kolorem oczu. Związek ten nie jest przypadkową fluktuacją
+    liczebności, lecz strukturalnym odchyleniem od przeciętnych profili.
+-   Wartości własne pokazują, że pierwszy wymiar wyjaśnia około
+    dziewięćdziesiąt procent całej inercji. Drugi wymiar wnosi niespełna
+    dziesięć procent, a trzeci ma znaczenie znikome. W praktyce interpretacja
+    zależności między kategoriami ograniczać się będzie do dwóch pierwszych
+    wymiarów, ponieważ to one odzwierciedlają niemal całą strukturę odchyleń od
+    modelu niezależności. Silna dominacja wymiaru pierwszego wskazuje, że
+    główna oś różnicowania tabeli jest jednoznaczna i przedstawia podstawowy
+    kierunek współwystępowania kolorów włosów i oczu.
+-   W kategoriach wierszy największą inercją charakteryzuje się „Blond”, która
+    tworzy wyraźnie silny sygnał odróżniający ją od pozostałych kategorii.
+    Wysoka wartość $\cos^2$ na wymiarze pierwszym oznacza, że jej położenie na
+    mapie jest niemal w pełni opisane przez ten jeden wymiar, a zatem
+    interpretacja tej kategorii powinna opierać się przede wszystkim na
+    pierwszej osi. Podobnie kategorię „Black” również dobrze opisuje wymiar
+    pierwszy, choć jej pozycja częściowo opiera się również na wymiarze drugim.
+    Kategoria „Red” natomiast jest silnie związana z wymiarem drugim: jej
+    $\cos^2$ w osi drugiej dominuje nad pozostałymi współrzędnymi, co sugeruje,
+    że ta kategoria wnosi zróżnicowanie względnie prostopadłe do podstawowej
+    osi.
+-   W zakresie wkładów (*contributions*) wierszy wymiar pierwszy jest w głównej
+    mierze kształtowany przez kategorię „Blond”, która odpowiada za zdecydowaną
+    większość inercji tej osi. „Black” daje istotny wkład, natomiast kategorie
+    „Red” i „Brown” mają względnie niewielki wpływ. To wskazuje, że wymiar ten
+    opisuje przeciwstawność dwóch skrajnych charakterystyk: jasnych i bardzo
+    ciemnych kolorów włosów. Natomiast wymiar drugi jest definiowany przede
+    wszystkim przez kategorię „Red”, co potwierdza jej szczególne znaczenie w
+    drugorzędnym kierunku zależności.
+-   W odniesieniu do kolumn widoczna jest podobna struktura. Wymiar pierwszy
+    jest silnie ukształtowany przez „Brown” i „Blue”, które leżą na przeciwnych
+    stronach osi, a ich $\cos^2$ oraz wysoki wkład w ten wymiar wskazują, że to
+    te kategorie określają jego znaczenie. Wymiar drugi zdominowany jest przez
+    „Green” i „Hazel”, co sugeruje, że te dwa kolory oczu odpowiadają za
+    dodatkowe zróżnicowanie, nieuchwycone przez wymiar pierwszy.
 
 ```{r}
 # Mapa percepcji: wiersze i kolumny na jednym wykresie
@@ -257,7 +568,31 @@ fviz_ca_biplot(
 )
 ```
 
-Mapa percepcji przedstawia zależności między kategoriami koloru włosów (punkty niebieskie) i koloru oczu (punkty czerwone) w przestrzeni dwóch wymiarów analizy korespondencji. Oś pierwsza odpowiada za zdecydowaną większość inercji, dlatego to ona wyznacza główny kierunek różnicowania kategorii. Na osi poziomej widoczne jest wyraźne zagęszczenie między kategoriami „Blond” i „Blue” po stronie ujemnej oraz kategoriami „Black” i „Brown eyes” po stronie dodatniej. Interpretuejmy to jako dominujące współwystępowanie jasnych włosów z niebieskimi oczami oraz ciemnych włosów z brązowymi oczami. Oś ta odwzorowuje więc gradient od jasnych do ciemnych fenotypów. Oś pionowa, wyjaśniająca znacznie mniejszą część inercji, wprowadza drugi — subtelniejszy — wymiar struktury. W górnej części wykresu znajdują się „Red” oraz „Green”, co sugeruje, że te rzadziej występujące cechy współwystępują częściej niż wynikałoby to z modelu niezależności. Z kolei „Hazel” pozycjonuje się w dodatniej części osi pierwszej i jednocześnie nieco dodatniej części osi drugiej, co wskazuje, że jej profil jest nieznacznie zbliżony do ciemniejszych kolorów włosów, choć z pewnym odchyleniem kierunkowym widocznym na drugiej osi. Punkty „Brown hair” oraz „Brown eyes” znajdują się bliżej środka niż pozostałe kategorie. Interpretujemy to jako cechy bardziej „przeciętne”, których profile nie odbiegają silnie od profili przeciętnych. 
+Mapa percepcji przedstawia zależności między kategoriami koloru włosów (punkty
+niebieskie) i koloru oczu (punkty czerwone) w przestrzeni dwóch wymiarów
+analizy korespondencji. Oś pierwsza odpowiada za zdecydowaną większość inercji,
+dlatego to ona wyznacza główny kierunek różnicowania kategorii. Na osi poziomej
+widoczne jest wyraźne zagęszczenie między kategoriami „Blond” i „Blue” po
+stronie ujemnej oraz kategoriami „Black” i „Brown eyes” po stronie dodatniej.
+Interpretuejmy to jako dominujące współwystępowanie jasnych włosów z
+niebieskimi oczami oraz ciemnych włosów z brązowymi oczami. Oś ta odwzorowuje
+więc gradient od jasnych do ciemnych fenotypów. Oś pionowa, wyjaśniająca
+znacznie mniejszą część inercji, wprowadza drugi — subtelniejszy — wymiar
+struktury. W górnej części wykresu znajdują się „Red” oraz „Green”, co
+sugeruje, że te rzadziej występujące cechy współwystępują częściej niż
+wynikałoby to z modelu niezależności. Z kolei „Hazel” pozycjonuje się w
+dodatniej części osi pierwszej i jednocześnie nieco dodatniej części osi
+drugiej, co wskazuje, że jej profil jest nieznacznie zbliżony do ciemniejszych
+kolorów włosów, choć z pewnym odchyleniem kierunkowym widocznym na drugiej osi.
+Punkty „Brown hair” oraz „Brown eyes” znajdują się bliżej środka niż pozostałe
+kategorie. Interpretujemy to jako cechy bardziej „przeciętne”, których profile
+nie odbiegają silnie od profili przeciętnych.
 
-Mapa ta potwierdza klasyczną strukturę zależności fenotypowych: jasne włosy częściej współwystępują z jasnymi oczami, ciemne włosy z ciemnymi oczami, a odmienne kombinacje są rzadsze. Drugi wymiar wyodrębnia rzadkie kombinacje związane z czerwonymi włosami oraz zielonymi oczami, tworząc charakterystyczny kierunek dodatkowy. Taka konfiguracja jest typowa dla danych fenotypowych, w których dominują jedna lub dwie silne osie zróżnicowania, a dodatkowe kierunki odzwierciedlają rzadsze, ale strukturalnie spójne wzorce współwystępowania.
+Mapa ta potwierdza klasyczną strukturę zależności fenotypowych: jasne włosy
+częściej współwystępują z jasnymi oczami, ciemne włosy z ciemnymi oczami, a
+odmienne kombinacje są rzadsze. Drugi wymiar wyodrębnia rzadkie kombinacje
+związane z czerwonymi włosami oraz zielonymi oczami, tworząc charakterystyczny
+kierunek dodatkowy. Taka konfiguracja jest typowa dla danych fenotypowych, w
+których dominują jedna lub dwie silne osie zróżnicowania, a dodatkowe kierunki
+odzwierciedlają rzadsze, ale strukturalnie spójne wzorce współwystępowania.
 :::
