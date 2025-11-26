@@ -1,0 +1,632 @@
+---
+output: html_document
+number-sections: false
+bibliography: references.bib
+editor_options: 
+  chunk_output_type: console
+---
+
+# Modele log-liniowe
+
+## Rys historyczny
+
+Modele log-liniowe wykształciły się w statystyce wielowymiarowej jako narzędzie
+analizy zależności pomiędzy zmiennymi jakościowymi reprezentowanymi w tabelach
+kontyngencji. Ich rozwój przypadł na lata 60. i 70. XX wieku, kiedy to
+poszukiwano metod analogicznych do regresji, zdolnych do opisu wielowymiarowych
+zależności między kategoriami zmiennych nominalnych. Szczególną rolę odegrały
+prace Goodmana [@goodmanSimultaneousConfidenceIntervals1964;
+@goodmanAssociationModelsBivariate1981;
+@goodmanAnalysisCrossClassifiedData1968;
+@goodmanMultivariateAnalysisQualitative1970;
+@goodmanMeasuresAssociationCross1954;
+@goodmanAnalysisMultidimensionalContingency1971], które wprowadziły
+systematyczną parametryzację modeli log-liniowych oraz umożliwiły stosowanie
+podejścia opartego na maksymalnym prawdopodobieństwie i testowaniu
+hierarchicznych efektów. W kolejnych dekadach log-liniowe podejścia stały się
+standardowym narzędziem analizy wielowymiarowych danych kategoryzowanych, a ich
+teoria ugruntowała się w literaturze statystycznej poświęconej analizie tabel
+wielodzielczych.
+
+## Cel
+
+Główny cel stosowania modeli log-liniowych polegać na opisaniu i wyjaśnieniu
+struktury zależności pomiędzy więcej niż dwoma zmiennymi jakościowymi.
+Reprezentacja danych w postaci tabel wielodzielczych prowadzi do konieczności
+identyfikacji tych komponentów, które odzwierciedlają zależności parowe,
+trójwymiarowe czy bardziej złożone interakcje między kategoriami. Modele
+log-liniowe pozwalają odwzorować rozkład częstości poprzez dekompozycję
+logarytmu oczekiwanych liczności w funkcje efektów głównych i interakcji,
+dzięki czemu możliwe staje się testowanie hipotez o niezależności lub o
+strukturze oddziaływań. Stosuje się je zarówno do klasycznych tabel
+kontyngencji, jak i do danych pochodzących z ankiet, eksperymentów lub badań
+obserwacyjnych, w których istotna jest struktura współwystępowania kategorii.
+
+## Definicja modelu
+
+Matematyczna definicja modelu log-liniowego opiera się na założeniu, że
+logarytm wartości oczekiwanej dla każdej komórki tabeli kontyngencji można
+wyrazić jako suma parametrów związanych z poziomami poszczególnych zmiennych
+oraz ich współdziałaniem. Dla przykładowej tabeli trójwymiarowej z kategoriami
+$i$, $j$ i $k$ model definiujemy w postaci
+
+$$
+\log \hat{n}_{ijk} = \lambda + \lambda^X_i + \lambda^Y_j + \lambda^Z_k + \lambda^{XY}_{ij} + \lambda^{XZ}_{ik} + \lambda^{YZ}_{jk} + \lambda^{XYZ}_{ijk},
+$$ gdzie $\hat{n}_{ijk}$ oznacza wartość oczekiwaną częstości w danej komórce,
+a poszczególne parametry $\lambda$ odpowiadają efektom głównym i interakcjom
+efektów W modelach hierarchicznych brak określonego składnika interakcji
+traktujemy jako hipotezę o niezależności, np. wyeliminowanie
+$\lambda^{XY}_{ij}$ oznacza neutralność w relacji $X$ i $Y$. Dla jednoznacznej
+definicji modelu narzuca się warunki sumowalności, takie jak sumowanie
+współczynników do zera w ramach każdej zmiennej.
+
+## Struktura hierarchiczna
+
+W analizie wielowymiarowych tabel kontyngencji model log-liniowy opisuje
+logarytm wartości oczekiwanych liczebności w komórkach tabeli poprzez sumę
+efektów głównych i interakcji. Dla trzech zmiennych jakościowych $X$, $Y$ i $Z$
+o kategoriach indeksowanych odpowiednio przez $i$, $j$ i $k$, ogólna postać
+modelu pełnego przyjmuje formę $$
+\log \hat{n}_{ijk} = \lambda + \lambda_i^X + \lambda_j^Y + \lambda_k^Z + \lambda^{XY}_{ij} + \lambda^{XZ}_{ik} + \lambda^{YZ}_{jk} + \lambda^{XYZ}_{ijk}.
+$$ Składniki te interpretujemy jako:
+
+-   efekt ogólny $\lambda$,
+-   efekty główne zmiennych $X, Y, Z$,
+-   interakcje dwuwymiarowe $(XY), (XZ), (YZ)$,
+-   interakcja trójwymiarowa $(XYZ)$.
+
+Model pełny zawiera wszystkie możliwe efekty i interakcje.
+
+### Modele z ograniczeniami
+
+Usuwanie wybranych interakcji prowadzi do modeli uproszczonych. Przykładowo
+model bez interakcji trzeciego rzędu ma postać $$
+\log \hat{n}_{ijk} = \lambda + \lambda_i^X + \lambda_j^Y + \lambda_k^Z + \lambda^{XY}_{ij} + \lambda^{XZ}_{ik} + \lambda^{YZ}_{jk}.
+$$ Model, który zakłada tylko pojedynczą interakcję dwuwymiarową, może mieć
+postać $$
+\log \hat{n}_{ijk} =\lambda + \lambda_i^X + \lambda_j^Y + \lambda_k^Z + \lambda^{XY}_{ij}.
+$$ Inne modele eliminują kolejne interakcje lub zachowują tylko część z nich.
+Każdy taki model musi jednak spełniać zasadę hierarchiczności.
+
+### Zasada hierarchiczności modeli log-liniowych
+
+Model log-liniowy jest hierarchiczny wtedy i tylko wtedy, gdy **obecność
+jakiejkolwiek interakcji wyższego rzędu wymusza obecność wszystkich jej
+podinterakcji niższego rzędu**. Formalnie, jeżeli model zawiera interakcję
+określoną przez zbiór zmiennych $$
+{A_1, A_2, \dots, A_r},
+$$ to musi on zawierać także wszystkie interakcje zdefiniowane na każdym
+podzbiorze $$
+{A_{i_1}, A_{i_2}, \dots, A_{i_s}}\subset {A_1, \dots, A_r},
+$$ a więc również wszystkie efekty główne tworzących tę interakcję zmiennych.
+
+### Ilustracja hierarchiczności
+
+Jeżeli w modelu pozostawia się interakcję trzeciego rzędu
+$\lambda^{XYZ}_{ijk},$ to model musi dodatkowo zawierać:
+
+-   interakcje dwuwymiarowe $$
+    \lambda^{XY}_{ij}, \ \lambda^{XZ}_{ik}, \ \lambda^{YZ}_{jk},
+    $$
+-   oraz efekty główne: $$
+    \lambda_i^X,\ \lambda_j^Y,\ \lambda_k^Z,
+    $$
+-   a także efekt ogólny $\lambda$.
+
+Analogicznie, jeżeli model zawiera interakcję dwuwymiarową, np.
+$\lambda^{XY}_{ij}$, to musi jednocześnie zawierać: $$
+\lambda_i^X,\qquad \lambda_j^Y,\qquad \lambda.
+$$ Model, w którym te warunki nie są spełnione, nie jest modelem
+hierarchicznym.
+
+### Znaczenie hierarchiczności
+
+Hierarchiczność zapewnia:
+
+-   spójną, poprawną interpretację parametrów,
+-   istnienie estymatorów maksymalnego prawdopodobieństwa,
+-   prawidłowe działanie algorytmu iteracyjnego dopasowania proporcjonalnego
+    (IPF),
+-   logiczną strukturę zależności pomiędzy zmiennymi.
+
+W efekcie stanowi podstawową zasadę konstrukcji modeli log-liniowych i
+gwarantuje ich poprawność statystyczną.
+
+## Estymacja parametrów
+
+W modelach log-liniowych parametry estymuje się w oparciu o zasadę
+maksymalizacji funkcji wiarygodności. Przyjmuje się, że liczności tabeli
+kontyngencji mają rozkład Poissona z parametrami $\hat{n}_{ijk}$, które
+odpowiadają wartościom oczekiwanym wynikającym z przyjętego modelu
+log-liniowego. Konstrukcja funkcji wiarygodności opiera się na fakcie, że
+komórki są traktowane jako niezależne, co prowadzi do iloczynu gęstości
+Poissona. Logarytm takiej funkcji dla tabeli trójwymiarowej przyjmuje postać $$
+\ell(\lambda) = \sum_{ijk}
+\left[
+n_{ijk} \log(\hat{n}_{ijk}) - \hat{n}_{ijk} - \log(n_{ijk}!)
+\right],
+$$
+
+gdzie $n_{ijk}$ oznacza liczbę obserwacji w komórce $ijk$, a $\hat{n}_{ijk}$
+wartość oczekiwaną określoną przez model. Po odrzuceniu stałej $\log(n_{ijk}!)$
+zadanie estymacji sprowadza się do maksymalizacji $$
+\ell(\lambda) =\sum_{ijk}
+\left[
+n_{ijk},\log(\hat{n}_{ijk}) - \hat{n}_{ijk}
+\right],
+$$ przy czym $\hat{n}_{ijk}$ wyrażane są w funkcji parametrów $\lambda$,
+ponieważ model określa $$
+\log(\hat{n}_{ijk}) = \lambda + \lambda_{i}^A + \lambda_{j}^B + \lambda_{k}^C + \lambda_{ij}^{AB} + \dots
+$$ Wobec nieliniowości tej struktury warunki pierwszego rzędu nie mają
+zamkniętego rozwiązania algebraicznego, co prowadzi do konieczności
+wykorzystania metod iteracyjnych. W zastosowaniach modeli log-liniowych
+wykorzystuje się dwie klasy procedur. Pierwsza opiera się na iteracyjnych
+metodach gradientowych, takich jak Newton–Raphson, w których aktualizuje się
+wartości parametrów poprzez dodawanie poprawek proporcjonalnych do pochodnej
+pierwszej i odwrotności hessianu. Druga klasa, szczególnie rozpowszechniona w
+analizie tabel wielodzielczych, wykorzystuje algorytm *iterative proportional
+fitting* (IPF).
+
+::: callout-note
+Algorytm *iterative proportional fitting* (IPF) stosuje się do wyznaczania
+wartości oczekiwanych $n_{i_1 i_2 \dots i_p}$ w modelach log-liniowych tak, aby
+były one zgodne z zadanymi rozkładami brzegowymi wynikającymi z przyjętej
+struktury modelu hierarchicznego. Sednem tej procedury jest kolejne skalowanie
+fragmentów tabeli oczekiwanej w taki sposób, aby dopasować ich marginesy do
+marginesów danych empirycznych. Iteracja po iteracji kolejne rozkłady brzegowe
+zaczynają odpowiadać odpowiednim sumom brzegowym obserwacji, co w rezultacie
+prowadzi do wartości oczekiwanych maksymalizujących funkcję wiarygodności.
+
+Przykładowo dla modelu bez interakcji trzeciego rzędu $$
+\log(\hat{n}_{ijk}) = \lambda + \lambda_i^X + \lambda_j^Y + \lambda_k^Z + \lambda_{ij}^{XY} + \lambda_{ik}^{XZ} + \lambda_{jk}^{YZ},
+$$ czyli model, w którym wyklucza się obecność interakcji trójwymiarowej
+$(XYZ)$. W takim modelu estymatory wartości oczekiwanych $\hat{n}_{ijk}$ muszą
+spełniać trzy zestawy warunków brzegowych: $$
+\hat{n}_{ij\cdot}=n_{ij\cdot},\qquad
+\hat{n}_{i\cdot k}=n_{i\cdot k},\qquad
+\hat{n}_{\cdot jk}=n_{\cdot jk}.
+$$ Warunki te nie mogą zostać spełnione przez bezpośrednie podstawienie
+parametrów do równania log-liniowego, dlatego stosuje się procedurę iteracyjną
+IPF.
+
+### Krok 0. Wybór wartości początkowych
+
+Procedurę rozpoczyna się od zadania początkowych wartości liczebności
+oczekiwanych: $$
+\hat{n}_{ijk}^{(0)} = 1 \qquad \text{dla wszystkich } i,j,k.
+$$
+
+### Krok 1. Dopasowanie marginesów $\hat{n}_{ij\cdot}$
+
+Aby wymusić spełnienie zależności $$
+\hat{n}_{ij\cdot} = n_{ij\cdot},
+$$ stosuje się skalowanie proporcjonalne w każdej warstwie $k$ $$
+\hat{n}_{ijk}^{(1)} = \frac{\hat{n}_{ijk}^{(0)}\cdot n_{ij\cdot}}{\hat{n}_{ij\cdot}^{(0)}}.
+$$
+
+Wartości $\hat{n}_{ij\cdot}^{(0)}$ oznaczają marginesy wyliczone z tabeli
+$\hat{n}^{(0)}$. Po zastosowaniu tego skalowania nowe liczebności
+$\hat{n}^{(1)}$ mają prawidłowe marginesy $(XY)$.
+
+### Krok 2. Dopasowanie marginesów $\hat{n}_{i\cdot k}$
+
+Teraz narzuca się spełnienie warunku $$
+\hat{n}_{i\cdot k} = n_{i\cdot k}.
+$$
+
+Wykorzystując liczebności $\hat{n}_{ijk}^{(1)}$ z poprzedniego kroku, dokonuje
+się skalowania $$
+\hat{n}_{ijk}^{(2)} = \frac{\hat{n}_{ijk}^{(1)}\cdot n_{i\cdot k}}{\hat{n}_{i\cdot k}^{(1)}}.
+$$ Po tym kroku wartości oczekiwane $\hat{n}^{(2)}$ spełniają ograniczenia
+dotyczące marginesów $(XZ)$.
+
+### Krok 3. Dopasowanie marginesów $\hat{n}_{\cdot jk}$
+
+Aby spełnić trzecie ograniczenie $$
+\hat{n}_{\cdot jk} = n_{\cdot jk},
+$$ stosuje się kolejne skalowanie $$
+\hat{n}_{ijk}^{(3)} = \frac{\hat{n}_{ijk}^{(2)}\cdot n_{\cdot jk}}{\hat{n}_{\cdot jk}^{(2)}}.
+$$ Po tym kroku liczebności $\hat{n}^{(3)}$ mają prawidłowe marginesy $(YZ)$.
+
+### Krok 4. Kolejne cykle
+
+Aby zakończyć pierwszy pełny cykl dopasowań, wraca się do kroku 1, podstawiając
+$\hat{n}_{ijk}^{(3)}$ jako wartości wejściowe $$
+\hat{n}_{ijk}^{(3)} \longrightarrow \hat{n}_{ijk}^{(0)} \text{ w kolejnym cyklu}.
+$$
+
+Procedura powtarza się w kolejności:
+
+1.  dopasowanie $(XY)$,
+2.  dopasowanie $(XZ)$,
+3.  dopasowanie $(YZ)$,
+
+aż do osiągnięcia zbieżności.
+
+### Zakończenie algorytmu
+
+Iteracje kontynuuje się do momentu, w którym różnice między kolejnymi tabelami
+$\hat{n}^{(t)}$ i $\hat{n}^{(t+1)}$ nie przekraczają ustalonej tolerancji, np.:
+$$
+|\hat{n}_{ijk}^{(t+1)} - \hat{n}_{ijk}^{(t)}| < 0.01
+$$
+
+dla wszystkich $i,j,k$.
+
+### Uwagi końcowe
+
+-   Jeśli brzegowe liczebności oczekiwane mogą być bezpośrednio wyliczone z
+    danych empirycznych (np. w modelach pełnych), algorytm IPF nie jest
+    konieczny.
+-   W modelach hierarchicznych brakujących interakcji (np. brak $(XYZ)$) IPF
+    jest jedyną wygodną metodą prowadzącą do estymacji maksymalnego
+    prawdopodobieństwa.
+-   Dowodzi się, że IPF zawsze zbiega do unikalnego rozwiązania MLE, o ile
+    marginesy nie zawierają niemożliwych konfiguracji (Haberman, 1974).
+:::
+
+## Ocena dopasowania
+
+Ocena poprawności modelu możliwa jest poprzez porównanie wartości oczekiwanych
+i zaobserwowanych liczności. Najczęściej stosuje się test statystyki ilorazu
+wiarygodności, $$
+G^2 = 2 \sum_{ijk} n_{ijk} \log\left(\frac{n_{ijk}}{\hat{n}_{ijk}}\right),
+$$
+
+lub test chi-kwadrat Pearsona (rzadziej używany), $$
+\chi^2 = \sum_{ijk} \frac{(n_{ijk} - \hat{n}_{ijk})^2}{\hat{n}_{ijk}}.
+$$ Obie statystyki pozwalają ocenić zgodność modelu z danymi, przy czym
+mniejsze wartości $G^2$ i $\chi^2$ wskazują na lepsze dopasowanie. Kryteria
+informacyjne, takie jak AIC i BIC, umożliwiają porównanie modeli o różnej
+strukturze interakcji, natomiast analiza reszt pozwala wychwycić lokalne
+odchylenia. Sprawdza się także warunki hierarchiczności oraz stabilność
+parametrów względem zmian tabeli.
+
+## Interpretacja parametrów
+
+Interpretacja modelu log-liniowego odwołuje się do koncepcji proporcji i
+współczynników intensywności zależności. Parametry w skali logarytmicznej
+odpowiadają ilorazom intensywności współwystępowania kategorii. Dla efektów
+głównych porównuje się poziomy zmiennych w odniesieniu do kategorii bazowych,
+natomiast dla interakcji parametry wskazują na istnienie lub brak oddziaływania
+pomiędzy zmiennymi. Na przykład dodatnia wartość parametru interakcji
+$\lambda^{XY}_{ij}$ oznacza, że kombinacja kategorii $i$ i $j$ występuje
+częściej niż wynikałoby to z ich niezależności, natomiast wartości ujemne
+sugerują niedoreprezentowanie tej pary. Interpretacja w kontekście ilorazów
+szans umożliwia przekształcenie parametrów do skali relatywnej, użytecznej w
+analizach porównawczych.
+
+Model log-liniowy stanowi zatem metodę pozwalającą odwzorować strukturę
+zależności w danych jakościowych poprzez analizę efektów głównych i interakcji
+zmiennych. Łączy zasady modeli Poissona, hierarchicznej struktury tabeli oraz
+testowania hipotez o niezależności, stanowiąc uniwersalne narzędzie analityczne
+w badaniach wielowymiarowych.
+
+## Zera strukturalne i próbkowe
+
+W analizie tabel wielodzielczych *zera strukturalne* i *zera próbkowe* odnoszą
+się do komórek o liczebności równej zero, lecz różnią się znaczeniem i
+konsekwencjami dla modelowania. W obu przypadkach komórka ma wartość 0, ale
+interpretacja tego zera jest zupełnie inna, co wpływa na możliwość stosowania
+modeli log-liniowych oraz na ich dopasowanie.
+
+Zerem **strukturalnym** nazywa się taką komórkę tabeli, w której liczebność
+musi wynosić zero ze względu na logikę lub reguły konstrukcji zjawiska. Oznacza
+to, że taka kategoria w ogóle nie może wystąpić w populacji i obserwacja jej
+byłaby sprzeczna z definicją zmiennych. Przykładowo, w tabeli krzyżującej płeć
+biologiczną (mężczyzna, kobieta) z kategorią „ciąża” (tak, nie), komórka
+„mężczyzna, ciąża = tak” jest zerem strukturalnym, bo z definicji nie może być
+tam żadnej obserwacji. Podobnie w tabeli krzyżującej wiek w kategoriach (0–17,
+18+) z „posiadanie prawa wyborczego” (tak, nie), komórka „wiek 0–17, prawo
+wyborcze = tak” jest zerem strukturalnym.
+
+Zera **próbkowe** (ang. *sampling zeros*) oznaczają tych przypadki, w których
+liczebność komórki wynosi zero tylko dlatego, że w danym losowaniu lub próbie
+nie zaobserwowano żadnej jednostki pasującej do danej kombinacji kategorii,
+choć w populacji jest ona możliwa. Przykładem może być komórka tabeli wiążącej
+wykształcenie i rodzaj wykonywanej pracy, gdzie w próbie nie odnotowano osoby z
+wykształceniem podstawowym zatrudnionej jako programista, mimo że taka
+kombinacja jest realnie możliwa. Innym przykładem jest tabela preferencji
+zakupowych, w której żadna osoba w próbie nie wybrała połączenia „płeć męska” i
+„zakup kosmetyków naturalnych”, mimo że taka decyzja zakupowa może wystąpić w
+populacji.
+
+Różnica między tymi dwoma typami zer jest istotna, ponieważ zera strukturalne
+wymagają wyłączenia odpowiednich komórek z analizy lub użycia modeli
+uwzględniających ograniczenia, natomiast zera próbkowe można traktować jako
+wynik losowej fluktuacji w próbie i uwzględniać normalnie w dopasowaniu modeli
+log-liniowych.
+
+Co robimy w modelu log-liniowym:
+
+-   w przypadku niekompletnych tablic z zerami strukturalnymi liczbę stopni
+    swobody rozkładu $\chi^2$ statystyki $\chi^2$ (lub $G^2$) określa formuła
+    $df= n_1−n_2−n_3,$ gdzie $n_1$ to liczba komórek w tabeli, $n_2$ to liczba
+    parametrów w modelu wymagających estymacji, a $n_3$ to liczba zer *a
+    priori*.
+-   rozwiązaniem problemu występowania zer próbkowych jest zwiększenie
+    liczebności próbki lub ewentualnie, jeśli jest to niemożliwe, zwiększenie
+    wszystkich liczebności oczekiwanych przez dodanie małej stałej, zwykle
+    $\Delta = 0.5$, do każdej komórki tabeli (tzw. korekta Haldane').
+
+::: {#exm-1}
+1.  Dane i pytanie badawcze
+
+Wbudowany zbiór `HairEyeColor` opisuje liczbę osób (uczestników badania),
+skategoryzowanych według:
+
+-   `Hair`: kolor włosów (Black, Brown, Red, Blond),
+-   `Eye`: kolor oczu (Brown, Blue, Hazel, Green),
+-   `Sex`: płeć (Male, Female).
+
+Pytania badawcze:
+
+-   czy kolor włosów i oczu są od siebie niezależne?
+-   czy zależność włosy–oczy jest taka sama dla kobiet i mężczyzn?
+-   czy płeć wnosi jakąś istotną interakcję?
+
+2.  Wczytanie danych i podstawowa eksploracja
+
+```{r}
+# wczytanie danych
+data(HairEyeColor)
+HairEyeColor
+```
+
+Zamieniamy go na ramkę danych:
+
+```{r}
+hec <- as.data.frame(HairEyeColor)
+head(hec)
+```
+
+Można też sprawdzić proste tablice brzegowe:
+
+```{r}
+# tablica 2D włosy × oczy (bez rozróżnienia płci)
+(HairEye <- margin.table(HairEyeColor, margin = c(1, 2)))
+
+# tablica 2D włosy × płeć
+margin.table(HairEyeColor, margin = c(1, 3))
+
+# tablica 2D oczy × płeć
+margin.table(HairEyeColor, margin = c(2, 3))
+```
+
+Już na tym etapie można zauważyć, że np. brązowe włosy i brązowe oczy są
+najczęstsze.
+
+3.  Idea modelu *log-liniowego*
+
+Zmienna `Freq` (liczebność komórki tabeli) traktowana jest jako zmienna o
+rozkładzie Poissona z wartością oczekiwaną $n_{ijk}$. Model *log-liniowy*
+zakłada, że $$
+\log \hat{n}_{ijk} = \lambda + \lambda_i^{Hair} + \lambda_j^{Eye} + \lambda_k^{Sex} + \lambda_{ij}^{Hair:Eye} + \lambda_{ik}^{Hair:Sex} +  \lambda_{jk}^{Eye:Sex} + \lambda_{ijk}^{Hair:Eye:Sex}.
+$$ To jest model pełny (nasycony, ang. *saturated model*), który zawsze
+perfekcyjnie odtwarza liczebności obserwowane. Chcąc znaleźć model optymalny,
+eliminujemy z modelu nasyconego poszczególne efekty interakcji, zaczynając od
+interakcji najwyższego rzędu.
+
+4.  Model pełny (nasycony)
+
+Do estymacji użyjemy funkcji `loglm` z pakietu `MASS`.
+
+```{r}
+library(MASS)
+m_full <- loglm(Freq ~ Hair * Eye * Sex, data = hec)
+summary(m_full)
+```
+
+W formule symbol `*` oznacza wszystkie efekty główne i interakcje do danego
+rzędu. `Hair * Eye * Sex` odpowiada zapisowi
+`Hair + Eye + Sex + Hair:Eye + Hair:Sex + Eye:Sex + Hair:Eye:Sex`
+
+Jak widać na podstawie statystyk dopasowania $G^2$ i $\chi^2$ model idealnie
+dopasowuje się do danych (`deviance = 0, p-value = 1`).
+
+5.  Model niezależności wszystkich trzech zmiennych
+
+Teraz bardzo restrykcyjny model:
+
+-   zakłada się pełną niezależność `Hair`, `Eye` i `Sex`,
+-   brak jakichkolwiek interakcji.
+
+```{r}
+m_indep <- loglm(Freq ~ Hair + Eye + Sex, data = hec)
+summary(m_indep)
+```
+
+Na podstawie wyników można stwierdzić, że model złożony jedynie z efektów
+brzegowych jest niewystarczający do opisu związków między cechami.
+
+6.  Model testujący czy kolor włosów i oczu są od siebie niezależne
+
+```{r}
+m_HE_indep <- loglm(Freq ~ Hair + Eye, data = hec)
+summary(m_HE_indep)
+```
+
+Model `m_HE_indep` reprezentuje **model niezależności** między kolorem włosów
+(`Hair`) i kolorem oczu (`Eye`). Odczytane statystyki pozwalają sprawdzić, czy
+hipoteza niezależności jest zgodna z danymi.
+
+-   Model zakłada, że $H_0: Hair \perp Eye$ czyli brak interakcji `Hair:Eye`,
+    co oznacza, że struktura częstości włosów i oczu powinna wynikać wyłącznie
+    z ich rozkładów marginalnych.
+-   Statystyki dopasowania $G^2 = 168.25$, $p = 0$ oraz $\chi^2 = 171.59$,
+    $p = 0$ wskazują na bardzo słabe dopasowanie modelu do danych.
+-   Kolor włosów i kolor oczu są **wyraźnie zależne**. W tabeli występują
+    kombinacje kolorów włosów i oczu, które pojawiają się częściej lub
+    rzadziej, niż przewiduje model niezależności.
+
+```{r}
+fitted(m_HE_indep)
+```
+
+Wartości przedstawione jako `fitted(m_HE_indep)` to liczebności **oczekiwane**
+w modelu zakładającym **niezależność** koloru włosów i koloru oczu. Otrzymane
+tablice mają identyczne wartości dla obu poziomów płci, ponieważ model
+niezależności nie uwzględnia płci – liczy wyłącznie to, jakie liczebności
+powinny wystąpić przy produkcie marginesów Hair i Eye.
+
+Każda komórka pokazuje zatem, ile osób *powinno* znaleźć się w danej kombinacji
+kolorów włosów i oczu, gdyby te cechy były od siebie niezależne. Porównanie
+tych wartości z liczebnościami obserwowanymi (które silnie od nich odbiegają)
+ilustruje, że model niezależności nie opisuje danych poprawnie, co potwierdza
+wcześniejszy test odrzucający hipotezę niezależności Hair–Eye.
+
+7.  Model testujący czy zależność Hair–Eye jest taka sama dla kobiet i mężczyzn
+
+```{r}
+m_no3way <- loglm(Freq ~ (Hair + Eye + Sex)^2, data = hec)
+summary(m_no3way)
+
+# Porównanie modeli zagnieżdżonych (test LRT)
+anova(m_no3way, m_full, test = "Chisq")
+```
+
+Model zawierający wszystkie interakcje drugiego rzędu, ale pozbawiony
+interakcji trzeciego rzędu, charakteryzuje się bardzo dobrym dopasowaniem do
+danych. Wysokie wartości p-value zarówno dla statystyki ilorazu wiarygodności,
+jak i testu Pearsona wskazują, że różnice pomiędzy wartościami obserwowanymi a
+oczekiwanymi nie są istotne. Oznacza to, że model w tej postaci potrafi
+odtworzyć strukturę danych i nie ma podstaw do wnioskowania, że brakuje w nim
+istotnej zależności.
+
+Porównanie tego modelu z modelem nasyconym, który dodatkowo zawiera interakcję
+trzeciego rzędu, również nie pokazuje istotnych różnic. Wartość $p$ dla różnicy
+*deviance* pomiędzy modelami jest wysoka, co wskazuje, że dodanie interakcji
+trójwymiarowej nie poprawia jakości dopasowania. Oznacza to, że zależności
+pomiędzy parami zmiennych w pełni wyjaśniają obserwowaną strukturę, a
+interakcja trzeciego rzędu nie wnosi dodatkowej informacji.
+
+Wynik testów oznacza, że zależność między kolorem włosów a kolorem oczu **jest
+taka sama dla kobiet i mężczyzn**.
+
+```{r}
+fitted(m_no3way)
+```
+
+Wartości `fitted(m_no3way)` przedstawiają liczebności oczekiwane w modelu,
+który uwzględnia wszystkie **interakcje drugiego rzędu** (Hair:Eye, Hair:Sex,
+Eye:Sex), ale pomija interakcję trzeciego rzędu. Oczekiwane liczebności różnią
+się między kobietami a mężczyznami, ponieważ model dopuszcza wpływ płci na
+rozkład włosów oraz na rozkład oczu, a także oddzielnie na zależność każdej z
+tych cech z płcią.
+
+Rozkład liczebności oczekiwanych w każdej płci odzwierciedla różnice marginesów
+i dwuwymiarowych zależności w podtabelach, ale brak interakcji trzeciego rzędu
+sprawia, że wzorce zależności między kolorem włosów i kolorem oczu są nakładane
+symetrycznie w każdej płci. Oznacza to, że model dopuszcza różnice w częstości
+kategorii włosów i oczu między kobietami a mężczyznami, lecz zakłada, że
+trójwymiarowy wzorzec współwystępowania tych cech nie zawiera dodatkowej
+struktury uzależnionej od płci.
+
+```{r}
+exp(m_no3way$param$Eye.Sex)
+exp(m_no3way$param$Hair.Sex)
+exp(m_no3way$param$Hair.Eye)
+```
+
+Wartości parametrów w postaci wykładniczej (czyli po zastosowaniu funkcji
+`exp`) pokazują względne ilorazy częstości dla poszczególnych efektów
+dwuwymiarowych obecnych w modelu. Dla testowanej hipotezy dotyczącej obecności
+lub braku istotnej interakcji z płcią wartościowe są wyłącznie parametry
+dotyczące relacji `Eye:Sex` oraz `Hair:Sex`. To one informują, czy rozkład
+kategorii oczu lub włosów różni się pomiędzy kobietami i mężczyznami po
+uwzględnieniu pozostałych efektów w modelu. Ilorazy większe od 1 wskazują, że
+dana kombinacja (np. kategoria oczu u mężczyzn) występuje częściej, niż
+wynikałoby to z modelu bez tej interakcji, natomiast wartości mniejsze od 1
+informują o relatywnym niedoborze obserwacji. Przykładowo, wartość 0.856
+oznacza, że liczebność mężczyzn o brązowych oczach jest o około 14 procent
+niższa, niż wynikałoby to z modelu bez interakcji `Eye:Sex`, przy uwzględnieniu
+pozostałych efektów w modelu. Natomiast wartość 1.17 dla kobiet o brązowych
+oczach wskazuje, że taka kombinacja występuje ponadprzeciętnie (częściej o
+około 17%) niż wynikałoby to z modelu bez tej interakcji.
+
+Parametry `Hair:Eye` dotyczą relacji między kolorem włosów a kolorem oczu i nie
+mają znaczenia dla oceny roli płci w strukturze zależności. Stanowią natomiast
+wartościowe podsumowanie siły i kierunku powiązań pomiędzy włosami i oczami,
+pokazując, które kombinacje są nadreprezentowane, a które pojawiają się
+rzadziej od oczekiwań.
+
+8.  Model testujący czy płeć wnosi jakąś istotną interakcję?
+
+```{r}
+# Model bez interakcji z płcią:
+m_noSexInt <- loglm(Freq ~ Hair * Eye + Sex, data = hec)
+summary(m_noSexInt)
+
+# Porównanie: czy dodanie interakcji z Sex poprawia dopasowanie?
+anova(m_noSexInt, m_no3way, test = "Chisq")
+```
+
+Model zawierający interakcję między kolorem włosów i kolorem oczu oraz efekty
+główne wszystkich zmiennych, ale pozbawiony interakcji z płcią, wykazuje dobre
+dopasowanie do danych. Wysokie wartości p-value obu testów dopasowania
+wskazują, że różnice między liczebnościami obserwowanymi i oczekiwanymi nie są
+istotne statystycznie. Oznacza to, że uproszczona struktura modelu jest
+wystarczająca do odtworzenia układu częstości w tabeli.
+
+Z takiego wyniku wynika, że obecność płci nie wprowadza istotnych modyfikacji
+zależności między kolorem włosów a kolorem oczu. Sam efekt płci, uwzględniony
+jako efekt główny, pozwala odtworzyć zmienność liczebności bez konieczności
+modelowania interakcji z pozostałymi zmiennymi. Strukturę współwystępowania
+włosów i oczu można więc traktować jako stabilną niezależnie od płci, a różnice
+pomiędzy poziomami tej zmiennej nie wykraczają poza proste różnice w
+liczebnościach marginalnych.
+
+Porównanie modeli wskazuje, że dodanie interakcji z płcią (`Hair:Sex` oraz
+`Eye:Sex`) istotnie poprawia dopasowanie w stosunku do modelu, który takiej
+interakcji nie zawiera. Jednocześnie interakcja trzeciego rzędu pozostaje
+nieistotna, co oznacza, że płeć wpływa na rozkład włosów i oczu, ale nie
+modyfikuje zależności między tymi dwiema cechami.
+
+```{r}
+fitted(m_noSexInt)
+```
+
+Wartości `fitted(m_noSexInt)` przedstawiają liczebności oczekiwane w modelu,
+który uwzględnia jedynie interakcję `Hair:Eye`, a płeć traktuje wyłącznie jako
+efekt główny. Oznacza to, że model dopuszcza różnice w ogólnej liczbie mężczyzn
+i kobiet, ale zakłada, że **struktura współwystępowania kolorów włosów i oczu
+jest identyczna w obu płciach**.
+
+W praktyce oznacza to, że różnice pomiędzy tablicami dla mężczyzn i kobiet
+wynikają wyłącznie z proporcji płci w próbie oraz z rozkładów marginalnych, a
+nie z tego, że płeć modyfikuje zależność między włosami a oczami. Każdy
+„kształt” tabeli dla danej płci jest zatem skalowaną wersją tej samej struktury
+Hair–Eye. Jeśli pewna kombinacja włosów i oczu jest relatywnie częsta u
+mężczyzn, to model zakłada, że powinna być tak samo relatywnie częsta u kobiet,
+tylko w innej skali wynikającej z ogólnej liczebności kobiet. Dzięki temu wynik
+łatwo interpretować jako konsekwencję założenia, że płeć nie zmienia wzorca
+współwystępowania kolorów włosów i oczu.
+
+```{r}
+exp(m_noSexInt$param$Hair.Eye)
+```
+
+Parametry `exp(Hair:Eye)` pokazują, jak bardzo dana kombinacja koloru włosów i
+koloru oczu jest nad- lub niedoreprezentowana względem sytuacji niezależności
+tych cech, po uwzględnieniu efektów głównych. Wartości większe od 1 wskazują na
+względny nadmiar obserwacji, natomiast wartości mniejsze od 1 oznaczają
+względny niedobór danej kombinacji w stosunku do oczekiwań modelowych.
+
+Dla czarnych włosów współczynnik równy 2.65 dla brązowych oczu oznacza, że
+osoby o tej kombinacji pojawiają się w danych ponad dwukrotnie częściej, niż
+wynikałoby to z niezależnego rozkładu kategorii. Jednocześnie parametr 0.67 dla
+czarnych włosów i niebieskich oczu wskazuje, że ta kombinacja pojawia się
+znacznie rzadziej, niż sugerowałby model bez interakcji. Wartość 1.11 dla pary
+czarne włosy i piwne oczy jest bliska jedności, co oznacza, że liczebność tej
+kombinacji odpowiada temu, co przewidywałby model niezależności.
+
+Z kolei dla włosów blond bardzo wysoki współczynnik 3.13 przy niebieskich
+oczach świadczy o silnej nadreprezentacji tej kombinacji w danych. Tymczasem
+wartość 0.27 przy brązowych oczach oznacza, że osoby o blond włosach i
+brązowych oczach pojawiają się znacznie rzadziej, niż można by oczekiwać, gdyby
+włosy i oczy były od siebie niezależne. Analogicznie, parametr 1.61 przy
+zielonych oczach sygnalizuje umiarkowany nadmiar tej kombinacji dla osób o
+jasnych włosach. Wartości te pokazują, że zależność między kolorem włosów i
+oczu ma wyraźny charakter i prowadzi do zróżnicowanych wzorców
+współwystępowania w różnych parach kategorii.
+:::
