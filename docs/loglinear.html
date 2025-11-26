@@ -725,34 +725,10 @@ Eye     Male Female
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span>
 <span><span class="va">m_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/loglm.html">loglm</a></span><span class="op">(</span><span class="va">Freq</span> <span class="op">~</span> <span class="va">Hair</span> <span class="op">*</span> <span class="va">Eye</span> <span class="op">*</span> <span class="va">Sex</span>, data <span class="op">=</span> <span class="va">hec</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_full</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">m_full</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Formula:
-Freq ~ Hair * Eye * Sex
-attr(,"variables")
-list(Freq, Hair, Eye, Sex)
-attr(,"factors")
-     Hair Eye Sex Hair:Eye Hair:Sex Eye:Sex Hair:Eye:Sex
-Freq    0   0   0        0        0       0            0
-Hair    1   0   0        1        1       0            1
-Eye     0   1   0        1        0       1            1
-Sex     0   0   1        0        1       1            1
-attr(,"term.labels")
-[1] "Hair"         "Eye"          "Sex"          "Hair:Eye"     "Hair:Sex"    
-[6] "Eye:Sex"      "Hair:Eye:Sex"
-attr(,"order")
-[1] 1 1 1 2 2 2 3
-attr(,"intercept")
-[1] 1
-attr(,"response")
-[1] 1
-attr(,".Environment")
-&lt;environment: R_GlobalEnv&gt;
-attr(,"predvars")
-list(Freq, Hair, Eye, Sex)
-attr(,"dataClasses")
-     Freq      Hair       Eye       Sex 
-"numeric"  "factor"  "factor"  "factor" 
+<pre><code>Call:
+loglm(formula = Freq ~ Hair * Eye * Sex, data = hec)
 
 Statistics:
                  X^2 df P(&gt; X^2)
@@ -772,33 +748,10 @@ Pearson            0  0        1</code></pre>
 </ul>
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_indep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/loglm.html">loglm</a></span><span class="op">(</span><span class="va">Freq</span> <span class="op">~</span> <span class="va">Hair</span> <span class="op">+</span> <span class="va">Eye</span> <span class="op">+</span> <span class="va">Sex</span>, data <span class="op">=</span> <span class="va">hec</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_indep</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">m_indep</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Formula:
-Freq ~ Hair + Eye + Sex
-attr(,"variables")
-list(Freq, Hair, Eye, Sex)
-attr(,"factors")
-     Hair Eye Sex
-Freq    0   0   0
-Hair    1   0   0
-Eye     0   1   0
-Sex     0   0   1
-attr(,"term.labels")
-[1] "Hair" "Eye"  "Sex" 
-attr(,"order")
-[1] 1 1 1
-attr(,"intercept")
-[1] 1
-attr(,"response")
-[1] 1
-attr(,".Environment")
-&lt;environment: R_GlobalEnv&gt;
-attr(,"predvars")
-list(Freq, Hair, Eye, Sex)
-attr(,"dataClasses")
-     Freq      Hair       Eye       Sex 
-"numeric"  "factor"  "factor"  "factor" 
+<pre><code>Call:
+loglm(formula = Freq ~ Hair + Eye + Sex, data = hec)
 
 Statistics:
                       X^2 df P(&gt; X^2)
@@ -812,32 +765,10 @@ Pearson          164.9247 24        0</code></pre>
 </ol>
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_HE_indep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/loglm.html">loglm</a></span><span class="op">(</span><span class="va">Freq</span> <span class="op">~</span> <span class="va">Hair</span> <span class="op">+</span> <span class="va">Eye</span>, data <span class="op">=</span> <span class="va">hec</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_HE_indep</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">m_HE_indep</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Formula:
-Freq ~ Hair + Eye
-attr(,"variables")
-list(Freq, Hair, Eye)
-attr(,"factors")
-     Hair Eye
-Freq    0   0
-Hair    1   0
-Eye     0   1
-attr(,"term.labels")
-[1] "Hair" "Eye" 
-attr(,"order")
-[1] 1 1
-attr(,"intercept")
-[1] 1
-attr(,"response")
-[1] 1
-attr(,".Environment")
-&lt;environment: R_GlobalEnv&gt;
-attr(,"predvars")
-list(Freq, Hair, Eye)
-attr(,"dataClasses")
-     Freq      Hair       Eye 
-"numeric"  "factor"  "factor" 
+<pre><code>Call:
+loglm(formula = Freq ~ Hair + Eye, data = hec)
 
 Statistics:
                       X^2 df P(&gt; X^2)
@@ -883,33 +814,10 @@ Hair       Brown     Blue     Hazel     Green
 </ol>
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_no3way</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/loglm.html">loglm</a></span><span class="op">(</span><span class="va">Freq</span> <span class="op">~</span> <span class="op">(</span><span class="va">Hair</span> <span class="op">+</span> <span class="va">Eye</span> <span class="op">+</span> <span class="va">Sex</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>, data <span class="op">=</span> <span class="va">hec</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_no3way</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">m_no3way</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Formula:
-Freq ~ (Hair + Eye + Sex)^2
-attr(,"variables")
-list(Freq, Hair, Eye, Sex)
-attr(,"factors")
-     Hair Eye Sex Hair:Eye Hair:Sex Eye:Sex
-Freq    0   0   0        0        0       0
-Hair    1   0   0        1        1       0
-Eye     0   1   0        1        0       1
-Sex     0   0   1        0        1       1
-attr(,"term.labels")
-[1] "Hair"     "Eye"      "Sex"      "Hair:Eye" "Hair:Sex" "Eye:Sex" 
-attr(,"order")
-[1] 1 1 1 2 2 2
-attr(,"intercept")
-[1] 1
-attr(,"response")
-[1] 1
-attr(,".Environment")
-&lt;environment: R_GlobalEnv&gt;
-attr(,"predvars")
-list(Freq, Hair, Eye, Sex)
-attr(,"dataClasses")
-     Freq      Hair       Eye       Sex 
-"numeric"  "factor"  "factor"  "factor" 
+<pre><code>Call:
+loglm(formula = Freq ~ (Hair + Eye + Sex)^2, data = hec)
 
 Statistics:
                       X^2 df  P(&gt; X^2)
@@ -999,33 +907,10 @@ Hair        Brown      Blue    Hazel     Green
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Model bez interakcji z płcią:</span></span>
 <span><span class="va">m_noSexInt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/loglm.html">loglm</a></span><span class="op">(</span><span class="va">Freq</span> <span class="op">~</span> <span class="va">Hair</span> <span class="op">*</span> <span class="va">Eye</span> <span class="op">+</span> <span class="va">Sex</span>, data <span class="op">=</span> <span class="va">hec</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_noSexInt</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">m_noSexInt</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Formula:
-Freq ~ Hair * Eye + Sex
-attr(,"variables")
-list(Freq, Hair, Eye, Sex)
-attr(,"factors")
-     Hair Eye Sex Hair:Eye
-Freq    0   0   0        0
-Hair    1   0   0        1
-Eye     0   1   0        1
-Sex     0   0   1        0
-attr(,"term.labels")
-[1] "Hair"     "Eye"      "Sex"      "Hair:Eye"
-attr(,"order")
-[1] 1 1 1 2
-attr(,"intercept")
-[1] 1
-attr(,"response")
-[1] 1
-attr(,".Environment")
-&lt;environment: R_GlobalEnv&gt;
-attr(,"predvars")
-list(Freq, Hair, Eye, Sex)
-attr(,"dataClasses")
-     Freq      Hair       Eye       Sex 
-"numeric"  "factor"  "factor"  "factor" 
+<pre><code>Call:
+loglm(formula = Freq ~ Hair * Eye + Sex, data = hec)
 
 Statistics:
                       X^2 df  P(&gt; X^2)

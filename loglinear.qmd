@@ -414,7 +414,7 @@ Do estymacji użyjemy funkcji `loglm` z pakietu `MASS`.
 ```{r}
 library(MASS)
 m_full <- loglm(Freq ~ Hair * Eye * Sex, data = hec)
-summary(m_full)
+m_full
 ```
 
 W formule symbol `*` oznacza wszystkie efekty główne i interakcje do danego
@@ -433,7 +433,7 @@ Teraz bardzo restrykcyjny model:
 
 ```{r}
 m_indep <- loglm(Freq ~ Hair + Eye + Sex, data = hec)
-summary(m_indep)
+m_indep
 ```
 
 Na podstawie wyników można stwierdzić, że model złożony jedynie z efektów
@@ -443,7 +443,7 @@ brzegowych jest niewystarczający do opisu związków między cechami.
 
 ```{r}
 m_HE_indep <- loglm(Freq ~ Hair + Eye, data = hec)
-summary(m_HE_indep)
+m_HE_indep
 ```
 
 Model `m_HE_indep` reprezentuje **model niezależności** między kolorem włosów
@@ -479,7 +479,7 @@ wcześniejszy test odrzucający hipotezę niezależności Hair–Eye.
 
 ```{r}
 m_no3way <- loglm(Freq ~ (Hair + Eye + Sex)^2, data = hec)
-summary(m_no3way)
+m_no3way
 
 # Porównanie modeli zagnieżdżonych (test LRT)
 anova(m_no3way, m_full, test = "Chisq")
@@ -555,7 +555,7 @@ rzadziej od oczekiwań.
 ```{r}
 # Model bez interakcji z płcią:
 m_noSexInt <- loglm(Freq ~ Hair * Eye + Sex, data = hec)
-summary(m_noSexInt)
+m_noSexInt
 
 # Porównanie: czy dodanie interakcji z Sex poprawia dopasowanie?
 anova(m_noSexInt, m_no3way, test = "Chisq")
