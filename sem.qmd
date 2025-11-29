@@ -62,13 +62,13 @@ pomiaru. Macierz kowariancji implikowana przez model ma postać $$
 \Sigma(\theta)=\Lambda\,\Phi\,\Lambda^\top + \Psi,
 $$ gdzie $\theta$ reprezentuje wszystkie parametry modelu.
 
-Klucz identyfikacji w CFA polegać na tym, że rotacyjna nieoznaczoność znika
+Klucz identyfikacji w CFA polega na tym, że rotacyjna nieoznaczoność znika
 dzięki z góry zdefiniowanemu wzorcowi zer w $\Lambda$ (każdy wskaźnik ładujący
-się wyłącznie na „własnym” czynniku). Aby skalować czynniki, przyjmować jedną z
-równoważnych konwencji: ustalamy wariancję czynnika na 1 i estymujemy wszystkie
-ładunki, albo ustalamy po jednym ładunku na 1 w każdej kolumnie $\Lambda$ i
-estymujemy wariancje czynników. Praktycznie zapewniamy co najmniej trzy
-sensowne wskaźniki na czynnik; dwa wskaźniki bywają wystarczające przy
+się wyłącznie na „własnym” czynniku). Aby skalować czynniki, przyjmujemy jedną
+z równoważnych konwencji: ustalamy wariancję czynnika na 1 i estymujemy
+wszystkie ładunki, albo ustalamy po jednym ładunku na 1 w każdej kolumnie
+$\Lambda$ i estymujemy wariancje czynników. Praktycznie zapewniamy co najmniej
+trzy sensowne wskaźniki na czynnik; dwa wskaźniki bywają wystarczające przy
 dodatkowych ograniczeniach równości lub znanych błędach pomiaru.
 
 Estymujemy parametry zwykle metodą największej wiarygodności, co przy
@@ -77,13 +77,13 @@ $\Sigma(\theta)$ i umożliwia wprowadzenie testu globalnego dopasowania
 $\chi^2$. Przy naruszeniach normalności stosujemy wersje odporne lub ważone
 metody najmniejszych kwadratów dla danych porządkowych (WLSMV) [@li2015].
 
-Interpretacja CFA opieramy na ładunkach w $\Lambda$ jako czułościach wskaźników
-na czynniki, wariancjach i korelacjach czynników w $\Phi$ jako sile i
-współwystępowaniu wymiarów latentnych oraz na resztach i modyfikacjach jako
-sygnałach lokalnego niedopasowania. Siła CFA polega na tym, że pozwala wprost
-testować hipotezy o narzędziu pomiarowym, porównywać modele teoretycznie
-motywowane i zapewniać podstawę do dalszych modeli strukturalnych, SEM, w
-których czynniki stają się zmiennymi wyjaśniającymi i wyjaśnianymi.
+Interpretację CFA opieramy na ładunkach ($\Lambda$) jako czułościach wskaźników
+na czynniki, wariancjach i korelacjach czynników ($\Phi$) jako sile i
+współwystępowaniu wymiarów latentnych oraz na resztach jako sygnałach lokalnego
+niedopasowania. Siła CFA polega na tym, że pozwala wprost testować hipotezy o
+narzędziu pomiarowym, porównywać modele teoretycznie motywowane i zapewniać
+podstawę do dalszych modeli strukturalnych, SEM, w których czynniki stają się
+zmiennymi wyjaśniającymi i wyjaśnianymi.
 
 ::: {#exm-1}
 Przeprowadzimy CFA na danych pochodzących z badania PISA 2009, dotyczących
@@ -267,9 +267,8 @@ $$
 \mathbf{y} = B\mathbf{y} + \Gamma \mathbf{x} + \zeta,
 $$ gdzie:
 
--   $\mathbf{y}$ to wektor zmiennych endogenicznych (wyjaśnianych w modelu),
--   $\mathbf{x}$ to wektor zmiennych egzogenicznych (traktowanych jako dane,
-    nieobjaśniane w modelu),
+-   $\mathbf{y}$ to wektor zmiennych endogenicznych [^sem-1],
+-   $\mathbf{x}$ to wektor zmiennych egzogenicznych [^sem-2],
 -   $B$ to macierz współczynników regresji pomiędzy zmiennymi endogenicznymi,
 -   $\Gamma$ to macierz współczynników regresji łączących zmienne egzogeniczne
     z endogenicznymi,
@@ -400,6 +399,17 @@ zwiększanie mocy silnika (`hp`). Moc natomiast sama w sobie pogarsza spalanie.
 Wartości $R^2$ potwierdzają, że model bardzo dobrze wyjaśnia zmienność `mpg`
 (83%), ale umiarkowanie słabiej radzi sobie z `hp` (43%).
 :::
+
+[^sem-1]: Zmienna endogeniczna jest wielkością, której wartości **wynikają z
+    procesów opisanych przez model**. Jest to zmienna **wyjaśniana** przez
+    model, czyli taka, której zmienność tłumaczy się innymi czynnikami. W
+    modelu przyczynowym jest to zmienna pozostająca **wewnątrz układu
+    zależności**.
+
+[^sem-2]: Zmienna egzogeniczna jest wielkością, której wartości są **zadane z
+    zewnątrz modelu** i nie wynikają z jego struktury. Jest to zmienna
+    **wyjaśniająca**, traktowana jako niezależna od procesu losowego
+    opisującego zmienną endogeniczną.
 
 ## Modele strukturalne (SEM)
 
@@ -705,7 +715,7 @@ jest blisko 0.05, co sugeruje, że model jest względnie bliski dobrego
 dopasowania. SRMR = 0.055 jest niewiele powyżej granicy 0.05 i można go uznać
 za dość dobry wynik.
 
-Analiza indeksów modyfikacyjnych[^sem-1] pokazuje, że największe niedopasowania
+Analiza indeksów modyfikacyjnych[^sem-3] pokazuje, że największe niedopasowania
 koncentrują się w kilku obszarach. Po pierwsze, sugerowane są dodatkowe
 powiązania strukturalne między czynnikami latentnymi a zmienną *Speed* (np.
 `Textual ~ Speed, Visual ~ Speed`), które jednak wykraczałyby poza pierwotnie
@@ -797,7 +807,7 @@ semPaths(fit_sem_refined,
 ```
 :::
 
-[^sem-1]: Indeksy modyfikacyjne (*modification indices*, MI) wskazują, o ile
+[^sem-3]: Indeksy modyfikacyjne (*modification indices*, MI) wskazują, o ile
     zmniejszyłby się chi-kwadrat modelu, gdyby wprowadzono daną modyfikację
     (np. dodano ścieżkę lub skorelowano błędy). Wysokie wartości MI sugerują
     potencjalne obszary niedopasowania modelu do danych i mogą być punktem
@@ -856,7 +866,7 @@ Rozpoczynać od precyzyjnego zdefiniowania konstruktu (dziedzina, zakres,
 wymiary) na podstawie literatury. Tworzymy mapę treści (tzw. *blueprint*),
 która łączy wymiary teoretyczne z planowanymi obszarami itemów i formatem
 odpowiedzi. Już na tym etapie określamy typ modelu pomiarowego (refleksyjny czy
-formatywny)[^sem-2], bo determinuje to dalszą metodologię.
+formatywny)[^sem-4], bo determinuje to dalszą metodologię.
 
 ![](images/indicators.png)
 
@@ -900,7 +910,7 @@ kluczowe są:
 5.  Wstępna struktura czynnikowa (EFA)
 
 Na oddzielnej próbie wykonuje się eksploracyjną analizę czynnikową (EFA).
-Ustala się liczbę czynników stosując\* parallel analysis\* i kryterium MAP
+Ustala się liczbę czynników stosując *parallel analysis* i kryterium MAP
 Velicera. Następnie stosuje się estymatjcę modelu za pomocą PAF lub ML, z
 rotacją ortogonalną (np. *varimax*) lub ukośną (np. *oblimin*), zależnie od
 oczekiwanej korelacji czynników. Wartości ładunków $|\lambda| \ge 0.40$ zwykle
@@ -915,7 +925,7 @@ Ustalamy model $$
 $$ co implikuje macierz kowariancji $$
 \Sigma(\theta) \;=\; \Lambda \,\Phi\, \Lambda^\top \;+\; \Psi.
 $$ Estymujemy parametry metodą ML lub odporną (np. MLR), dla danych
-porządkowych – DWLS. Ocena globalna dopasowania opierać na:
+porządkowych – DWLS. Ocena globalna dopasowania opiera się na:
 
 -   statystyce $\chi^2$ rozbieżności;
 -   RMSEA z 90% PU;
@@ -943,8 +953,8 @@ $$ Najczęściej używane miary do oceny rzetelności to:
     unikalne. Dla rozwiązań hierarchicznych używamy $\omega_h$ (udział czynnika
     ogólnego).
 
--   metoda split-half i korekta Spearmana–Browna dla dwóch równoległych połówek
-    z korelacją r: \rho\_{\text{SB}} ;=; \frac{2r}{1 + r}.
+-   metoda *split-half* i korekta Spearmana–Browna dla dwóch równoległych
+    połówek z korelacją r: $\rho_{\text{SB}} = \frac{2r}{1 + r}$.
 
 8.  Trafność
 
@@ -966,7 +976,7 @@ W CFA/SEM oceniamy trafność zbieżną i rozbieżną:
 
 Decydujemy o sposobie punktowania: suma/średnia pozycji (po ewentualnym
 odwróceniu kodowania) czy punktacja czynnikowa (regresyjna/
-Bartlett’a[^sem-3]). Ustalamy również normy na podstawie np. siatki stenowej
+Bartlett’a[^sem-5]). Ustalamy również normy na podstawie np. siatki stenowej
 (niski, przeciętny i wysoki poziom skali).
 
 ::: {#exm-4}
@@ -1095,10 +1105,12 @@ trafności konwergencyjnej (AVE) oraz trafności dyskryminacyjnej (HTMT).
 -   Macierz HTMT wskazuje na poziom rozróżnialności czynników (trafności
     dyskryminacyjnej). Przyjmuje się, że wartości HTMT \< 0.85 (lub bardziej
     liberalnie \< 0.90) oznaczają satysfakcjonującą rozróżnialność. W tym
-    przypadku: • Zapamiętywanie–Opracowywanie = 0.288 – bardzo niski
-    współczynnik, dobra rozróżnialność, • Zapamiętywanie–Kontrolne = 0.482 –
-    umiarkowany, nadal bezpieczny, • Opracowywanie–Kontrolne = 0.680 – wyższy,
-    ale poniżej progu 0.85, więc rozróżnialność jest zachowana.
+    przypadku:
+    -   Zapamiętywanie–Opracowywanie = 0.288 – bardzo niski współczynnik, dobra
+        rozróżnialność,
+    -   Zapamiętywanie–Kontrolne = 0.482 – umiarkowany, nadal bezpieczny,
+    -   Opracowywanie–Kontrolne = 0.680 – wyższy, ale poniżej progu 0.85, więc
+        rozróżnialność jest zachowana.
 
 Podsumowując, model charakteryzuje się akceptowalną rzetelnością i zadowalającą
 trafnością dyskryminacyjną, ale ograniczoną trafnością konwergencyjną. W
@@ -1267,12 +1279,12 @@ head(norms_by_sex %>%
 ```
 :::
 
-[^sem-2]: Model refleksyjny zakłada, że konstrukt latentny wywołuje pewien
+[^sem-4]: Model refleksyjny zakłada, że konstrukt latentny wywołuje pewien
     poziom odpowiedzi na pozycje: zmienne obserwowalne są efektami wspólnej
     przyczyny, ich błędy są specyficzne i niepowiązane, a wysoka współzależność
     pozycji jest oczekiwana. Model formatywny zakłada przeciwny kierunek
     przyczynowy: wskaźniki „tworzą” konstrukt (kompozyt), więc itemy nie muszą
     być skorelowane, a miary spójności wewnętrznej nie mają zastosowania.
 
-[^sem-3]: Bartlett scores są nieobciążonymi estymatorami czynników latentnych,
+[^sem-5]: Bartlett scores są nieobciążonymi estymatorami czynników latentnych,
     ale mogą być mniej stabilne w małych próbach i przy słabych ładunkach.
