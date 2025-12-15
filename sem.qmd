@@ -389,9 +389,9 @@ Oznacza to, że model wyjaśnia 82.7% wariancji spalania i 43.4% wariancji mocy.
 
 -   Efekt całkowity masy na spalanie: $$
     tot = c + a \cdot b = -3.878 + (-1.467) = -5.344.
-    $$ Oznacza to, że wzrost masy samochodu (o jednostkę standaryzowaną)
-    zmniejsza spalanie o 0.868 jednostki standardowej – w dużej części
-    bezpośrednio, a w mniejszej poprzez wzrost mocy.
+    $$ Oznacza to, że wzrost masy samochodu (o jedno odchylenie standardowe tej
+    zmiennej) zmniejsza spalanie o 0.868 odchylenia standardowego `mpg` – w
+    dużej części bezpośrednio, a w mniejszej poprzez wzrost mocy.
 
 Model ścieżkowy wskazuje, że masa samochodu (`wt`) ma silny negatywny wpływ na
 oszczędność paliwa (`mpg`), zarówno bezpośrednio, jak i pośrednio poprzez
@@ -479,9 +479,9 @@ pomiaru, jak i analizę zależności przyczynowych.
 2.  Wielkość próby - zaleca się próby liczące co najmniej około 200 obserwacji,
     choć ostateczny wymóg zależy od trzech czynników:
 
-    1.  rozkładu zmiennych,
-    2.  złożoności modelu,
-    3.  metody estymacji.
+    -   rozkładu zmiennych,
+    -   złożoności modelu,
+    -   metody estymacji.
 
     Duże próby zwiększają stabilność wyników i odporność na naruszenia założeń.
 
@@ -512,7 +512,7 @@ pomiaru, jak i analizę zależności przyczynowych.
 ## Ocena dopasowania modelu SEM
 
 | Wskaźnik | Wartość idealna | Wartość akceptowalna |
-|--------------------------|---------------------------|--------------------------|
+|--------------------------|--------------------------|--------------------------|
 | Chi-kwadrat (CMIN) \* | p \> 0,05 (przy α = 0,05) | p \< 0,05 (przy α = 0,05) |
 | Standaryzowany chi-kwadrat (CMIN/df) \* | \< 3 | \< 5 |
 | GFI (Goodness of Fit Index) | \> 0,95 | \> 0,90 |
@@ -568,28 +568,40 @@ hs <- within(HolzingerSwineford1939, {
 
 # Specyfikacja modelu SEM: część pomiarowa (CFA) + część strukturalna
 model_sem <- '
-  # Część pomiarowa (CFA)
-  Visual  =~ x1 + x2 + x3
-  Textual =~ x4 + x5 + x6
-  Speed   =~ x7 + x8 + x9
 
-  # Część strukturalna (path analysis na latentach)
-  Speed   ~ b1*Visual + b2*Textual
-  Visual  ~ a1*age + a2*sex01
-  Textual ~ a3*age + a4*sex01
+# Część pomiarowa (CFA)
 
-  # Efekty pośrednie wieku i płci na Speed
-  ind_age  := a1*b1 + a3*b2
-  ind_sex  := a2*b1 + a4*b2
+Visual  =~ x1 + x2 + x3
+Textual =~ x4 + x5 + x6
+Speed   =~ x7 + x8 + x9
 
-  # Efekty całkowite wieku i płci na Speed
-  tot_age  := ind_age
-  tot_sex  := ind_sex
+# Część strukturalna
+
+Speed   ~ b1*Visual + b2*Textual + d1*age + d2*sex01
+Visual  ~ a1*age + a2*sex01
+Textual ~ a3*age + a4*sex01
+
+# Efekty pośrednie wieku i płci na Speed
+
+ind_age  := a1*b1 + a3*b2
+ind_sex  := a2*b1 + a4*b2
+
+# Efekty bezpośrednie wieku i płci na Speed
+
+dir_age  := d1
+dir_sex  := d2
+
+# Efekty całkowite wieku i płci na Speed
+
+tot_age  := dir_age + ind_age
+tot_sex  := dir_sex + ind_sex
 '
 
 fit_sem <- sem(model_sem, data = hs,
                estimator = "MLR",      # robust ML
                meanstructure = TRUE)
+
+model_parameters(fit_sem)
 ```
 
 W części pomiarowej zdefiniowano trzy czynniki pierwszego rzędu z klasycznym
@@ -599,7 +611,7 @@ Zdefiniowano także etykiety ścieżek, aby policzyć efekty pośrednie i całko
 (`:=`). Parametry raportowane są w skalach surowych i standaryzowanych.
 
 ```{r}
-model_performance(fit_sem, c("Chi2","Chi2_df","p_Chi2","CFI","TLI","RMSEA","RMSEA_CI_low","RMSEA_CI_high","SRMR")) %>% 
+model_performance(fit_sem, c("Chi2","Chi2_df","p_Chi2","CFI","NNFI","RMSEA","RMSEA_CI_low","RMSEA_CI_high","SRMR")) %>% 
   print_html()
 ```
 
@@ -608,186 +620,125 @@ perspektyw: testu chi-kwadrat, wskaźników dopasowania przyrostowych
 (*incremental fit indices*) oraz wskaźników błędu aproksymacji. Wyniki uzyskane
 w analizie wskazują na istotne sygnały niedopasowania modelu.
 
-Test chi-kwadrat dla modelu dał wartość $\chi^2 = 172,77$ przy df = 39, co przy
-dużej liczności prowadzi do p \< 0.001. Oznacza to, że w sensie dosłownym
+Test chi-kwadrat dla modelu dał wartość $\chi^2 = 143,11$ przy df = 37, co przy
+dużej liczności prowadzi do p < 0.001. Oznacza to, że w sensie dosłownym
 odrzucamy hipotezę o pełnym zgodnym odwzorowaniu macierzy kowariancji w
 populacji przez model. Jednak test chi-kwadrat jest bardzo wrażliwy zarówno na
 rozmiar próby, jak i złożoność modelu, dlatego wynik ten traktuje się raczej
 jako punkt wyjścia niż rozstrzygające kryterium.
 
 Wskaźniki przyrostowe pokazują umiarkowanie słabe dopasowanie. Wartości CFI =
-0.858 i TLI = 0.803 są wyraźnie poniżej rekomendowanego poziomu 0.90, a tym
+0.89 i NNFI = 0.84 (znany również jako TFI) są wyraźnie poniżej rekomendowanego poziomu 0.90, a tym
 bardziej 0.95, które zwykle przyjmuje się jako granicę bardzo dobrego
 dopasowania. To sugeruje, że model w obecnej postaci nie wyjaśnia wystarczająco
 dobrze struktury zależności obserwowanych w danych i potencjalnie wymaga
 modyfikacji – np. dodania powiązań reszt, rewizji struktury ścieżek lub
 przemyślenia samego modelu pomiarowego.
 
-Wskaźnik błędu aproksymacji RMSEA = 0.107 (90% CI: 0.091–0.123) jest stosunkowo
-wysoki i wykracza poza granicę akceptowalności (zwykle \< 0.08, a najlepiej \<
+Wskaźnik błędu aproksymacji RMSEA = 0.10 (90% CI: 0.08–0.11) jest stosunkowo
+wysoki i wykracza poza granicę akceptowalności (zwykle < 0.08, a najlepiej <
 0.05). Taki wynik sugeruje, że model charakteryzuje się zauważalnym błędem
-przybliżenia w stosunku do danych populacyjnych. Z kolei wskaźnik SRMR = 0.108
+przybliżenia w stosunku do danych populacyjnych. Z kolei wskaźnik SRMR = 0.10
 jest powyżej standardowego progu akceptowalności 0.08, co dodatkowo wskazuje na
 problemy z odwzorowaniem korelacji obserwowanych przez model.
 
-Chcąc poprawić dopasowanie modelu można zaproponować następujące modyfikacje:
+Chcąc poprawić dopasowanie modelu można zaproponować pewne modyfikacje [^sem-3].
 
--   Po pierwsze, dopuścić kowariancję zaburzeń zmiennych latentnych *Visual* i
-    *Textual.* W praktyce te dwa konstrukty współdzielą wariancję nie w pełni
-    wyjaśnioną przez wiek i płeć. Dodanie `Visual ~~ Textual` nie zmienia
-    hipotez o wpływach na *Speed*, a często istotnie obniża błąd aproksymacji.
--   Po drugie, w części pomiarowej można dopuścić wyłącznie te kowariancje
-    reszt wskaźników, które mają jednoznaczne uzasadnienie treściowe. W
-    `HolzingerSwineford1939` typowe pary to `x1–x2, x2–x3` (ten sam kanał
-    wizualny), `x4–x5` (werbalne), `x7–x8` (szybkość). Te powiązania korygują
-    lokalne niedopasowania bez naruszania sensu hipotez strukturalnych.
--   Po trzecie, skontrolować jakość wskaźników. Jeżeli którykolwiek ładunek w
-    CFA jest niski (np. \< 0.40) i generuje duże reszty, rozważyć jego
-    usunięcie lub zamianę (jeśli masz silne uzasadnienie teoretyczne).
-    Usunięcie pojedynczego, słabego wskaźnika często stabilizuje model.
--   Po czwarte, uwzględnić współzmienność zmiennych egzogenicznych
-    (`age ~~ sex01`). To technicznie poprawne i zapobiega „wpychaniu” ich
-    korelacji w część strukturalną.
--   Po piąte, upewniać się, że estymacja odpowiada naturze danych. Jeśli
-    wskaźniki są porządkowe, stosować estymację DWLS i macierz polichoryczną;
-    przy ciągłych pozostawić MLR (w naszym przypadku wyniki nie są ze skali
-    Likerta, oryginalne dane zawierały zmienne z różnego zakresu).
--   Po szóste, można rozważyć słabą nieliniowość wieku (`age^2`) tylko wtedy,
-    gdy wskazują na to reszty i teoria; nie zmienia to sensu głównych hipotez
-    (dalej wiek → Visual/Textual → Speed), ale bywa, że poprawia dopasowanie.
-
-Poniżej wariant modelu z minimalnymi, teoretycznie uzasadnionymi modyfikacjami.
+[^sem-3]: Indeksy modyfikacyjne (*modification indices*, MI) wskazują, o ile
+    zmniejszyłby się chi-kwadrat modelu, gdyby wprowadzono daną modyfikację
+    (np. dodano ścieżkę lub skorelowano błędy). Wysokie wartości MI sugerują
+    potencjalne obszary niedopasowania modelu do danych i mogą być punktem
+    wyjścia do rozważań nad jego ulepszeniem. Należy jednak podchodzić do nich
+    ostrożnie i zawsze w kontekście teorii, aby uniknąć nadmiernego dopasowania
+    modelu do konkretnego zbioru danych.
 
 ```{r}
-model_sem_refined <- '
+# Pomocniczo: gdzie są największe niedopasowania?
+modindices(fit_sem, sort.=TRUE, minimum.value = 10)[1:11, c("lhs","op","rhs","mi","epc","sepc.all")] %>% 
+  gt() %>% 
+  fmt_number(columns = c("mi","epc","sepc.all"), decimals = 3) 
+```
+
+W powyższej liście wskaźników modyfikacji widać dwa zasadnicze problemy. Po pierwsze, silne sygnały sugerują, że część niedopasowania pochodzi z błędnie określonej lub zbyt restrykcyjnej części pomiarowej (propozycje typu `Textual =~ x1`, `Visual =~ x9`, `Visual =~ x7`, `Visual =~ x6`). Po drugie, wiele propozycji o identycznym mi = 29.857 (`Visual ~ Textual`, `Textual ~ Speed`, `Visual ~~ Textual`, `Textual ~ Visual`, `Visual ~ Speed`) wskazuje, że model próbuje „odzyskać” brakującą współzmienność między konstruktami w części strukturalnej.
+
+Nie należy wprowadzać zbyt wiele modyfikacji jednocześnie. W modelu z mediacją częściową sensowne jest dopuszczenie kowariancji reszt (zakłóceń) między mediatorami, czyli `Visual ~~ Textual`, ponieważ oba konstrukty są endogeniczne (zależne od `age` i `sex01`) i mogą współdzielić niewyjaśnione czynniki. 
+
+```{r}
+model_sem_mod1 <- '
   # CFA
   Visual  =~ x1 + x2 + x3
   Textual =~ x4 + x5 + x6
   Speed   =~ x7 + x8 + x9
 
-  # Strukturalny (bez zmian hipotez)
-  Speed   ~ b1*Visual + b2*Textual
+  # Strukturalny (mediacja częściowa)
+  Speed   ~ b1*Visual + b2*Textual + d1*age + d2*sex01
   Visual  ~ a1*age + a2*sex01
   Textual ~ a3*age + a4*sex01
 
-  # Dodatkowe kowariancje zgodne z teorią
-  Visual ~~ Textual          # współdzielona wariancja latentów
-  age ~~ sex01               # współzmienność egzogenicznych
+  # Kowariancje reszt zmiennych latentnych
+  Visual  ~~ Textual
 
-  # Skorelowane unikalności (tylko wewnątrz domen i z uzasadnieniem treściowym)
-  x1 ~~ x2
-  x2 ~~ x3
-  x4 ~~ x5
-  x7 ~~ x8
-
-  # Efekty pośrednie i całkowite (jak dotąd)
+  # Efekty pośrednie, bezpośrednie i całkowite
   ind_age  := a1*b1 + a3*b2
   ind_sex  := a2*b1 + a4*b2
-  tot_age  := ind_age
-  tot_sex  := ind_sex
+  dir_age  := d1
+  dir_sex  := d2
+  tot_age  := dir_age + ind_age
+  tot_sex  := dir_sex + ind_sex
 '
 
-fit_sem_refined <- sem(model_sem_refined, data = hs,
-                       estimator = "MLR", 
-                       meanstructure = TRUE)
+fit_sem_mod1 <- sem(model_sem_mod1, data = hs,
+                      estimator = "MLR",
+                      meanstructure = TRUE)
 
-model_performance(fit_sem_refined, c("Chi2","Chi2_df","p_Chi2","CFI","TLI","RMSEA","RMSEA_CI_low","RMSEA_CI_high","SRMR")) %>% 
+model_performance(fit_sem_mod1, c("Chi2","Chi2_df","p_Chi2","CFI","NNFI","RMSEA","RMSEA_CI_low","RMSEA_CI_high","SRMR")) %>%
   print_html()
+```
 
-# Pomocniczo: gdzie są największe niedopasowania?
-modindices(fit_sem, sort.=TRUE, minimum.value = 10)[1:12, c("lhs","op","rhs","mi","epc","sepc.all")] %>% 
+Po wprowadzeniu kowariancji `Visual ~~ Textual` dopasowanie poprawiło się, ale nadal nie jest ono w pełni satysfakcjonujące, zwłaszcza jeżeli traktować kryteria dopasowania w sposób konserwatywny.
+
+Test $\chi^2$ jest istotny (p = 1.02e-08), co oznacza, że model jako całość nadal odbiega od danych. Trzeba jednak pamiętać, że $\chi^2$ jest bardzo czuły na liczebność próby i na nawet niewielkie niedopasowania, więc w praktyce ocenia się go łącznie z miarami przybliżonego dopasowania. CFI = 0.93 jest wynikiem „umiarkowanie dobrym”, często uznawanym za akceptowalny w analizach aplikacyjnych, ale poniżej typowego progu „dobrego” dopasowania (często 0.95). NNFI/TLI = 0.89 jest słabsze; to sygnał, że w relacji do stopni swobody model nadal jest zbyt uproszczony lub wymusza zbyt wiele restrykcji. RMSEA = 0.08 jest na granicy dopasowania akceptowalnego; przedział ufności 0.06–0.10 sugeruje, że realne niedopasowanie może być od umiarkowanego do wyraźnego, bo górna granica 0.10 jest wysoka. SRMR = 0.06 jest natomiast dobre (często wartości poniżej 0.08 uznaje się za akceptowalne), co wskazuje, że przeciętne reszty w macierzy kowariancji nie są duże, choć pozostają lokalne obszary niedopasowania, które psują CFI/TLI i RMSEA.
+
+```{r}
+modindices(fit_sem_mod1, sort.=TRUE, minimum.value = 10)[, c("lhs","op","rhs","mi","epc","sepc.all")] %>% 
   gt() %>% 
   fmt_number(columns = c("mi","epc","sepc.all"), decimals = 3) 
 ```
 
-Obecny model po modyfikacjach prezentuje już znacznie lepsze dopasowanie niż
-pierwotny, choć nadal nie jest idealny. Wskaźniki globalne wskazują, że
-dopasowanie można uznać za umiarkowanie dobre. Statystyka $\chi^2$ (97.03, df =
-34, p \< 0.001) nadal jest istotna, co przy relatywnie małej liczbie stopni
-swobody sygnalizuje pewne niedopasowanie modelu do danych. Jednak należy
-pamiętać, że test $\chi^2$ jest bardzo czuły i w praktyce często odrzuca modele
-nawet przy akceptowalnym dopasowaniu. Lepszą informację dają indeksy: CFI =
-0.933 mieści się w strefie „akceptowalnej”, ale jeszcze poniżej progu 0.95
-sugerującego bardzo dobre dopasowanie. TLI = 0.892 jest blisko progu 0.90 i
-również wskazuje na umiarkowane dopasowanie. RMSEA = 0.078 (90% CI:
-0.060–0.097) mieści się w przedziale akceptowalnym (\< 0.10), a dolna granica
-jest blisko 0.05, co sugeruje, że model jest względnie bliski dobrego
-dopasowania. SRMR = 0.055 jest niewiele powyżej granicy 0.05 i można go uznać
-za dość dobry wynik.
+W tym momencie ranking `mi` jest znacznie „czystszy” i można z niego wyprowadzić sensowną kolejność działań. Najważniejsza obserwacja jest taka, że największe wartości `mi` dotyczą już głównie części pomiarowej (ładunki krzyżowe), a nie części strukturalnej. To zwykle oznacza, że największe niedopasowania nie wynikają już z braku jednej kowariancji między zmiennymi latentnymi, tylko z tego, że wskaźniki nie są „czystymi” miernikami swoich czynników albo istnieje dodatkowy efekt metody wśród zadań.
 
-Analiza indeksów modyfikacyjnych[^sem-3] pokazuje, że największe niedopasowania
-koncentrują się w kilku obszarach. Po pierwsze, sugerowane są dodatkowe
-powiązania strukturalne między czynnikami latentnymi a zmienną *Speed* (np.
-`Textual ~ Speed, Visual ~ Speed`), które jednak wykraczałyby poza pierwotnie
-założone hipotezy mediacyjne. Po drugie, wskazywane są silne powiązania między
-wskaźnikami tego samego czynnika (np. `x7 ~~ x8`), co można interpretować jako
-efekty metody lub nadmierne podobieństwo treściowe pozycji testowych. Po
-trzecie, pojawiają się sugestie dotyczące alternatywnych ładunków wskaźników
-(np. `Textual =~ x1, Visual =~ x9`), co wskazuje na pewne problemy z czystością
-czynników, ale ich wprowadzenie mogłoby zmienić interpretację teoretyczną
-czynników.
-
-Godząc się na nieidealne dopasowanie, można uznać, że model w obecnej formie
-jest wystarczająco dobry do testowania głównych hipotez badawczych.
-Wprowadzenie pewnych zmian sugerowanych przez indeksy modyfikacyjne mogłoby
-utrudnić weryfikację postawionych hipotez.
+W pierwszej kolejności dodamy `x7 ~~ x8` (`mi = 19.271`). Jest to modyfikacja o relatywnie najniższym koszcie interpretacyjnym, bo nie zmienia definicji żadnego czynnika latentnego, a jedynie dopuszcza współzmienność reszt dwóch wskaźników, co często da się uzasadnić podobieństwem treści, formatem zadania lub wspólnym komponentem metody. W praktyce taki krok często poprawia TLI i RMSEA bez „przestawiania” konstruktu. 
 
 ```{r}
-model_parameters(fit_sem_refined, standardized = TRUE, ci = TRUE) 
+model_sem_refined <- paste0(model_sem_mod1, '
+  # Dodatkowa korelacja reszt wskaźników Speed
+  x7 ~~ x8
+')
+
+fit_sem_refined <- sem(model_sem_refined, data = hs,
+                      estimator = "MLR",
+                      meanstructure = TRUE)
+model_performance(fit_sem_refined, c("Chi2","Chi2_df","p_Chi2","CFI","NNFI","RMSEA","RMSEA_CI_low","RMSEA_CI_high","SRMR")) %>%
+  print_html()
 ```
 
-**Model pomiarowy**
+W ujęciu decyzyjnym dopasowanie jest już na poziomie, przy którym sensowne jest zatrzymanie się, o ile kolejne modyfikacje wymagałyby ładunków krzyżowych lub zmian strukturalnych bez mocnego uzasadnienia treściowego.
 
-Wyniki dla czynników latentnych (`Visual, Textual, Speed`) pokazują, że
-wszystkie wskaźniki (`x1–x9`) istotnie ładują się na odpowiednich czynnikach (p
-\< 0.001), co potwierdza poprawność konstrukcji pomiarowej. Ładunki są
-zróżnicowane: np. dla `Visual` zmienne `x2` i `x3` mają umiarkowane wartości
-(0.54, 0.69), natomiast dla `Textual` wskaźniki `x5` i `x6` są mocno związane z
-czynnikiem (ok. 1.1 i 0.94). Czynnik `Speed` jest silnie określony przez
-`x7–x9`, przy czym `x9` ma wyjątkowo wysoki ładunek (2.42), co może sugerować,
-że ta zmienna dominuje w definiowaniu konstruktu. Generalnie jednak wszystkie
-zmienne obserwowalne wnoszą istotny wkład, co wspiera trafność pomiarową.
+```{r}
+model_parameters(fit_sem_refined, standardized = TRUE) 
+```
 
-**Model strukturalny**
+Struktura pomiarowa jest spójna z założeniem trzech czynników. Wszystkie ładunki czynnikowe są dodatnie i istotne, a przedziały ufności są dalekie od zera, co oznacza, że wskaźniki x1–x3 dobrze operacjonalizują Visual, x4–x6 dobrze operacjonalizują Textual, a x7–x9 dobrze operacjonalizują Speed. Jednocześnie istotna korelacja resztowa `x7 ~~ x8` sugeruje, że te dwa wskaźniki Speed współdzielą dodatkową wariancję niewyjaśnioną przez czynnik (np. podobieństwo formatu zadania lub efekt metody), ale nie podważa to samej trójczynnikowej struktury.
 
-Hipotezy dotyczące wpływów bezpośrednich częściowo się potwierdziły. Czynnik
-`Visual` istotnie przewiduje `Speed` (b1 = 0.23, p = 0.005), co oznacza, że im
-wyższe zdolności wizualne, tym lepsze wyniki w zadaniach szybkościowych. Z
-kolei wpływ `Textual` na `Speed` okazał się nieistotny (b2 ≈ 0, p = 0.786), co
-przeczy hipotezie o jego znaczącym wkładzie. Wśród zmiennych egzogenicznych,
-wiek istotnie i negatywnie wpływa na `Textual` (a3 = -0.23, p \< 0.001), co
-można interpretować tak, że starsze osoby mają gorsze wyniki w zadaniach
-tekstowych. Płeć (`sex01`) nie odgrywa istotnej roli ani w `Visual`, ani w
-`Textual` (p \> 0.05), choć dla `Visual` efekt był bliski istotności (a2 =
-0.24, p = 0.074), sugerując potencjalny trend.
+W hipotezie dotyczącej zależności Speed od Visual i Textual uzyskuje się częściowe potwierdzenie. Speed zależy istotnie od Visual (b1 = 0.30, p < 0.001), co jest zgodne z założeniem, że wyższa zdolność wizualna wiąże się z wyższym wynikiem na czynniku Speed. Natomiast wpływ Textual na Speed nie jest istotny (b2 = 0.04, p = 0.402), a przedział ufności obejmuje 0, więc w tych danych nie ma podstaw do tezy, że zdolność tekstowa wnosi niezależny wkład do Speed po uwzględnieniu Visual oraz predyktorów bezpośrednich.
 
-**Zależności między czynnikami**
+Hipoteza o wieku („wiek dodatnio wpływa na Visual i Textual oraz pośrednio na Speed”) nie znajduje potwierdzenia w proponowanym kierunku. Wiek nie wpływa istotnie na Visual (a1 = −0.04, p = 0.547), a na Textual wpływa istotnie, ale ujemnie (a3 = −0.24, p < 0.001). Oznacza to, że wraz ze wzrostem wieku (przy takim kodowaniu age, jakie mamy w danych) obserwuje się spadek czynnika Textual, a nie wzrost. Konsekwentnie, łączny efekt pośredni wieku na Speed nie jest istotny (ind_age = −0.02, p = 0.358). Jednocześnie pojawia się istotny dodatni wpływ bezpośredni wieku na Speed (dir_age = 0.10, p = 0.034), czyli po kontrolowaniu Visual i Textual wiek nadal wnosi dodatni wkład do Speed. W efekcie całkowity wpływ wieku na Speed jest na granicy istotności (tot_age = 0.08, p = 0.052), co sugeruje, że wypadkowy efekt jest słaby i częściowo znoszony przez ujemną ścieżkę age → Textual przy nieistotnym Textual → Speed.
 
-Istnieje istotna korelacja między `Visual` i `Textual` (0.43, p \< .001), co
-wskazuje, że obie zdolności współwystępują, ale nie są tożsame. Korelacja ta
-wspiera tezę o współzależności różnych typów zdolności poznawczych. Dodatkowo,
-zidentyfikowano korelację między zmiennymi resztowymi `x7` i `x8` (0.34, p \<
-.001), co można interpretować jako częściowo wspólny czynnik specyficzny dla
-tych zadań szybkościowych.
+Hipoteza o płci („kod 1 = chłopiec: dodatni wpływ na Visual, słabszy lub ujemny na Textual, a wpływ na Speed pośrednio przez Visual i Textual”) jest potwierdzona tylko częściowo i w ważnym fragmencie inaczej niż zakładano. Zgodnie z hipotezą, płeć ma dodatni i istotny wpływ na Visual (a2 = 0.33, p = 0.007), co oznacza, że chłopcy osiągają wyższy poziom czynnika Visual. Wpływ płci na Textual jest nieistotny (a4 = −0.08, p = 0.537), więc nie ma podstaw, aby mówić o systematycznym „słabszym” profilu tekstowym w tej próbie. Co do Speed, model wskazuje istotny dodatni efekt pośredni płci (ind_sex = 0.10, p = 0.033), który w praktyce pochodzi głównie z drogi sex01 → Visual (dodatniej) oraz Visual → Speed (dodatniej), przy braku wkładu drogi przez Textual. Jednocześnie występuje istotny ujemny efekt bezpośredni płci na Speed (dir_sex = −0.16, p = 0.011), czyli po uwzględnieniu Visual i Textual chłopcy mają niższy poziom Speed. Te dwa efekty działają w przeciwnych kierunkach, przez co efekt całkowity płci na Speed nie jest istotny (tot_sex = −0.07, p = 0.279).
 
-**Efekty pośrednie i całkowite**
+Istotna dodatnia kowariancja `Visual ~~ Textual` (0.38, p < 0.001) potwierdza założenie, że zdolności wizualne i tekstowe współwystępują, nawet po uwzględnieniu wieku i płci. To wspiera narrację o „zależności między zdolnościami”, ale w formie korelacji (współdzielonej wariancji), a nie relacji kierunkowej.
 
-Ścieżki pośrednie przez `Visual` i `Textual` nie były istotne w przypadku wieku
-(`ind_age` ≈ 0, p = 0.828), natomiast dla płci (`ind_sex` = 0.05, p = 0.091)
-pojawił się trend w kierunku efektu pośredniego, choć bez pełnej istotności.
-Efekty całkowite (`tot_age`, `tot_sex`) powtarzają te same wnioski – brak
-efektów dla wieku i jedynie potencjalny, słaby wpływ płci.
-
-**Podsumowanie**
-
-Model po modyfikacjach w poprawny sposób mierzy czynniki i potwierdza istotną
-rolę zdolności wizualnych w wyjaśnianiu szybkości, podczas gdy zdolności
-tekstowe odgrywają mniejszą rolę. Wiek ma wyraźny negatywny wpływ na zdolności
-tekstowe, natomiast płeć nie wpływa istotnie na żaden z czynników, choć jej
-rola dla zdolności wizualnych może wymagać dalszej analizy. Wyniki wskazują, że
-hipotezy dotyczące bezpośredniego wpływu `Visual` na `Speed` oraz wieku na
-`Textual` znajdują potwierdzenie, natomiast hipotezy dotyczące `Textual` →
-`Speed` i `sex01` → czynniki nie znajdują mocnego wsparcia.
+Podsumowując, model wspiera tezę o trójczynnikowej strukturze pomiarowej oraz o istotnym związku Speed z Visual, ale nie wspiera tezy o niezależnym wpływie Textual na Speed. Założenie o dodatnim wpływie wieku na zdolności nie znajduje potwierdzenia; wiek działa bezpośrednio dodatnio na Speed, a na Textual działa ujemnie. Dla płci uzyskuje się profil mieszany: dodatni wpływ na Visual, brak istotnego wpływu na Textual, dodatni wpływ pośredni na Speed przez Visual oraz jednocześnie ujemny wpływ bezpośredni na Speed, co wypadkowo daje nieistotny efekt całkowity.
 
 ```{r}
 #| fig-width: 10
@@ -806,14 +757,6 @@ semPaths(fit_sem_refined,
 
 ```
 :::
-
-[^sem-3]: Indeksy modyfikacyjne (*modification indices*, MI) wskazują, o ile
-    zmniejszyłby się chi-kwadrat modelu, gdyby wprowadzono daną modyfikację
-    (np. dodano ścieżkę lub skorelowano błędy). Wysokie wartości MI sugerują
-    potencjalne obszary niedopasowania modelu do danych i mogą być punktem
-    wyjścia do rozważań nad jego ulepszeniem. Należy jednak podchodzić do nich
-    ostrożnie i zawsze w kontekście teorii, aby uniknąć nadmiernego dopasowania
-    modelu do konkretnego zbioru danych.
 
 ## CB-SEM vs. PLS-SEM
 
@@ -842,7 +785,7 @@ obciążone, a sama metoda wciąż jest rozwijana. Najnowsze podejścia, takie j
 PLSc-SEM, starają się połączyć zalety obu nurtów.
 
 | Kryterium | CB-SEM | PLS-SEM |
-|--------------------|------------------------------|------------------------------|
+|--------------------------|--------------------------|--------------------------|
 | Cel analizy | Potwierdzanie całościowego modelu i dobrze zdefiniowanej teorii | Eksploracja i predykcja, rozwój teorii w początkowej fazie |
 | Metoda estymacji | Najczęściej największa wiarygodność (ML), wymagająca normalności | Metoda najmniejszych kwadratów (*Partial Least Squares*), odporna na nienormalność |
 | Zmienne latentne | Modele czynnikowe (*factor-based*), akcent na konstrukty latentne | Modele kompozytowe (*composite-based*), akcent na wskaźniki i prognozowanie |
@@ -857,12 +800,12 @@ PLSc-SEM, starają się połączyć zalety obu nurtów.
 Poniżej zostanie przedstawiona pełna, uporządkowana ścieżka tworzenia oraz
 adaptacji narzędzia pomiarowego (np. psychometrycznego) – od konceptualizacji
 do finalnego podręcznika – wraz z kluczowymi statystykami, ich wzorami,
-sposobem liczenia i interpretacją. Całość formułować w duchu klasycznej teorii
+sposobem liczenia i interpretacją. Całość formułujemy w duchu klasycznej teorii
 testów, uzupełniając o elementy analizy czynnikowej oraz SEM.
 
 1.  Konceptualizacja konstruktu i specyfikacja treści
 
-Rozpoczynać od precyzyjnego zdefiniowania konstruktu (dziedzina, zakres,
+Rozpoczynamy od precyzyjnego zdefiniowania konstruktu (dziedzina, zakres,
 wymiary) na podstawie literatury. Tworzymy mapę treści (tzw. *blueprint*),
 która łączy wymiary teoretyczne z planowanymi obszarami itemów i formatem
 odpowiedzi. Już na tym etapie określamy typ modelu pomiarowego (refleksyjny czy
@@ -879,11 +822,11 @@ obsługi i ceny usługi?” - pytanie jest jednocześnie o obsługę i cenę) i
 niepotrzebnych zaprzeczeń („Nie zgadzam się z tym, że nie powinno się zabraniać
 palenia w restauracjach”).
 
-Dla trafności treściowej stosuje się ocenę ekspertów. W praktyce używa się
-współczynnika Aikena $V$ dla ocen skali porządkowej (np. 1–4) $$
+Trafność treściowa służy do oceny, czy zestaw pozycji (itemów) faktycznie reprezentuje zakres treści, który ma być mierzony, czyli czy narzędzie „pokrywa” istotne aspekty konstruktu i nie zawiera pytań przypadkowych lub marginalnych. Ponieważ jest to własność merytoryczna, a nie czysto statystyczna, weryfikować ją należy na etapie projektowania narzędzia poprzez ocenę ekspertów dziedzinowych, którzy przypisują każdej pozycji oceny adekwatności (np. na skali porządkowej 1–4). Do ilościowego podsumowania zgodności tych ocen stosuje się współczynnik Aikena $V$, który normalizuje oceny do przedziału [0,1]:
+$$
 V \;=\; \frac{\sum_{i=1}^{N} (s_i - s_{\min})}{N\,(s_{\max}-s_{\min})},
-$$ gdzie $s_i$ to ocena $i$-tego eksperta, a $N$ liczba ekspertów. Wysokie $V$
-(np. $\ge 0,70$) sugeruje dobrą zgodność co do trafności treści.
+$$
+gdzie $s_i$ oznacza ocenę $i$-tego eksperta, $N$ liczbę ekspertów, a $s_{\min}$ i $s_{\max}$ odpowiednio minimalną i maksymalną wartość skali ocen. Wartość $V=0$ odpowiada sytuacji, w której wszyscy eksperci przyznają oceny minimalne, natomiast $V=1$ oznacza pełną zgodność na poziomie maksymalnym; im wyższe $V$, tym silniejsza jest zgodność, że dana pozycja jest trafna treściowo. W praktyce często przyjmuje się, że wysokie $V$ (np. $\ge 0{,}70$) wskazuje na dobrą trafność treściową pozycji, a niskie wartości stanowią przesłankę do jej przeformułowania lub odrzucenia, przy czym interpretację zawsze należy powiązać z liczbą ekspertów i kryteriami oceny (np. adekwatność, jasność, reprezentatywność).
 
 3.  Adaptacja językowo-kulturowa
 
@@ -902,10 +845,12 @@ kluczowe są:
 
 -   korelacja pozycja–wynik całkowity (skorygowana o daną pozycję); wartości
     $\ge 0.30$ wskazuje satysfakcjonującą dyskryminację;
--   trudność pozycji (w testach osiągnięć) jako średni wynik lub odsetek
+-   trudność pozycji[^trud] (w testach osiągnięć) jako średni wynik lub odsetek
     poprawnych odpowiedzi $p\in[0,1]$; pożądany rozkład trudności dla zakresu
     zdolności badanych;
 -   wpływ usunięcia pozycji na rzetelność (*alpha if item deleted*).
+
+[^trud]: Trudność pozycji dotyczy głównie testów osiągnięć, gdzie istnieje odpowiedź poprawna/niepoprawna. Najprościej definiuje się ją jako odsetek poprawnych odpowiedzi $p \in [0,1]$ albo jako średni wynik w danej pozycji. Wysokie $p$ oznacza pozycję łatwą, niskie $p$ oznacza pozycję trudną. Pożądany nie jest jeden „idealny” poziom trudności, tylko taki rozkład trudności w całym teście, który pokrywa zakres umiejętności badanych: część zadań ma być łatwa, część umiarkowana, część trudna. Dzięki temu test potrafi odróżniać osoby zarówno słabsze, jak i bardzo dobre; gdy wszystkie pozycje są zbyt łatwe lub zbyt trudne, pojawia się efekt sufitu lub podłogi i pomiar traci rozdzielczość.
 
 5.  Wstępna struktura czynnikowa (EFA)
 
@@ -936,41 +881,65 @@ porządkowych – DWLS. Ocena globalna dopasowania opiera się na:
 
 7.  Rzetelność skali
 
-W klasycznym ujęciu rzetelność skali $\rho_{XX’}$ to udział wariancji
-prawdziwej w wariancji obserwowanej: $$
-\rho_{XX’} \;=\; \frac{\sigma_{T}^2}{\sigma_{X}^2}.
-$$ Najczęściej używane miary do oceny rzetelności to:
+W klasycznej teorii testów przyjmuje się, że wynik obserwowany $X$ składa się z dwóch składników: wyniku prawdziwego $T$ oraz błędu pomiaru $E$, czyli $X = T + E$. Wynik prawdziwy należy rozumieć jako stabilny, „rzeczywisty” poziom mierzonej cechy u osoby, natomiast błąd pomiaru obejmuje wszystkie losowe czynniki, które powodują, że pomiar w danym momencie nie jest idealnie powtarzalny (np. przypadkowe wahania uwagi, niejednoznaczność itemów, chwilowe warunki badania). W tym ujęciu rzetelność skali $\rho_{XX’}$ opisuje, na ile zmienność wyników obserwowanych w populacji wynika ze zmienności wyniku prawdziwego, a na ile jest tylko „szumem” pomiarowym.
 
--   alfa Cronbacha (spójność wewnętrzna), dla $k$ pozycji $$
+Wzór
+$$
+\rho_{XX’} \;=\; \frac{\sigma_{T}^2}{\sigma_{X}^2}
+$$
+mówi, że rzetelność jest ilorazem wariancji wyniku prawdziwego $\sigma_T^2$ do całkowitej wariancji wyniku obserwowanego $\sigma_X^2$. Jeżeli większość wariancji obserwowanej pochodzi z różnic w $T$, rzetelność jest wysoka, co oznacza, że skala stabilnie różnicuje osoby ze względu na mierzoną cechę. Jeżeli natomiast duża część wariancji obserwowanej pochodzi z błędu, rzetelność spada, a wyniki są mniej powtarzalne i mniej precyzyjne.
+
+Z tego wynika też intuicyjna interpretacja wartości liczbowych: $\rho_{XX’}=1$ oznaczałoby pomiar idealny (brak błędu), $\rho_{XX’}=0$ oznaczałoby, że obserwowane różnice są czystym błędem (brak informacji o prawdziwych różnicach). W praktyce wartość rzetelności interpretuje się jako „odsetek” wariancji obserwowanej, który jest sygnałem, a nie szumem. Przykładowo $\rho_{XX’}=0{,}80$ sugeruje, że około 80% wariancji wyników wynika z różnic prawdziwych, a około 20% stanowi wariancja błędu.
+
+Warto dodać, że $\sigma_T^2$ nie jest bezpośrednio obserwowalna, więc w praktyce rzetelność szacuje się przy pomocy procedur pośrednich, takich jak zgodność wewnętrzna (np. alfa Cronbacha, omega), stabilność czasowa (test–retest) lub rzetelność połówkowa. Wszystkie te metody próbują oszacować, jaka część wariancji $X$ jest powtarzalna i związana z $T$, a jaka wynika z losowych fluktuacji.
+
+Najczęściej używane miary do oceny rzetelności to:
+
+-   alfa Cronbacha (spójność wewnętrzna), dla $k$ pozycji 
+$$
     \alpha \;=\; \frac{k}{k-1}\left(1 - \frac{\sum_{i=1}^{k}\sigma_i^2}{\sigma_X^2}\right)\!,
-    $$ gdzie $\sigma_i^2$ to wariancja pozycji, a $\sigma_X^2$ wariancja sumy
+    $$ 
+    gdzie $\sigma_i^2$ to wariancja pozycji, a $\sigma_X^2$ wariancja sumy
     skali. $\alpha \ge 0.70$ często uznawane jest za akceptowalne (zależnie od
     celu).
 
--   omega McDonalda $$
+-   omega McDonalda 
+$$
     \omega \;=\; \frac{\left(\sum_{i=1}^{k} \lambda_i\right)^2}{\left(\sum_{i=1}^{k} \lambda_i\right)^2 + \sum_{i=1}^{k}\psi_{ii}},
-    $$ gdzie $\lambda_i$ to ładunki czynnika ogólnego, a $\psi_{ii}$ wariancje
+    $$ 
+    gdzie $\lambda_i$ to ładunki czynnika ogólnego, a $\psi_{ii}$ wariancje
     unikalne. Dla rozwiązań hierarchicznych używamy $\omega_h$ (udział czynnika
     ogólnego).
 
--   metoda *split-half* i korekta Spearmana–Browna dla dwóch równoległych
-    połówek z korelacją r: $\rho_{\text{SB}} = \frac{2r}{1 + r}$.
-
 8.  Trafność
 
-W CFA/SEM oceniamy trafność zbieżną i rozbieżną:
+W analizie CFA/SEM ocenia się nie tylko dopasowanie całego modelu, ale także jakość pomiaru poszczególnych konstruktów latentnych, w szczególności trafność zbieżną i rozbieżną. Trafność zbieżna oznacza, że wskaźniki przypisane do jednego czynnika rzeczywiście „zbiegają się” i mierzą ten sam konstrukt (czyli mają wysokie ładunki i relatywnie małe błędy). Trafność rozbieżna oznacza natomiast, że różne czynniki są od siebie empirycznie odróżnialne (czyli korelacje między konstruktami nie są tak wysokie, aby sugerować, że mierzą to samo). W tym celu wykorzystuje się zestaw indeksów opartych na ładunkach czynnikowych i wariancjach błędu.
 
--   *composite reliability* (CR) $$
-    \mathrm{CR} = \frac{\left(\sum \lambda_i\right)^2}{\left(\sum \lambda_i\right)^2 + \sum \theta_i},
-    $$ gdzie $\theta_i$ to wariancje błędu; wartości $\ge 0.70$ pożądane;
--   *average variance extracted* (AVE) $$
-    \mathrm{AVE} = \frac{\sum \lambda_i^2}{\sum \lambda_i^2 + \sum \theta_i},
-    $$ $\mathrm{AVE} \ge 0.50$ sugeruje trafność zbieżną;
--   kryterium Fornella–Larckera - $\sqrt{\mathrm{AVE}}$ czynnika powinna
-    przekraczać jego korelacje z innymi czynnikami;
--   HTMT (*heterotrait–monotrait ratio*) -
-    $\mathrm{HTMT} \;=\; \frac{\text{średnia korelacja między pozycjami z różnych konstruktów}}{\text{średnia korelacja między pozycjami w obrębie konstruktów}},$
-    wartości $< 0.85{-}0.90$ wskazują rozróżnialność konstruktów.
+Podstawą obliczeń są ładunki czynnikowe $\lambda_i$ (czyli siła związku wskaźnika i z czynnikiem) oraz wariancje błędu $\theta_i$ (czyli wariancje reszt/unikalności wskaźników, będące częścią niewyjaśnioną przez czynnik). Zwykle zakłada się, że korzysta się z ładunków wystandaryzowanych, bo wtedy interpretacja jest bezpośrednia: $\lambda_i^2$ można traktować jako część wariancji wskaźnika wyjaśnianą przez czynnik, a $\theta_i$ jako część „błędu” lub wariancji specyficznej.
+
+Pierwszym indeksem jest *composite reliability* (CR), które opisuje spójność pomiaru czynnika podobnie jak rzetelność, ale w logice CFA (uwzględnia nierówne ładunki). Definiuje się je jako
+$$
+\mathrm{CR} \;=\; \frac{\left(\sum_{i=1}^{k} \lambda_i\right)^2}{\left(\sum_{i=1}^{k} \lambda_i\right)^2 + \sum_{i=1}^{k} \theta_i},
+$$
+gdzie $k$ oznacza liczbę wskaźników czynnika, $\lambda_i$ są ładunkami, a $\theta_i$ wariancjami błędu. W liczniku znajduje się „siła sygnału” (łączny wkład wskaźników w pomiar czynnika), a w mianowniku sygnał jest zestawiony z sumarycznym błędem pomiaru. Im większe ładunki i mniejsze $\theta_i$, tym wyższe CR. Wartości rzędu $\ge 0{,}70$ zwykle interpretuje się jako satysfakcjonującą spójność pomiaru; wartości dużo niższe sugerują, że wskaźniki są słabo związane z czynnikiem lub mają duże błędy.
+
+Drugim indeksem jest *average variance extracted* (AVE), który mierzy, ile średnio wariancji wskaźników jest „wyciągane” przez czynnik, czyli jak duża część wariancji wskaźników jest wyjaśniana przez konstrukt latentny. AVE definiuje się jako
+$$
+\mathrm{AVE} \;=\; \frac{\sum_{i=1}^{k} \lambda_i^2}{\sum_{i=1}^{k} \lambda_i^2 + \sum_{i=1}^{k} \theta_i}.
+$$
+W liczniku pojawiają się kwadraty ładunków $\lambda_i^2$, czyli wkład czynnika do wariancji każdego wskaźnika. Interpretacja jest następująca: $\mathrm{AVE}=0{,}50$ oznacza, że czynnik wyjaśnia przeciętnie około 50% wariancji swoich wskaźników, a pozostała część to błąd i wariancja specyficzna. Przyjmuje się, że $\mathrm{AVE} \ge 0{,}50$ stanowi przesłankę trafności zbieżnej, ponieważ sygnał konstruktu jest co najmniej tak samo silny jak szum pomiarowy w obrębie jego wskaźników. Niska AVE sugeruje, że wskaźniki nie „zbiegają się” dostatecznie w pomiarze jednego konstruktu.
+
+Trafność rozbieżną często ocenia się kryterium Fornella–Larckera. W tym podejściu porównuje się pierwiastek z AVE danego czynnika z jego korelacjami z innymi czynnikami. Warunek ma postać
+$$
+\sqrt{\mathrm{AVE}_A} \;>\; |\phi_{A,B}|\quad \text{dla każdego } B \neq A,
+$$
+gdzie $\phi_{A,B}$ oznacza korelację między czynnikami $A$ i $B$. Intuicja jest taka, że $\sqrt{\mathrm{AVE}_A}$ można czytać jako miarę „typowej” siły związku czynnika z własnymi wskaźnikami, natomiast $|\phi_{A,B}|$ opisuje, jak mocno czynnik $A$ jest powiązany z innym czynnikiem. Jeżeli korelacja między dwoma czynnikami przekracza $\sqrt{\mathrm{AVE}}$, to znaczy, że czynnik jest bardziej podobny do innego konstruktu niż do własnych wskaźników, co osłabia argument o rozróżnialności konstruktów.
+
+Alternatywną i często bardziej czułą miarą trafności rozbieżnej jest HTMT (*heterotrait–monotrait ratio*). Idea polega na porównaniu przeciętnej korelacji między wskaźnikami różnych konstruktów (*heterotrait*) z przeciętną korelacją wskaźników w obrębie tego samego konstruktu (*monotrait*). W uproszczonej postaci można to zapisać jako
+$$
+\mathrm{HTMT} \;=\; \frac{\text{średnia korelacja między wskaźnikami z różnych konstruktów}}{\text{średnia korelacja między wskaźnikami w obrębie tych konstruktów}}.
+$$
+Jeżeli konstrukty $A$ i $B$ są rozróżnialne, to korelacje „pomiędzy” konstruktami powinny być istotnie mniejsze niż korelacje „wewnątrz” konstruktów, więc HTMT powinno być wyraźnie poniżej 1. W praktyce wartości mniejsze niż około $0{,}85$ (kryterium bardziej restrykcyjne) lub $0{,}90$ (kryterium bardziej liberalne) interpretuje się jako przesłankę dobrej rozróżnialności, natomiast HTMT bliskie 1 sugeruje, że dwa konstrukty empirycznie nakładają się na siebie.
 
 9.  Skalowanie, punktacja i normy
 
@@ -1033,7 +1002,7 @@ walidacji. Wskazuje to, że pozycje w każdej ze skal mierzą spójny konstrukt.
 
 Wartości korelacji między pozycjami (*mean inter-item correlation*) mieszczą
 się w zakresie 0.37–0.42, co uznaje się za optymalne (wartości zbyt niskie
-\<0.20 sugerują brak spójności, natomiast zbyt wysokie \>0.70 nadmiarowość).
+<0.20 sugerują brak spójności, natomiast zbyt wysokie >0.70 nadmiarowość).
 Oznacza to, że pozycje są ze sobą skorelowane w stopniu umiarkowanym,
 zachowując jednocześnie różnorodność treściową.
 
@@ -1051,13 +1020,13 @@ wskazujące, że dobrze różnicują osoby z wyższymi i niższymi wynikami ogó
 
 Korelacje pomiędzy skalami są wszystkie istotne statystycznie, ale mają
 zróżnicowaną siłę. Najsilniejszy związek występuje pomiędzy Kontrolą a
-Opracowaniem (r = 0.521, p \< .001). Można to interpretować tak, że osoby,
+Opracowaniem (r = 0.521, p < .001). Można to interpretować tak, że osoby,
 które dbają o planowanie i monitorowanie swojego uczenia się, częściej stosują
 także strategie głębszego opracowywania materiału. Skala Zapamiętywanie
-koreluje umiarkowanie z Opracowaniem (r = 0.376, p \< .001), co jest zgodne z
+koreluje umiarkowanie z Opracowaniem (r = 0.376, p < .001), co jest zgodne z
 intuicją: aby skutecznie zapamiętać, często trzeba wcześniej przetworzyć
 materiał. Najsłabszy, choć istotny związek obserwujemy między Kontrolą a
-Zapamiętywaniem (r = 0.222, p \< .001), co sugeruje, że te dwie strategie są
+Zapamiętywaniem (r = 0.222, p < .001), co sugeruje, że te dwie strategie są
 bardziej odrębne, a ich powiązanie jest ograniczone.
 
 **Podsumowanie**
@@ -1071,8 +1040,8 @@ jego bardziej ogólny charakter lub funkcję „pomostu” między dwoma innymi
 wymiarami.
 
 Po wykonaniu analizy CFA i ocenie rzetelności kolejnym etapem adaptacji
-narzędzia jest przeprowadzenie rozszerzonych analiz stabilności, takich jak
-test–retest czy współczynnik ICC, które pozwalają ocenić powtarzalność wyników
+narzędzia jest przeprowadzenie rozszerzonych analiz stabilności w czasie, takich jak
+test–retest czy współczynnik ICC (ang. *intraclass correlation coefficient*), które pozwalają ocenić powtarzalność wyników
 (tych nie wykonamy, ponieważ do tego potrzeba przeprowadzenia ankiety w dwóch
 momentach czasowych). Należy także zweryfikować trafność – konwergencyjną,
 dyskryminacyjną i kryterialną – aby upewnić się, że narzędzie mierzy to, co
@@ -1090,7 +1059,7 @@ trafności konwergencyjnej (AVE) oraz trafności dyskryminacyjnej (HTMT).
 
 -   Współczynniki *Composite Reliability* (CR) mieszczą się w przedziale od
     0.72 do 0.75. Są to wartości powyżej progu 0.70, co sugeruje akceptowalną
-    spójność wewnętrzną każdej ze skal. Oznacza to, że wskaźniki w ramach
+    trafność wewnętrzną każdej ze skal. Oznacza to, że wskaźniki w ramach
     czynnika zapamiętywania, opracowywania i kontroli dostarczają relatywnie
     stabilnej informacji o zmiennej latentnej.
 -   Średnia wyjaśniona wariancja (AVE) dla wszystkich trzech czynników jest
@@ -1103,8 +1072,8 @@ trafności konwergencyjnej (AVE) oraz trafności dyskryminacyjnej (HTMT).
     konwergencyjną – czyli wskaźniki nie „zbiegają się” wystarczająco na
     wspólny konstrukt.
 -   Macierz HTMT wskazuje na poziom rozróżnialności czynników (trafności
-    dyskryminacyjnej). Przyjmuje się, że wartości HTMT \< 0.85 (lub bardziej
-    liberalnie \< 0.90) oznaczają satysfakcjonującą rozróżnialność. W tym
+    dyskryminacyjnej). Przyjmuje się, że wartości HTMT < 0.85 (lub bardziej
+    liberalnie < 0.90) oznaczają satysfakcjonującą rozróżnialność. W tym
     przypadku:
     -   Zapamiętywanie–Opracowywanie = 0.288 – bardzo niski współczynnik, dobra
         rozróżnialność,
@@ -1124,6 +1093,18 @@ invariance*) przy użyciu CFA wielogrupowej, co umożliwia porównywanie wynikó
 między grupami, np. ze względu na płeć czy wiek. My wykonamy analizę w podziale
 ze względu na płeć, aby dowiedzieć się czy narzędzie mierzy badane konstrukty
 podobnie w obu grupach.
+
+Równoważność pomiaru, oznacza sprawdzenie, czy ten sam model pomiarowy (CFA) działa w ten sam sposób w różnych grupach. W praktyce chodzi o odpowiedź na pytanie, czy porównywanie wyników między grupami (np. kobietami i mężczyznami) jest uczciwe metodologicznie: czy różnice w wynikach odzwierciedlają rzeczywiste różnice w konstrukcie latentnym, a nie to, że pozycje są inaczej rozumiane, mają inną „siłę” pomiaru lub inny poziom bazowy w danej grupie.
+
+W CFA wielogrupowej estymuje się ten sam model w kilku grupach jednocześnie (tu: `group = "sex"`), a następnie narzuca się coraz silniejsze ograniczenia równości parametrów pomiarowych między grupami. Każdy kolejny krok odpowiada wyższemu poziomowi równoważności i pozwala na coraz „mocniejsze” porównania między grupami.
+
+Równoważność konfiguracyjna (*configural invariance*) polega na tym, że w obu grupach obowiązuje ta sama struktura czynnikowa: te same pozycje ładują na te same czynniki, ale wartości ładunków, przecięć i błędów mogą się różnić. Jeżeli ten model ma akceptowalne dopasowanie, oznacza to, że w obu grupach da się opisać dane tą samą „mapą” konstruktów, co jest warunkiem bazowym dalszych kroków.
+
+Równoważność metryczna (*metric invariance*, nazywana też „słabą”) dodaje ograniczenie równości ładunków czynnikowych między grupami: `group.equal = "loadings"`. Oznacza to, że relacja między czynnikiem a wskaźnikiem ma tę samą siłę w obu grupach. Jeżeli metryczność się utrzymuje, można porównywać zależności strukturalne między konstruktami w grupach, na przykład porównywać regresje (ścieżki) lub korelacje między czynnikami, bo skala czynnika jest w obu grupach „taka sama” w sensie jednostki miary.
+
+Równoważność skalowa (*scalar invariance*, „silna”) narzuca równość zarówno ładunków, jak i przecięć (*intercepts*): `group.equal = c("loadings","intercepts")`. Przecięcie jest poziomem oczekiwanej odpowiedzi na pozycję, gdy czynnik latentny ma wartość 0. Jeżeli przecięcia są równe, oznacza to, że przy tym samym poziomie cechy latentnej osoby z obu grup mają tę samą „bazową” tendencję do udzielania odpowiedzi. Ten poziom równoważności jest kluczowy, aby porównywać średnie czynników latentnych między grupami. Bez równoważności skalowej różnice średnich mogłyby wynikać z systematycznego przesunięcia pozycji, a nie z realnych różnic w konstrukcie.
+
+Równoważność ścisła (*strict invariance*) dodatkowo wymusza równość wariancji resztowych (błędów pomiaru) wskaźników: `group.equal = c("loadings","intercepts","residuals").` Oznacza to, że precyzja pomiaru pozycji jest taka sama w obu grupach. Jest to najsilniejsze i najtrudniejsze do spełnienia założenie; bywa wymagane, jeśli chce się porównywać wyniki obserwowalne (sumy/średnie) wprost między grupami lub gdy chce się wykazać pełną porównywalność pomiaru, ale w praktyce wiele badań zatrzymuje się na poziomie skalowym.
 
 ```{r}
 # równoważność konfiguracyjna 
@@ -1147,39 +1128,19 @@ fitMeasures(fit_scalar, c("cfi","rmsea","srmr"))
 fitMeasures(fit_strict, c("cfi","rmsea","srmr"))
 ```
 
-Wyniki analizy grupowej CFA wskazują, że proces sprawdzania równoważności
-pomiaru ze względu na płeć w tym narzędziu napotyka istotne ograniczenia.
+Powyższe wyniki uwidaczniają się dwie rzeczy: (1) testy różnicowe $\chi^2$ wskazują na „istotne” pogorszenie dopasowania po każdym zaostrzeniu ograniczeń, oraz (2) zmiany wskaźników przybliżonego dopasowania (CFI/RMSEA/SRMR) są małe. W praktyce, przy dużych próbach, testy $\chi^2$ są bardzo czułe i często „wychodzą istotne” nawet wtedy, gdy pogorszenie dopasowania jest znikome z punktu widzenia zastosowań. Dlatego w analizie równoważności pomiaru zwykle interpretuje się oba typy informacji, ale większą wagę przykłada się do zmian CFI, RMSEA i SRMR.
 
-Model konfiguracyjny (czyli sam układ czynników i wskaźników, bez dodatkowych
-ograniczeń) osiąga umiarkowane dopasowanie: CFI = 0.886, RMSEA = 0.079, SRMR =
-0.054. Oznacza to, że struktura czynnikowa jest w obu grupach podobna, choć
-model nie jest idealnie dopasowany.
+Najpierw warto ocenić dopasowanie modelu bazowego (konfiguracyjnego), bo ono wyznacza „punkt startowy” całej procedury. U nas `fit_config` ma CFI = 0.886, RMSEA = 0.079, SRMR = 0.054. To oznacza dopasowanie umiarkowane: SRMR jest akceptowalne, natomiast CFI jest wyraźnie poniżej 0.90, a RMSEA jest na granicy wartości, które często uznaje się za „przeciętne” (około 0.08). Wniosek jest taki, że sama struktura pomiarowa w obu grupach działa podobnie (bo model się estymuje i ma umiarkowane dopasowanie), ale model nie opisuje danych idealnie już na poziomie bazowym. To nie przekreśla testu równoważności, ale każe ostrożnie formułować wnioski: równoważność można uznać za wspieraną, natomiast jakość samego modelu pomiarowego nadal może wymagać dopracowania.
 
-Dodanie ograniczenia równości ładunków czynnikowych (równoważność metryczna)
-nie powoduje znaczącego pogorszenia dopasowania – CFI spada minimalnie (0.886 →
-0.884), RMSEA poprawia się nieznacznie (0.079 → 0.076), a SRMR pozostaje na
-porównywalnym poziomie. Pomimo istotnego testu różnicy chi-kwadrat (Δχ² = 63.2,
-p \< 0.001), kryteria praktyczne (ΔCFI \< 0.01, ΔRMSEA \< 0.015) sugerują, że
-równoważność metryczna jest akceptowalna. Można więc uznać, że wskaźniki w
-równym stopniu odzwierciedlają konstrukty w obu grupach.
+Przejście z równoważności konfiguracyjnej do metrycznej (równe ładunki) daje: CFI 0.886 → 0.884 (spadek $\Delta CFI = −0.002$), RMSEA 0.079 → 0.076 ($\Delta RMSEA = −0.003$), SRMR 0.054 → 0.056 ($\Delta SRMR = 0.002$). To są zmiany bardzo małe, czyli ładunki czynnikowe można traktować jako zbliżone w obu grupach, a więc jednostka miary czynnika jest porównywalna. Istotny test $\chi^2$ różnic ($p \ll 0.001$) prawdopodobnie wynika tu głównie z czułości testu, bo wskaźniki przybliżonego dopasowania prawie się nie zmieniają.
 
-Przejście do równoważność skalowej (dodanie równości przecięć) wyraźnie
-pogarsza dopasowanie – spadek CFI do 0.875 oraz brak poprawy w RMSEA i SRMR,
-przy bardzo dużym i istotnym przyroście χ² (Δχ² = 241.7, p \< 0.001). To
-oznacza, że przecięcia nie są równoważne między płciami, czyli nie można
-bezpośrednio porównywać średnich czynników latentnych.
+Przejście z metrycznej do skalowej (równe ładunki i przecięcia) daje: CFI 0.884 → 0.875 ($\Delta CFI = −0.009$), RMSEA 0.076 → 0.076 ($\Delta RMSEA \approx 0.000$), SRMR 0.056 → 0.058 ($\Delta SRMR = 0.002$). To jest najbardziej „kosztowny” krok, co jest typowe, bo przecięcia często różnią się między grupami. Jednocześnie spadek CFI o 0.009 nadal jest niewielki i zwykle mieści się w praktycznych kryteriach akceptacji. W efekcie można powiedzieć, że równoważność skalowa jest w przybliżeniu spełniona, czyli porównywanie średnich latentnych między płciami ma metodologiczne uzasadnienie (z zastrzeżeniem, że model bazowy nie jest jakoś świetnie dopasowany).
 
-W modelu ścisłym (zrównanie dodatkowo wariancji błędów) dopasowanie pozostaje
-na podobnym poziomie (CFI = 0.873, RMSEA = 0.074, SRMR = 0.059), a test
-chi-kwadrat znów wskazuje istotne pogorszenie.
+Przejście do równoważności ścisłej (dodatkowo równe reszty) daje: CFI 0.875 → 0.873 ($\Delta CFI = −0.002$), RMSEA 0.076 → 0.074 ($\Delta RMSEA = −0.002$), SRMR 0.058 → 0.059 ($\Delta SRMR = 0.001$). Zmiany są minimalne, więc także ścisłość wygląda na akceptowalną w sensie praktycznym. Oznacza to, że precyzja pomiaru wskaźników (wariancje reszt) jest podobna w obu grupach, co wzmacnia argument o porównywalności narzędzia.
 
-Podsumowując, udało się uzyskać równoważność konfiguracyjną i metryczną, ale
-nie skalową. Oznacza to, że konstrukty są podobnie reprezentowane w obu
-grupach, lecz nie można ich średnich bezpośrednio porównywać, bo przecięcia
-różnią się w zależności od płci. W praktyce, w takim przypadku można rozważyć
-testowanie częściowej równoważność (*partial invariance)*, czyli
-identyfikowanie tych pozycji, które rzeczywiście spełniają warunek równości
-przecięć i opieranie porównań tylko na nich.
+AIC i BIC rosną wraz z narzucaniem ograniczeń, co jest normalne, bo modele stają się bardziej restrykcyjne; w testach równoważności i tak kluczowe są zmiany dopasowania oraz interpretacja merytoryczna, a nie wybór „najlepszego” modelu według AIC/BIC. Wynik anova mówi tu przede wszystkim, że każde dodatkowe ograniczenie ma wykrywalny koszt w $\chi^2$, ale wskaźniki przybliżonego dopasowania sugerują, że koszt jest mały.
+
+Podsumowując, mamy przesłanki do przyjęcia równoważności metrycznej, a skalową i ścisłą możesz uznać za spełnione w sensie przybliżonym (praktycznym). Jednocześnie warto zaznaczyć w raporcie, że dopasowanie modelu konfiguracyjnego jest umiarkowane (CFI < 0.90), więc wnioski o równoważności są tak dobre, jak dobry jest sam model pomiarowy. Jeżeli chcesz wzmocnić część pomiarową, sensownie jest przejrzeć reszty i wskaźniki modyfikacji osobno w grupach, a w razie potrzeby zastosować równoważność częściową, czyli zwolnić pojedyncze intercepty lub ładunki, które najbardziej „psują” krok skalowy, zamiast odrzucać porównywalność całego narzędzia.
 
 Na koniec utworzymy skale, które można łatwo intepretować przez osoby, które
 nie znają narzędzia i jego konstrukcji dobrze.
