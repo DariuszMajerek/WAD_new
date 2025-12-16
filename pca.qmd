@@ -326,11 +326,12 @@ związku. Korelację zmiennej z $j$-tą składową szacujemy jako cosinus kąta
 między wektorem zmiennej a osią składowej na kole korelacji; duże wartości
 sugeruję dużą kontrybucję tej cechy do składowej. Rekonstrukcja obiektu
 $i$-tego z $k$ składowych ma postać
-$\hat{x}_{i}=\sum_{j=1}^{k} t_{ij} \, w_{j}^\top$, gdzie $t_{ij} = x_i^\top w_j$, co pozwala na analizę błędów
-rekonstrukcji i odszumianie przez odcięcie składowych o małych $d_{j}$. W
-regresji, gdy predyktory są współliniowe, stosuje się regresję na składowych
-głównych albo regresję grzbietową w przestrzeni *scores*, co poprawia stronę
-obliczeniową i zmniejszać wariancję estymatorów.
+$\hat{x}_{i}=\sum_{j=1}^{k} t_{ij} \, w_{j}^\top$, gdzie
+$t_{ij} = x_i^\top w_j$, co pozwala na analizę błędów rekonstrukcji i
+odszumianie przez odcięcie składowych o małych $d_{j}$. W regresji, gdy
+predyktory są współliniowe, stosuje się regresję na składowych głównych albo
+regresję grzbietową w przestrzeni *scores*, co poprawia stronę obliczeniową i
+zmniejszać wariancję estymatorów.
 
 ### Kryteria doboru liczby składowych głównych
 
@@ -526,101 +527,144 @@ library(patchwork)
 
 set.seed(44)
 
-# 1) Generowanie dwóch niezależnych źródeł (niegaussowskich)
+# Ustalenia wymiarów zgodnie z opisem:
+# p = liczba obserwowanych zmiennych, m = liczba źródeł, n = liczba obserwacji
 n <- 3000
-s1 <- rexp(n, rate = 1) - 1  # Jednostronnie cięższy ogon (Eksponencjalny przesunięty do zera średniej)
-s2 <- runif(n, -2, 2)        # Równomierny (płaskie ogony)
-S  <- cbind(s1, s2)
-S  <- scale(S, center = TRUE, scale = FALSE) # zero-mean dla wygody
+m <- 2
+p <- 2
 
-# 2) Mieszanie źródeł macierzą A -> obserwacje X
+# 1) Generowanie niezależnych źródeł S ∈ R^{m×n} (kolumny = obserwacje, wiersze = źródła)
+s1 <- rexp(n, rate = 1) - 1       # niegaussowskie, centrowane do ~0
+s2 <- runif(n, -2, 2)             # niegaussowskie
+S  <- rbind(s1, s2)               # S ma wymiar m×n
+
+# Centrowanie źródeł (dla wygody): E[s] ≈ 0 w każdym źródle
+S  <- S - rowMeans(S)
+
+# 2) Mieszanie: X = A S, gdzie A ∈ R^{p×m}, X ∈ R^{p×n}
 A <- matrix(c(1, 2,
-              2, 1), nrow = 2, byrow = TRUE)
-X <- S %*% t(A)                        # model X = S A^T
-X <- scale(X, center = TRUE, scale = FALSE)  # centrowanie (odjęcie średniej kolumn)
+              2, 1), nrow = p, byrow = TRUE)
 
-# 3) Whitening (sferyzacja): Z = V X, gdzie V = Λ^{-1/2} U^T z dekompozycji Σ_X
-SigmaX <- cov(X)
+X <- A %*% S                      # X ma wymiar p×n (kolumny = obserwacje)
+
+# 3) Centrowanie danych obserwowanych: Xc = X - \bar X
+# \bar X jest wektorem średnich po kolumnach (po obserwacjach) dla każdej zmiennej
+X_bar <- rowMeans(X)              # wektor długości p
+Xc <- X - X_bar                   # odjęcie wektora średnich od każdej kolumny
+
+# 4) Whitening: Z = V Xc, gdzie V = Λ^{-1/2} U^T z dekompozycji Σ_X = U Λ U^T
+# Zgodnie z opisem: Σ_X = (1/n) Σ_i (X_i - \bar X)(X_i - \bar X)^T = (1/n) Xc Xc^T
+SigmaX <- (1 / n) * (Xc %*% t(Xc))    # p×p
+
 e <- eigen(SigmaX)
-U <- e$vectors
-Lambda <- diag(e$values)
-V <- solve(sqrt(Lambda)) %*% t(U)     # Λ^{-1/2} U^T
-Z <- t(V %*% t(X))                    # Z = V X (w wierszach obserwacje)
+U <- e$vectors                          # p×p
+Lambda <- diag(e$values)                # p×p
 
-# Kontrola: kowariancja Z ~ I
-round(cov(Z), 3)
+V <- solve(sqrt(Lambda)) %*% t(U)       # Λ^{-1/2} U^T, wymiar p×p
+Z <- V %*% Xc                           # p×n
 
-# 4) ICA (FastICA) na danych whitened (można też na X bo fastICA automatycznie wykonuje whitening)
-ica <- fastICA(Z, n.comp = 2, method = "C")  # odzyskane źródła Y i mieszanie A_ICA
-Y <- ica$S                                   # szacowane źródła niezależne (kolumny ~ komponenty)
-W <- ica$K %*% ica$W                         # łączne "demiksowanie" względem X (tu pracowaliśmy na Z)
-# Uwaga: fastICA zwraca też K (whitening) i W (unmixing), składnia zależy od wejścia
+# Kontrola: Cov(Z) = I_p przy tej samej normalizacji 1/n
+SigmaZ <- (1 / n) * (Z %*% t(Z))
+round(SigmaZ, 3)
 
-# 5) Przygotowanie danych do wykresów
+# 5) (Opcjonalnie) ICA na danych obserwowanych.
+# Uwaga: fastICA oczekuje macierzy w układzie "wiersze = obserwacje, kolumny = zmienne",
+# czyli tu przekazujemy t(Xc), które ma wymiar n×p.
+ica <- fastICA(t(Xc), n.comp = m)
+
+# Źródła estymowane przez fastICA są w układzie n×m (wiersze = obserwacje),
+# więc dla zgodności z notacją S ∈ R^{m×n} transponujemy:
+S_hat <- t(ica$S)                         # m×n
+
+# Macierz mieszająca estymowana przez fastICA ma wymiar p×m (zgodne z A ∈ R^{p×m})
+A_hat <- ica$A
+
+# Dla przypadku kwadratowego (m = p) można zdefiniować macierz demiksującą jako W ≈ A^{-1}
+# (z zastrzeżeniem permutacji i skali, które są nieidentyfikowalne w ICA).
+W_hat <- solve(A_hat)                     # m×p
+
+# 6) Prosta diagnostyka: korelacje między prawdziwymi źródłami a estymowanymi
+# (pokaże permutację/znak)
+cor(t(S), t(S_hat))
+
+# Y jako odzyskane źródła (m×n), spójnie z notacją kolumnową
+Y <- t(ica$S)   # fastICA zwraca S jako n×m, więc transponujemy do m×n
+
+# 7) Przygotowanie danych do wykresów
+# M jest w formacie "zmienne × obserwacje" (p×n lub m×n),
+# więc do data.frame robimy transpozycję: "obserwacje × zmienne"
 to_df <- function(M, name){
-  as.data.frame(M) |>
+  as.data.frame(t(M)) |>
     setNames(c("c1","c2")) |>
     mutate(stage = name)
 }
-df_X <- to_df(X, "X: dane zmieszane")
-df_Z <- to_df(Z, "Z: po whitening")
-df_Y <- to_df(Y, "Y: po ICA (źródła)")
+
+df_X <- to_df(Xc, "X: dane zmieszane (wycentrowane)")  # używam Xc, bo model whiteningu jest dla X - X̄
+df_Z <- to_df(Z,  "Z: po whitening")
+df_Y <- to_df(Y,  "Y: po ICA (źródła)")
 
 df_all <- bind_rows(df_X, df_Z, df_Y)
 
-# 6) Oś układu i wektory bazowe (do wizualizacji obrotów)
-#    W przestrzeni Z osie są już sferyczne (I), więc ICA to „tylko” obrót.
+# 6) Osie układu i wektory bazowe (do wizualizacji)
 axes_df <- function(scale_len = 2){
-  data.frame(x = c(0,0), y = c(0,0),
-             xend = c(scale_len,0), yend = c(0,scale_len),
-             label = c("e1","e2"))
+  data.frame(
+    x = c(0, 0), y = c(0, 0),
+    xend = c(scale_len, 0), yend = c(0, scale_len),
+    label = c("e1", "e2")
+  )
 }
 axesZ <- axes_df()
 
 # 7) Wykresy: chmury punktów w 2D (X, Z, Y)
 pX <- ggplot(df_X, aes(c1, c2)) +
-  geom_point(alpha = 0.25, size = 0.8) +
+  geom_point(alpha = 0.25, size = 0.8, color = "orange") +
   coord_equal() +
-  labs(title = "Przed whiteningiem (X)",
-       x = "X[,1]", y = "X[,2]") +
+  labs(title = "Przed whiteningiem (Xc)",
+       x = "Xc[1, ]", y = "Xc[2, ]") +
   theme_minimal()
 
 pZ <- ggplot(df_Z, aes(c1, c2)) +
-  geom_point(alpha = 0.25, size = 0.8, color = "#2E86DE") +
-  geom_segment(data = axesZ, aes(x = x, y = y, xend = xend, yend = yend),
-               arrow = arrow(length = unit(0.18,"cm")), linewidth = 0.8) +
-  geom_text(data = axesZ, aes(x = xend, y = yend, label = label),
-            nudge_x = 0.05, nudge_y = 0.05, size = 3) +
+  geom_point(alpha = 0.25, size = 0.8, color = 'darkblue') +
+  geom_segment(
+    data = axesZ,
+    aes(x = x, y = y, xend = xend, yend = yend),
+    arrow = arrow(length = unit(0.18, "cm")),
+    linewidth = 0.8
+  ) +
+  geom_text(
+    data = axesZ,
+    aes(x = xend, y = yend, label = label),
+    nudge_x = 0.05, nudge_y = 0.05, size = 3
+  ) +
   coord_equal() +
   labs(title = "Po whitening (Z): Cov ≈ I",
-       x = "Z[,1]", y = "Z[,2]") +
+       x = "Z[1, ]", y = "Z[2, ]") +
   theme_minimal()
 
 pY <- ggplot(df_Y, aes(c1, c2)) +
-  geom_point(alpha = 0.25, size = 0.8, color = "#16A085") +
+  geom_point(alpha = 0.25, size = 0.8, color = "darkgreen") +
   coord_equal() +
-  labs(title = "Po ICA (Y): odzyskane źródła niezależne",
-       x = "Y[,1]", y = "Y[,2]") +
+  labs(title = "Po ICA (Y): odzyskane źródła",
+       x = "Y[1, ]", y = "Y[2, ]") +
   theme_minimal()
 
 (pX | pZ | pY)
 
-# 8) Dodatkowo: marginesowe histogramy pokazujące „nienormalność”
+# 8) Marginalne histogramy pokazujące „nienormalność”
 hX <- df_X |>
-  pivot_longer(c("c1","c2"), names_to = "col", values_to = "val") |>
-  filter(col %in% c("c1","c2")) |>
-  mutate(stage = "X")
+  pivot_longer(c(c1, c2), names_to = "col", values_to = "val") |>
+  mutate(stage = "Xc")
+
 hZ <- df_Z |>
-  pivot_longer(c("c1","c2"), names_to = "col", values_to = "val") |>
-  filter(col %in% c("c1","c2")) |>
+  pivot_longer(c(c1, c2), names_to = "col", values_to = "val") |>
   mutate(stage = "Z")
+
 hY <- df_Y |>
-  pivot_longer(c("c1","c2"), names_to = "col", values_to = "val") |>
-  filter(col %in% c("c1","c2")) |>
+  pivot_longer(c(c1, c2), names_to = "col", values_to = "val") |>
   mutate(stage = "Y")
 
-h_all <- bind_rows(hX,hZ,hY) |>
-  mutate(stage = factor(stage, levels = c("X","Z","Y")))
+h_all <- bind_rows(hX, hZ, hY) |>
+  mutate(stage = factor(stage, levels = c("Xc", "Z", "Y")))
 
 ggplot(h_all, aes(val)) +
   geom_histogram(bins = 60, fill = "grey70", color = "white") +
@@ -630,10 +674,15 @@ ggplot(h_all, aes(val)) +
   theme_minimal()
 
 # 9) Krótka kontrola: kowariancje i korelacje
-cat("\nKowariancja X:\n"); print(round(cov(X),3))
-cat("\nKowariancja Z (powinna być bliska I):\n"); print(round(cov(Z),3))
-cat("\nKorelacje pomiędzy kolumnami Y (powinny być bliskie 0; niezależność jest mocniejsza niż brak korelacji):\n")
-print(round(cor(Y),3))
+# cov() i cor() zakładają, że obserwacje są w wierszach, a zmienne w kolumnach,
+# więc dla macierzy p×n stosujemy transpozycję.
+cat("\nKowariancja Xc:\n"); print(round(cov(t(Xc)), 3))
+
+cat("\nKowariancja Z (powinna być bliska I przy normalizacji 1/(n-1) w cov()):\n")
+print(round(cov(t(Z)), 3))
+
+cat("\nKorelacje pomiędzy składowymi Y (powinny być bliskie 0; niezależność jest silniejsza niż brak korelacji):\n")
+print(round(cor(t(Y)), 3))
 ```
 
 Podejście maksymalizujące nienormalność opiera się na kurtozie lub na
@@ -649,20 +698,28 @@ $$ z dobraną nieliniowością $G$ oraz $v\sim \mathcal N(0,1)$. Maksymalizacja
 $J$ przy ograniczeniu $\|w\|=1$ zapewnia poszukiwanie najbardziej nienormalnych
 kierunków. Częste wybory $G$, to
 
--  $G(u)=\frac{1}{a_1}\log\cosh(a_1 u)$ (np. $a_1=1$) - uniwersalna,
--  $G(u)=-\exp(-u^2/2)$ - dla rozkładów o ciężkich ogonach,
--  $G(u)=\frac{1}{4}u^4$ - dla rozkładów o lekkich ogonach.
+-   $G(u)=\frac{1}{a_1}\log\cosh(a_1 u)$ (np. $a_1=1$) - uniwersalna,
+-   $G(u)=-\exp(-u^2/2)$ - dla rozkładów o ciężkich ogonach,
+-   $G(u)=\frac{1}{4}u^4$ - dla rozkładów o lekkich ogonach.
 
-Z kryteriów tych wynika algorytm *FastICA* jako iteracyjne poszukiwanie stałego punktu. Dla
-jednego komponentu w przestrzeni *whitened* stosujemy aktualizację $$
+Z kryteriów tych wynika algorytm *FastICA* jako iteracyjne poszukiwanie stałego
+punktu. Dla jednego komponentu w przestrzeni *whitened* stosujemy aktualizację
+$$
 w \leftarrow \mathbb{E}\{Z\,g(w^\top Z)\}-\mathbb{E}\{g’(w^\top Z)\}\, w,\qquad \text{następnie } w\leftarrow \frac{w}{\|w\|},
 $$ gdzie $g=G’$ jest *score function* (np. $g(u)=\tanh(u)$, $g(u)=u^3$ lub
-$g(u)=u\exp(-u^2/2)$). 
-Pierwszy składnik $\mathbb{E}\{Z\,g(w^\top Z)\}$ jest „uogólnioną” wersją gradientu kryterium niegaussowskości: wzmacnia te kierunki $w$, w których projekcja $w^\top Z$ daje rozkład o dużej wartości wybranej miary niegaussowskości. Drugi składnik $-\mathbb{E}\{g’(w^\top Z)\}\,$ w pełni rolę korekty wynikającej z ograniczenia normy oraz z faktu, że pracuje się w przestrzeni *whitened.* Dzięki temu iteracja nie „puchnie” wzdłuż tego samego kierunku i ma poprawną geometrię z punktu widzenia warunku $\|w\|=1$. W praktyce oba wyrażenia oblicza się jako średnie z próby: wartości oczekiwane $\mathbb{E}[\cdot]$ zastępuje się średnimi po obserwacjach $Z_i$.
+$g(u)=u\exp(-u^2/2)$). Pierwszy składnik $\mathbb{E}\{Z\,g(w^\top Z)\}$ jest
+„uogólnioną” wersją gradientu kryterium niegaussowskości: wzmacnia te kierunki
+$w$, w których projekcja $w^\top Z$ daje rozkład o dużej wartości wybranej
+miary niegaussowskości. Drugi składnik $-\mathbb{E}\{g’(w^\top Z)\}\,$ w pełni
+rolę korekty wynikającej z ograniczenia normy oraz z faktu, że pracuje się w
+przestrzeni *whitened.* Dzięki temu iteracja nie „puchnie” wzdłuż tego samego
+kierunku i ma poprawną geometrię z punktu widzenia warunku $\|w\|=1$. W
+praktyce oba wyrażenia oblicza się jako średnie z próby: wartości oczekiwane
+$\mathbb{E}[\cdot]$ zastępuje się średnimi po obserwacjach $Z_i.$
 
-Dla wielu składowych stosujemy równoległe aktualizacje i
-ortogonalizację w kolejnych krokach, np. metodą rzutów Grama–Schmidta lub przez
-dekompozycję symetryczną $W\leftarrow (WW^\top)^{-1/2}W$, co zachowuje wzajemną
+Dla wielu składowych stosujemy równoległe aktualizacje i ortogonalizację w
+kolejnych krokach, np. metodą rzutów Grama–Schmidta lub przez dekompozycję
+symetryczną $W\leftarrow (WW^\top)^{-1/2}W$, co zachowuje wzajemną
 ortogonalność wektorów w przestrzeni *whitened* i zapobiega zbieżności do tej
 samej składowej.
 
@@ -990,35 +1047,43 @@ analityczna i odpowiada PCA zastosowanej do macierzy odległości.
 
 #### Założenia
 
-W wersji niemetrycznej nie wymaga się, aby wartości $\delta_{ij}$ były
-dokładnymi odległościami — mogą być dowolnymi miarami niepodobieństwa,
-niekoniecznie metrycznymi (np. o charakterze porządkowym). Celem jest
-znalezienie konfiguracji $X$, dla której rangi odległości $d_{ij}(X)$ są
-możliwie zgodne z rangami danych $\delta_{ij}$.
+W wersji niemetrycznej zakłada się, że informacja w danych ma przede wszystkim charakter porządkowy: jeżeli $\delta_{ij} > \delta_{kl}$, to para $(i,j)$ ma być „bardziej niepodobna” niż $(k,l)$, ale nie wymaga się, aby różnice $\delta_{ij}-\delta_{kl}$ miały sens ilościowy. Z tego powodu nie dopasowuje się wprost relacji $\delta_{ij}\approx d_{ij}(X)$, tylko dopuszcza się monotoniczne przekształcenie $f$, które „przekłada” odległości w konfiguracji na skalę zgodną z porządkiem danych. Funkcja $f$ jest w praktyce wynikiem tzw. regresji izotonicznej: dobiera się ją tak, aby była monotoniczna i aby możliwie najlepiej dopasowywała wartości w sensie najmniejszych kwadratów przy zachowaniu porządku. To pozwala rozdzielić dwa problemy: (1) znalezienie geometrii $X$, która poprawnie porządkuje pary, oraz (2) dopasowanie skali poprzez $f$, które jest „swobodne”, o ile nie łamie rang.
+
+Funkcja stresu Kruskala jest miarą niedopasowania pomiędzy „danymi po przekształceniu” a odległościami w konfiguracji. Wzór
+S(X) = \sqrt{\frac{\sum_{i<j} \bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)^2}{\sum_{i<j} d_{ij}(X)^2}}
+pełni trzy role. Po pierwsze, w liczniku sumuje kwadraty reszt \bigl(f(\delta_{ij}) - d_{ij}(X)\bigr), czyli mierzy, jak duże są rozbieżności między odległościami w przestrzeni a wartościami „najlepiej dopasowanymi” do porządku danych. Kwadratowanie powoduje, że większe rozbieżności są karane silniej i że kryterium jest gładkie w sensie optymalizacyjnym (co sprzyja iteracyjnym algorytmom).
+
+Po drugie, w mianowniku normalizuje się tę sumę przez \sum_{i<j} d_{ij}(X)^2, aby miara była niezależna od arbitralnej skali konfiguracji. Bez normalizacji dałoby się sztucznie zmniejszać błąd przez „ściskanie” lub „rozciąganie” konfiguracji (a przy pewnych formach dopasowania nawet doprowadzić do trywialnych rozwiązań). Normalizacja sprawia, że stres jest miarą względną: odpowiada proporcji „energii reszt” do „energii odległości”, dzięki czemu można porównywać wyniki dla różnych konfiguracji i różnych zbiorów danych.
+
+Po trzecie, stres zamienia problem zachowania rang w problem optymalizacyjny, który da się rozwiązywać algorytmicznie. W samym warunku rangowym („zachować porządek”) nie ma naturalnej funkcji celu, którą można różniczkować lub minimalizować. Stres daje konkretną liczbę, którą można iteracyjnie zmniejszać, przesuwając punkty x_i. Procedura wygląda schematycznie tak: dla ustalonego X wyznacza się d_{ij}(X), następnie dobiera się monotoniczne f (izotonicznie), po czym aktualizuje się X, aby zmniejszyć stres; i tak do zbieżności. Dzięki temu niemetryczny MDS staje się metodą praktycznie wykonalną.
+
+W skrócie, funkcję stresu wprowadza się dlatego, że przy danych porządkowych trzeba formalnie zdefiniować i policzyć „błąd odwzorowania” po dopuszczeniu monotonicznego przekształcenia skali. Stres Kruskala jest standardowym, znormalizowanym kryterium tego błędu, które umożliwia stabilną, iteracyjną estymację konfiguracji X w niemetrycznym MDS.
+
 
 #### Model i funkcja stresu
 
-Ponieważ nie zakłada się liniowego związku między $\delta_{ij}$ a $d_{ij}(X)$,
-wprowadza się monotoniczną funkcję przekształcenia $f(\cdot)$, która dopasowuje
-skalę $$
-\hat{\delta}_{ij} = f(d_{ij}(X)),
-$$ przy czym $f$ zachowuje monotoniczność rangową (jeżeli
-$\delta_{ij} > \delta_{kl}$, to $f(\delta_{ij}) > f(\delta_{kl})$).
-
 Optymalizuje się wtedy miarę stresu Kruskala (STRESS - STandardized REsidual
-Sum of Squares) $$
+Sum of Squares) 
+$$
 S(X) = \sqrt{\frac{\sum_{i<j} \bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)^2}{\sum_{i<j} d_{ij}(X)^2}}.
-$$ Minimalizacja stresu odbywa się iteracyjnie — zmienia się położenie punktów
+$$ 
+Minimalizacja stresu odbywa się iteracyjnie — zmienia się położenie punktów
 $x_i$, aby zmniejszyć różnicę między rangami obserwowanych i odwzorowanych
 odległości.
 
+Pełni ona trzy role. Po pierwsze, w liczniku sumuje kwadraty reszt $\bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)$, czyli mierzy, jak duże są rozbieżności między odległościami w przestrzeni a wartościami „najlepiej dopasowanymi” do porządku danych. Kwadrat powoduje, że większe rozbieżności są karane silniej i że kryterium jest gładkie w sensie optymalizacyjnym (co sprzyja iteracyjnym algorytmom).
+
+Po drugie, w mianowniku normalizuje się tę sumę przez $\sum_{i<j} d_{ij}(X)^2$, aby miara była niezależna od arbitralnej skali konfiguracji. Bez normalizacji dałoby się sztucznie zmniejszać błąd przez „ściskanie” lub „rozciąganie” konfiguracji (a przy pewnych formach dopasowania nawet doprowadzić do trywialnych rozwiązań). Normalizacja sprawia, że STRESS jest miarą względną: odpowiada proporcji „energii reszt” do „energii odległości”, dzięki czemu można porównywać wyniki dla różnych konfiguracji i różnych zbiorów danych.
+
+Po trzecie, STRESS zamienia problem zachowania rang w problem optymalizacyjny, który da się rozwiązywać algorytmicznie. W samym warunku rangowym („zachować porządek”) nie ma naturalnej funkcji celu, którą można różniczkować lub minimalizować. STRESS daje konkretną liczbę, którą można iteracyjnie zmniejszać, przesuwając punkty $x_i$. Procedura wygląda schematycznie tak: dla ustalonego $X$ wyznacza się $d_{ij}(X)$, następnie dobiera się monotoniczne $f$, po czym aktualizuje się $X$, aby zmniejszyć STRESS i tak do zbieżności. Dzięki temu niemetryczny MDS staje się metodą praktycznie wykonalną.
+
 | Wartość STRESS | Ocena dopasowania                        |
 |----------------|------------------------------------------|
-| \< 0.05        | Doskonałe                                |
+| < 0.05        | Doskonałe                                |
 | 0.05–0.10      | Bardzo dobre                             |
 | 0.10–0.20      | Umiarkowane                              |
 | 0.20–0.30      | Słabe                                    |
-| \> 0.30        | Bardzo słabe (odwzorowanie nieadekwatne) |
+| > 0.30        | Bardzo słabe (odwzorowanie nieadekwatne) |
 
 #### Interpretacja
 
