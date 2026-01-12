@@ -8,214 +8,68 @@ editor_options:
 
 # Metody redukcji wymiarowości
 
-Historia metod redukcji wymiarowości jest ściśle związana z rozwojem
-statystyki, psychometrii, a następnie uczenia maszynowego i eksploracji danych.
-Już na początku XX wieku zaczęto poszukiwać narzędzi pozwalających na
-uproszczenie złożonych zbiorów danych, w których liczba zmiennych była zbyt
-duża, aby dało się je analizować bezpośrednio. Głównym celem było uchwycenie
-istotnych wzorców i zależności przy zachowaniu możliwie dużej ilości
-informacji.
+Historia metod redukcji wymiarowości jest ściśle związana z rozwojem statystyki, psychometrii, a następnie uczenia maszynowego i eksploracji danych. Już na początku XX wieku zaczęto poszukiwać narzędzi pozwalających na uproszczenie złożonych zbiorów danych, w których liczba zmiennych była zbyt duża, aby dało się je analizować bezpośrednio. Głównym celem było uchwycenie istotnych wzorców i zależności przy zachowaniu możliwie dużej ilości informacji.
 
-Jednym z pierwszych i do dziś najczęściej stosowanych podejść jest analiza
-głównych składowych (*Principal Component Analysis*, PCA). Jej początki sięgają
-pracy Karla Pearsona z 1901 roku, który zaproponował metodę znajdowania „linii
-najlepszego dopasowania” w przestrzeni wielowymiarowej. Została ona następnie
-rozwinięta przez Harolda Hotellinga w latach 30. XX wieku, który sformalizował
-PCA jako metodę przekształcania skorelowanych zmiennych w nowy zbiór
-nieskorelowanych składowych, uporządkowanych według wariancji. PCA szybko
-znalazła zastosowanie w psychometrii i naukach społecznych, a następnie w
-genetyce, obrazowaniu i ekonomii.
+Jednym z pierwszych i do dziś najczęściej stosowanych podejść jest analiza głównych składowych (*Principal Component Analysis*, PCA). Jej początki sięgają pracy Karla Pearsona z 1901 roku, który zaproponował metodę znajdowania „linii najlepszego dopasowania” w przestrzeni wielowymiarowej. Została ona następnie rozwinięta przez Harolda Hotellinga w latach 30. XX wieku, który sformalizował PCA jako metodę przekształcania skorelowanych zmiennych w nowy zbiór nieskorelowanych składowych, uporządkowanych według wariancji. PCA szybko znalazła zastosowanie w psychometrii i naukach społecznych, a następnie w genetyce, obrazowaniu i ekonomii.
 
-W latach powojennych, wraz z rozwojem psychologii eksperymentalnej i neuronauk,
-pojawiła się potrzeba metod lepiej uchwytujących niezależne źródła sygnału.
-Doprowadziło to do opracowania analizy niezależnych składowych (*Independent
-Component Analysis*, ICA). Choć koncepcje matematyczne stojące za ICA sięgają
-teorii informacji z połowy XX wieku, to metoda została sformalizowana dopiero w
-latach 80. i 90. XX wieku, m.in. dzięki pracom Jeana-Françoisa Cardoso czy Aapa
-Hyvärinena. ICA stała się niezwykle użyteczna w problemach takich jak separacja
-źródeł w sygnałach biomedycznych (np. EEG, fMRI), odszumianie danych czy
-analiza obrazów.
+W latach powojennych, wraz z rozwojem psychologii eksperymentalnej i neuronauk, pojawiła się potrzeba metod lepiej uchwytujących niezależne źródła sygnału. Doprowadziło to do opracowania analizy niezależnych składowych (*Independent Component Analysis*, ICA). Choć koncepcje matematyczne stojące za ICA sięgają teorii informacji z połowy XX wieku, to metoda została sformalizowana dopiero w latach 80. i 90. XX wieku, m.in. dzięki pracom Jeana-Françoisa Cardoso czy Aapa Hyvärinena. ICA stała się niezwykle użyteczna w problemach takich jak separacja źródeł w sygnałach biomedycznych (np. EEG, fMRI), odszumianie danych czy analiza obrazów.
 
-Równolegle rozwijały się metody oparte na odległościach i podobieństwach, takie
-jak skalowanie wielowymiarowe (*Multidimensional Scaling*, MDS). Pierwsze idee
-pojawiły się w psychometrii w latach 50., a szczególnie w pracach Torgersona i
-Kruskala. Celem MDS było odwzorowanie obiektów opisanych macierzą podobieństw
-lub odległości w przestrzeni niskowymiarowej w taki sposób, aby zachować
-relacje strukturalne. Metoda ta znalazła szerokie zastosowanie w badaniach
-percepcji, marketingu, biologii oraz w analizie sieci społecznych.
+Równolegle rozwijały się metody oparte na odległościach i podobieństwach, takie jak skalowanie wielowymiarowe (*Multidimensional Scaling*, MDS). Pierwsze idee pojawiły się w psychometrii w latach 50., a szczególnie w pracach Torgersona i Kruskala. Celem MDS było odwzorowanie obiektów opisanych macierzą podobieństw lub odległości w przestrzeni niskowymiarowej w taki sposób, aby zachować relacje strukturalne. Metoda ta znalazła szerokie zastosowanie w badaniach percepcji, marketingu, biologii oraz w analizie sieci społecznych.
 
-Od końca XX wieku rozwój metod redukcji wymiarowości przyspieszył, co było
-związane z eksplozją danych wysokowymiarowych w biologii molekularnej,
-informatyce czy analizie obrazów. Oprócz klasycznych metod liniowych zaczęto
-rozwijać techniki nieliniowe, takie jak t-SNE (2008, Laurens van der Maaten i
-Geoffrey Hinton) czy UMAP (2018, McInnes, Healy i Melville), które pozwalają
-zachować lokalne struktury danych w niskowymiarowej przestrzeni wizualizacji.
-Metody te zrewolucjonizowały analizę danych w uczeniu maszynowym i biologii
-obliczeniowej, np. w analizie danych pojedynczych komórek.
+Od końca XX wieku rozwój metod redukcji wymiarowości przyspieszył, co było związane z eksplozją danych wysokowymiarowych w biologii molekularnej, informatyce czy analizie obrazów. Oprócz klasycznych metod liniowych zaczęto rozwijać techniki nieliniowe, takie jak t-SNE (2008, Laurens van der Maaten i Geoffrey Hinton) czy UMAP (2018, McInnes, Healy i Melville), które pozwalają zachować lokalne struktury danych w niskowymiarowej przestrzeni wizualizacji. Metody te zrewolucjonizowały analizę danych w uczeniu maszynowym i biologii obliczeniowej, np. w analizie danych pojedynczych komórek.
 
-Dziś redukcja wymiarowości jest nie tylko techniką wspomagającą wizualizację
-danych, lecz także kluczowym elementem przetwarzania wstępnego w wielu modelach
-uczenia maszynowego. Od klasycznych metod PCA i MDS po nowoczesne techniki
-oparte na sieciach neuronowych, takie jak autoenkodery, rozwój tego obszaru
-odzwierciedla rosnącą potrzebę uproszczenia i interpretacji złożoności
-współczesnych danych.
+Dziś redukcja wymiarowości jest nie tylko techniką wspomagającą wizualizację danych, lecz także kluczowym elementem przetwarzania wstępnego w wielu modelach uczenia maszynowego. Od klasycznych metod PCA i MDS po nowoczesne techniki oparte na sieciach neuronowych, takie jak autoenkodery, rozwój tego obszaru odzwierciedla rosnącą potrzebę uproszczenia i interpretacji złożoności współczesnych danych.
 
 ## PCA [@pearson1901]
 
 ### Matematyczna definicja modelu
 
-Punktem wyjścia analizy głównych składowych jest problem odwzorowania
-wielowymiarowego zbioru danych w przestrzeni o mniejszej liczbie wymiarów przy
-możliwie minimalnej stracie informacji. W praktyce dąży się do kompresji i
-odszumiania sygnału, usuwania współliniowości, stabilizacji dalszych modeli
-(np. regresji), a także do wizualizacji struktur klasowych i gradientów
-zmienności. Przykładowo, dla dwóch silnie skorelowanych cech pierwsza składowa
-główna jest skierowana wzdłuż linii największego rozrzutu (blisko prostej
-$y \approx x$), a redukcja do jednego wymiaru zachowuje większą część wariancji
-niż dowolna inna projekcja.
+Punktem wyjścia analizy głównych składowych jest problem odwzorowania wielowymiarowego zbioru danych w przestrzeni o mniejszej liczbie wymiarów przy możliwie minimalnej stracie informacji. W praktyce dąży się do kompresji i odszumiania sygnału, usuwania współliniowości, stabilizacji dalszych modeli (np. regresji), a także do wizualizacji struktur klasowych i gradientów zmienności. Przykładowo, dla dwóch silnie skorelowanych cech pierwsza składowa główna jest skierowana wzdłuż linii największego rozrzutu (blisko prostej $y \approx x$), a redukcja do jednego wymiaru zachowuje większą część wariancji niż dowolna inna projekcja.
 
-Matematyczna definicja poprzez maksymalizację wariancji i dekompozycję
-spektralną polega na transformacji scentralizowanej macierzy danych
-$X \in \mathbb{R}^{n\times p}$ (każdą kolumnę odjąć o jej średnią). Niech
-$\Sigma=\frac{1}{n-1}X^\top X$ oznacza empiryczną macierz kowariancji. Pierwszą
-składową wyznaczamy jako kierunek $w\in\mathbb{R}^{p}$ rozwiązujący zadanie
-maksymalizacji wariancji projekcji, czyli maksymalizacji
-$\mathrm{Var}(Xw)=w^\top\Sigma w$ przy ograniczeniu $\|w\|_{2}=1$. Zastosowanie
-mnożników Lagrange’a prowadzi do warunku stacjonarności $\Sigma w=\lambda w$, a
-więc $w$ jest wektorem własnym $\Sigma$, zaś $\lambda$ jest odpowiadającą mu
-wartością własną. Wybieramy największą wartość własną $\lambda_{1}$ i jej
-wektor $w_{1}$, wówczas wariancja pierwszych wyników projekcji $z_{1}=Xw_{1}$
-równa się $\lambda_{1}$. Kolejne składowe otrzymujemy analogicznie jako
-rozwiązania tego samego problemu z dodatkowymi ograniczeniami ortogonalności
-$w_{j}^\top w_{k}=0$ dla $k<j$, co ustawia kolejne wektory własne $\Sigma$ w
-porządku malejących wartości własnych
-$\lambda_{1}\ge \lambda_{2}\ge \dots \ge \lambda_{p}$. Wektor wyników projekcji
-$z_{j}$ nazywamy w praktyce *scores*, a $w_{j}$ — wektorem ładunków
-(*loadings*). Kumulatywny udział wariancji wyjaśnianej przez pierwsze $k$
-składowych wynosi wówczas
-$\sum_{j=1}^{k}\lambda_{j}\big/\sum_{j=1}^{p}\lambda_{j}$ i służy na często do
-doboru $k$.
+Matematyczna definicja poprzez maksymalizację wariancji i dekompozycję spektralną polega na transformacji scentralizowanej macierzy danych $X \in \mathbb{R}^{n\times p}$ (każdą kolumnę odjąć o jej średnią). Niech $\Sigma=\frac{1}{n-1}X^\top X$ oznacza empiryczną macierz kowariancji. Pierwszą składową wyznaczamy jako kierunek $w\in\mathbb{R}^{p}$ rozwiązujący zadanie maksymalizacji wariancji projekcji, czyli maksymalizacji $\mathrm{Var}(Xw)=w^\top\Sigma w$ przy ograniczeniu $\|w\|_{2}=1$. Zastosowanie mnożników Lagrange’a prowadzi do warunku stacjonarności $\Sigma w=\lambda w$, a więc $w$ jest wektorem własnym $\Sigma$, zaś $\lambda$ jest odpowiadającą mu wartością własną. Wybieramy największą wartość własną $\lambda_{1}$ i jej wektor $w_{1}$, wówczas wariancja pierwszych wyników projekcji $z_{1}=Xw_{1}$ równa się $\lambda_{1}$. Kolejne składowe otrzymujemy analogicznie jako rozwiązania tego samego problemu z dodatkowymi ograniczeniami ortogonalności $w_{j}^\top w_{k}=0$ dla $k<j$, co ustawia kolejne wektory własne $\Sigma$ w porządku malejących wartości własnych $\lambda_{1}\ge \lambda_{2}\ge \dots \ge \lambda_{p}$. Wektor wyników projekcji $z_{j}$ nazywamy w praktyce *scores*, a $w_{j}$ — wektorem ładunków (*loadings*). Kumulatywny udział wariancji wyjaśnianej przez pierwsze $k$ składowych wynosi wówczas $\sum_{j=1}^{k}\lambda_{j}\big/\sum_{j=1}^{p}\lambda_{j}$ i służy na często do doboru $k$.
 
-Równoważne wyprowadzenie modelu przez rozkład na wartości osobliwe, czyli SVD
-(ang. *Singular Value Decomposition*), opiera się na faktoryzacji $X=UDV^\top$,
-gdzie $U\in\mathbb{R}^{n\times r}$ i $V\in\mathbb{R}^{p\times r}$ mają
-ortonormalne kolumny, $D=\mathrm{diag}(d_{1},\dots,d_{r})$ zawiera
-uporządkowane wartości osobliwe $d_{1}\ge \dots \ge d_{r}>0$, a
-$r=\mathrm{rank}(X)$. Wówczas kolumny $V$ pokrywają się (co do znaku) z
-wektorami ładunków $w_{j}$, zaś macierz wyników projekcji $T=XV$ równa się
-$UD$. Związek między oboma podejściami jest ścisły:
-$\lambda_{j}=d_{j}^{2}/(n-1)$, a więc wariancje składowych odwzorowuje się
-przez kwadraty wartości osobliwych przeskalowane czynnikiem $1/(n-1)$.
-Projekcja do $k$ wymiarów przyjmuje wówczas postać $X\mapsto T_{k}=UD_{k}$, a
-rekonstrukcja rzędu $k$ ma postać $$
+Równoważne wyprowadzenie modelu przez rozkład na wartości osobliwe, czyli SVD (ang. *Singular Value Decomposition*), opiera się na faktoryzacji $X=UDV^\top$, gdzie $U\in\mathbb{R}^{n\times r}$ i $V\in\mathbb{R}^{p\times r}$ mają ortonormalne kolumny, $D=\mathrm{diag}(d_{1},\dots,d_{r})$ zawiera uporządkowane wartości osobliwe $d_{1}\ge \dots \ge d_{r}>0$, a $r=\mathrm{rank}(X)$. Wówczas kolumny $V$ pokrywają się (co do znaku) z wektorami ładunków $w_{j}$, zaś macierz wyników projekcji $T=XV$ równa się $UD$. Związek między oboma podejściami jest ścisły: $\lambda_{j}=d_{j}^{2}/(n-1)$, a więc wariancje składowych odwzorowuje się przez kwadraty wartości osobliwych przeskalowane czynnikiem $1/(n-1)$. Projekcja do $k$ wymiarów przyjmuje wówczas postać $X\mapsto T_{k}=UD_{k}$, a rekonstrukcja rzędu $k$ ma postać $$
 X_{k}=T_{k}V_{k}^\top=U_{k}D_{k}V_{k}^\top.
-$$ Z twierdzenia Eckarta–Younga–Mirsky’ego wynika, że $X_{k}$ minimalizuje błąd
-Frobeniusa $\|X-Y\|_{F}$ w klasie macierzy $Y$ o rządzie co najwyżej $k$, czyli
-PCA daje najlepszą aproksymację niskorangową w sensie średniokwadratowym (jest
-to tzw. obcięte SVD). Ta równoważność łączyć dwie intuicje: maksymalizacja
-przechwyconej wariancji i minimalizacja błędu rekonstrukcji.
+$$ Z twierdzenia Eckarta–Younga–Mirsky’ego wynika, że $X_{k}$ minimalizuje błąd Frobeniusa $\|X-Y\|_{F}$ w klasie macierzy $Y$ o rządzie co najwyżej $k$, czyli PCA daje najlepszą aproksymację niskorangową w sensie średniokwadratowym (jest to tzw. obcięte SVD). Ta równoważność łączyć dwie intuicje: maksymalizacja przechwyconej wariancji i minimalizacja błędu rekonstrukcji.
 
 ::: {#thm-1}
 ## Twierdzenie Eckarta–Younga–Mirsky
 
-Niech $X\in\mathbb{R}^{n\times p}$ i niech $r=\mathrm{rank}(X)$. Dla $k<r$
-niech $X_{k}=U_{k}D_{k}V_{k}^\top$ będzie obciętym rozkładem SVD rzędu $k$.
-Wówczas $X_{k}$ jest jedyną macierzą o $\mathrm{rank}(X_{k})=k$, która
-minimalizuje błąd Frobeniusa[^pca-1] $\|X-Y\|_{F}$ w klasie macierzy
-$Y\in\mathbb{R}^{n\times p}$ o $\mathrm{rank}(Y)\le k$. Ponadto zachodzi
-równość $\|X-X_{k}\|_{F}^{2}=\sum_{j=k+1}^{r}d_{j}^{2}$.
+Niech $X\in\mathbb{R}^{n\times p}$ i niech $r=\mathrm{rank}(X)$. Dla $k<r$ niech $X_{k}=U_{k}D_{k}V_{k}^\top$ będzie obciętym rozkładem SVD rzędu $k$. Wówczas $X_{k}$ jest jedyną macierzą o $\mathrm{rank}(X_{k})=k$, która minimalizuje błąd Frobeniusa[^pca-1] $\|X-Y\|_{F}$ w klasie macierzy $Y\in\mathbb{R}^{n\times p}$ o $\mathrm{rank}(Y)\le k$. Ponadto zachodzi równość $\|X-X_{k}\|_{F}^{2}=\sum_{j=k+1}^{r}d_{j}^{2}$.
 :::
 
-Zadania optymalizacyjne wyraża się zarówno w wersji wektorowej, jak i
-macierzowej. Dla pierwszej składowej rozwiązujemy problem maksymalizacji
-$w^\top\Sigma$ w przy $\|w\|_{2}=1$, co prowadzi do największej wartości
-własnej. Dla $k$ składowych poszukujemy macierzy $W\in\mathbb{R}^{p\times k}$ o
-kolumnach ortonormalnych, która maksymalizuje $\mathrm{tr}(W^\top\Sigma W)$,
-skąd wynika wybór $k$ wektorów własnych $\Sigma$. Równoważnie, szukamy
-projekcji $P=WW^\top$ minimalizującej błąd rekonstrukcji
-$\|X-XWW^\top\|_{F}^{2}$. W notacji SVD rozwiązanie ma postać $W=V_{k}$, a więc
-projekcja działa przez mnożenie przez $V_{k}V_{k}^\top$.
+[^pca-1]: Błąd Frobeniusa $\|A\|_{F}$ macierzy $A$ definiujemy jako $\|A\|_{F}=\sqrt{\sum_{i,j}a_{ij}^{2}}=\sqrt{\mathrm{tr}(A^\top A)}.$
 
-Gdy cechy mierzymy w różnych jednostkach i skalach, zaleca się stosować macierz
-korelacji zamiast kowariancji, co jest równoważne standaryzacji kolumn $X$ do
-wariancji 1. Wiele implementacji (np. w `R` funkcja `prcomp`) wykorzystuje SVD
-na scentralizowanych i ewentualnie standaryzowanych danych, co zapewnia
-numeryczną stabilność, zwłaszcza gdy $p\gg n$. W sytuacji $p\gg n$
-korzystniejsze bywa liczenie mniejszych rozkładów: albo dual PCA[^pca-2] na
-macierzy $XX^\top\in\mathbb{R}^{n\times n}$, albo bezpośrednio obciętego SVD.
-Dla danych zaburzonych wartościami odstającymi rozważa się wersje odporne, np.
-zastępuje się $\Sigma$ estymatorem odpornym (ang. *Minimum Covariance
-Determinant*, MCD)[^pca-3] lub stosuje się *robust* PCA i dekompozycje oparte
-na normie jądra i normie $L_{1}$[^pca-4].
+Zadania optymalizacyjne wyraża się zarówno w wersji wektorowej, jak i macierzowej. Dla pierwszej składowej rozwiązujemy problem maksymalizacji $w^\top\Sigma$ w przy $\|w\|_{2}=1$, co prowadzi do największej wartości własnej. Dla $k$ składowych poszukujemy macierzy $W\in\mathbb{R}^{p\times k}$ o kolumnach ortonormalnych, która maksymalizuje $\mathrm{tr}(W^\top\Sigma W)$, skąd wynika wybór $k$ wektorów własnych $\Sigma$. Równoważnie, szukamy projekcji $P=WW^\top$ minimalizującej błąd rekonstrukcji $\|X-XWW^\top\|_{F}^{2}$. W notacji SVD rozwiązanie ma postać $W=V_{k}$, a więc projekcja działa przez mnożenie przez $V_{k}V_{k}^\top$.
 
-Podsumowując, PCA można sformułować trojako: jako maksymalizację wariancji
-projekcji przy ograniczeniach ortogonalności, jako dekompozycję spektralną
-macierzy kowariancji oraz jako obcięte SVD zapewniające najlepszą aproksymację
-niskorangową.
+Gdy cechy mierzymy w różnych jednostkach i skalach, zaleca się stosować macierz korelacji zamiast kowariancji, co jest równoważne standaryzacji kolumn $X$ do wariancji 1. Wiele implementacji (np. w `R` funkcja `prcomp`) wykorzystuje SVD na scentralizowanych i ewentualnie standaryzowanych danych, co zapewnia numeryczną stabilność, zwłaszcza gdy $p\gg n$. W sytuacji $p\gg n$ korzystniejsze bywa liczenie mniejszych rozkładów: albo dual PCA[^pca-2] na macierzy $XX^\top\in\mathbb{R}^{n\times n}$, albo bezpośrednio obciętego SVD. Dla danych zaburzonych wartościami odstającymi rozważa się wersje odporne, np. zastępuje się $\Sigma$ estymatorem odpornym (ang. *Minimum Covariance Determinant*, MCD)[^pca-3] lub stosuje się *robust* PCA i dekompozycje oparte na normie jądra i normie $L_{1}$[^pca-4].
 
-[^pca-1]: Błąd Frobeniusa $\|A\|_{F}$ macierzy $A$ definiujemy jako
-    $\|A\|_{F}=\sqrt{\sum_{i,j}a_{ij}^{2}}=\sqrt{\mathrm{tr}(A^\top A)}.$
+[^pca-2]: Wówczas wektory własne $\tilde{w}_{j}$ macierzy $XX^\top\in\mathbb{R}^{n\times n}$ (która jest niższego wymiaru niż $X^\top X$ a co za tym idzie lepiej się zachowuje numerycznie) przekształca się w wektory własne $\Sigma$ przez $w_{j}=X^\top \tilde{w}_{j}/\sqrt{(n-1)\tilde{\lambda}_{j}}$, gdzie $\tilde{\lambda}_{j}$ jest odpowiadającą wartością własną.
 
-[^pca-2]: Wówczas wektory własne $\tilde{w}_{j}$ macierzy
-    $XX^\top\in\mathbb{R}^{n\times n}$ (która jest niższego wymiaru niż
-    $X^\top X$ a co za tym idzie lepiej się zachowuje numerycznie) przekształca
-    się w wektory własne $\Sigma$ przez
-    $w_{j}=X^\top \tilde{w}_{j}/\sqrt{(n-1)\tilde{\lambda}_{j}}$, gdzie
-    $\tilde{\lambda}_{j}$ jest odpowiadającą wartością własną.
+[^pca-3]: Estymator MCD polega na znalezieniu podzbioru $h$ obserwacji (zwykle $h \approx 0.75 n$) o najmniejszym wyznaczniku macierzy kowariancji, a następnie obliczeniu średniej i kowariancji na tym podzbiorze. Jest odporny na wartości odstające, ponieważ ignoruje obserwacje, które znacznie zwiększają wyznacznik.
 
-[^pca-3]: Estymator MCD polega na znalezieniu podzbioru $h$ obserwacji (zwykle
-    $h \approx 0.75 n$) o najmniejszym wyznaczniku macierzy kowariancji, a
-    następnie obliczeniu średniej i kowariancji na tym podzbiorze. Jest odporny
-    na wartości odstające, ponieważ ignoruje obserwacje, które znacznie
-    zwiększają wyznacznik.
+[^pca-4]: Metoda ta zakłada, że macierz danych $X$ ma postać $X=L+S+E$, gdzie $L$ jest macierzą niskorangową (sygnał), $S$ jest macierzą rzadką (wartości odstające), a $E$ jest szumem o małej wariancji. Celem jest odzyskanie $L$ poprzez minimalizację funkcji celu $\|L\|_{*}+\lambda\|S\|_{1}$ przy ograniczeniu $X=L+S$, gdzie $\|L\|_{*}$ jest normą jądra (suma wartości osobliwych $L$), a $\|S\|_{1}$ jest normą $L_{1}$ macierzy $S$.
 
-[^pca-4]: Metoda ta zakłada, że macierz danych $X$ ma postać $X=L+S+E$, gdzie
-    $L$ jest macierzą niskorangową (sygnał), $S$ jest macierzą rzadką (wartości
-    odstające), a $E$ jest szumem o małej wariancji. Celem jest odzyskanie $L$
-    poprzez minimalizację funkcji celu $\|L\|_{*}+\lambda\|S\|_{1}$ przy
-    ograniczeniu $X=L+S$, gdzie $\|L\|_{*}$ jest normą jądra (suma wartości
-    osobliwych $L$), a $\|S\|_{1}$ jest normą $L_{1}$ macierzy $S$.
+Podsumowując, PCA można sformułować trojako: jako maksymalizację wariancji projekcji przy ograniczeniach ortogonalności, jako dekompozycję spektralną macierzy kowariancji oraz jako obcięte SVD zapewniające najlepszą aproksymację niskorangową.
 
 ### Założenia modelu
 
-Założenia dotyczące danych wejściowych do analizy głównych składowych (PCA) są
-stosunkowo słabe, ale mają istotny wpływ na jakość wyników i interpretację.
-Można je podzielić na kilka grup:
+Założenia dotyczące danych wejściowych do analizy głównych składowych (PCA) są stosunkowo słabe, ale mają istotny wpływ na jakość wyników i interpretację. Można je podzielić na kilka grup:
 
 1.  Struktura danych
-    -   Liniowość – PCA zakłada, że główne wzorce zmienności w danych można
-        uchwycić przez liniowe kombinacje zmiennych wejściowych. Jeśli
-        zależności są silnie nieliniowe (np. dane leżą na zakrzywionej
-        rozmaitości), PCA nie odwzoruje ich poprawnie – lepiej wtedy stosować
-        *kernel* PCA albo metody sąsiedztwa (np. t-SNE, UMAP).
-    -   Współzależność zmiennych – metoda ma sens tylko wtedy, gdy między
-        cechami istnieją korelacje. Jeśli wszystkie zmienne są niezależne, PCA
-        nie zredukuje wymiarów i każda składowa odpowiadać będzie jednej
-        zmiennej.
+    -   Liniowość – PCA zakłada, że główne wzorce zmienności w danych można uchwycić przez liniowe kombinacje zmiennych wejściowych. Jeśli zależności są silnie nieliniowe (np. dane leżą na zakrzywionej rozmaitości), PCA nie odwzoruje ich poprawnie – lepiej wtedy stosować *kernel* PCA albo metody sąsiedztwa (np. t-SNE, UMAP).
+    -   Współzależność zmiennych – metoda ma sens tylko wtedy, gdy między cechami istnieją korelacje. Jeśli wszystkie zmienne są niezależne, PCA nie zredukuje wymiarów i każda składowa odpowiadać będzie jednej zmiennej.
 2.  Jednostki i skale pomiarowe
     -   PCA jest wrażliwa na skalę zmiennych, ponieważ opiera się na wariancji.
-    -   Jeśli cechy mierzone są w różnych jednostkach (np. temperatura w °C i
-        masa w kg), należy je standaryzować (np. do średniej 0 i wariancji 1).
-    -   Gdy wszystkie cechy są w tej samej skali, można pracować na macierzy
-        kowariancji; w przeciwnym razie lepiej korzystać z macierzy korelacji.
+    -   Jeśli cechy mierzone są w różnych jednostkach (np. temperatura w °C i masa w kg), należy je standaryzować (np. do średniej 0 i wariancji 1).
+    -   Gdy wszystkie cechy są w tej samej skali, można pracować na macierzy kowariancji; w przeciwnym razie lepiej korzystać z macierzy korelacji.
 3.  Rozkład danych
-    -   Normalność wielowymiarowa nie jest wymagana, ale jeżeli dane mają
-        rozkład wielowymiarowo normalny, to składowe główne są niezależne (nie
-        tylko nieskorelowane), co upraszcza interpretację. Naruszenie założenia
-        o normalności nie sprawia, że PCA nie działa, lecz niezależność
-        składowych nie jest zagwarantowana.
-    -   Brak wartości odstających – PCA jest bardzo wrażliwa na *outliery*,
-        które mogą wpłynąć na kierunki głównych składowych, bo opiera się na
-        kowariancji. Dlatego dane powinny być oczyszczone lub należy stosować
-        wersje metody odporne (*robust* PCA).
+    -   Normalność wielowymiarowa nie jest wymagana, ale jeżeli dane mają rozkład wielowymiarowo normalny, to składowe główne są niezależne (nie tylko nieskorelowane), co upraszcza interpretację. Naruszenie założenia o normalności nie sprawia, że PCA nie działa, lecz niezależność składowych nie jest zagwarantowana.
+    -   Brak wartości odstających – PCA jest bardzo wrażliwa na *outliery*, które mogą wpłynąć na kierunki głównych składowych, bo opiera się na kowariancji. Dlatego dane powinny być oczyszczone lub należy stosować wersje metody odporne (*robust* PCA).
 4.  Liczebność próby
-    -   Aby oszacować macierz kowariancji, liczba obserwacji $n$ powinna być
-        odpowiednio duża względem liczby zmiennych $p$.
-    -   Gdy $p \gg n$, klasyczna PCA bywa niestabilna i stosuje się wtedy
-        *dual* PCA albo obcięte SVD.
-5.  Braki danych - PCA wymaga pełnej macierzy danych (bez braków). W przypadku
-    braków stosuje się najczęściej imputację (np. metodą średnich czy metody
-    oparte na modelach).
+    -   Aby oszacować macierz kowariancji, liczba obserwacji $n$ powinna być odpowiednio duża względem liczby zmiennych $p$.
+    -   Gdy $p \gg n$, klasyczna PCA bywa niestabilna i stosuje się wtedy *dual* PCA albo obcięte SVD.
+5.  Braki danych - PCA wymaga pełnej macierzy danych (bez braków). W przypadku braków stosuje się najczęściej imputację (np. metodą średnich czy metody oparte na modelach).
 
 ### Interpretacja graficzna i praktyczna
 
@@ -300,106 +154,44 @@ ggplot(X, aes(x = x1, y = x2)) +
         plot.subtitle = element_text(face = "plain"))
 ```
 
-Dla dwóch wymiarów elipsa rozrzutu danych ma osie ustawione dokładnie wzdłuż
-$w_{1}$ i $w_{2}$, a ich długości proporcjonalne do $\sqrt{\lambda_{1}}$ i
-$\sqrt{\lambda_{2}}$. Transformacja do przestrzeni składowych odpowiada
-obrotowi układu współrzędnych tak, by oś $X_{1}'$ leżała w kierunku
-największego rozrzutu, a $X_{2}'$ — w kierunku pozostałej zmienności. Projekcja
-do $k<p$ wymiarów działa jak rzut ortogonalny na podprzestrzeń rozpiętą przez
-pierwsze $k$ osi i „spłaszczenie” w pominiętych kierunkach, co minimalizuje
-błąd rekonstrukcji w sensie średniokwadratowym. Wykresy *scores* prezentują
-obiekty w przestrzeni składowych głównych i często ujawniają skupiska lub
-obserwacje odstające. Wektory *loadings* są przedstawiane na tzw. kole
-korelacji, gdzie końce strzałek leżą na okręgu jednostkowym, a ich długości i
-kąty odzwierciedlają korelacje zmiennych oryginalnych ze składowymi. Zmienne
-wskazujące podobne kierunki tworzą grupy, co pomaga rozumieć współzmienność.
-Wykres *biplot* łączy obie perspektywy: punkty obiektów i kierunki zmiennych w
-tej samej płaszczyźnie, dzięki czemu można podejrzeć jednocześnie relacje
-między obiektami i kontrybucje cech. Dodatkowo wykres udziału wariancji, czyli
-*scree plot*, porządkuje $\lambda_{j}$ i pomagać wyznaczyć $k$ przez
-identyfikację „łokcia” krzywej lub przez osiągnięcie założonego poziomu
-wariancji kumulatywnej.
+Dla dwóch wymiarów elipsa rozrzutu danych ma osie ustawione dokładnie wzdłuż $w_{1}$ i $w_{2}$, a ich długości proporcjonalne do $\sqrt{\lambda_{1}}$ i $\sqrt{\lambda_{2}}$. Transformacja do przestrzeni składowych odpowiada obrotowi układu współrzędnych tak, by oś $X_{1}'$ leżała w kierunku największego rozrzutu, a $X_{2}'$ — w kierunku pozostałej zmienności. Projekcja do $k<p$ wymiarów działa jak rzut ortogonalny na podprzestrzeń rozpiętą przez pierwsze $k$ osi i „spłaszczenie” w pominiętych kierunkach, co minimalizuje błąd rekonstrukcji w sensie średniokwadratowym. Wykresy *scores* prezentują obiekty w przestrzeni składowych głównych i często ujawniają skupiska lub obserwacje odstające. Wektory *loadings* są przedstawiane na tzw. kole korelacji, gdzie końce strzałek leżą na okręgu jednostkowym, a ich długości i kąty odzwierciedlają korelacje zmiennych oryginalnych ze składowymi. Zmienne wskazujące podobne kierunki tworzą grupy, co pomaga rozumieć współzmienność. Wykres *biplot* łączy obie perspektywy: punkty obiektów i kierunki zmiennych w tej samej płaszczyźnie, dzięki czemu można podejrzeć jednocześnie relacje między obiektami i kontrybucje cech. Dodatkowo wykres udziału wariancji, czyli *scree plot*, porządkuje $\lambda_{j}$ i pomagać wyznaczyć $k$ przez identyfikację „łokcia” krzywej lub przez osiągnięcie założonego poziomu wariancji kumulatywnej.
 
-Ładunek $w_{jk}$ to współczynnik liniowej kombinacji $j$-tej składowej dla
-$k$-tej zmiennej; jego znak i wartość bezwzględna informują o kierunku i sile
-związku. Korelację zmiennej z $j$-tą składową szacujemy jako cosinus kąta
-między wektorem zmiennej a osią składowej na kole korelacji; duże wartości
-sugeruję dużą kontrybucję tej cechy do składowej. Rekonstrukcja obiektu
-$i$-tego z $k$ składowych ma postać
-$\hat{x}_{i}=\sum_{j=1}^{k} t_{ij} \, w_{j}^\top$, gdzie
-$t_{ij} = x_i^\top w_j$, co pozwala na analizę błędów rekonstrukcji i
-odszumianie przez odcięcie składowych o małych $d_{j}$. W regresji, gdy
-predyktory są współliniowe, stosuje się regresję na składowych głównych albo
-regresję grzbietową w przestrzeni *scores*, co poprawia stronę obliczeniową i
-zmniejszać wariancję estymatorów.
+Ładunek $w_{jk}$ to współczynnik liniowej kombinacji $j$-tej składowej dla $k$-tej zmiennej; jego znak i wartość bezwzględna informują o kierunku i sile związku. Korelację zmiennej z $j$-tą składową szacujemy jako cosinus kąta między wektorem zmiennej a osią składowej na kole korelacji; duże wartości sugeruję dużą kontrybucję tej cechy do składowej. Rekonstrukcja obiektu $i$-tego z $k$ składowych ma postać $\hat{x}_{i}=\sum_{j=1}^{k} t_{ij} \, w_{j}^\top$, gdzie $t_{ij} = x_i^\top w_j$, co pozwala na analizę błędów rekonstrukcji i odszumianie przez odcięcie składowych o małych $d_{j}$. W regresji, gdy predyktory są współliniowe, stosuje się regresję na składowych głównych albo regresję grzbietową w przestrzeni *scores*, co poprawia stronę obliczeniową i zmniejszać wariancję estymatorów.
 
 ### Kryteria doboru liczby składowych głównych
 
-Dobór liczby składowych głównych ($k$) jest jednym z kluczowych etapów analizy
-PCA, ponieważ decyduje o tym, ile informacji (wariancji) zostanie zachowane
-przy redukcji wymiarowości. Zbyt mała liczba składowych prowadzi do utraty
-istotnych informacji, a zbyt duża – do utrzymania szumu i nadmiarowej
-redundancji. W praktyce stosuje się zestaw kryteriów ilościowych i
-jakościowych, które można podzielić na kilka grup.
+Dobór liczby składowych głównych ($k$) jest jednym z kluczowych etapów analizy PCA, ponieważ decyduje o tym, ile informacji (wariancji) zostanie zachowane przy redukcji wymiarowości. Zbyt mała liczba składowych prowadzi do utraty istotnych informacji, a zbyt duża – do utrzymania szumu i nadmiarowej redundancji. W praktyce stosuje się zestaw kryteriów ilościowych i jakościowych, które można podzielić na kilka grup.
 
 #### Kryteria oparte na wariancji wyjaśnianej
 
-Najbardziej klasyczne podejście polega na analizie udziału wariancji
-przechwyconej przez pierwsze $k$ składowych. Dla każdej składowej liczy się
-wartość własną $\lambda_j$ macierzy kowariancji, a udział wariancji wyjaśnianej
-przez pierwsze $k$ składowych to $$
+Najbardziej klasyczne podejście polega na analizie udziału wariancji przechwyconej przez pierwsze $k$ składowych. Dla każdej składowej liczy się wartość własną $\lambda_j$ macierzy kowariancji, a udział wariancji wyjaśnianej przez pierwsze $k$ składowych to $$
 \eta(k) = \frac{\sum_{j=1}^k \lambda_j}{\sum_{j=1}^p \lambda_j}.
 $$ Stosowane reguły:
 
--   Reguła progu wariancji - wybiera się najmniejsze $k$, dla którego $\eta(k)$
-    przekracza ustalony próg, np. 80%, 90% lub 95% (w literaturze nie ma
-    jednego progu). Gdy dane silnie skorelowane – wystarczą 2–3 składowe, a gdy
-    dane są bardziej złożone – potrzeba więcej (5–10 i więcej).
--   Wykres osypiska (*scree plot*) – wykres wartości własnych $\lambda_j$
-    uporządkowanych malejąco. Wybiera się punkt, w którym tempo spadku
-    gwałtownie maleje („łokieć krzywej”).
--   Wskaźnik udziału marginalnego - $\Delta \eta_j = \eta(j) - \eta(j-1)$. Gdy
-    przyrost staje się znikomy, dalsze składowe nie wnoszą istotnej informacji.
+-   Reguła progu wariancji - wybiera się najmniejsze $k$, dla którego $\eta(k)$ przekracza ustalony próg, np. 80%, 90% lub 95% (w literaturze nie ma jednego progu). Gdy dane silnie skorelowane – wystarczą 2–3 składowe, a gdy dane są bardziej złożone – potrzeba więcej (5–10 i więcej).
+-   Wykres osypiska (*scree plot*) – wykres wartości własnych $\lambda_j$ uporządkowanych malejąco. Wybiera się punkt, w którym tempo spadku gwałtownie maleje („łokieć krzywej”).
+-   Wskaźnik udziału marginalnego - $\Delta \eta_j = \eta(j) - \eta(j-1)$. Gdy przyrost staje się znikomy, dalsze składowe nie wnoszą istotnej informacji.
 
 #### Kryteria algebraiczne
 
-Kryterium wartości własnej (Kaisera–Guttmana) oparte jest na macierzy
-korelacji, które mówi, że zachowuje się tylko te składowe, których wartości
-własne $\lambda_j > 1$. Oznacza to, że dana składowa wyjaśnia więcej wariancji
-niż pojedyncza standaryzowana zmienna. Reguła ta jest prosta, ale często zbyt
-konserwatywna (tendencja do wyboru zbyt wielu składowych).
+Kryterium wartości własnej (Kaisera–Guttmana) oparte jest na macierzy korelacji, które mówi, że zachowuje się tylko te składowe, których wartości własne $\lambda_j > 1$. Oznacza to, że dana składowa wyjaśnia więcej wariancji niż pojedyncza standaryzowana zmienna. Reguła ta jest prosta, ale często zbyt konserwatywna (tendencja do wyboru zbyt wielu składowych).
 
 #### Kryteria statystyczne i walidacyjne
 
--   Analiza równoległa (*Parallel Analysis*) - polega na porównaniu wartości
-    własnych uzyskanych z danych rzeczywistych z wartościami własnymi
-    uzyskanymi z wielu symulowanych zestawów danych o tych samych wymiarach,
-    ale z losowym szumem. Zachowuje się tylko te składowe, których wartości
-    własne przekraczają średnią (lub kwantyl) z rozkładu symulowanego. Ta
-    metoda ogranicza ryzyko wyboru składowych wynikających z przypadku.
--   Walidacja krzyżowa (*Cross-Validation*) - gdy PCA wykorzystuje się w
-    kontekście modelowania predykcyjnego (np. *PCA regression*). Wybiera się
-    takie $k$, które minimalizuje błąd predykcji (np. RMSE) obliczany metodą
-    walidacji krzyżowej.
--   *Bartlett’s Test of Sphericity* sprawdza, czy korelacje są wystarczająco
-    silne, by PCA miała sens.
--   *Broken Stick Model* porównuje udział wariancji każdej składowej z
-    oczekiwaną wartością przy losowym rozkładzie wariancji – zachowuje się
-    tylko te składowe, które przekraczają tę wartość
-    ($E_k=\frac{1}{p}\sum_{j=k}^{p}\frac{1}{j}$).
+-   Analiza równoległa (*Parallel Analysis*) - polega na porównaniu wartości własnych uzyskanych z danych rzeczywistych z wartościami własnymi uzyskanymi z wielu symulowanych zestawów danych o tych samych wymiarach, ale z losowym szumem. Zachowuje się tylko te składowe, których wartości własne przekraczają średnią (lub kwantyl) z rozkładu symulowanego. Ta metoda ogranicza ryzyko wyboru składowych wynikających z przypadku.
+-   Walidacja krzyżowa (*Cross-Validation*) - gdy PCA wykorzystuje się w kontekście modelowania predykcyjnego (np. *PCA regression*). Wybiera się takie $k$, które minimalizuje błąd predykcji (np. RMSE) obliczany metodą walidacji krzyżowej.
+-   *Bartlett’s Test of Sphericity* sprawdza, czy korelacje są wystarczająco silne, by PCA miała sens.
+-   *Broken Stick Model* porównuje udział wariancji każdej składowej z oczekiwaną wartością przy losowym rozkładzie wariancji – zachowuje się tylko te składowe, które przekraczają tę wartość ($E_k=\frac{1}{p}\sum_{j=k}^{p}\frac{1}{j}$).
 
 #### Kryteria interpretacyjne i dziedzinowe
 
-Czasami najważniejszy jest nie wynik numeryczny, lecz użyteczność
-interpretacyjna:
+Czasami najważniejszy jest nie wynik numeryczny, lecz użyteczność interpretacyjna:
 
--   Wybiera się tyle składowych, ile da się sensownie zinterpretować (np.
-    odpowiadających znanym procesom fizycznym, ekonomicznym, biologicznym).
--   W analizie wizualnej (np. w eksploracji danych) często wybiera się 2 lub 3
-    pierwsze składowe, które umożliwiają wykresy 2D lub 3D.
+-   Wybiera się tyle składowych, ile da się sensownie zinterpretować (np. odpowiadających znanym procesom fizycznym, ekonomicznym, biologicznym).
+-   W analizie wizualnej (np. w eksploracji danych) często wybiera się 2 lub 3 pierwsze składowe, które umożliwiają wykresy 2D lub 3D.
 
 | Kryterium | Opis | Zalety | Ograniczenia |
-|--------------------|--------------------|--------------------|--------------------|
+|------------------|------------------|------------------|------------------|
 | **Udział wariancji (np. ≥90%)** | Zachowaj tyle składowych, by wyjaśnić określony procent całkowitej wariancji | Proste i intuicyjne | Wybór progu bywa arbitralny |
 | **Wykres osypiska (*scree plot*)** | Wybór punktu „kolana” na krzywej wartości własnych | Wizualnie czytelne | Subiektywne, zależy od interpretacji obserwatora |
 | **Wartość własna \> 1 (Kaiser–Guttman)** | Zachowaj składowe, których wartości własne przekraczają 1 (dla macierzy korelacji) | Łatwe obliczeniowo | Często zbyt liberalne – wybiera zbyt wiele składowych |
@@ -424,11 +216,7 @@ pca <- principal_components(iris, n = 4, rotate = "none") # domyślnie standaryz
 fviz_eig(pca_iris, addlabels = TRUE)
 ```
 
-Jak widać z powyższego wykresu osypiska pierwsza składowa wyjaśnia około 73%
-całkowitej wariancji, a druga 23%. Jeśli chcieć opierać wybór liczby składowych
-głównych na kryteriach (również takich, które nie były prezentowane powyżej),
-to można użyć funkcji `n_components()` pakietu `parameters` w ekosystemie
-`easystats`.
+Jak widać z powyższego wykresu osypiska pierwsza składowa wyjaśnia około 73% całkowitej wariancji, a druga 23%. Jeśli chcieć opierać wybór liczby składowych głównych na kryteriach (również takich, które nie były prezentowane powyżej), to można użyć funkcji `n_components()` pakietu `parameters` w ekosystemie `easystats`.
 
 ```{r}
 k <- n_components(iris[,-5])
@@ -437,10 +225,7 @@ as.data.frame(k)
 plot(k)
 ```
 
-Choć większość kryteriów wskazuje na 1 składową, to na potrzeby przykładu
-wykorzystamy dwie składowe. Wyjaśniają one blisko 96% całkowitej wariancji
-(patrz poniżej). Możemy teraz przejrzeć wyniki PCA, czyli macierz ładunków
-(wektorów własnych) i macierz wyników projekcji (*scores*).
+Choć większość kryteriów wskazuje na 1 składową, to na potrzeby przykładu wykorzystamy dwie składowe. Wyjaśniają one blisko 96% całkowitej wariancji (patrz poniżej). Możemy teraz przejrzeć wyniki PCA, czyli macierz ładunków (wektorów własnych) i macierz wyników projekcji (*scores*).
 
 ```{r}
 # Udział wariancji
@@ -453,34 +238,11 @@ pca_iris$rotation
 head(pca_iris$x)
 ```
 
-Pierwsza składowa główna (`PC1`) jest kombinacją liniową wszystkich czterech
-zmiennych, przy czym trzy z nich — `Sepal.Length`, `Petal.Length` oraz
-`Petal.Width` — mają dodatnie ładunki, natomiast `Sepal.Width` ma ładunek
-ujemny. Oznacza to, że składowa ta rośnie, gdy długość działki kielicha oraz
-długość i szerokość płatków są duże, a maleje, gdy szerokość działki jest duża.
-Można zatem interpretować `PC1` jako wymiar opisujący ogólny rozmiar kwiatu:
-kwiaty o większych płatkach i węższych działkach uzyskują wyższe wartości tej
-składowej. W zbiorze iris `PC1` bardzo dobrze rozdziela gatunki – `setosa`
-charakteryzuje się niskimi wartościami tej składowej (krótkie płatki, szerokie
-działki), natomiast `versicolor` i `virginica` mają wartości wysokie, co
-odpowiada większym rozmiarom kwiatów.
+Pierwsza składowa główna (`PC1`) jest kombinacją liniową wszystkich czterech zmiennych, przy czym trzy z nich — `Sepal.Length`, `Petal.Length` oraz `Petal.Width` — mają dodatnie ładunki, natomiast `Sepal.Width` ma ładunek ujemny. Oznacza to, że składowa ta rośnie, gdy długość działki kielicha oraz długość i szerokość płatków są duże, a maleje, gdy szerokość działki jest duża. Można zatem interpretować `PC1` jako wymiar opisujący ogólny rozmiar kwiatu: kwiaty o większych płatkach i węższych działkach uzyskują wyższe wartości tej składowej. W zbiorze iris `PC1` bardzo dobrze rozdziela gatunki – `setosa` charakteryzuje się niskimi wartościami tej składowej (krótkie płatki, szerokie działki), natomiast `versicolor` i `virginica` mają wartości wysokie, co odpowiada większym rozmiarom kwiatów.
 
-Druga składowa główna (`PC2`) ma zupełnie inną strukturę ładunków. Zdominowana
-jest przez bardzo silny ujemny współczynnik dla `Sepal.Width` oraz mniejszy,
-również ujemny, dla `Sepal.Length`. Wpływ płatków na tę składową jest
-niewielki. PC2 odzwierciedla zatem zmienność w obrębie kształtu działki
-kielicha, a zwłaszcza jej proporcji długości do szerokości. Kwiaty o węższych
-działkach mają wyższe wartości PC2, natomiast te o szerszych – niższe.
+Druga składowa główna (`PC2`) ma zupełnie inną strukturę ładunków. Zdominowana jest przez bardzo silny ujemny współczynnik dla `Sepal.Width` oraz mniejszy, również ujemny, dla `Sepal.Length`. Wpływ płatków na tę składową jest niewielki. PC2 odzwierciedla zatem zmienność w obrębie kształtu działki kielicha, a zwłaszcza jej proporcji długości do szerokości. Kwiaty o węższych działkach mają wyższe wartości PC2, natomiast te o szerszych – niższe.
 
-Interpretując wspólnie obie składowe, można stwierdzić, że `PC1` opisuje
-rozmiar kwiatu, natomiast `PC2` – proporcje i kształt działki. W przestrzeni
-`PC1–PC2` dane tworzą układ, w którym `setosa` jest wyraźnie oddzielona od
-pozostałych gatunków poprzez niskie wartości `PC1` i wysokie `PC2`, a
-`versicolor` i `virginica` różnią się między sobą głównie wzdłuż drugiej osi. W
-rezultacie te dwie składowe pozwalają na niemal pełne odwzorowanie i wizualne
-rozdzielenie gatunków, przy czym `PC1` odpowiada za wymiar wielkościowy, a
-`PC2` – za wymiar kształtowy. Na potrzeby wizualizacji możemy narysować wykres
-*biplot* łączący obiekty i zmienne w przestrzeni dwóch pierwszych składowych.
+Interpretując wspólnie obie składowe, można stwierdzić, że `PC1` opisuje rozmiar kwiatu, natomiast `PC2` – proporcje i kształt działki. W przestrzeni `PC1–PC2` dane tworzą układ, w którym `setosa` jest wyraźnie oddzielona od pozostałych gatunków poprzez niskie wartości `PC1` i wysokie `PC2`, a `versicolor` i `virginica` różnią się między sobą głównie wzdłuż drugiej osi. W rezultacie te dwie składowe pozwalają na niemal pełne odwzorowanie i wizualne rozdzielenie gatunków, przy czym `PC1` odpowiada za wymiar wielkościowy, a `PC2` – za wymiar kształtowy. Na potrzeby wizualizacji możemy narysować wykres *biplot* łączący obiekty i zmienne w przestrzeni dwóch pierwszych składowych.
 
 ```{r}
 fviz_pca_biplot(pca_iris, repel = TRUE,
@@ -492,30 +254,13 @@ fviz_pca_biplot(pca_iris, repel = TRUE,
 
 ## ICA [@comon1994]
 
-Podstawowy model ICA (ang. *Independent Component Analysis*) zakłada, że wektor
-obserwacji $X \in \mathbb{R}^p$ powstaje poprzez liniowe i natychmiastowe
-wymieszanie wektora ukrytych źródeł $s \in \mathbb{R}^m$ o statystycznie
-niezależnych składowych $$
+Podstawowy model ICA (ang. *Independent Component Analysis*) zakłada, że wektor obserwacji $X \in \mathbb{R}^p$ powstaje poprzez liniowe i natychmiastowe wymieszanie wektora ukrytych źródeł $s \in \mathbb{R}^m$ o statystycznie niezależnych składowych $$
 X = A s,\qquad A \in \mathbb{R}^{p\times m},
-$$ przy czym $m \le \min(p,n)$ oraz macierz mieszająca $A$ ma pełny rząd. Celem
-jest oszacowanie macierzy demiksującej $W \in \mathbb{R}^{m\times p}$ tak, aby
-$y = W X$ aproksymować $s$ składowymi możliwie niezależnymi w sensie
-probabilistycznym. Z istoty problemu rozwiązanie identyfikowalne jest jedynie
-do permutacji i skalowania - kolejność oraz skale (a więc i znaki) składowych
-nie są odzyskiwalne.
+$$ przy czym $m \le \min(p,n)$ oraz macierz mieszająca $A$ ma pełny rząd. Celem jest oszacowanie macierzy demiksującej $W \in \mathbb{R}^{m\times p}$ tak, aby $y = W X$ aproksymować $s$ składowymi możliwie niezależnymi w sensie probabilistycznym. Z istoty problemu rozwiązanie identyfikowalne jest jedynie do permutacji i skalowania - kolejność oraz skale (a więc i znaki) składowych nie są odzyskiwalne.
 
-Wyprowadzenie algorytmów ICA rozpoczynamy od scentralizowania danych i ich
-*whiteningu.* Niech
-$\Sigma_X = \tfrac{1}{n}\sum_i (X_i-\bar X)(X_i-\bar X)^\top$ oraz niech $V$
-oznacza macierz *whitening* taką, że $Z=V(X-\bar X)$ spełnia
-$\operatorname{Cov}(Z)=I_p$. W praktyce przyjmujemy $V=\Lambda^{-1/2}U^\top$ z
-dekompozycji $\Sigma_X=U\Lambda U^\top$. W przestrzeni *whitened* model
-przyjmuje postać $$
+Wyprowadzenie algorytmów ICA rozpoczynamy od scentralizowania danych i ich *whiteningu.* Niech $\Sigma_X = \tfrac{1}{n}\sum_i (X_i-\bar X)(X_i-\bar X)^\top$ oraz niech $V$ oznacza macierz *whitening* taką, że $Z=V(X-\bar X)$ spełnia $\operatorname{Cov}(Z)=I_p$. W praktyce przyjmujemy $V=\Lambda^{-1/2}U^\top$ z dekompozycji $\Sigma_X=U\Lambda U^\top$. W przestrzeni *whitened* model przyjmuje postać $$
 Z = V A s \equiv R\, s,
-$$ gdzie $R$ jest macierzą ortogonalną (dla przypadku $m=p$). Poszukujemy więc
-wektorów o jednostkowej normie, dla których skalarna projekcja $y=w^\top Z$
-jest możliwie „nienormalna” (niesymetryczna lub ciężkoogonowa), co stanowi
-praktyczne kryterium niezależności.
+$$ gdzie $R$ jest macierzą ortogonalną (dla przypadku $m=p$). Poszukujemy więc wektorów o jednostkowej normie, dla których skalarna projekcja $y=w^\top Z$ jest możliwie „nienormalna” (niesymetryczna lub ciężkoogonowa), co stanowi praktyczne kryterium niezależności.
 
 ```{r}
 #| fig-height: 6
@@ -685,96 +430,35 @@ cat("\nKorelacje pomiędzy składowymi Y (powinny być bliskie 0; niezależnoś�
 print(round(cor(t(Y)), 3))
 ```
 
-Podejście maksymalizujące nienormalność opiera się na kurtozie lub na
-przybliżonej negatywnej entropii (ang. *negentropy*). Dla
-$\operatorname{Var}(y)=1$ kurtoza $\kappa(y)=\mathbb{E}\{y^4\}-3$ przyjmuje
-wartości 0 dla rozkładu normalnego i wartości odległe od zera dla rozkładów
-nienormalnych. Maksymalizacja $|\kappa(w^\top Z)|$ prowadzi do składowych
-niezależnych. Stabilniejsze i bardziej ogólne kryterium stanowi *negentropy*
-$J(y)=H(y_{\text{gauss}})-H(y)$, gdzie $H$ oznacza entropię. W praktyce stosuje
-się aproksymacje postaci $$
+Podejście maksymalizujące nienormalność opiera się na kurtozie lub na przybliżonej negatywnej entropii (ang. *negentropy*). Dla $\operatorname{Var}(y)=1$ kurtoza $\kappa(y)=\mathbb{E}\{y^4\}-3$ przyjmuje wartości 0 dla rozkładu normalnego i wartości odległe od zera dla rozkładów nienormalnych. Maksymalizacja $|\kappa(w^\top Z)|$ prowadzi do składowych niezależnych. Stabilniejsze i bardziej ogólne kryterium stanowi *negentropy* $J(y)=H(y_{\text{gauss}})-H(y)$, gdzie $H$ oznacza entropię. W praktyce stosuje się aproksymacje postaci $$
 J(y)\approx \Big(\mathbb{E}\,G(y)-\mathbb{E}\,G(v)\Big)^2,
-$$ z dobraną nieliniowością $G$ oraz $v\sim \mathcal N(0,1)$. Maksymalizacja
-$J$ przy ograniczeniu $\|w\|=1$ zapewnia poszukiwanie najbardziej nienormalnych
-kierunków. Częste wybory $G$, to
+$$ z dobraną nieliniowością $G$ oraz $v\sim \mathcal N(0,1)$. Maksymalizacja $J$ przy ograniczeniu $\|w\|=1$ zapewnia poszukiwanie najbardziej nienormalnych kierunków. Częste wybory $G$, to
 
 -   $G(u)=\frac{1}{a_1}\log\cosh(a_1 u)$ (np. $a_1=1$) - uniwersalna,
 -   $G(u)=-\exp(-u^2/2)$ - dla rozkładów o ciężkich ogonach,
 -   $G(u)=\frac{1}{4}u^4$ - dla rozkładów o lekkich ogonach.
 
-Z kryteriów tych wynika algorytm *FastICA* jako iteracyjne poszukiwanie stałego
-punktu. Dla jednego komponentu w przestrzeni *whitened* stosujemy aktualizację
-$$
+Z kryteriów tych wynika algorytm *FastICA* jako iteracyjne poszukiwanie stałego punktu. Dla jednego komponentu w przestrzeni *whitened* stosujemy aktualizację $$
 w \leftarrow \mathbb{E}\{Z\,g(w^\top Z)\}-\mathbb{E}\{g’(w^\top Z)\}\, w,\qquad \text{następnie } w\leftarrow \frac{w}{\|w\|},
-$$ gdzie $g=G’$ jest *score function* (np. $g(u)=\tanh(u)$, $g(u)=u^3$ lub
-$g(u)=u\exp(-u^2/2)$). Pierwszy składnik $\mathbb{E}\{Z\,g(w^\top Z)\}$ jest
-„uogólnioną” wersją gradientu kryterium niegaussowskości: wzmacnia te kierunki
-$w$, w których projekcja $w^\top Z$ daje rozkład o dużej wartości wybranej
-miary niegaussowskości. Drugi składnik $-\mathbb{E}\{g’(w^\top Z)\}\,$ w pełni
-rolę korekty wynikającej z ograniczenia normy oraz z faktu, że pracuje się w
-przestrzeni *whitened.* Dzięki temu iteracja nie „puchnie” wzdłuż tego samego
-kierunku i ma poprawną geometrię z punktu widzenia warunku $\|w\|=1$. W
-praktyce oba wyrażenia oblicza się jako średnie z próby: wartości oczekiwane
-$\mathbb{E}[\cdot]$ zastępuje się średnimi po obserwacjach $Z_i.$
+$$ gdzie $g=G’$ jest *score function* (np. $g(u)=\tanh(u)$, $g(u)=u^3$ lub $g(u)=u\exp(-u^2/2)$). Pierwszy składnik $\mathbb{E}\{Z\,g(w^\top Z)\}$ jest „uogólnioną” wersją gradientu kryterium niegaussowskości: wzmacnia te kierunki $w$, w których projekcja $w^\top Z$ daje rozkład o dużej wartości wybranej miary niegaussowskości. Drugi składnik $-\mathbb{E}\{g’(w^\top Z)\}\,$ w pełni rolę korekty wynikającej z ograniczenia normy oraz z faktu, że pracuje się w przestrzeni *whitened.* Dzięki temu iteracja nie „puchnie” wzdłuż tego samego kierunku i ma poprawną geometrię z punktu widzenia warunku $\|w\|=1$. W praktyce oba wyrażenia oblicza się jako średnie z próby: wartości oczekiwane $\mathbb{E}[\cdot]$ zastępuje się średnimi po obserwacjach $Z_i.$
 
-Dla wielu składowych stosujemy równoległe aktualizacje i ortogonalizację w
-kolejnych krokach, np. metodą rzutów Grama–Schmidta lub przez dekompozycję
-symetryczną $W\leftarrow (WW^\top)^{-1/2}W$, co zachowuje wzajemną
-ortogonalność wektorów w przestrzeni *whitened* i zapobiega zbieżności do tej
-samej składowej.
+Dla wielu składowych stosujemy równoległe aktualizacje i ortogonalizację w kolejnych krokach, np. metodą rzutów Grama–Schmidta lub przez dekompozycję symetryczną $W\leftarrow (WW^\top)^{-1/2}W$, co zachowuje wzajemną ortogonalność wektorów w przestrzeni *whitened* i zapobiega zbieżności do tej samej składowej.
 
-Alternatywne wyprowadzenie pochodzi z maksymalizacji funkcji wiarygodności
-(*maximum likelihood*). Zakładając niezależność źródeł z gęstościami $p_{s_i}$
-i (dla prostoty) brak szumu, otrzymujemy logarytm funkcji wiarygodności $$
+Alternatywne wyprowadzenie pochodzi z maksymalizacji funkcji wiarygodności (*maximum likelihood*). Zakładając niezależność źródeł z gęstościami $p_{s_i}$ i (dla prostoty) brak szumu, otrzymujemy logarytm funkcji wiarygodności $$
 \mathcal L(W)=\sum_{t=1}^n\Bigg(\sum_{i=1}^m \log p_{s_i}\big((W X_t)_i\big)\Bigg) + n\log|\det W|.
-$$ Jej gradient prowadzi do zasady *Infomax*, która brzmi: dobrać $W$ tak, aby
-wyjścia miały jak największą sumę entropii (co przy zachowaniu $\log|\det W|$
-jest równoważne maksymalizacji wspólnej niezależności). W praktyce wybór
-rodziny $p_{s_i}$ implikuje odpowiednie nieliniowości w regule uczenia,
-formalnie zbieżne z powyższymi kontrastami na *negentropy.*
+$$ Jej gradient prowadzi do zasady *Infomax*, która brzmi: dobrać $W$ tak, aby wyjścia miały jak największą sumę entropii (co przy zachowaniu $\log|\det W|$ jest równoważne maksymalizacji wspólnej niezależności). W praktyce wybór rodziny $p_{s_i}$ implikuje odpowiednie nieliniowości w regule uczenia, formalnie zbieżne z powyższymi kontrastami na *negentropy.*
 
-W obecności szumu addytywnego $X = A s + \varepsilon$ z
-$\varepsilon\sim \mathcal N(0,\sigma^2 I)$ problem staje się trudniejszy.
-Stosuje się wówczas rozszerzone modele ICA z estymacją rzędu i składowej
-szumowej, warianty bayesowskie, lub metody wykorzystujące dodatkowe własności
-źródeł (np. niezależność czasową wyższych rzędów, jak w SOBI wykorzystującym
-autokowariancje).
+W obecności szumu addytywnego $X = A s + \varepsilon$ z $\varepsilon\sim \mathcal N(0,\sigma^2 I)$ problem staje się trudniejszy. Stosuje się wówczas rozszerzone modele ICA z estymacją rzędu i składowej szumowej, warianty bayesowskie, lub metody wykorzystujące dodatkowe własności źródeł (np. niezależność czasową wyższych rzędów, jak w SOBI wykorzystującym autokowariancje).
 
-Założenia identyfikowalności obejmują liniowość i natychmiastowość mieszania,
-niezależność składowych źródłowych, co najwyżej jedną składową o rozkładzie
-normalnym (inaczej problem staje się nierozwiązywalny z powodu
-nieodróżnialności kierunków gaussowskich), pełny rząd macierzy $A$ oraz
-wystarczającą nienormalność źródeł, aby kontrasty informacyjne miały sens.
-Zwyczajowo zakłada się również stacjonarność w czasie, o ile wykorzystujemy
-momenty lub autokorelacje do estymacji.
+Założenia identyfikowalności obejmują liniowość i natychmiastowość mieszania, niezależność składowych źródłowych, co najwyżej jedną składową o rozkładzie normalnym (inaczej problem staje się nierozwiązywalny z powodu nieodróżnialności kierunków gaussowskich), pełny rząd macierzy $A$ oraz wystarczającą nienormalność źródeł, aby kontrasty informacyjne miały sens. Zwyczajowo zakłada się również stacjonarność w czasie, o ile wykorzystujemy momenty lub autokorelacje do estymacji.
 
-Dobór liczby składowych w ICA nie opiera się na udziale wariancji, jak w PCA,
-ponieważ ICA nie porządkuje komponentów według wariancji. W praktyce najpierw
-wybiera się wymiar *whiteningu* $m$ (efektywny rząd sygnału), a następnie
-ekstrahuje $m$ składowych niezależnych. Kryteria wyboru $m$ obejmują
-informacyjne miary rzędu macierzy kowariancji, takie jak MDL/BIC dopasowane do
-modelu składowej szumowej i niezerowych wartości własnych, testy istotności dla
-wartości własnych po *whiteningu* (warianty analizy równoległej, permutacyjne
-testy mierzące losowość), walidację na podstawie wiarygodności w modelu ML-ICA
-z różnymi $m$ oraz kryteria stabilności. Kryteria stabilności polegają na
-wielokrotnym uruchomieniu algorytmu z różnymi inicjalizacjami i grupowaniu
-uzyskanych komponentów. Liczba dobrze replikujących się grup daje oszacowanie
-na $m$. Dodatkowo stosuje się testy resztowej zależności między oszacowanymi
-źródłami (np. testy niezależności na bazie informacji wzajemnej). Jeśli po
-dodaniu kolejnej składowej informacja wzajemna między „źródłami” nie maleje,
-zwiększanie $m$ nie przynosi korzyści. W zastosowaniach z szumem wybieramy $m$
-tak, by oddzielać podprzestrzeń sygnałową od szumowej, co praktycznie sprowadza
-się do analizy spektrum wartości własnych i modelowania ogona jako białego
-szumu.
+Dobór liczby składowych w ICA nie opiera się na udziale wariancji, jak w PCA, ponieważ ICA nie porządkuje komponentów według wariancji. W praktyce najpierw wybiera się wymiar *whiteningu* $m$ (efektywny rząd sygnału), a następnie ekstrahuje $m$ składowych niezależnych. Kryteria wyboru $m$ obejmują informacyjne miary rzędu macierzy kowariancji, takie jak MDL/BIC dopasowane do modelu składowej szumowej i niezerowych wartości własnych, testy istotności dla wartości własnych po *whiteningu* (warianty analizy równoległej, permutacyjne testy mierzące losowość), walidację na podstawie wiarygodności w modelu ML-ICA z różnymi $m$ oraz kryteria stabilności. Kryteria stabilności polegają na wielokrotnym uruchomieniu algorytmu z różnymi inicjalizacjami i grupowaniu uzyskanych komponentów. Liczba dobrze replikujących się grup daje oszacowanie na $m$. Dodatkowo stosuje się testy resztowej zależności między oszacowanymi źródłami (np. testy niezależności na bazie informacji wzajemnej). Jeśli po dodaniu kolejnej składowej informacja wzajemna między „źródłami” nie maleje, zwiększanie $m$ nie przynosi korzyści. W zastosowaniach z szumem wybieramy $m$ tak, by oddzielać podprzestrzeń sygnałową od szumowej, co praktycznie sprowadza się do analizy spektrum wartości własnych i modelowania ogona jako białego szumu.
 
-Interpretacja wyników ICA różnić się od PCA. Składowe ICA $y_i$ stanowią oceny
-źródeł o maksymalnej niezależności, a wiersze $W$ definiują filtry demiksujące,
-podczas gdy kolumny $A$ (przyjmując $A\approx W^{-1}$) reprezentują wzorce
-mieszania, czyli „mapy obciążenia” źródeł na czujniki/cechy. Skale i znaki
-składowych są arbitralne, co wymaga interpretować je względnie: znormalizować
-wariancję lub maksymalną wartość, a znak dobrać tak, by ułatwić opis
-dziedzinowy[^pca-5]. W przeciwieństwie do PCA, składowe ICA nie muszą być
-ortogonalne, a ich wariancje nie są uporządkowane[^pca-6].
+Interpretacja wyników ICA różnić się od PCA. Składowe ICA $y_i$ stanowią oceny źródeł o maksymalnej niezależności, a wiersze $W$ definiują filtry demiksujące, podczas gdy kolumny $A$ (przyjmując $A\approx W^{-1}$) reprezentują wzorce mieszania, czyli „mapy obciążenia” źródeł na czujniki/cechy. Skale i znaki składowych są arbitralne, co wymaga interpretować je względnie: znormalizować wariancję lub maksymalną wartość, a znak dobrać tak, by ułatwić opis dziedzinowy[^pca-5]. W przeciwieństwie do PCA, składowe ICA nie muszą być ortogonalne, a ich wariancje nie są uporządkowane[^pca-6].
+
+[^pca-5]: Wyobraźmy sobie, że ICA rozdziela dwa źródła dźwięku — skrzypce i fortepian. Jeśli algorytm zwróci sygnał, który jest odwrócony w fazie (czyli pomnożony przez -1), to dźwięk fortepianu jest ten sam fizycznie, tylko wszystkie amplitudy mają odwrotny znak. Dlatego znak (i skala) nie mają znaczenia dla jakości separacji — są arbitralne.
+
+[^pca-6]: W sygnałach biologicznych, takich jak EEG, ICA może oddzielić artefakty ruchowe od sygnałów mózgowych. Artefakty te mogą być silnie nienormalne i niezależne od sygnałów mózgowych, co czyni ICA skuteczną metodą ich identyfikacji i usunięcia.
 
 ::: {#exm-2}
 ## ICA na mieszance sygnałów
@@ -794,112 +478,41 @@ A_est <- ica_res$A                              # macierz mieszająca
 W_est <- ica_res$K %*% ica_res$W                # macierz demiksująca
 ```
 
-Macierz `A_est`, czyli macierz mieszania, opisuje sposób, w jaki oryginalne
-zmienne obserwowalne — w tym przypadku cztery indeksy giełdowe: DAX, SMI, CAC i
-FTSE — powstają jako liniowe kombinacje ukrytych, niezależnych czynników. Każdy
-wiersz tej macierzy odpowiada jednemu indeksowi, a każda kolumna jednej
-składowej niezależnej. Wartości liczbowe oznaczają współczynniki liniowych
-kombinacji, czyli wpływ danej składowej na dany indeks. Wartość dodatnia
-wskazuje, że wzrost komponentu powoduje wzrost indeksu, wartość ujemna — że
-ruch komponentu przekłada się na spadek indeksu, a wartość bliska zeru oznacza
-brak istotnego związku.
+Macierz `A_est`, czyli macierz mieszania, opisuje sposób, w jaki oryginalne zmienne obserwowalne — w tym przypadku cztery indeksy giełdowe: DAX, SMI, CAC i FTSE — powstają jako liniowe kombinacje ukrytych, niezależnych czynników. Każdy wiersz tej macierzy odpowiada jednemu indeksowi, a każda kolumna jednej składowej niezależnej. Wartości liczbowe oznaczają współczynniki liniowych kombinacji, czyli wpływ danej składowej na dany indeks. Wartość dodatnia wskazuje, że wzrost komponentu powoduje wzrost indeksu, wartość ujemna — że ruch komponentu przekłada się na spadek indeksu, a wartość bliska zeru oznacza brak istotnego związku.
 
 ```{r}
 round(A_est, 3)
 ```
 
--   Pierwszy komponent (`IC1`) najsilniej ładuje się na indeks CAC, a w
-    mniejszym stopniu na SMI. Znak ujemny dla CAC i dodatni dla SMI sugeruje,
-    że komponent ten uchwyca różnicę pomiędzy rynkami strefy euro a rynkiem
-    szwajcarskim, czyli czynnik kontrastujący. W praktyce oznacza to, że wzrost
-    aktywności na rynkach kontynentalnych wiązać się może z relatywnym
-    osłabieniem rynku SMI lub odwrotnie.
--   Drugi komponent (`IC2`) również oddziałuje na CAC i SMI w kierunku ujemnym,
-    co może świadczyć o uchwyceniu wspólnego czynnika kontynentalnego o
-    mniejszej amplitudzie. Dodatnie, choć niewielkie wartości dla FTSE
-    wskazują, że komponent ten częściowo kontrastuje rynki kontynentalne z
-    brytyjskim.
--   Trzeci komponent (`IC3`) ma wyraźnie odmienną strukturę. Dla FTSE
-    współczynnik jest dodatni i największy, natomiast dla pozostałych indeksów
-    ujemny. Komponent ten rozdziela zatem rynek brytyjski od reszty Europy i
-    można go interpretować jako czynnik geograficzny lub walutowy, związany z
-    odmiennym otoczeniem gospodarczym Wielkiej Brytanii.
--   Czwarty komponent (`IC4`) ma współczynniki bardzo małe, rzędu
-    10^-3^–10^-2^, co sugeruje, że jego wpływ na strukturę indeksów jest
-    marginalny. Prawdopodobnie odpowiada on za szum lub krótkotrwałe, lokalne
-    fluktuacje, które nie mają znaczenia ekonomicznego.
+-   Pierwszy komponent (`IC1`) najsilniej ładuje się na indeks CAC, a w mniejszym stopniu na SMI. Znak ujemny dla CAC i dodatni dla SMI sugeruje, że komponent ten uchwyca różnicę pomiędzy rynkami strefy euro a rynkiem szwajcarskim, czyli czynnik kontrastujący. W praktyce oznacza to, że wzrost aktywności na rynkach kontynentalnych wiązać się może z relatywnym osłabieniem rynku SMI lub odwrotnie.
+-   Drugi komponent (`IC2`) również oddziałuje na CAC i SMI w kierunku ujemnym, co może świadczyć o uchwyceniu wspólnego czynnika kontynentalnego o mniejszej amplitudzie. Dodatnie, choć niewielkie wartości dla FTSE wskazują, że komponent ten częściowo kontrastuje rynki kontynentalne z brytyjskim.
+-   Trzeci komponent (`IC3`) ma wyraźnie odmienną strukturę. Dla FTSE współczynnik jest dodatni i największy, natomiast dla pozostałych indeksów ujemny. Komponent ten rozdziela zatem rynek brytyjski od reszty Europy i można go interpretować jako czynnik geograficzny lub walutowy, związany z odmiennym otoczeniem gospodarczym Wielkiej Brytanii.
+-   Czwarty komponent (`IC4`) ma współczynniki bardzo małe, rzędu 10^-3^–10^-2^, co sugeruje, że jego wpływ na strukturę indeksów jest marginalny. Prawdopodobnie odpowiada on za szum lub krótkotrwałe, lokalne fluktuacje, które nie mają znaczenia ekonomicznego.
 
 ```{r}
 round(W_est, 3)
 ```
 
-Macierz `W_est`, czyli macierz demiksująca, zawiera współczynniki liniowych
-kombinacji oryginalnych zmiennych (indeksów giełdowych), które pozwalają
-uzyskać poszczególne niezależne komponenty. Każdy wiersz tej macierzy odpowiada
-jednemu komponentowi ICA (IC1–IC4), a każda kolumna — jednej zmiennej
-obserwowalnej (DAX, SMI, CAC, FTSE). Wartości w tej macierzy można zatem
-interpretować jako wagi, z jakimi poszczególne indeksy uczestniczą w tworzeniu
-danego odzyskanego źródła.
+Macierz `W_est`, czyli macierz demiksująca, zawiera współczynniki liniowych kombinacji oryginalnych zmiennych (indeksów giełdowych), które pozwalają uzyskać poszczególne niezależne komponenty. Każdy wiersz tej macierzy odpowiada jednemu komponentowi ICA (IC1–IC4), a każda kolumna — jednej zmiennej obserwowalnej (DAX, SMI, CAC, FTSE). Wartości w tej macierzy można zatem interpretować jako wagi, z jakimi poszczególne indeksy uczestniczą w tworzeniu danego odzyskanego źródła.
 
--   Pierwszy komponent (`IC1`) ma duże dodatnie wagi dla indeksów DAX i SMI
-    oraz silnie ujemną wagę dla FTSE. Oznacza to, że `IC1` odzwierciedla
-    kontrast pomiędzy rynkami kontynentalnymi (Niemcy, Szwajcaria) a rynkiem
-    brytyjskim. Wzrost wartości `IC1` odpowiada sytuacji, w której indeksy
-    kontynentalne zachowują się silniej niż FTSE — można więc interpretować ten
-    czynnik jako różnicowy, typu „Europa kontynentalna kontra Wielka Brytania”.
--   Drugi komponent (`IC2`) pokazuje odwrotny schemat: dodatni wpływ DAX,
-    silnie ujemny SMI, a słaby wpływ pozostałych indeksów. Można go
-    interpretować jako czynnik rozróżniający zachowanie rynku niemieckiego i
-    szwajcarskiego, który w ICA często ujawnia się jako efekt odmiennych
-    warunków walutowych i struktury gospodarczej.
--   Trzeci komponent (`IC3`) ma wszystkie wagi ujemne, z wyjątkiem niewielkich
-    dodatnich dla CAC i FTSE. Oznacza to, że `IC3` reprezentuje wspólny
-    kierunek zmian większości indeksów (ruch globalny), ale w konstrukcji
-    demiksującej występuje ze znakiem ujemnym. W praktyce odpowiada to
-    czynnikowi rynkowemu o charakterze ogólnym — globalnemu impulsowi, który
-    oddziałuje w podobny sposób na większość rynków.
--   Czwarty komponent (`IC4`) ma wysoką dodatnią wagę dla CAC oraz ujemne dla
-    pozostałych indeksów, co sugeruje, że może on odzwierciedlać czynnik
-    specyficzny dla rynku francuskiego — reakcje lokalne lub sektorowe, które
-    nie są wspólne dla innych giełd..
+-   Pierwszy komponent (`IC1`) ma duże dodatnie wagi dla indeksów DAX i SMI oraz silnie ujemną wagę dla FTSE. Oznacza to, że `IC1` odzwierciedla kontrast pomiędzy rynkami kontynentalnymi (Niemcy, Szwajcaria) a rynkiem brytyjskim. Wzrost wartości `IC1` odpowiada sytuacji, w której indeksy kontynentalne zachowują się silniej niż FTSE — można więc interpretować ten czynnik jako różnicowy, typu „Europa kontynentalna kontra Wielka Brytania”.
+-   Drugi komponent (`IC2`) pokazuje odwrotny schemat: dodatni wpływ DAX, silnie ujemny SMI, a słaby wpływ pozostałych indeksów. Można go interpretować jako czynnik rozróżniający zachowanie rynku niemieckiego i szwajcarskiego, który w ICA często ujawnia się jako efekt odmiennych warunków walutowych i struktury gospodarczej.
+-   Trzeci komponent (`IC3`) ma wszystkie wagi ujemne, z wyjątkiem niewielkich dodatnich dla CAC i FTSE. Oznacza to, że `IC3` reprezentuje wspólny kierunek zmian większości indeksów (ruch globalny), ale w konstrukcji demiksującej występuje ze znakiem ujemnym. W praktyce odpowiada to czynnikowi rynkowemu o charakterze ogólnym — globalnemu impulsowi, który oddziałuje w podobny sposób na większość rynków.
+-   Czwarty komponent (`IC4`) ma wysoką dodatnią wagę dla CAC oraz ujemne dla pozostałych indeksów, co sugeruje, że może on odzwierciedlać czynnik specyficzny dla rynku francuskiego — reakcje lokalne lub sektorowe, które nie są wspólne dla innych giełd..
 
-Znaki współczynników w ICA są arbitralne (zmiana wszystkich znaków w jednym
-wierszu nie zmienia modelu), dlatego przy interpretacji należy zwracać uwagę na
-względne zależności między indeksami, a nie na samą polaryzację znaków.
-Wartości bezwzględne wag pokazują natomiast, które indeksy mają największy
-udział w kształtowaniu danego czynnika.
+Znaki współczynników w ICA są arbitralne (zmiana wszystkich znaków w jednym wierszu nie zmienia modelu), dlatego przy interpretacji należy zwracać uwagę na względne zależności między indeksami, a nie na samą polaryzację znaków. Wartości bezwzględne wag pokazują natomiast, które indeksy mają największy udział w kształtowaniu danego czynnika.
 
 ```{r}
 kurt <- apply(S_est, 2, function(x) mean(x^4) - 3)  # kurtozy odzyskanych źródeł
 print(round(kurt, 3))                           # kurtozy (nienormalność)
 ```
 
-Wartości kurtozy stanowią miarę niegaussowskości rozkładu — czyli tego, jak
-bardzo dany sygnał odbiega od kształtu rozkładu normalnego. Wartości dodatnie
-oznaczają rozkłady o „cięższych ogonach” i bardziej spiczastym kształcie (tzw.
-leptokurtyczne), co jest typowe dla sygnałów rzadkich, zawierających wyraźne
-piki i okresy stabilności. W kontekście ICA wysoka kurtoza jest pożądana,
-ponieważ algorytm poszukuje właśnie takich komponentów — maksymalnie odmiennych
-od normalnych, a więc potencjalnie niezależnych źródeł.
+Wartości kurtozy stanowią miarę niegaussowskości rozkładu — czyli tego, jak bardzo dany sygnał odbiega od kształtu rozkładu normalnego. Wartości dodatnie oznaczają rozkłady o „cięższych ogonach” i bardziej spiczastym kształcie (tzw. leptokurtyczne), co jest typowe dla sygnałów rzadkich, zawierających wyraźne piki i okresy stabilności. W kontekście ICA wysoka kurtoza jest pożądana, ponieważ algorytm poszukuje właśnie takich komponentów — maksymalnie odmiennych od normalnych, a więc potencjalnie niezależnych źródeł.
 
--   `IC1` (5.601) ma bardzo wysoką kurtozę, co wskazuje na silną
-    niegaussowskość. Komponent ten prawdopodobnie reprezentuje główny, „rzadki”
-    czynnik ekonomiczny, który reaguje gwałtownie w momentach istotnych zmian
-    rynkowych. Może to być globalny impuls rynkowy lub okresowe szoki
-    finansowe.
--   `IC2` (1.985) ma umiarkowanie dodatnią kurtozę, sugerującą rozkład jedynie
-    lekko leptokurtyczny. Oznacza to, że komponent jest bliższy rozkładowi
-    normalnemu, a zatem mniej „niezależny” w sensie ICA. Może reprezentować
-    łagodniejszy czynnik wspólny, np. codzienną zmienność lub trend regionalny.
--   `IC3` (8.206) ma najwyższą kurtozę spośród wszystkich komponentów. Jest to
-    bardzo silny sygnał niegaussowski, typowy dla źródła zawierającego rzadkie,
-    intensywne zdarzenia — w kontekście finansowym mogą to być momenty
-    skokowych zmian cen lub kryzysów, wpływające selektywnie na część indeksów.
-    Ten komponent można traktować jako najbardziej „czyste” źródło w sensie
-    ICA.
--   `IC4` (2.274) wykazuje umiarkowaną kurtozę, zbliżoną do IC2. Można go
-    interpretować jako dodatkowy, mniej wyraźny czynnik poboczny, który w
-    pewnym stopniu odbiega od normalności, ale nie ma charakteru dominującego.
+-   `IC1` (5.601) ma bardzo wysoką kurtozę, co wskazuje na silną niegaussowskość. Komponent ten prawdopodobnie reprezentuje główny, „rzadki” czynnik ekonomiczny, który reaguje gwałtownie w momentach istotnych zmian rynkowych. Może to być globalny impuls rynkowy lub okresowe szoki finansowe.
+-   `IC2` (1.985) ma umiarkowanie dodatnią kurtozę, sugerującą rozkład jedynie lekko leptokurtyczny. Oznacza to, że komponent jest bliższy rozkładowi normalnemu, a zatem mniej „niezależny” w sensie ICA. Może reprezentować łagodniejszy czynnik wspólny, np. codzienną zmienność lub trend regionalny.
+-   `IC3` (8.206) ma najwyższą kurtozę spośród wszystkich komponentów. Jest to bardzo silny sygnał niegaussowski, typowy dla źródła zawierającego rzadkie, intensywne zdarzenia — w kontekście finansowym mogą to być momenty skokowych zmian cen lub kryzysów, wpływające selektywnie na część indeksów. Ten komponent można traktować jako najbardziej „czyste” źródło w sensie ICA.
+-   `IC4` (2.274) wykazuje umiarkowaną kurtozę, zbliżoną do IC2. Można go interpretować jako dodatkowy, mniej wyraźny czynnik poboczny, który w pewnym stopniu odbiega od normalności, ale nie ma charakteru dominującego.
 
 ```{r}
 # Sprawdzenie korelacji między oryginalnymi a odzyskanymi sygnałami
@@ -907,38 +520,12 @@ cor_matrix <- cor(R, S_est)
 print(round(cor_matrix, 3))
 ```
 
-Macierz korelacji między oryginalnymi indeksami giełdowymi a odzyskanymi
-komponentami niezależnymi (`cor_matrix`) pokazuje, jak silnie i w jakim
-kierunku (znak dodatni lub ujemny) każdy z indeksów jest powiązany z danym
-źródłem ICA. Wysokie wartości bezwzględne wskazują, że dany komponent w dużym
-stopniu tłumaczy zmienność danego indeksu, natomiast wartości bliskie zera
-oznaczają słaby związek.
+Macierz korelacji między oryginalnymi indeksami giełdowymi a odzyskanymi komponentami niezależnymi (`cor_matrix`) pokazuje, jak silnie i w jakim kierunku (znak dodatni lub ujemny) każdy z indeksów jest powiązany z danym źródłem ICA. Wysokie wartości bezwzględne wskazują, że dany komponent w dużym stopniu tłumaczy zmienność danego indeksu, natomiast wartości bliskie zera oznaczają słaby związek.
 
--   Najsilniejsze korelacje obserwuje się dla komponentu `IC3`, który ma
-    wartości ujemne i bardzo wysokie w module: DAX (−0.954), SMI (−0.871) i CAC
-    (−0.686). Oznacza to, że `IC3` stanowi wspólny czynnik dominujący dla
-    trzech kontynentalnych indeksów europejskich. Wszystkie trzy reagują w tym
-    samym kierunku (ujemny znak jest konwencjonalny, jego odwrócenie nie
-    zmienia interpretacji). Można zatem uznać, że `IC3` reprezentuje globalny
-    czynnik rynkowy, wspólny dla głównych giełd kontynentalnych, a jego wysoka
-    kurtoza (8.206) wskazuje, że czynnik ten cechuje się silnymi, epizodycznymi
-    wahaniami — typowymi dla okresów zawirowań finansowych.
--   Komponent `IC1` wykazuje wyraźną ujemną korelację z FTSE (−0.788), przy
-    braku silnych zależności z pozostałymi indeksami. Oznacza to, że `IC1`
-    można interpretować jako czynnik specyficzny dla rynku brytyjskiego,
-    niezależny od ruchów kontynentalnych. Wysoka wartość bezwzględna korelacji
-    sugeruje, że ten komponent odpowiada za znaczną część zmienności FTSE, co
-    dobrze współgra z interpretacją wcześniejszej macierzy mieszania — `IC1`
-    oddzielał Wielką Brytanię od reszty Europy.
--   Komponent `IC2` wykazuje umiarkowane korelacje o różnych znakach: dodatnią
-    z DAX (0.287) i ujemną ze SMI (−0.475). Można go zatem interpretować jako
-    czynnik różnicowy pomiędzy rynkami Niemiec i Szwajcarii. W praktyce może on
-    odzwierciedla odmienną reakcję tych rynków na czynniki lokalne, np. różnice
-    w strukturze sektorowej lub polityce monetarnej.
--   Komponent `IC4` ma umiarkowaną dodatnią korelację z CAC (0.689), a
-    pozostałe indeksy reagują na niego słabo. Oznacza to, że IC4 może być
-    czynnikiem częściowo specyficznym dla rynku francuskiego, prawdopodobnie o
-    charakterze lokalnym lub szumowym.
+-   Najsilniejsze korelacje obserwuje się dla komponentu `IC3`, który ma wartości ujemne i bardzo wysokie w module: DAX (−0.954), SMI (−0.871) i CAC (−0.686). Oznacza to, że `IC3` stanowi wspólny czynnik dominujący dla trzech kontynentalnych indeksów europejskich. Wszystkie trzy reagują w tym samym kierunku (ujemny znak jest konwencjonalny, jego odwrócenie nie zmienia interpretacji). Można zatem uznać, że `IC3` reprezentuje globalny czynnik rynkowy, wspólny dla głównych giełd kontynentalnych, a jego wysoka kurtoza (8.206) wskazuje, że czynnik ten cechuje się silnymi, epizodycznymi wahaniami — typowymi dla okresów zawirowań finansowych.
+-   Komponent `IC1` wykazuje wyraźną ujemną korelację z FTSE (−0.788), przy braku silnych zależności z pozostałymi indeksami. Oznacza to, że `IC1` można interpretować jako czynnik specyficzny dla rynku brytyjskiego, niezależny od ruchów kontynentalnych. Wysoka wartość bezwzględna korelacji sugeruje, że ten komponent odpowiada za znaczną część zmienności FTSE, co dobrze współgra z interpretacją wcześniejszej macierzy mieszania — `IC1` oddzielał Wielką Brytanię od reszty Europy.
+-   Komponent `IC2` wykazuje umiarkowane korelacje o różnych znakach: dodatnią z DAX (0.287) i ujemną ze SMI (−0.475). Można go zatem interpretować jako czynnik różnicowy pomiędzy rynkami Niemiec i Szwajcarii. W praktyce może on odzwierciedla odmienną reakcję tych rynków na czynniki lokalne, np. różnice w strukturze sektorowej lub polityce monetarnej.
+-   Komponent `IC4` ma umiarkowaną dodatnią korelację z CAC (0.689), a pozostałe indeksy reagują na niego słabo. Oznacza to, że IC4 może być czynnikiem częściowo specyficznym dla rynku francuskiego, prawdopodobnie o charakterze lokalnym lub szumowym.
 
 Na koniec wizualizacja ICA.
 
@@ -975,28 +562,11 @@ p1 | p2
 ```
 :::
 
-[^pca-5]: Wyobraźmy sobie, że ICA rozdziela dwa źródła dźwięku — skrzypce i
-    fortepian. Jeśli algorytm zwróci sygnał, który jest odwrócony w fazie
-    (czyli pomnożony przez -1), to dźwięk fortepianu jest ten sam fizycznie,
-    tylko wszystkie amplitudy mają odwrotny znak. Dlatego znak (i skala) nie
-    mają znaczenia dla jakości separacji — są arbitralne.
-
-[^pca-6]: W sygnałach biologicznych, takich jak EEG, ICA może oddzielić
-    artefakty ruchowe od sygnałów mózgowych. Artefakty te mogą być silnie
-    nienormalne i niezależne od sygnałów mózgowych, co czyni ICA skuteczną
-    metodą ich identyfikacji i usunięcia.
-
 ## MDS
 
-Metoda *Multidimensional Scaling* (MDS), czyli skalowanie wielowymiarowe,
-stanowi rodzinę technik służących do odwzorowania danych opisanych za pomocą
-macierzy odległości (lub podobieństw) w przestrzeń o niskim wymiarze —
-najczęściej dwuwymiarową lub trójwymiarową — w taki sposób, aby relacje między
-obiektami zostały zachowane możliwie wiernie. Celem jest więc konstrukcja
-wektorowej reprezentacji obiektów, która odtwarza zadane odległości.
+Metoda *Multidimensional Scaling* (MDS), czyli skalowanie wielowymiarowe, stanowi rodzinę technik służących do odwzorowania danych opisanych za pomocą macierzy odległości (lub podobieństw) w przestrzeń o niskim wymiarze — najczęściej dwuwymiarową lub trójwymiarową — w taki sposób, aby relacje między obiektami zostały zachowane możliwie wiernie. Celem jest więc konstrukcja wektorowej reprezentacji obiektów, która odtwarza zadane odległości.
 
-Istnieją dwie podstawowe wersje MDS: metryczna i niemetryczna, różniące się
-sposobem odwzorowania wartości wejściowych i kryterium dopasowania.
+Istnieją dwie podstawowe wersje MDS: metryczna i niemetryczna, różniące się sposobem odwzorowania wartości wejściowych i kryterium dopasowania.
 
 ### Wersja metryczna (klasyczna MDS) [@torgerson1952]
 
@@ -1004,44 +574,31 @@ sposobem odwzorowania wartości wejściowych i kryterium dopasowania.
 
 Dane wejściowe stanowi ma macierz odległości euklidesowych $$
 \Delta = [\delta_{ij}]_{n\times n}, \quad \delta_{ij} \ge 0, \quad \delta_{ii}=0, \quad \delta_{ij}=\delta_{ji}.
-$$ Celem jest znalezienie konfiguracji punktów $X \in \mathbb{R}^{n\times p}$,
-takiej że odległości między punktami $d_{ij}(X) = \|x_i - x_j\|$ są jak
-najbardziej zbliżone do odległości zadanych $\delta_{ij}.$
+$$ Celem jest znalezienie konfiguracji punktów $X \in \mathbb{R}^{n\times p}$, takiej że odległości między punktami $d_{ij}(X) = \|x_i - x_j\|$ są jak najbardziej zbliżone do odległości zadanych $\delta_{ij}.$
 
 #### Wyprowadzenie modelu
 
-Z klasycznej geometrii euklidesowej wynika, że iloczyn skalarny między
-wektorami można zapisać przez odległości $$
+Z klasycznej geometrii euklidesowej wynika, że iloczyn skalarny między wektorami można zapisać przez odległości $$
 x_i^\top x_j = \frac{1}{2}\bigl(\|x_i\|^2 + \|x_j\|^2 - \|x_i - x_j\|^2 \bigr).
-$$ Jeżeli dane są wyrażone przez odległości $\delta_{ij}$, to można odtworzyć
-tzw. macierz iloczynów skalarnych $B = XX^\top$, która określa współrzędne
-punktów po odpowiednim scentralizowaniu układu współrzędnych. Operacja ta
-nazywa się podwójnym centrowaniem (*double centering*) $$
+$$ Jeżeli dane są wyrażone przez odległości $\delta_{ij}$, to można odtworzyć tzw. macierz iloczynów skalarnych $B = XX^\top$, która określa współrzędne punktów po odpowiednim scentralizowaniu układu współrzędnych. Operacja ta nazywa się podwójnym centrowaniem (*double centering*) $$
 B = -\frac{1}{2} J \Delta^{(2)} J,
-$$ gdzie $\Delta^{(2)} = [\delta_{ij}^2]$ to macierz kwadratów odległości, a
-$J = I_n - \frac{1}{n}\mathbf{1}\mathbf{1}^\top$ to macierz centrowania (usuwa
-środek ciężkości układu).
+$$ gdzie $\Delta^{(2)} = [\delta_{ij}^2]$ to macierz kwadratów odległości, a $J = I_n - \frac{1}{n}\mathbf{1}\mathbf{1}^\top$ to macierz centrowania (usuwa środek ciężkości układu).
 
-Macierz $B$ powinna być dodatnio półokreślona (w przypadku euklidesowym).
-Następnie wykonuje się jej rozkład spektralny $$
+Macierz $B$ powinna być dodatnio półokreślona (w przypadku euklidesowym). Następnie wykonuje się jej rozkład spektralny $$
 B = V \Lambda V^\top,
-$$ gdzie $\Lambda = \operatorname{diag}(\lambda_1, \ldots, \lambda_n)$ zawiera
-wartości własne uporządkowane malejąco, a $V$ to odpowiadające im wektory
-własne. Współrzędne punktów w przestrzeni o wymiarze $p$ wyznacza się przez $$
+$$ gdzie $\Lambda = \operatorname{diag}(\lambda_1, \ldots, \lambda_n)$ zawiera wartości własne uporządkowane malejąco, a $V$ to odpowiadające im wektory własne. Współrzędne punktów w przestrzeni o wymiarze $p$ wyznacza się przez $$
 X_p = V_p \Lambda_p^{1/2},
-$$ gdzie $V_p$ zawiera $p$ pierwszych wektorów własnych, a $\Lambda_p$
-odpowiadające im największe wartości własne. Otrzymana konfiguracja $X_p$
-odwzorowuje relacje odległości w sposób minimalizujący błąd w sensie
-średniokwadratowym.
+$$ gdzie $V_p$ zawiera $p$ pierwszych wektorów własnych, a $\Lambda_p$ odpowiadające im największe wartości własne. Otrzymana konfiguracja $X_p$ odwzorowuje relacje odległości w sposób minimalizujący błąd w sensie średniokwadratowym.
 
 #### Kryterium dopasowania
 
-W wersji metrycznej minimalizuje się błąd rekonstrukcji odległości $$
+W wersji metrycznej minimalizuje się błąd rekonstrukcji odległości 
+
+$$
 \min_{X} \sum_{i<j} \bigl( d_{ij}(X) - \delta_{ij} \bigr)^2.
-$$ Rozwiązanie klasycznej wersji powyższego problemu daje wprost powyższa
-dekompozycja macierzy $B$, dlatego często określa się ją jako *Classical
-Scaling* lub *Principal Coordinates Analysis* (PCoA). Metoda ta jest w pełni
-analityczna i odpowiada PCA zastosowanej do macierzy odległości.
+$$ 
+
+Rozwiązanie klasycznej wersji powyższego problemu daje wprost powyższa dekompozycja macierzy $B$, dlatego często określa się ją jako *Classical Scaling* lub *Principal Coordinates Analysis* (PCoA). Metoda ta jest w pełni analityczna i odpowiada PCA zastosowanej do macierzy odległości.
 
 ### Wersja niemetryczna (Non-metric MDS) [@kruskal1964]
 
@@ -1049,29 +606,18 @@ analityczna i odpowiada PCA zastosowanej do macierzy odległości.
 
 W wersji niemetrycznej zakłada się, że informacja w danych ma przede wszystkim charakter porządkowy: jeżeli $\delta_{ij} > \delta_{kl}$, to para $(i,j)$ ma być „bardziej niepodobna” niż $(k,l)$, ale nie wymaga się, aby różnice $\delta_{ij}-\delta_{kl}$ miały sens ilościowy. Z tego powodu nie dopasowuje się wprost relacji $\delta_{ij}\approx d_{ij}(X)$, tylko dopuszcza się monotoniczne przekształcenie $f$, które „przekłada” odległości w konfiguracji na skalę zgodną z porządkiem danych. Funkcja $f$ jest w praktyce wynikiem tzw. regresji izotonicznej: dobiera się ją tak, aby była monotoniczna i aby możliwie najlepiej dopasowywała wartości w sensie najmniejszych kwadratów przy zachowaniu porządku. To pozwala rozdzielić dwa problemy: (1) znalezienie geometrii $X$, która poprawnie porządkuje pary, oraz (2) dopasowanie skali poprzez $f$, które jest „swobodne”, o ile nie łamie rang.
 
-Funkcja stresu Kruskala jest miarą niedopasowania pomiędzy „danymi po przekształceniu” a odległościami w konfiguracji. Wzór
-S(X) = \sqrt{\frac{\sum_{i<j} \bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)^2}{\sum_{i<j} d_{ij}(X)^2}}
-pełni trzy role. Po pierwsze, w liczniku sumuje kwadraty reszt \bigl(f(\delta_{ij}) - d_{ij}(X)\bigr), czyli mierzy, jak duże są rozbieżności między odległościami w przestrzeni a wartościami „najlepiej dopasowanymi” do porządku danych. Kwadratowanie powoduje, że większe rozbieżności są karane silniej i że kryterium jest gładkie w sensie optymalizacyjnym (co sprzyja iteracyjnym algorytmom).
-
-Po drugie, w mianowniku normalizuje się tę sumę przez \sum_{i<j} d_{ij}(X)^2, aby miara była niezależna od arbitralnej skali konfiguracji. Bez normalizacji dałoby się sztucznie zmniejszać błąd przez „ściskanie” lub „rozciąganie” konfiguracji (a przy pewnych formach dopasowania nawet doprowadzić do trywialnych rozwiązań). Normalizacja sprawia, że stres jest miarą względną: odpowiada proporcji „energii reszt” do „energii odległości”, dzięki czemu można porównywać wyniki dla różnych konfiguracji i różnych zbiorów danych.
-
-Po trzecie, stres zamienia problem zachowania rang w problem optymalizacyjny, który da się rozwiązywać algorytmicznie. W samym warunku rangowym („zachować porządek”) nie ma naturalnej funkcji celu, którą można różniczkować lub minimalizować. Stres daje konkretną liczbę, którą można iteracyjnie zmniejszać, przesuwając punkty x_i. Procedura wygląda schematycznie tak: dla ustalonego X wyznacza się d_{ij}(X), następnie dobiera się monotoniczne f (izotonicznie), po czym aktualizuje się X, aby zmniejszyć stres; i tak do zbieżności. Dzięki temu niemetryczny MDS staje się metodą praktycznie wykonalną.
-
-W skrócie, funkcję stresu wprowadza się dlatego, że przy danych porządkowych trzeba formalnie zdefiniować i policzyć „błąd odwzorowania” po dopuszczeniu monotonicznego przekształcenia skali. Stres Kruskala jest standardowym, znormalizowanym kryterium tego błędu, które umożliwia stabilną, iteracyjną estymację konfiguracji X w niemetrycznym MDS.
 
 
 #### Model i funkcja stresu
 
-Optymalizuje się wtedy miarę stresu Kruskala (STRESS - STandardized REsidual
-Sum of Squares) 
+Optymalizuje się wtedy miarę stresu Kruskala (STRESS - STandardized REsidual Sum of Squares) 
 $$
 S(X) = \sqrt{\frac{\sum_{i<j} \bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)^2}{\sum_{i<j} d_{ij}(X)^2}}.
 $$ 
-Minimalizacja stresu odbywa się iteracyjnie — zmienia się położenie punktów
-$x_i$, aby zmniejszyć różnicę między rangami obserwowanych i odwzorowanych
-odległości.
 
-Pełni ona trzy role. Po pierwsze, w liczniku sumuje kwadraty reszt $\bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)$, czyli mierzy, jak duże są rozbieżności między odległościami w przestrzeni a wartościami „najlepiej dopasowanymi” do porządku danych. Kwadrat powoduje, że większe rozbieżności są karane silniej i że kryterium jest gładkie w sensie optymalizacyjnym (co sprzyja iteracyjnym algorytmom).
+Minimalizacja stresu odbywa się iteracyjnie — zmienia się położenie punktów $x_i$, aby zmniejszyć różnicę między rangami obserwowanych i odwzorowanych odległości. Pełni ona trzy role. 
+
+Po pierwsze, w liczniku sumuje kwadraty reszt $\bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)$, czyli mierzy, jak duże są rozbieżności między odległościami w przestrzeni a wartościami „najlepiej dopasowanymi” do porządku danych. Kwadrat powoduje, że większe rozbieżności są karane silniej i że kryterium jest gładkie w sensie optymalizacyjnym (co sprzyja iteracyjnym algorytmom).
 
 Po drugie, w mianowniku normalizuje się tę sumę przez $\sum_{i<j} d_{ij}(X)^2$, aby miara była niezależna od arbitralnej skali konfiguracji. Bez normalizacji dałoby się sztucznie zmniejszać błąd przez „ściskanie” lub „rozciąganie” konfiguracji (a przy pewnych formach dopasowania nawet doprowadzić do trywialnych rozwiązań). Normalizacja sprawia, że STRESS jest miarą względną: odpowiada proporcji „energii reszt” do „energii odległości”, dzięki czemu można porównywać wyniki dla różnych konfiguracji i różnych zbiorów danych.
 
@@ -1079,34 +625,27 @@ Po trzecie, STRESS zamienia problem zachowania rang w problem optymalizacyjny, k
 
 | Wartość STRESS | Ocena dopasowania                        |
 |----------------|------------------------------------------|
-| < 0.05        | Doskonałe                                |
+| \< 0.05        | Doskonałe                                |
 | 0.05–0.10      | Bardzo dobre                             |
 | 0.10–0.20      | Umiarkowane                              |
 | 0.20–0.30      | Słabe                                    |
-| > 0.30        | Bardzo słabe (odwzorowanie nieadekwatne) |
+| \> 0.30        | Bardzo słabe (odwzorowanie nieadekwatne) |
 
 #### Interpretacja
 
-W niemetrycznym MDS nie dąży się do zachowania dokładnych odległości, lecz do
-zachowania porządku relacji niepodobieństwa, obiekty podobne mają być blisko
-siebie, a niepodobne — daleko. Dzięki temu metoda jest odporna na nieliniowe
-zniekształcenia skali w danych wejściowych.
+W niemetrycznym MDS nie dąży się do zachowania dokładnych odległości, lecz do zachowania porządku relacji niepodobieństwa, obiekty podobne mają być blisko siebie, a niepodobne — daleko. Dzięki temu metoda jest odporna na nieliniowe zniekształcenia skali w danych wejściowych.
 
 ### Porównanie metod MDS
 
 | Cecha | Metryczny MDS | Niemetryczny MDS |
-|--------------------------|--------------------------|--------------------------|
+|------------------------|------------------------|------------------------|
 | **Typ danych wejściowych** | Odległości euklidesowe | Dowolne niepodobieństwa, także porządkowe |
 | **Zależność między danymi a odległościami** | Liniowa | Monotoniczna (dowolna funkcja porządkowa) |
 | **Algorytm** | Dekompozycja własna macierzy centrowanej | Iteracyjna optymalizacja stresu |
 | **Kryterium dopasowania** | Minimalizacja błędu kwadratowego odległości | Minimalizacja stresu Kruskala |
 | **Interpretacja** | Odtwarza dokładne relacje geometryczne | Odtwarza relacje rangowe (porządek podobieństw) |
 
-W praktyce metryczny MDS jest szybszy, prostszy i równoważny klasycznemu
-podejściu PCA, gdy dane mają charakter metryczny. Niemetryczny MDS natomiast
-jest bardziej elastyczny — pozwala odwzorować struktury nieliniowe, zachowując
-tylko relacje porządkowe między obiektami, co czyni go odpowiednim do danych
-percepcyjnych, preferencyjnych lub ankietowych.
+W praktyce metryczny MDS jest szybszy, prostszy i równoważny klasycznemu podejściu PCA, gdy dane mają charakter metryczny. Niemetryczny MDS natomiast jest bardziej elastyczny — pozwala odwzorować struktury nieliniowe, zachowując tylko relacje porządkowe między obiektami, co czyni go odpowiednim do danych percepcyjnych, preferencyjnych lub ankietowych.
 
 ::: {#exm-3}
 ## MDS na danych o odległościach między miastami
@@ -1195,90 +734,38 @@ p1/ p2 / p3
 
 ## t-SNE [@vandermaaten08a]
 
-Metoda *t-distributed Stochastic Neighbor Embedding* (t-SNE) została opracowana
-przez Laurensa van der Maatena i Geoffreya Hintona w 2008 roku jako nieliniowa
-technika redukcji wymiarowości, której celem jest odwzorowanie lokalnej
-struktury danych wysokowymiarowych w przestrzeni o mniejszej liczbie wymiarów,
-zwykle dwuwymiarowej lub trójwymiarowej. W przeciwieństwie do metod liniowych,
-takich jak PCA, t-SNE nie dąży do maksymalizacji wariancji, lecz do zachowania
-sąsiedztw pomiędzy punktami – obserwacje, które w przestrzeni oryginalnej są
-blisko siebie, powinny również pozostawać blisko w przestrzeni odwzorowania.
+Metoda *t-distributed Stochastic Neighbor Embedding* (t-SNE) została opracowana przez Laurensa van der Maatena i Geoffreya Hintona w 2008 roku jako nieliniowa technika redukcji wymiarowości, której celem jest odwzorowanie lokalnej struktury danych wysokowymiarowych w przestrzeni o mniejszej liczbie wymiarów, zwykle dwuwymiarowej lub trójwymiarowej. W przeciwieństwie do metod liniowych, takich jak PCA, t-SNE nie dąży do maksymalizacji wariancji, lecz do zachowania sąsiedztw pomiędzy punktami – obserwacje, które w przestrzeni oryginalnej są blisko siebie, powinny również pozostawać blisko w przestrzeni odwzorowania.
 
-Niech dane wejściowe tworzą macierz $X = [x_1, x_2, \dots, x_n]^\top$, gdzie
-każdy wektor $x_i \in \mathbb{R}^p$ reprezentuje jedną obserwację w przestrzeni
-o wymiarze $p$. Pierwszym krokiem jest przekształcenie danych wysokowymiarowych
-w macierz podobieństw, która opisuje, jak bardzo punkty są „bliskie” względem
-siebie. Dla każdego punktu $x_i$ definiuje się rozkład warunkowy $$
+Niech dane wejściowe tworzą macierz $X = [x_1, x_2, \dots, x_n]^\top$, gdzie każdy wektor $x_i \in \mathbb{R}^p$ reprezentuje jedną obserwację w przestrzeni o wymiarze $p$. Pierwszym krokiem jest przekształcenie danych wysokowymiarowych w macierz podobieństw, która opisuje, jak bardzo punkty są „bliskie” względem siebie. Dla każdego punktu $x_i$ definiuje się rozkład warunkowy $$
 p_{j|i} = \frac{\exp\!\left(-\frac{|x_i - x_j|^2}{2\sigma_i^2}\right)}{\sum_{k \neq i} \exp\!\left(-\frac{|x_i - x_k|^2}{2\sigma_i^2}\right)}, \quad p_{i|i} = 0,
-$$ gdzie parametr $\sigma_i$ (odpowiednik *bandwidth*) dobiera się tak, aby
-entropia rozkładu $P_i = (p_{j|i})_j = (p_{1|i}, p_{2|i}, \dots, p_{n|i})$
-odpowiadała zadanej *perplexity*, czyli efektywnej liczbie sąsiadów.
-*Perplexity* jest hiperparametrem kontrolującym zakres lokalności analizowanych
-relacji.
+$$ gdzie parametr $\sigma_i$ (odpowiednik *bandwidth*) dobiera się tak, aby entropia rozkładu $P_i = (p_{j|i})_j = (p_{1|i}, p_{2|i}, \dots, p_{n|i})$ odpowiadała zadanej *perplexity*, czyli efektywnej liczbie sąsiadów. *Perplexity* jest hiperparametrem kontrolującym zakres lokalności analizowanych relacji.
 
 Następnie konstruuje się symetryczną macierz podobieństw $$
 p_{ij} = \frac{p_{i|j} + p_{j|i}}{2n},
-$$ która reprezentuje prawdopodobieństwo, że punkty $x_i$ i $x_j$ są bliskimi
-sąsiadami w przestrzeni oryginalnej.
+$$ która reprezentuje prawdopodobieństwo, że punkty $x_i$ i $x_j$ są bliskimi sąsiadami w przestrzeni oryginalnej.
 
-Kolejnym krokiem jest utworzenie analogicznego rozkładu w przestrzeni
-odwzorowania $Y = [y_1, y_2, \dots, y_n]^\top$, gdzie $y_i \in \mathbb{R}^q$ i
-zwykle $q = 2$ lub 3. Dla tych punktów definiuje się rozkład podobieństw oparty
-na rozkładzie t-Studenta z jednym stopniem swobody $$
+Kolejnym krokiem jest utworzenie analogicznego rozkładu w przestrzeni odwzorowania $Y = [y_1, y_2, \dots, y_n]^\top$, gdzie $y_i \in \mathbb{R}^q$ i zwykle $q = 2$ lub 3. Dla tych punktów definiuje się rozkład podobieństw oparty na rozkładzie t-Studenta z jednym stopniem swobody $$
 q_{ij} = \frac{(1 + |y_i - y_j|^2)^{-1}}{\sum_{k \neq l} (1 + |y_k - y_l|^2)^{-1}}, \quad q_{ii} = 0.
-$$ Rozkład t-Studenta ma grube ogony, co umożliwia bardziej realistyczne
-odwzorowanie relacji między punktami odległymi od siebie i redukuje problem
-*crowding*, czyli nadmiernego ściskania punktów w centrum przestrzeni
-odwzorowania.
+$$ Rozkład t-Studenta ma grube ogony, co umożliwia bardziej realistyczne odwzorowanie relacji między punktami odległymi od siebie i redukuje problem *crowding*, czyli nadmiernego ściskania punktów w centrum przestrzeni odwzorowania.
 
-Celem t-SNE jest minimalizacja dywergencji Kullbacka–Leiblera między rozkładami
-$P$ i $Q$ $$
+Celem t-SNE jest minimalizacja dywergencji Kullbacka–Leiblera między rozkładami $P$ i $Q$ $$
 C = \operatorname{KL}(P \| Q) = \sum_{i \neq j} p_{ij} \log \frac{p_{ij}}{q_{ij}}.
-$$ Optymalizacja tej funkcji, zwykle za pomocą spadku gradientowego, prowadzi
-do znalezienia takich współrzędnych $Y$, które zachowują lokalne relacje między
-punktami w jak największym stopniu. Gradient funkcji celu względem
-współrzędnych $y_i$ ma postać $$
+$$ Optymalizacja tej funkcji, zwykle za pomocą spadku gradientowego, prowadzi do znalezienia takich współrzędnych $Y$, które zachowują lokalne relacje między punktami w jak największym stopniu. Gradient funkcji celu względem współrzędnych $y_i$ ma postać $$
 \frac{\partial C}{\partial y_i} = 4 \sum_j (p_{ij} - q_{ij}) (y_i - y_j) (1 + \|y_i - y_j\|^2)^{-1},
-$$ a współczynnik 4 pełni rolę skalującą. W praktyce stosuje się dodatkowe
-techniki stabilizujące proces uczenia, takie jak *momentum*, etap *early
-exaggeration* zwiększający kontrast lokalnych podobieństw, oraz wcześniejszą
-redukcję wymiarowości metodą PCA w celu ograniczenia szumu.
+$$ a współczynnik 4 pełni rolę skalującą. W praktyce stosuje się dodatkowe techniki stabilizujące proces uczenia, takie jak *momentum*, etap *early exaggeration* zwiększający kontrast lokalnych podobieństw, oraz wcześniejszą redukcję wymiarowości metodą PCA w celu ograniczenia szumu.
 
-Metoda t-SNE nie zakłada liniowości ani rozkładu normalnego danych, lecz
-wymaga, aby dane były znormalizowane w przypadku różnych jednostek pomiarowych,
-ponieważ odległości euklidesowe są wrażliwe na skalę. Wskazane jest
-wcześniejsze zastosowanie PCA w celu usunięcia szumu i zmniejszenia złożoności
-obliczeniowej. Dane nie powinny zawierać dużej liczby wartości odstających ani
-duplikatów, które mogłyby zaburzyć lokalne struktury. Kluczowy hiperparametr
-*perplexity* powinien być dostosowany do liczby obserwacji — zbyt mała wartość
-prowadzi do przeuczenia lokalnego, a zbyt duża powoduje zatarcie drobnych
-struktur.
+Metoda t-SNE nie zakłada liniowości ani rozkładu normalnego danych, lecz wymaga, aby dane były znormalizowane w przypadku różnych jednostek pomiarowych, ponieważ odległości euklidesowe są wrażliwe na skalę. Wskazane jest wcześniejsze zastosowanie PCA w celu usunięcia szumu i zmniejszenia złożoności obliczeniowej. Dane nie powinny zawierać dużej liczby wartości odstających ani duplikatów, które mogłyby zaburzyć lokalne struktury. Kluczowy hiperparametr *perplexity* powinien być dostosowany do liczby obserwacji — zbyt mała wartość prowadzi do przeuczenia lokalnego, a zbyt duża powoduje zatarcie drobnych struktur.
 
-Wyniki t-SNE przedstawione w przestrzeni dwuwymiarowej lub trójwymiarowej nie
-mają interpretacji metrycznej. Oznacza to, że odległości między klastrami nie
-są bezpośrednio interpretowalne ilościowo. Interpretacja opiera się głównie na
-analizie sąsiedztwa: punkty znajdujące się blisko siebie w przestrzeni t-SNE
-odpowiadają obserwacjom podobnym w oryginalnych cechach, natomiast wyraźne
-skupiska punktów mogą wskazywać na istnienie klas lub podgrup. Oś pierwsza i
-druga nie mają znaczenia merytorycznego – są jedynie współrzędnymi w
-przestrzeni odwzorowania, które zachowuje lokalną strukturę, a nie globalną
-geometrię danych.
+Wyniki t-SNE przedstawione w przestrzeni dwuwymiarowej lub trójwymiarowej nie mają interpretacji metrycznej. Oznacza to, że odległości między klastrami nie są bezpośrednio interpretowalne ilościowo. Interpretacja opiera się głównie na analizie sąsiedztwa: punkty znajdujące się blisko siebie w przestrzeni t-SNE odpowiadają obserwacjom podobnym w oryginalnych cechach, natomiast wyraźne skupiska punktów mogą wskazywać na istnienie klas lub podgrup. Oś pierwsza i druga nie mają znaczenia merytorycznego – są jedynie współrzędnymi w przestrzeni odwzorowania, które zachowuje lokalną strukturę, a nie globalną geometrię danych.
 
 ::: callout-note
 ## Ważne kroki przy stosowaniu t-SNE
 
-1.  Standaryzacja danych — każda zmienna powinna być przeskalowana do średniej
-    0 i wariancji 1, aby uniknąć dominacji jednej cechy w metryce euklidesowej.
-2.  Wybór zakresu *perplexity* — zwykle testuje się kilka wartości (np. 5, 15,
-    30, 50) i ocenia stabilność struktur (czy klastry są rozdzielne, czy
-    stabilne względem permutacji danych).
-3.  Ustawienie *learning rate* — zaczyna się od wartości domyślnej (200) i w
-    razie potrzeby zwiększa do 500–1000, jeśli klastry są zbyt zwarte.
-4.  Ustalenie liczby iteracji — co najmniej 500; w przypadku dużych zbiorów
-    można zwiększyć do 1000–2000, jeśli rozkład nadal się zmienia.
-5.  Porównanie z PCA lub UMAP — warto sprawdzić, czy t-SNE nie generuje
-    artefaktów (np. sztucznych przerw między klastrami), których nie ma w
-    prostszych odwzorowaniach.
+1.  Standaryzacja danych — każda zmienna powinna być przeskalowana do średniej 0 i wariancji 1, aby uniknąć dominacji jednej cechy w metryce euklidesowej.
+2.  Wybór zakresu *perplexity* — zwykle testuje się kilka wartości (np. 5, 15, 30, 50) i ocenia stabilność struktur (czy klastry są rozdzielne, czy stabilne względem permutacji danych).
+3.  Ustawienie *learning rate* — zaczyna się od wartości domyślnej (200) i w razie potrzeby zwiększa do 500–1000, jeśli klastry są zbyt zwarte.
+4.  Ustalenie liczby iteracji — co najmniej 500; w przypadku dużych zbiorów można zwiększyć do 1000–2000, jeśli rozkład nadal się zmienia.
+5.  Porównanie z PCA lub UMAP — warto sprawdzić, czy t-SNE nie generuje artefaktów (np. sztucznych przerw między klastrami), których nie ma w prostszych odwzorowaniach.
 :::
 
 ::: {#exm-4}
@@ -1341,89 +828,42 @@ p1 | p2
 
 ## UMAP [@konopka2018]
 
-Metoda *Uniform Manifold Approximation and Projection* (UMAP) jest nieliniową
-techniką redukcji wymiarowości opracowaną przez McInnesa i Healy’ego w 2018
-roku. Jej celem jest odwzorowanie danych z przestrzeni wysokowymiarowej w
-przestrzeń o mniejszej liczbie wymiarów przy zachowaniu struktury geometrycznej
-— zarówno lokalnej, jak i globalnej — poprzez modelowanie danych jako rozkładu
-na rozmaitości (*manifold*). W odróżnieniu od metody t-SNE, UMAP opiera się na
-teorii rozmaitości Riemanna oraz na pojęciach pochodzących z teorii zbiorów
-rozmytych i topologii algebraicznej.
+Metoda *Uniform Manifold Approximation and Projection* (UMAP) jest nieliniową techniką redukcji wymiarowości opracowaną przez McInnesa i Healy’ego w 2018 roku. Jej celem jest odwzorowanie danych z przestrzeni wysokowymiarowej w przestrzeń o mniejszej liczbie wymiarów przy zachowaniu struktury geometrycznej — zarówno lokalnej, jak i globalnej — poprzez modelowanie danych jako rozkładu na rozmaitości (*manifold*). W odróżnieniu od metody t-SNE, UMAP opiera się na teorii rozmaitości Riemanna oraz na pojęciach pochodzących z teorii zbiorów rozmytych i topologii algebraicznej.
 
 Niech dane wejściowe stanowią zbiór punktów $$
 X = \{x_1, x_2, \dots, x_n\}, \quad x_i \in \mathbb{R}^p.
-$$ Zakłada się, że punkty te leżą na rozmaitości
-$\mathcal{M} \subset \mathbb{R}^p$ o niższym wymiarze rzeczywistym $d < p$,
-zanurzonej w przestrzeni obserwowalnej. Metoda UMAP tworzy dwie
-probabilistyczne reprezentacje tej rozmaitości: po pierwsze, graf sąsiedztwa w
-przestrzeni wysokowymiarowej (*fuzzy simplicial set*), który opisuje lokalne
-zależności między punktami, oraz po drugie, graf w przestrzeni niskowymiarowej,
-którego struktura ma jak najlepiej odwzorowywać pierwszy.
+$$ Zakłada się, że punkty te leżą na rozmaitości $\mathcal{M} \subset \mathbb{R}^p$ o niższym wymiarze rzeczywistym $d < p$, zanurzonej w przestrzeni obserwowalnej. Metoda UMAP tworzy dwie probabilistyczne reprezentacje tej rozmaitości: po pierwsze, graf sąsiedztwa w przestrzeni wysokowymiarowej (*fuzzy simplicial set*), który opisuje lokalne zależności między punktami, oraz po drugie, graf w przestrzeni niskowymiarowej, którego struktura ma jak najlepiej odwzorowywać pierwszy.
 
-W celu konstrukcji grafu w przestrzeni wejściowej dla każdego punktu $x_i$
-określa się odległości do jego $k$-najbliższych sąsiadów. Następnie wyznacza
-się dwa parametry lokalne $$
+W celu konstrukcji grafu w przestrzeni wejściowej dla każdego punktu $x_i$ określa się odległości do jego $k$-najbliższych sąsiadów. Następnie wyznacza się dwa parametry lokalne $$
 \rho_i = \min_{j: d(x_i,x_j) > 0} d(x_i, x_j),
-$$ czyli najmniejszą dodatnią odległość (umożliwiającą niezerową gęstość), oraz
-$\sigma_i > 0,$ skalę lokalną dobraną tak, aby spełniony był warunek
-normalizacji entropii $$
+$$ czyli najmniejszą dodatnią odległość (umożliwiającą niezerową gęstość), oraz $\sigma_i > 0,$ skalę lokalną dobraną tak, aby spełniony był warunek normalizacji entropii $$
 \sum_{j} \exp\!\left(-\frac{\max(0, d(x_i,x_j) - \rho_i)}{\sigma_i}\right) = \log_2(k).
 $$ Na tej podstawie definiuje się rozmyte prawdopodobieństwa sąsiedztwa $$
 p_{j|i} = \exp\!\left(-\frac{\max(0, d(x_i, x_j) - \rho_i)}{\sigma_i}\right).
-$$ Ponieważ macierz tych wartości nie jest symetryczna, łączy się oba kierunki
-zgodnie z zasadami teorii zbiorów rozmytych $$
+$$ Ponieważ macierz tych wartości nie jest symetryczna, łączy się oba kierunki zgodnie z zasadami teorii zbiorów rozmytych $$
 p_{ij} = p_{i|j} + p_{j|i} - p_{i|j}\,p_{j|i}.
-$$ Tak powstały rozmyty graf sąsiedztwa zawiera wagi $p_{ij}$, które
-odzwierciedlają siłę połączeń między punktami.
+$$ Tak powstały rozmyty graf sąsiedztwa zawiera wagi $p_{ij}$, które odzwierciedlają siłę połączeń między punktami.
 
-Następnie w przestrzeni wynikowej
-$Y = \{y_1, y_2, \dots, y_n\} \subset \mathbb{R}^q$, gdzie zwykle $q = 2$ lub
-3, definiuje się analogiczny rozmyty graf $q_{ij}$, którego wagi opisuje
-funkcja jądra typu *heavy-tailed* $$
+Następnie w przestrzeni wynikowej $Y = \{y_1, y_2, \dots, y_n\} \subset \mathbb{R}^q$, gdzie zwykle $q = 2$ lub 3, definiuje się analogiczny rozmyty graf $q_{ij}$, którego wagi opisuje funkcja jądra typu *heavy-tailed* $$
 q_{ij} = \frac{1}{1 + a\,\|y_i - y_j\|^{2b}},
-$$ gdzie $a$ i $b$ są parametrami dopasowanymi empirycznie (standardowo
-$a \approx 1.929,\ b \approx 0.7915$).
+$$ gdzie $a$ i $b$ są parametrami dopasowanymi empirycznie (standardowo $a \approx 1.929,\ b \approx 0.7915$).
 
-Zasadniczym celem UMAP jest znalezienie takiej konfiguracji punktów $Y$, aby
-rozmyty graf $q_{ij}$ jak najlepiej przybliżał graf $p_{ij}$. Kryterium
-optymalizacji ma postać minimalizacji rozbieżności krzyżowej (ang.
-*cross-entropy*) między dwoma rozkładami sąsiedztwa $$
+Zasadniczym celem UMAP jest znalezienie takiej konfiguracji punktów $Y$, aby rozmyty graf $q_{ij}$ jak najlepiej przybliżał graf $p_{ij}$. Kryterium optymalizacji ma postać minimalizacji rozbieżności krzyżowej (ang. *cross-entropy*) między dwoma rozkładami sąsiedztwa $$
 C = \sum_{i < j} \left[ -p_{ij}\log(q_{ij}) - (1 - p_{ij})\log(1 - q_{ij}) \right].
-$$ Minimalizacja tej funkcji jest realizowana metodami gradientowymi, zazwyczaj
-z wykorzystaniem *stochastic gradient descent* (SGD). W wyniku optymalizacji
-punkty $y_i$ są przesuwane tak, aby utrzymać bliskie relacje w miejscach, gdzie
-$p_{ij}$ jest duże i rozdzielać punkty, gdzie $p_{ij}$ jest małe.
+$$ Minimalizacja tej funkcji jest realizowana metodami gradientowymi, zazwyczaj z wykorzystaniem *stochastic gradient descent* (SGD). W wyniku optymalizacji punkty $y_i$ są przesuwane tak, aby utrzymać bliskie relacje w miejscach, gdzie $p_{ij}$ jest duże i rozdzielać punkty, gdzie $p_{ij}$ jest małe.
 
-Założenia metody UMAP są stosunkowo niewielkie, lecz istotne. Zakłada się, że
-dane leżą na rozmaitości o niskim wymiarze, a więc można je opisać poprzez
-ciągłą strukturę geometryczną. Przyjmuje się również, że użyta miara odległości
-(zwykle euklidesowa) odzwierciedla faktyczne podobieństwo obserwacji oraz że
-rozkład punktów jest gładki, czyli w małych sąsiedztwach struktura jest dobrze
-przybliżana liniowo.
+Założenia metody UMAP są stosunkowo niewielkie, lecz istotne. Zakłada się, że dane leżą na rozmaitości o niskim wymiarze, a więc można je opisać poprzez ciągłą strukturę geometryczną. Przyjmuje się również, że użyta miara odległości (zwykle euklidesowa) odzwierciedla faktyczne podobieństwo obserwacji oraz że rozkład punktów jest gładki, czyli w małych sąsiedztwach struktura jest dobrze przybliżana liniowo.
 
-Interpretacja wyników UMAP nie odnosi się do bezwzględnych wartości
-współrzędnych, lecz do relacji między punktami. Punkty położone blisko siebie w
-przestrzeni wynikowej są podobne w przestrzeni oryginalnej, a większe
-odległości odpowiadają mniejszemu podobieństwu. W przeciwieństwie do t-SNE
-metoda ta lepiej zachowuje nie tylko lokalne klastry, ale również częściowo
-strukturę globalną, co umożliwia analizę gradientów i ciągłych przejść między
-grupami obserwacji.
+Interpretacja wyników UMAP nie odnosi się do bezwzględnych wartości współrzędnych, lecz do relacji między punktami. Punkty położone blisko siebie w przestrzeni wynikowej są podobne w przestrzeni oryginalnej, a większe odległości odpowiadają mniejszemu podobieństwu. W przeciwieństwie do t-SNE metoda ta lepiej zachowuje nie tylko lokalne klastry, ale również częściowo strukturę globalną, co umożliwia analizę gradientów i ciągłych przejść między grupami obserwacji.
 
 ::: callout-note
 ## Ważne kroki przy stosowaniu UMAP
 
-1.  Standaryzacja danych — każda zmienna powinna być przeskalowana do średniej
-    0 i wariancji 1, aby uniknąć dominacji jednej cechy w metryce euklidesowej.
-2.  Wybór liczby sąsiadów (*n_neighbors*) — kontroluje lokalność odwzorowania;
-    mniejsze wartości (5–15) podkreślają lokalne struktury, większe (30–50)
-    zachowują więcej globalnych relacji.
-3.  Ustawienie wymiaru wynikowego (*n_components*) — zwykle 2 lub 3, w
-    zależności od potrzeb wizualizacji.
-4.  Wybór metryki odległości — domyślnie euklidesowa, ale można użyć innych
-    (np. Manhattan, cosine) w zależności od charakteru danych.
-5.  Porównanie z PCA lub t-SNE — warto sprawdzić, czy UMAP nie generuje
-    artefaktów (np. sztucznych przerw między klastrami), których nie ma w
-    prostszych odwzorowaniach.
+1.  Standaryzacja danych — każda zmienna powinna być przeskalowana do średniej 0 i wariancji 1, aby uniknąć dominacji jednej cechy w metryce euklidesowej.
+2.  Wybór liczby sąsiadów (*n_neighbors*) — kontroluje lokalność odwzorowania; mniejsze wartości (5–15) podkreślają lokalne struktury, większe (30–50) zachowują więcej globalnych relacji.
+3.  Ustawienie wymiaru wynikowego (*n_components*) — zwykle 2 lub 3, w zależności od potrzeb wizualizacji.
+4.  Wybór metryki odległości — domyślnie euklidesowa, ale można użyć innych (np. Manhattan, cosine) w zależności od charakteru danych.
+5.  Porównanie z PCA lub t-SNE — warto sprawdzić, czy UMAP nie generuje artefaktów (np. sztucznych przerw między klastrami), których nie ma w prostszych odwzorowaniach.
 :::
 
 ::: {#exm-5}
@@ -1490,9 +930,7 @@ p_umap | p_pca
 ```
 :::
 
-Poniżej prezentuję zbiorcze porównanie wszystkich omówionych metod redukcji
-wymiarowości na tym samym zbiorze danych `iris`. Wykorzystuję PCA, ICA, MDS,
-t-SNE oraz UMAP, aby zobaczyć, jak różne techniki odwzorowują strukturę danych.
+Poniżej prezentuję zbiorcze porównanie wszystkich omówionych metod redukcji wymiarowości na tym samym zbiorze danych `iris`. Wykorzystuję PCA, ICA, MDS, t-SNE oraz UMAP, aby zobaczyć, jak różne techniki odwzorowują strukturę danych.
 
 ```{r}
 #| fig-width: 15
