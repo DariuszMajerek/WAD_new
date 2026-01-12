@@ -592,11 +592,11 @@ $$ gdzie $V_p$ zawiera $p$ pierwszych wektorów własnych, a $\Lambda_p$ odpowia
 
 #### Kryterium dopasowania
 
-W wersji metrycznej minimalizuje się błąd rekonstrukcji odległości 
+W wersji metrycznej minimalizuje się błąd rekonstrukcji odległości
 
 $$
 \min_{X} \sum_{i<j} \bigl( d_{ij}(X) - \delta_{ij} \bigr)^2.
-$$ 
+$$
 
 Rozwiązanie klasycznej wersji powyższego problemu daje wprost powyższa dekompozycja macierzy $B$, dlatego często określa się ją jako *Classical Scaling* lub *Principal Coordinates Analysis* (PCoA). Metoda ta jest w pełni analityczna i odpowiada PCA zastosowanej do macierzy odległości.
 
@@ -606,16 +606,13 @@ Rozwiązanie klasycznej wersji powyższego problemu daje wprost powyższa dekomp
 
 W wersji niemetrycznej zakłada się, że informacja w danych ma przede wszystkim charakter porządkowy: jeżeli $\delta_{ij} > \delta_{kl}$, to para $(i,j)$ ma być „bardziej niepodobna” niż $(k,l)$, ale nie wymaga się, aby różnice $\delta_{ij}-\delta_{kl}$ miały sens ilościowy. Z tego powodu nie dopasowuje się wprost relacji $\delta_{ij}\approx d_{ij}(X)$, tylko dopuszcza się monotoniczne przekształcenie $f$, które „przekłada” odległości w konfiguracji na skalę zgodną z porządkiem danych. Funkcja $f$ jest w praktyce wynikiem tzw. regresji izotonicznej: dobiera się ją tak, aby była monotoniczna i aby możliwie najlepiej dopasowywała wartości w sensie najmniejszych kwadratów przy zachowaniu porządku. To pozwala rozdzielić dwa problemy: (1) znalezienie geometrii $X$, która poprawnie porządkuje pary, oraz (2) dopasowanie skali poprzez $f$, które jest „swobodne”, o ile nie łamie rang.
 
-
-
 #### Model i funkcja stresu
 
-Optymalizuje się wtedy miarę stresu Kruskala (STRESS - STandardized REsidual Sum of Squares) 
-$$
+Optymalizuje się wtedy miarę stresu Kruskala (STRESS - STandardized REsidual Sum of Squares) $$
 S(X) = \sqrt{\frac{\sum_{i<j} \bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)^2}{\sum_{i<j} d_{ij}(X)^2}}.
-$$ 
+$$
 
-Minimalizacja stresu odbywa się iteracyjnie — zmienia się położenie punktów $x_i$, aby zmniejszyć różnicę między rangami obserwowanych i odwzorowanych odległości. Pełni ona trzy role. 
+Minimalizacja stresu odbywa się iteracyjnie — zmienia się położenie punktów $x_i$, aby zmniejszyć różnicę między rangami obserwowanych i odwzorowanych odległości. Pełni ona trzy role.
 
 Po pierwsze, w liczniku sumuje kwadraty reszt $\bigl(f(\delta_{ij}) - d_{ij}(X)\bigr)$, czyli mierzy, jak duże są rozbieżności między odległościami w przestrzeni a wartościami „najlepiej dopasowanymi” do porządku danych. Kwadrat powoduje, że większe rozbieżności są karane silniej i że kryterium jest gładkie w sensie optymalizacyjnym (co sprzyja iteracyjnym algorytmom).
 
@@ -752,7 +749,7 @@ Celem t-SNE jest minimalizacja dywergencji Kullbacka–Leiblera między rozkład
 C = \operatorname{KL}(P \| Q) = \sum_{i \neq j} p_{ij} \log \frac{p_{ij}}{q_{ij}}.
 $$ Optymalizacja tej funkcji, zwykle za pomocą spadku gradientowego, prowadzi do znalezienia takich współrzędnych $Y$, które zachowują lokalne relacje między punktami w jak największym stopniu. Gradient funkcji celu względem współrzędnych $y_i$ ma postać $$
 \frac{\partial C}{\partial y_i} = 4 \sum_j (p_{ij} - q_{ij}) (y_i - y_j) (1 + \|y_i - y_j\|^2)^{-1},
-$$ a współczynnik 4 pełni rolę skalującą. W praktyce stosuje się dodatkowe techniki stabilizujące proces uczenia, takie jak *momentum*, etap *early exaggeration* zwiększający kontrast lokalnych podobieństw, oraz wcześniejszą redukcję wymiarowości metodą PCA w celu ograniczenia szumu.
+$$ a współczynnik 4 pełni rolę skalującą.
 
 Metoda t-SNE nie zakłada liniowości ani rozkładu normalnego danych, lecz wymaga, aby dane były znormalizowane w przypadku różnych jednostek pomiarowych, ponieważ odległości euklidesowe są wrażliwe na skalę. Wskazane jest wcześniejsze zastosowanie PCA w celu usunięcia szumu i zmniejszenia złożoności obliczeniowej. Dane nie powinny zawierać dużej liczby wartości odstających ani duplikatów, które mogłyby zaburzyć lokalne struktury. Kluczowy hiperparametr *perplexity* powinien być dostosowany do liczby obserwacji — zbyt mała wartość prowadzi do przeuczenia lokalnego, a zbyt duża powoduje zatarcie drobnych struktur.
 
