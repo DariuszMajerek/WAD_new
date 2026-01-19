@@ -672,7 +672,7 @@ J_k(\mu_k)=\sum_{i=1}^n u_{ik}\,\|x_i-\mu_k\|^2.
 \]</span> Ponieważ wyrażenie jest liniowe w <span class="math inline">\(u_{ik}\)</span>, optimum osiąga się, wybierając <span class="math inline">\(u_{ik}=1\)</span> dla indeksu <span class="math inline">\(k\)</span> minimalizującego odległość euklidesową <span class="math display">\[
 u_{ik}=\mathbf{1}_\left\{k=\operatorname{argmin}_{j\in\{1,\dots,K\}}\|x_i-\mu_j\|^2\right\}.
 \]</span> Wynika stąd reguła „przypisz do najbliższego centroidu”, co geometrycznie odpowiada podziałowi przestrzeni na komórki Woronoja wyznaczone przez <span class="math inline">\(\{\mu_k\}\)</span>.</p>
-<p><a href="images/kmeans_animation.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="images/kmeans_animation.gif" class="img-fluid"></a></p>
+<p><a href="images/kmeans_animation-ezgif.com-speed.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="images/kmeans_animation-ezgif.com-speed.gif" class="img-fluid"></a></p>
 <p>Złożenie obu kroków prowadzi do procedury znanej jako <em>Lloyd’s algorithm</em>:</p>
 <ol type="1">
 <li>Startujemy od wstępnych centroidów <span class="math inline">\(\mu^{(0)}\)</span>.</li>
@@ -843,7 +843,7 @@ J(M_S) = \sum_{i=1}^{n} \min_{m_k \in M_S} d(x_i, m_k),
 </div>
 </div>
 </div>
-</section></section></section><section id="metody-oparte-na-gęstości" class="level2"><h2 class="anchored" data-anchor-id="metody-oparte-na-gęstości">Metody oparte na gęstości</h2>
+</section></section></section><section id="metody-oparte-na-gęstości" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="metody-oparte-na-gęstości">Metody oparte na gęstości</h2>
 <p>Metody oparte na gęstości traktują klaster jako obszar przestrzeni cech, w którym punkty występują gęściej niż w otoczeniu. Zamiast narzucać kuliste kształty lub minimalizować wariancję, jak w metodach centroidowych, identyfikuje się spójne „wyspy” wysokiej gęstości oddzielone obszarami niskiej gęstości. Kluczową konsekwencją jest naturalna obsługa szumu: punkty w rzadkich rejonach pozostają nieprzypisane, co sprzyja detekcji anomalii. Klasyczny przedstawiciel, czyli DBSCAN (ang. <em>Density-Based Spatial Clustering of Applications with Noise</em>), definiuje gęstość lokalnie przez promień <span class="math inline">\(\varepsilon\)</span> oraz próg liczności <em>MinPts</em>. Punkt rdzeniowy (ang. <em>core point</em>) to taki, który ma co najmniej <em>MinPts</em> sąsiadów w kuli o promieniu <span class="math inline">\(\varepsilon\)</span>. Punkty w zasięgu rdzeniowych tworzą łańcuchy dostępności gęstościowej, a maksymalne zbiory tak połączone stanowią klastry. Punkty w zasięgu <span class="math inline">\(\varepsilon\)</span>, które same nie są rdzeniowe, traktujemy jako brzegowe i dołączamy do pobliskich klastrów; pozostałe uznajemy za szum. Zaletą jest możliwość wykrywania klastrów o dowolnym kształcie, odporność na pojedyncze wartości odstające i brak konieczności z góry podawania liczby klastrów.</p>
 <p>Głównym ograniczeniem DBSCAN jest konieczność ustalenia globalnego parametr <span class="math inline">\(\varepsilon\)</span>: przy zróżnicowanej gęstości danych jedno ustawienie nie odzwierciedla wszystkich struktur (dla małego <span class="math inline">\(\varepsilon\)</span> drobne, gęste klastry są poprawne, ale rzadkie są traktowane rozłącznie; dla dużego <span class="math inline">\(\varepsilon\)</span> rzadkie się łączą, a gęste zlewają). Problem może łagodzić metoda OPTICS (ang. <em>Ordering Points To Identify the Clustering Structure</em>). W metodzie OPTICS pojęcia <em>core-distance</em> i <em>reachability-distance</em> służą do opisania lokalnej gęstości punktów w sposób ciągły, bez potrzeby ustalania z góry jednego progu <span class="math inline">\(\varepsilon\)</span>, jak w klasycznym DBSCAN.</p>
 <p>Algorytm HDBSCAN (ang. <em>Hierarchical Density-Based Spatial Clustering of Applications with Noise</em>) jest uogólnieniem metody DBSCAN do jej hierarchicznego rozwinięcia. Główna idea polega na tym, by nie wybierać z góry jednego progu gęstości (czyli parametru <span class="math inline">\(\varepsilon\)</span>), lecz analizować strukturę skupień w szerokim zakresie poziomów gęstości i budować ich hierarchię. W klasycznym DBSCAN wynik zależy od jednego promienia <span class="math inline">\(\varepsilon\)</span>: jeśli dane zawierają obszary o różnej gęstości, trudno dobrać jedną wartość odpowiednią dla wszystkich. HDBSCAN eliminuje tę słabość, zastępując stałe <span class="math inline">\(\varepsilon\)</span> ciągłym parametrem opisującym zmienność gęstości i tworząc dendrogram gęstości – czyli hierarchiczne drzewo pokazujące, jak klastry pojawiają się i łączą przy stopniowym „rozluźnianiu” kryterium gęstości.</p>
@@ -961,71 +961,76 @@ N = X \setminus \bigcup_{k=1}^K C_k
 </div>
 </div>
 </section><section id="algorytm-optics" class="level3"><h3 class="anchored" data-anchor-id="algorytm-optics">Algorytm OPTICS</h3>
-<p>Niech <span class="math inline">\(X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p\)</span> oznaczać zbiór obserwacji, a <span class="math inline">\(d(\cdot,\cdot)\)</span> — dowolną metrykę w tej przestrzeni (np. euklidesową). Algorytm OPTICS rozszerza koncepcję DBSCAN, eliminując konieczność ustalania jednej wartości promienia sąsiedztwa. Zamiast tego wprowadza się dwa parametry:</p>
+<p>Niech <span class="math inline">\(X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p\)</span> oznacza zbiór obserwacji, a <span class="math inline">\(d(\cdot,\cdot)\)</span> — dowolną metrykę w tej przestrzeni (np. euklidesową). Algorytm OPTICS (<em>Ordering Points To Identify the Clustering Structure</em>) stanowi uogólnienie DBSCAN, którego celem nie jest bezpośrednie wyznaczenie klastrów dla jednej skali gęstości, lecz rekonstrukcja struktury klastrowej w szerokim zakresie gęstości.</p>
+<p>W tym celu algorytm wprowadza dwa parametry:</p>
 <ul>
 <li>maksymalny promień sąsiedztwa <span class="math inline">\(\varepsilon_{\max} &gt; 0\)</span>,</li>
 <li>minimalną liczbę punktów w sąsiedztwie <span class="math inline">\(\text{MinPts} \in \mathbb{N}\)</span>.</li>
 </ul>
+<p>Parametr <span class="math inline">\(\varepsilon_{\max}\)</span> ogranicza zakres lokalnych obliczeń, natomiast <span class="math inline">\(\text{MinPts}\)</span> definiuje pojęcie lokalnej gęstości, analogicznie jak w DBSCAN.</p>
 <ol type="1">
 <li>Maksymalne sąsiedztwo punktu</li>
 </ol>
-<p>Dla każdego punktu <span class="math inline">\(x \in X\)</span> definiuje się jego sąsiedztwo w promieniu <span class="math inline">\(\varepsilon_{\max}\)</span> <span class="math display">\[
-\mathcal{N}_{\varepsilon_{\max}}(x) = \{ y \in X : d(x,y) \le \varepsilon_{\max} \}.
-\]</span> Jest to zbiór wszystkich punktów w zasięgu maksymalnym, z którego będą obliczane lokalne miary gęstości.</p>
+<p>Dla każdego punktu <span class="math inline">\(x \in X\)</span> definiuje się jego maksymalne sąsiedztwo jako <span class="math inline">\(\mathcal{N}_{\varepsilon_{\max}}(x) = \{ y \in X : d(x,y) \le \varepsilon_{\max} \}\)</span>. Jest to zbiór punktów branych pod uwagę przy wyznaczaniu lokalnych miar gęstości oraz relacji osiągalności.</p>
 <ol start="2" type="1">
 <li>Odległość rdzeniowa (<em>core-distance</em>)</li>
 </ol>
-<p>Dla punktu <span class="math inline">\(x \in X,\)</span> jeśli w jego sąsiedztwie znajduje się co najmniej <span class="math inline">\(\text{MinPts}\)</span> punktów, to jego odległość rdzeniowa jest zdefiniowana jako <span class="math display">\[
+<p>Jeżeli punkt <span class="math inline">\(x\)</span> posiada w swoim sąsiedztwie co najmniej <span class="math inline">\(\text{MinPts}\)</span> punktów, to jego odległość rdzeniowa definiowana jest jako</p>
+<p><span class="math display">\[
 \text{core-dist}(x) =
 \begin{cases}
-d(x, x{(\text{MinPts})}), &amp; \text{jeśli } |\mathcal{N}_{\varepsilon_{\max}}(x)| \ge \text{MinPts}, \\[6pt]
+d(x, x_{(\text{MinPts})}), &amp; \text{jeśli } |\mathcal{N}_{\varepsilon_{\max}}(x)| \ge \text{MinPts}, \\[6pt]
 \text{niezdefiniowana}, &amp; \text{w przeciwnym razie.}
 \end{cases}
-\]</span> gdzie <span class="math inline">\(x_{(\text{MinPts})}\)</span> oznacza <em>MinPts</em>-ty najbliższy punkt względem <span class="math inline">\(x\)</span> w zbiorze <span class="math inline">\(\mathcal{N}_{\varepsilon_{\max}}(x)\)</span>. Intuicyjnie, <span class="math inline">\(\text{core-dist}(x)\)</span> opisuje minimalny promień kuli wokół <span class="math inline">\(x\)</span>, który zawiera co najmniej <span class="math inline">\(\text{MinPts}\)</span> punktów, a więc jest lokalną miarą gęstości.</p>
+\]</span> gdzie <span class="math inline">\(x_{(\text{MinPts})}\)</span> oznacza <span class="math inline">\(\text{MinPts}\)</span>-ty najbliższy punkt względem <span class="math inline">\(x\)</span> w zbiorze <span class="math inline">\(\mathcal{N}_{\varepsilon_{\max}}(x)\)</span>.</p>
+<p>Wielkość <span class="math inline">\(\text{core-dist}(x)\)</span> stanowi lokalną miarę gęstości: im mniejsza jej wartość, tym gęstszy jest obszar wokół punktu <span class="math inline">\(x\)</span>.</p>
+<p><a href="images/core_dist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="images/core_dist.png" class="img-fluid"></a></p>
 <ol start="3" type="1">
 <li>Odległość osiągalności (<em>reachability-distance</em>)</li>
 </ol>
-<p>Dla dwóch punktów <span class="math inline">\(x, y \in X\)</span> takich, że <span class="math inline">\(y \in \mathcal{N}_{\varepsilon_{\max}}(x)\)</span>, definiuje się <span class="math display">\[
-\text{reach-dist}(y \mid x) =
-\max\{\text{core-dist}(x),\, d(x, y)\}.
-\]</span> Wartość ta mierzy minimalną odległość, przy której punkt <span class="math inline">\(y\)</span> jest osiągalny z punktu <span class="math inline">\(x\)</span> przy zachowaniu zadanej gęstości. Jeśli <span class="math inline">\(\text{core-dist}(x)\)</span> jest mała, to region wokół <span class="math inline">\(x\)</span> jest gęsty, a punkty w jego sąsiedztwie mają niską odległość osiągalności.</p>
-<p><a href="images/core_dist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="images/core_dist.png" class="img-fluid"></a></p>
+<p>Dla punktu <span class="math inline">\(y \in \mathcal{N}_{\varepsilon_{\max}}(x)\)</span>, gdzie <span class="math inline">\(x\)</span> jest punktem rdzeniowym, definiuje się warunkową odległość osiągalności <span class="math display">\[
+\text{reach-dist}(y \mid x) = \max\{\text{core-dist}(x),\, d(x,y)\}.
+\]</span></p>
+<p>Wartość ta opisuje minimalną skalę odległości, przy której punkt <span class="math inline">\(y\)</span> może zostać „dołączony” do struktury gęstości reprezentowanej przez punkt rdzeniowy <span class="math inline">\(x\)</span>. Łączy ona informację o lokalnej gęstości (poprzez <span class="math inline">\(\text{core-dist}(x)\)</span>) oraz o faktycznej odległości geometrycznej. W algorytmie OPTICS każdemu punktowi <span class="math inline">\(y\)</span> przypisywana jest jedna aktualna wartość <span class="math inline">\(\text{reach-dist}(y)\)</span>, rozumiana jako minimum po wszystkich dotychczas rozważanych punktach rdzeniowych, z których <span class="math inline">\(y\)</span> jest osiągalny.</p>
 <ol start="4" type="1">
 <li>Kolejka priorytetowa (<em>SeedList</em>)</li>
 </ol>
-<p>Podczas przetwarzania punktów, OPTICS utrzymuje kolejkę priorytetową punktów sąsiednich (<em>SeedList</em>). Każdy punkt <span class="math inline">\(y\)</span> wstawia się do tej kolejki z priorytetem równym <span class="math inline">\(\text{reach-dist}(y)\)</span>. Algorytm zawsze wybiera do dalszego przetwarzania punkt o najmniejszej wartości <span class="math inline">\(\text{reach-dist}\)</span>, co gwarantuje eksplorację przestrzeni od regionów gęstych ku rzadszym.</p>
+<p>W trakcie działania algorytmu utrzymywana jest kolejka priorytetowa <em>SeedList</em>, zawierająca punkty nieodwiedzone, które są osiągalne z już przetworzonych punktów rdzeniowych. Priorytetem punktu <span class="math inline">\(y\)</span> w tej kolejce jest jego aktualna wartość <span class="math inline">\(\text{reach-dist}(y)\)</span>. Mechanizm ten powoduje, że algorytm eksploruje przestrzeń danych w kolejności rosnącej odległości osiągalności, czyli od regionów najbardziej gęstych do coraz rzadszych.</p>
 <ol start="5" type="1">
 <li>Kolejność przetwarzania punktów</li>
 </ol>
-<p>Dla każdego nieodwiedzonego punktu <span class="math inline">\(x_i \in X\)</span></p>
+<p>Algorytm działa iteracyjnie według następującego schematu:</p>
 <ul>
+<li>Jeśli <em>SeedList</em> jest pusta, wybiera się dowolny nieodwiedzony punkt <span class="math inline">\(x_i \in X\)</span> jako nowy punkt startowy.</li>
+<li>Punkt <span class="math inline">\(x_i\)</span> oznacza się jako odwiedzony i dodaje do listy <em>OrderList</em>.</li>
 <li>Oblicza się <span class="math inline">\(\mathcal{N}_{\varepsilon_{\max}}(x_i)\)</span>.</li>
-<li>Dodaje się <span class="math inline">\(x_i\)</span> do listy <em>OrderList</em> (kolejności odwiedzin).</li>
-<li>Jeśli <span class="math inline">\(x_i\)</span> jest rdzeniowy, oblicza się jego <span class="math inline">\(\text{core-dist}(x_i)\)</span> i aktualizuje odległości osiągalności wszystkich punktów <span class="math inline">\(y \in \mathcal{N}_{\varepsilon_{\max}}(x_i)\)</span> <span class="math display">\[
-\text{reach-dist}(y) = \min\big( \text{reach-dist}(y),\ \max\{\text{core-dist}(x_i), d(x_i, y)\} \big).
-\]</span> Każdy taki punkt dodaje się do <em>SeedList</em> z priorytetem równym zaktualizowanej wartości <span class="math inline">\(\text{reach-dist}(y)\)</span>.</li>
-<li>Następnie wybiera się z <em>SeedList</em> punkt o najmniejszej wartości <span class="math inline">\(\text{reach-dist}\)</span> i powtarza proces, aż kolejka będzie pusta.</li>
+<li>Jeżeli <span class="math inline">\(x_i\)</span> jest punktem rdzeniowym, to:
+<ul>
+<li>oblicza się <span class="math inline">\(\text{core-dist}(x_i)\)</span>,</li>
+<li>dla każdego nieodwiedzonego punktu <span class="math inline">\(y \in \mathcal{N}_{\varepsilon_{\max}}(x_i)\)</span> wyznacza się kandydacką wartość <span class="math inline">\(\text{reach-dist}(y \mid x_i) = \max\{\text{core-dist}(x_i), d(x_i,y)\}\)</span>
+</li>
+<li>aktualizuje się <span class="math inline">\(\text{reach-dist}(y) = \min\bigl(\text{reach-dist}(y),\ \text{reach-dist}(y \mid x_i)\bigr)\)</span>, przy czym dla punktów nowo napotkanych <span class="math inline">\(\text{reach-dist}(y)\)</span> inicjalizuje się wartością <span class="math inline">\(+\infty,\)</span>
+</li>
+<li>punkt <span class="math inline">\(y\)</span> umieszcza się (lub aktualizuje) w <em>SeedList</em> z priorytetem równym jego aktualnej wartości <span class="math inline">\(\text{reach-dist}(y)\)</span>.</li>
 </ul>
-<p>W ten sposób powstaje uporządkowana lista punktów wraz z przypisaną im wartością <span class="math inline">\(\text{reach-dist}\)</span>.</p>
+</li>
+<li>Jeżeli <em>SeedList</em> nie jest pusta, wybiera się z niej punkt o najmniejszej wartości <span class="math inline">\(\text{reach-dist}\)</span> i powtarza powyższy proces.</li>
+</ul>
 <ol start="6" type="1">
 <li>Wynik algorytmu</li>
 </ol>
 <p>Po przetworzeniu wszystkich punktów algorytm zwraca:</p>
 <ul>
-<li>uporządkowaną listę punktów <span class="math inline">\(\text{OrderList} = (x_{i_1}, x_{i_2}, \dots, x_{i_n})\)</span>,</li>
-<li>odpowiadające im wartości odległości osiągalności <span class="math display">\[
-R(x_{i_j}) = \text{reach-dist}(x_{i_j}).
-\]</span>
+<li>uporządkowaną listę punktów <span class="math inline">\(\text{OrderList} = (x_{i_1}, x_{i_2}, \dots, x_{i_n}),\)</span>
 </li>
+<li>odpowiadające im wartości osiągalności <span class="math inline">\(R(x_{i_j}) =
+\text{reach-dist}(x_{i_j})\)</span>.</li>
 </ul>
-<p>Na tej podstawie tworzy się wykres osiągalności (<em>reachability plot</em>), na którym oś pozioma przedstawia kolejność punktów z <em>OrderList</em>, a oś pionowa – wartości <span class="math inline">\(R(x)\)</span>.</p>
-<p>Doliny (lokalne minima <span class="math inline">\(R(x)\)</span>) odpowiadają klastrom o wysokiej gęstości, a szczyty – granicom między nimi lub obszarom szumu.</p>
+<p>Na tej podstawie konstruuje się wykres osiągalności (<em>reachability plot</em>), gdzie oś pozioma odpowiada kolejności punktów w <em>OrderList</em>, a oś pionowa wartościom <span class="math inline">\(R(x)\)</span>. Lokalne minima wykresu (doliny) odpowiadają klastrom o wysokiej gęstości, natomiast wysokie wartości sygnalizują granice klastrów lub obszary szumu.</p>
 <ol start="7" type="1">
 <li>Relacja z DBSCAN</li>
 </ol>
-<p>Z wyników OPTICS można odtworzyć rozwiązania DBSCAN dla dowolnego progu gęstości <span class="math inline">\(\varepsilon \le \varepsilon_{\max}\)</span> <span class="math display">\[
-C_k(\varepsilon) = \{ x \in X : R(x) \le \varepsilon \}.
-\]</span> W odróżnieniu od DBSCAN, który tworzy pojedynczy podział dla jednej wartości , OPTICS analizuje ciągłe spektrum gęstości i ujawnia strukturę klastrów wieloskalarowo.</p>
+<p>Na podstawie wyników OPTICS można odtworzyć rozwiązania DBSCAN dla dowolnego progu gęstości <span class="math inline">\(\varepsilon \le \varepsilon_{\max}\)</span>, wybierając punkty spełniające <span class="math inline">\(C_k(\varepsilon) = { x \in X : R(x) \le \varepsilon }.\)</span> W przeciwieństwie do DBSCAN, który generuje jeden podział danych dla ustalonej wartości <span class="math inline">\(\varepsilon\)</span>, OPTICS ujawnia strukturę klastrów w sposób wieloskalowy, umożliwiając analizę gęstości na ciągłym spektrum parametrów.</p>
 <div class="{$#exm-4}">
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- Pakiety ---</span></span>
@@ -1130,6 +1135,8 @@ Available fields: order, reachdist, coredist, predecessor, minPts, eps,
 </div>
 </div>
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- 2) Wydobycie klastrów metodą Xi ---</span></span>
+<span><span class="co"># Polega ona na identyfikacji klastrów jako ciągłych segmentów wykresu</span></span>
+<span><span class="co"># reachability, które wykazują znaczący spadek wartości osiągalności.</span></span>
 <span><span class="co"># --- Lista wartości Xi ---</span></span>
 <span><span class="va">xi_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.03</span>, <span class="fl">0.05</span>, <span class="fl">0.10</span>, <span class="fl">0.15</span>, <span class="fl">0.20</span><span class="op">)</span></span>
 <span></span>
@@ -1242,7 +1249,7 @@ Available fields: order, reachdist, coredist, predecessor, minPts, eps,
 </div>
 </div>
 </div>
-</section><section id="algorytm-hdbscan" class="level3"><h3 class="anchored" data-anchor-id="algorytm-hdbscan">Algorytm HDBSCAN</h3>
+</section><section id="algorytm-hdbscan" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="algorytm-hdbscan">Algorytm HDBSCAN</h3>
 <p>Przymijmy metrykę <span class="math inline">\(d(\cdot, \cdot)\)</span>, zbiór danych <span class="math inline">\(X=\{x_1,\dots,x_n\}\subset\mathbb{R}^p\)</span> oraz parametry minimalny rozmiar klastra <span class="math inline">\(m_c\)</span> i opcjonalnie minimalną wielkość klastra <span class="math inline">\(m_s\)</span> (gdy brak — przyjmujemy <span class="math inline">\(m_s=m_c\)</span>).</p>
 <ol type="1">
 <li>Definicje i wielkości pomocnicze</li>
@@ -1251,11 +1258,15 @@ Available fields: order, reachdist, coredist, predecessor, minPts, eps,
 \mathcal{N}_\varepsilon(x)=\{y\in X:\ d(x,y)\le \varepsilon\}.
 \]</span> Odległość rdzeniowa (<em>core-distance</em>) dla zadanego <span class="math inline">\(m_s\)</span> określamy jako <span class="math display">\[
 \operatorname{core-dist}(x)=d\!\big(x,\ x_{(m_s)}\big),
-\]</span> gdzie <span class="math inline">\(x_{(k)}\)</span> oznacza <span class="math inline">\(k\)</span>-tego najbliższego sąsiada <span class="math inline">\(x\)</span>. Odległość wzajemnej osiągalności (<em>mutual reachability distance</em>) określamy jako <span class="math display">\[
+\]</span> gdzie <span class="math inline">\(x_{(k)}\)</span> oznacza <span class="math inline">\(k\)</span>-tego najbliższego sąsiada <span class="math inline">\(x\)</span>. Odległość wzajemnej osiągalności (<em>mutual reachability distance</em>)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> określamy jako <span class="math display">\[
 d_{\text{mreach}}(x,y)=\max\big\{\operatorname{core-dist}(x),\ \operatorname{core-dist}(y),\ d(x,y)\big\}.
-\]</span> Ta metryka „spłaszcza” różnice gęstości: dwa punkty są „bliskie” tylko jeśli oba leżą w porównywalnie gęstych regionach. Następnie dokonujemy transformacji gęstościowej <span class="math display">\[
-\lambda(x,y)=\frac{1}{d_{\text{mreach}}(x,y)}\quad(\text{większa } \lambda \Rightarrow większa gęstość).
-\]</span> 2. Graf sąsiedztwa i drzewo minimalnego rozpinającego</p>
+\]</span></p>
+<div class="no-row-height column-margin column-container"><div id="fn4"><p><sup>4</sup>&nbsp;<span class="math inline">\(d_{\text{mreach}}(x,y)\)</span> nie mierzy „jak daleko” leżą punkty w sensie geometrycznym, lecz raczej „jak trudno” jest je połączyć w strukturze gęstościowej. Jeżeli oba punkty leżą w gęstym regionie i są blisko siebie, wówczas wszystkie trzy składniki maksimum są małe i <span class="math inline">\(d_{\text{mreach}}(x,y)\)</span> również jest mała. Jeżeli jednak choć jeden z punktów znajduje się w obszarze rzadkim (ma dużą <span class="math inline">\(\operatorname{core-dist}\)</span>) lub punkty są geometrycznie daleko od siebie, wówczas <span class="math inline">\(d_{\text{mreach}}(x,y)\)</span> przyjmuje dużą wartość.</p></div></div><p>Następnie dokonujemy transformacji gęstościowej <span class="math display">\[
+\lambda(x,y)=\frac{1}{d_{\text{mreach}}(x,y)}\quad(\text{większa } \lambda \Rightarrow \text{większa gęstość}).
+\]</span></p>
+<ol start="2" type="1">
+<li>Graf sąsiedztwa i drzewo minimalnego rozpinającego</li>
+</ol>
 <p>Budujemy graf sąsiedztwa nad <span class="math inline">\(X\)</span> z wagami <span class="math inline">\(d_{\text{mreach}}(\cdot,\cdot)\)</span>. W praktyce stosujemy graf k-NN (z <span class="math inline">\(k=m_s\)</span> lub większym) w celu ograniczenia liczby krawędzi. Następnie obliczamy <em>minimum spanning tree</em> (MST) wagi <span class="math inline">\(d_{\text{mreach}}\)</span>. Drzewo MST koduje „najtańsze” (najgęstsze) połączenia między punktami — z nim powiązana jest hierarchia klastrów.</p>
 <ol start="3" type="1">
 <li>Tworzenie hierarchii klastrów gęstości</li>
@@ -1266,22 +1277,15 @@ d_{\text{mreach}}(x,y)=\max\big\{\operatorname{core-dist}(x),\ \operatorname{cor
 </ol>
 <p>Przechodzimy po drzewie klastrów gęstości od najwyższego poziomu (gęstości) w dół, usuwając gałęzie o liczności mniejszej niż <span class="math inline">\(m_c\)</span>. W efekcie powstaje skondensowane drzewo, w którym każda gałąź reprezentuje klaster o co najmniej <span class="math inline">\(m_c\)</span> punktach, a zmiany liczności są rejestrowane na poziomach gęstości, przy których klastry się łączą lub rozszczepiają.</p>
 <ol start="5" type="1">
-<li>Miara stabilności klastra i wybór rozkroju</li>
+<li>Miara stabilności klastra i wybór podziału</li>
 </ol>
 <p>Dla każdej gałęzi (klastra) <span class="math inline">\(C\)</span> w skondensowanym drzewie definiujemy miarę stabilności jako <span class="math display">\[
 \mathrm{Stab}(C) = \sum_{x_i \in C} \big(\lambda_{\text{death}}(x_i) - \lambda_{\text{birth}}(C)\big),
-\]</span> gdzie <span class="math inline">\(\lambda_{\text{birth}}(C)\)</span> to poziom gęstości, przy którym klaster <span class="math inline">\(C\)</span> się pojawia (rodzi), a <span class="math inline">\(\lambda_{\text{death}}(x_i)\)</span> to poziom, przy którym punkt <span class="math inline">\(x_i\)</span> opuszcza klaster (gdy <span class="math inline">\(C\)</span> się rozszczepia lub znika). Intuicyjnie, stabilność mierzy „czas życia” punktów w klastrze ważony przez gęstość. Następnie wybieramy zbiór gałęzi maksymalizujący łączną stabilność, przy czym gałęzie nie mogą się nakładać (rodzic-potomkowie). Ten zbiór stanowi ostateczny podział danych na klastry</p>
+\]</span> gdzie <span class="math inline">\(\lambda_{\text{birth}}(C)\)</span> to poziom gęstości, przy którym klaster <span class="math inline">\(C\)</span> się pojawia (rodzi), a <span class="math inline">\(\lambda_{\text{death}}(x_i)\)</span> to poziom, przy którym punkt <span class="math inline">\(x_i\)</span> opuszcza klaster (gdy <span class="math inline">\(C\)</span> się rozszczepia lub znika). Intuicyjnie, stabilność mierzy „czas życia” punktów w klastrze ważony przez gęstość. Następnie wybieramy zbiór gałęzi maksymalizujący łączną stabilność, przy czym gałęzie nie mogą się nakładać (rodzic-potomkowie). Ten zbiór stanowi ostateczny podział danych na klastry.</p>
 <ol start="6" type="1">
 <li>Przypisanie punktów i „miękkie” przynależności</li>
 </ol>
 <p>Punkty należące do wybranych gałęzi otrzymują etykiety klastrów. Punkty nieprzypisane traktujemy jako szum. Opcjonalnie można obliczyć „miękkie” przynależności do klastrów na podstawie stabilności oraz odległości do klastrów, a także wskaźnik <em>outlier score</em> opisujący stopień bycia punktem odstającym.</p>
-<ol start="7" type="1">
-<li>Parametry modelu</li>
-</ol>
-<ul>
-<li>minimalny rozmiar klastra <span class="math inline">\(m_c\)</span> — określa najmniejszą liczbę punktów, aby gałąź była uznana za klaster podczas kondensacji;</li>
-<li>minimalny rozmiar próbki <span class="math inline">\(m_s\)</span> — używany do obliczenia odległości rdzeniowej; zwykle przyjmuje się <span class="math inline">\(m_s = m_c\)</span> lub nieco większe.</li>
-</ul>
 <div class="{$#exm-5}">
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- Pakiety ---</span></span>
@@ -1433,7 +1437,7 @@ P(x_i, z_i = k) = \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k).
 </ol>
 <p>Zadaniem estymacji parametrów jest maksymalizacja funkcji wiarygodności <span class="math display">\[
 L(\pi, \mu, \Sigma \mid X) = \prod_{i=1}^{n} \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k).
-\]</span> Bezpośrednia maksymalizacja tej funkcji jest trudna, ponieważ zawiera sumę w logarytmie. Z tego powodu stosuje się algorytm EM (<em>Expectation–Maximization</em>), który iteracyjnie przybliża rozwiązanie.</p>
+\]</span> Bezpośrednia maksymalizacja tej funkcji jest trudna, z tego powodu stosuje się algorytm EM (<em>Expectation–Maximization</em>), który iteracyjnie przybliża rozwiązanie.</p>
 <ol start="4" type="1">
 <li>Algorytm EM dla GMM</li>
 </ol>
@@ -1481,11 +1485,11 @@ N_k^{(t+1)} = \sum_{i=1}^{n} \gamma_{ik}^{(t)}, \quad
 </ul>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 23%">
-<col style="width: 42%">
-<col style="width: 10%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 25%">
+<col style="width: 18%">
 </colgroup>
 <thead><tr class="header">
 <th>Pozycja</th>

@@ -439,7 +439,7 @@ $$ Wynika stąd reguła „przypisz do najbliższego centroidu”, co geometrycz
 odpowiada podziałowi przestrzeni na komórki Woronoja wyznaczone przez
 $\{\mu_k\}$.
 
-![](images/kmeans_animation.gif)
+![](images/kmeans_animation-ezgif.com-speed.gif)
 
 Złożenie obu kroków prowadzi do procedury znanej jako *Lloyd’s algorithm*:
 
@@ -771,7 +771,7 @@ $$ traktujemy jako szum lub punkty odosobnione (*noise*).
 
 ![](images/dbscan.png){fig-width="70%" width="700"}
 
-:::{#exm-3}
+::: {#exm-3}
 ```{r}
 # --- Pakiety ---
 library(dbscan)
@@ -822,103 +822,117 @@ fviz_cluster(
 
 ### Algorytm OPTICS
 
-Niech $X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p$ oznaczać zbiór
+Niech $X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p$ oznacza zbiór
 obserwacji, a $d(\cdot,\cdot)$ — dowolną metrykę w tej przestrzeni (np.
-euklidesową). Algorytm OPTICS rozszerza koncepcję DBSCAN, eliminując
-konieczność ustalania jednej wartości promienia sąsiedztwa. Zamiast tego
-wprowadza się dwa parametry:
+euklidesową). Algorytm OPTICS (*Ordering Points To Identify the Clustering
+Structure*) stanowi uogólnienie DBSCAN, którego celem nie jest bezpośrednie
+wyznaczenie klastrów dla jednej skali gęstości, lecz rekonstrukcja struktury
+klastrowej w szerokim zakresie gęstości.
+
+W tym celu algorytm wprowadza dwa parametry:
 
 -   maksymalny promień sąsiedztwa $\varepsilon_{\max} > 0$,
 -   minimalną liczbę punktów w sąsiedztwie $\text{MinPts} \in \mathbb{N}$.
 
+Parametr $\varepsilon_{\max}$ ogranicza zakres lokalnych obliczeń, natomiast
+$\text{MinPts}$ definiuje pojęcie lokalnej gęstości, analogicznie jak w DBSCAN.
+
 1.  Maksymalne sąsiedztwo punktu
 
-Dla każdego punktu $x \in X$ definiuje się jego sąsiedztwo w promieniu
-$\varepsilon_{\max}$ $$
-\mathcal{N}_{\varepsilon_{\max}}(x) = \{ y \in X : d(x,y) \le \varepsilon_{\max} \}.
-$$ Jest to zbiór wszystkich punktów w zasięgu maksymalnym, z którego będą
-obliczane lokalne miary gęstości.
+Dla każdego punktu $x \in X$ definiuje się jego maksymalne sąsiedztwo jako
+$\mathcal{N}_{\varepsilon_{\max}}(x) = \{ y \in X : d(x,y) \le \varepsilon_{\max} \}$.
+Jest to zbiór punktów branych pod uwagę przy wyznaczaniu lokalnych miar
+gęstości oraz relacji osiągalności.
 
 2.  Odległość rdzeniowa (*core-distance*)
 
-Dla punktu $x \in X,$ jeśli w jego sąsiedztwie znajduje się co najmniej
-$\text{MinPts}$ punktów, to jego odległość rdzeniowa jest zdefiniowana jako $$
+Jeżeli punkt $x$ posiada w swoim sąsiedztwie co najmniej $\text{MinPts}$
+punktów, to jego odległość rdzeniowa definiowana jest jako
+
+$$
 \text{core-dist}(x) =
 \begin{cases}
-d(x, x{(\text{MinPts})}), & \text{jeśli } |\mathcal{N}_{\varepsilon_{\max}}(x)| \ge \text{MinPts}, \\[6pt]
+d(x, x_{(\text{MinPts})}), & \text{jeśli } |\mathcal{N}_{\varepsilon_{\max}}(x)| \ge \text{MinPts}, \\[6pt]
 \text{niezdefiniowana}, & \text{w przeciwnym razie.}
 \end{cases}
-$$ gdzie $x_{(\text{MinPts})}$ oznacza *MinPts*-ty najbliższy punkt względem
-$x$ w zbiorze $\mathcal{N}_{\varepsilon_{\max}}(x)$. Intuicyjnie,
-$\text{core-dist}(x)$ opisuje minimalny promień kuli wokół $x$, który zawiera
-co najmniej $\text{MinPts}$ punktów, a więc jest lokalną miarą gęstości.
+$$ gdzie $x_{(\text{MinPts})}$ oznacza $\text{MinPts}$-ty najbliższy punkt
+względem $x$ w zbiorze $\mathcal{N}_{\varepsilon_{\max}}(x)$.
 
-3.  Odległość osiągalności (*reachability-distance*)
-
-Dla dwóch punktów $x, y \in X$ takich, że
-$y \in \mathcal{N}_{\varepsilon_{\max}}(x)$, definiuje się $$
-\text{reach-dist}(y \mid x) =
-\max\{\text{core-dist}(x),\, d(x, y)\}.
-$$ Wartość ta mierzy minimalną odległość, przy której punkt $y$ jest osiągalny
-z punktu $x$ przy zachowaniu zadanej gęstości. Jeśli $\text{core-dist}(x)$ jest
-mała, to region wokół $x$ jest gęsty, a punkty w jego sąsiedztwie mają niską
-odległość osiągalności.
+Wielkość $\text{core-dist}(x)$ stanowi lokalną miarę gęstości: im mniejsza jej
+wartość, tym gęstszy jest obszar wokół punktu $x$.
 
 ![](images/core_dist.png)
 
+3.  Odległość osiągalności (*reachability-distance*)
+
+Dla punktu $y \in \mathcal{N}_{\varepsilon_{\max}}(x)$, gdzie $x$ jest punktem
+rdzeniowym, definiuje się warunkową odległość osiągalności $$
+\text{reach-dist}(y \mid x) = \max\{\text{core-dist}(x),\, d(x,y)\}.
+$$
+
+Wartość ta opisuje minimalną skalę odległości, przy której punkt $y$ może
+zostać „dołączony” do struktury gęstości reprezentowanej przez punkt rdzeniowy
+$x$. Łączy ona informację o lokalnej gęstości (poprzez $\text{core-dist}(x)$)
+oraz o faktycznej odległości geometrycznej. W algorytmie OPTICS każdemu
+punktowi $y$ przypisywana jest jedna aktualna wartość $\text{reach-dist}(y)$,
+rozumiana jako minimum po wszystkich dotychczas rozważanych punktach
+rdzeniowych, z których $y$ jest osiągalny.
+
 4.  Kolejka priorytetowa (*SeedList*)
 
-Podczas przetwarzania punktów, OPTICS utrzymuje kolejkę priorytetową punktów
-sąsiednich (*SeedList*). Każdy punkt $y$ wstawia się do tej kolejki z
-priorytetem równym $\text{reach-dist}(y)$. Algorytm zawsze wybiera do dalszego
-przetwarzania punkt o najmniejszej wartości $\text{reach-dist}$, co gwarantuje
-eksplorację przestrzeni od regionów gęstych ku rzadszym.
+W trakcie działania algorytmu utrzymywana jest kolejka priorytetowa *SeedList*,
+zawierająca punkty nieodwiedzone, które są osiągalne z już przetworzonych
+punktów rdzeniowych. Priorytetem punktu $y$ w tej kolejce jest jego aktualna
+wartość $\text{reach-dist}(y)$. Mechanizm ten powoduje, że algorytm eksploruje
+przestrzeń danych w kolejności rosnącej odległości osiągalności, czyli od
+regionów najbardziej gęstych do coraz rzadszych.
 
 5.  Kolejność przetwarzania punktów
 
-Dla każdego nieodwiedzonego punktu $x_i \in X$
+Algorytm działa iteracyjnie według następującego schematu:
 
+-   Jeśli *SeedList* jest pusta, wybiera się dowolny nieodwiedzony punkt
+    $x_i \in X$ jako nowy punkt startowy.
+-   Punkt $x_i$ oznacza się jako odwiedzony i dodaje do listy *OrderList*.
 -   Oblicza się $\mathcal{N}_{\varepsilon_{\max}}(x_i)$.
--   Dodaje się $x_i$ do listy *OrderList* (kolejności odwiedzin).
--   Jeśli $x_i$ jest rdzeniowy, oblicza się jego $\text{core-dist}(x_i)$ i
-    aktualizuje odległości osiągalności wszystkich punktów
-    $y \in \mathcal{N}_{\varepsilon_{\max}}(x_i)$ $$
-    \text{reach-dist}(y) = \min\big( \text{reach-dist}(y),\ \max\{\text{core-dist}(x_i), d(x_i, y)\} \big).
-    $$ Każdy taki punkt dodaje się do *SeedList* z priorytetem równym
-    zaktualizowanej wartości $\text{reach-dist}(y)$.
--   Następnie wybiera się z *SeedList* punkt o najmniejszej wartości
-    $\text{reach-dist}$ i powtarza proces, aż kolejka będzie pusta.
-
-W ten sposób powstaje uporządkowana lista punktów wraz z przypisaną im
-wartością $\text{reach-dist}$.
+-   Jeżeli $x_i$ jest punktem rdzeniowym, to:
+    -   oblicza się $\text{core-dist}(x_i)$,
+    -   dla każdego nieodwiedzonego punktu
+        $y \in \mathcal{N}_{\varepsilon_{\max}}(x_i)$ wyznacza się kandydacką
+        wartość
+        $\text{reach-dist}(y \mid x_i) = \max\{\text{core-dist}(x_i), d(x_i,y)\}$
+    -   aktualizuje się
+        $\text{reach-dist}(y) = \min\bigl(\text{reach-dist}(y),\ \text{reach-dist}(y \mid x_i)\bigr)$,
+        przy czym dla punktów nowo napotkanych $\text{reach-dist}(y)$
+        inicjalizuje się wartością $+\infty,$
+    -   punkt $y$ umieszcza się (lub aktualizuje) w *SeedList* z priorytetem
+        równym jego aktualnej wartości $\text{reach-dist}(y)$.
+-   Jeżeli *SeedList* nie jest pusta, wybiera się z niej punkt o najmniejszej
+    wartości $\text{reach-dist}$ i powtarza powyższy proces.
 
 6.  Wynik algorytmu
 
 Po przetworzeniu wszystkich punktów algorytm zwraca:
 
--   uporządkowaną listę punktów
-    $\text{OrderList} = (x_{i_1}, x_{i_2}, \dots, x_{i_n})$,
--   odpowiadające im wartości odległości osiągalności $$
-    R(x_{i_j}) = \text{reach-dist}(x_{i_j}).
-    $$
+- uporządkowaną listę punktów $\text{OrderList} = (x_{i_1}, x_{i_2}, \dots, x_{i_n}),$
+- odpowiadające im wartości osiągalności $R(x_{i_j}) =
+\text{reach-dist}(x_{i_j})$.
 
-Na tej podstawie tworzy się wykres osiągalności (*reachability plot*), na
-którym oś pozioma przedstawia kolejność punktów z *OrderList*, a oś pionowa –
-wartości $R(x)$.
-
-Doliny (lokalne minima $R(x)$) odpowiadają klastrom o wysokiej gęstości, a
-szczyty – granicom między nimi lub obszarom szumu.
+Na tej podstawie konstruuje się wykres osiągalności (*reachability plot*), gdzie
+oś pozioma odpowiada kolejności punktów w *OrderList*, a oś pionowa wartościom
+$R(x)$. Lokalne minima wykresu (doliny) odpowiadają klastrom o wysokiej gęstości,
+natomiast wysokie wartości sygnalizują granice klastrów lub obszary szumu.
 
 7.  Relacja z DBSCAN
 
-Z wyników OPTICS można odtworzyć rozwiązania DBSCAN dla dowolnego progu
-gęstości $\varepsilon \le \varepsilon_{\max}$ $$
-C_k(\varepsilon) = \{ x \in X : R(x) \le \varepsilon \}.
-$$ W odróżnieniu od DBSCAN, który tworzy pojedynczy podział dla jednej wartości
-\varepsilon, OPTICS analizuje ciągłe spektrum gęstości i ujawnia strukturę
-klastrów wieloskalarowo.
+Na podstawie wyników OPTICS można odtworzyć rozwiązania DBSCAN dla dowolnego
+progu gęstości $\varepsilon \le \varepsilon_{\max}$, wybierając punkty
+spełniające $C_k(\varepsilon) = { x \in X : R(x) \le \varepsilon }.$ W przeciwieństwie do DBSCAN, który generuje jeden podział danych dla ustalonej wartości $\varepsilon$, OPTICS ujawnia strukturę klastrów w sposób wieloskalowy,
+umożliwiając analizę gęstości na ciągłym spektrum parametrów.
 
-:::{$#exm-4}
+
+
+::: {$#exm-4}
 ```{r}
 # --- Pakiety ---
 library(dbscan)
@@ -955,6 +969,8 @@ plot(opt,
      ylab = "reachability", xlab = "porządek OPTICS")
 
 # --- 2) Wydobycie klastrów metodą Xi ---
+# Polega ona na identyfikacji klastrów jako ciągłych segmentów wykresu
+# reachability, które wykazują znaczący spadek wartości osiągalności.
 # --- Lista wartości Xi ---
 xi_vals <- c(0.01, 0.03, 0.05, 0.10, 0.15, 0.20)
 
@@ -1016,6 +1032,10 @@ print(p_db)
 ```
 :::
 
+[^cluster-4]: Jeśli punkt $y$ nie był jeszcze w *SeedList*, to jego wartość
+    $\text{reach-dist}(y)$ jest inicjalizowana na nieskończoność przed
+    aktualizacją.
+
 ### Algorytm HDBSCAN
 
 Przymijmy metrykę $d(\cdot, \cdot)$, zbiór danych
@@ -1030,13 +1050,18 @@ Określmy sąsiedztwo w promieniu $\varepsilon$ $$
 $$ Odległość rdzeniowa (*core-distance*) dla zadanego $m_s$ określamy jako $$
 \operatorname{core-dist}(x)=d\!\big(x,\ x_{(m_s)}\big),
 $$ gdzie $x_{(k)}$ oznacza $k$-tego najbliższego sąsiada $x$. Odległość
-wzajemnej osiągalności (*mutual reachability distance*) określamy jako $$
+wzajemnej osiągalności (*mutual reachability distance*)[^d_mreach] określamy jako $$
 d_{\text{mreach}}(x,y)=\max\big\{\operatorname{core-dist}(x),\ \operatorname{core-dist}(y),\ d(x,y)\big\}.
-$$ Ta metryka „spłaszcza” różnice gęstości: dwa punkty są „bliskie” tylko jeśli
-oba leżą w porównywalnie gęstych regionach. Następnie dokonujemy transformacji
+$$
+
+[^d_mreach]: $d_{\text{mreach}}(x,y)$ nie mierzy „jak daleko” leżą punkty w sensie geometrycznym, lecz raczej „jak trudno” jest je połączyć w strukturze gęstościowej. Jeżeli oba punkty leżą w gęstym regionie i są blisko siebie, wówczas wszystkie trzy składniki maksimum są małe i $d_{\text{mreach}}(x,y)$ również jest mała. Jeżeli jednak choć jeden z punktów znajduje się w obszarze rzadkim (ma dużą $\operatorname{core-dist}$) lub punkty są geometrycznie daleko od siebie, wówczas $d_{\text{mreach}}(x,y)$ przyjmuje dużą wartość.
+
+Następnie dokonujemy transformacji
 gęstościowej $$
-\lambda(x,y)=\frac{1}{d_{\text{mreach}}(x,y)}\quad(\text{większa } \lambda \Rightarrow większa gęstość).
-$$ 2. Graf sąsiedztwa i drzewo minimalnego rozpinającego
+\lambda(x,y)=\frac{1}{d_{\text{mreach}}(x,y)}\quad(\text{większa } \lambda \Rightarrow \text{większa gęstość}).
+$$ 
+
+2. Graf sąsiedztwa i drzewo minimalnego rozpinającego
 
 Budujemy graf sąsiedztwa nad $X$ z wagami $d_{\text{mreach}}(\cdot,\cdot)$. W
 praktyce stosujemy graf k-NN (z $k=m_s$ lub większym) w celu ograniczenia
@@ -1061,7 +1086,7 @@ skondensowane drzewo, w którym każda gałąź reprezentuje klaster o co najmni
 $m_c$ punktach, a zmiany liczności są rejestrowane na poziomach gęstości, przy
 których klastry się łączą lub rozszczepiają.
 
-5.  Miara stabilności klastra i wybór rozkroju
+5.  Miara stabilności klastra i wybór podziału
 
 Dla każdej gałęzi (klastra) $C$ w skondensowanym drzewie definiujemy miarę
 stabilności jako $$
@@ -1072,7 +1097,7 @@ punkt $x_i$ opuszcza klaster (gdy $C$ się rozszczepia lub znika). Intuicyjnie,
 stabilność mierzy „czas życia” punktów w klastrze ważony przez gęstość.
 Następnie wybieramy zbiór gałęzi maksymalizujący łączną stabilność, przy czym
 gałęzie nie mogą się nakładać (rodzic-potomkowie). Ten zbiór stanowi ostateczny
-podział danych na klastry
+podział danych na klastry.
 
 6.  Przypisanie punktów i „miękkie” przynależności
 
@@ -1082,14 +1107,8 @@ przynależności do klastrów na podstawie stabilności oraz odległości do
 klastrów, a także wskaźnik *outlier score* opisujący stopień bycia punktem
 odstającym.
 
-7.  Parametry modelu
 
--   minimalny rozmiar klastra $m_c$ — określa najmniejszą liczbę punktów, aby
-    gałąź była uznana za klaster podczas kondensacji;
--   minimalny rozmiar próbki $m_s$ — używany do obliczenia odległości
-    rdzeniowej; zwykle przyjmuje się $m_s = m_c$ lub nieco większe.
-
-:::{$#exm-5}
+::: {$#exm-5}
 ```{r}
 # --- Pakiety ---
 library(dbscan)
@@ -1189,100 +1208,118 @@ print(p_hdb)
 
 ### Model mieszanin Gaussowskich (GMM)
 
-Model mieszanek Gaussa (ang. *Gaussian Mixture Model*, GMM) jest jednym z klasycznych probabilistycznych modeli klasteryzacyjnych. W przeciwieństwie do metod geometrycznych, takich jak k-means czy DBSCAN, które dzielą przestrzeń na obszary na podstawie odległości, GMM opisuje rozkład danych jako kombinację (mieszaninę) wielu rozkładów normalnych. Dzięki temu umożliwia modelowanie złożonych, nakładających się struktur oraz ocenę niepewności przypisań punktów do klastrów.
+Model mieszanek Gaussa (ang. *Gaussian Mixture Model*, GMM) jest jednym z
+klasycznych probabilistycznych modeli klasteryzacyjnych. W przeciwieństwie do
+metod geometrycznych, takich jak k-means czy DBSCAN, które dzielą przestrzeń na
+obszary na podstawie odległości, GMM opisuje rozkład danych jako kombinację
+(mieszaninę) wielu rozkładów normalnych. Dzięki temu umożliwia modelowanie
+złożonych, nakładających się struktur oraz ocenę niepewności przypisań punktów
+do klastrów.
 
-1. Idea modelu mieszanek Gaussa
+1.  Idea modelu mieszanek Gaussa
 
-Zakłada się, że populacja danych pochodzi z mieszaniny $K$ rozkładów normalnych, z których każdy odpowiada jednemu klastrowi. Dla obserwacji $x_i \in \mathbb{R}^d$ zakłada się
-$$
+Zakłada się, że populacja danych pochodzi z mieszaniny $K$ rozkładów
+normalnych, z których każdy odpowiada jednemu klastrowi. Dla obserwacji
+$x_i \in \mathbb{R}^d$ zakłada się $$
 p(x_i) = \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k)
-$$
-gdzie
+$$ gdzie
 
-- $\pi_k$ – waga (udział) $k$-tej składowej, $\pi_k \ge 0$ i $\sum_{k=1}^{K} \pi_k = 1$,
-- $\mu_k$ – wektor średnich (centrum) $k$-tej składowej,
-- $\Sigma_k$ – macierz kowariancji $k$-tej składowej,
-- $\mathcal{N}(x_i \mid \mu_k, \Sigma_k)$ – gęstość wielowymiarowego rozkładu normalnego
-$$
-\mathcal{N}(x \mid \mu, \Sigma) = \frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}} \exp\!\left[-\frac{1}{2}(x-\mu)^\top \Sigma^{-1}(x-\mu)\right].
-$$
-W ten sposób model GMM stanowi probabilistyczną wersję klasteryzacji, w której każdy punkt może należeć do kilku klastrów z określonymi prawdopodobieństwami.
+-   $\pi_k$ – waga (udział) $k$-tej składowej, $\pi_k \ge 0$ i
+    $\sum_{k=1}^{K} \pi_k = 1$,
+-   $\mu_k$ – wektor średnich (centrum) $k$-tej składowej,
+-   $\Sigma_k$ – macierz kowariancji $k$-tej składowej,
+-   $\mathcal{N}(x_i \mid \mu_k, \Sigma_k)$ – gęstość wielowymiarowego rozkładu
+    normalnego $$
+    \mathcal{N}(x \mid \mu, \Sigma) = \frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}} \exp\!\left[-\frac{1}{2}(x-\mu)^\top \Sigma^{-1}(x-\mu)\right].
+    $$ W ten sposób model GMM stanowi probabilistyczną wersję klasteryzacji, w
+    której każdy punkt może należeć do kilku klastrów z określonymi
+    prawdopodobieństwami.
 
-2. Zmienne ukryte i interpretacja probabilistyczna
+2.  Zmienne ukryte i interpretacja probabilistyczna
 
-Wprowadza się zmienną ukrytą $z_i \in \{1, \dots, K\}$, oznaczającą, z którego składnika mieszaniny pochodzi obserwacja $x_i$. Model przyjmuje wtedy postać
-$$
+Wprowadza się zmienną ukrytą $z_i \in \{1, \dots, K\}$, oznaczającą, z którego
+składnika mieszaniny pochodzi obserwacja $x_i$. Model przyjmuje wtedy postać $$
 P(x_i, z_i = k) = \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k).
-$$
-Dla każdego punktu oblicza się *posterior probability* (prawdopodobieństwo przynależności do klastra)
-$$
+$$ Dla każdego punktu oblicza się *posterior probability* (prawdopodobieństwo
+przynależności do klastra) $$
 \gamma_{ik} = P(z_i = k \mid x_i) =
 \frac{\pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k)}{\sum_{j=1}^{K} \pi_j \, \mathcal{N}(x_i \mid \mu_j, \Sigma_j)}.
-$$
-Wartość $\gamma_{ik}$ mieści się w przedziale $[0,1]$ i można ją interpretować jako miękkie przypisanie punktu do klastra. W przeciwieństwie do k-means, które wymusza jednoznaczne etykiety, GMM dopuszcza probabilistyczne przypisania.
+$$ Wartość $\gamma_{ik}$ mieści się w przedziale $[0,1]$ i można ją
+interpretować jako miękkie przypisanie punktu do klastra. W przeciwieństwie do
+k-means, które wymusza jednoznaczne etykiety, GMM dopuszcza probabilistyczne
+przypisania.
 
-3. Funkcja wiarygodności
+3.  Funkcja wiarygodności
 
-Zadaniem estymacji parametrów jest maksymalizacja funkcji wiarygodności
-$$
+Zadaniem estymacji parametrów jest maksymalizacja funkcji wiarygodności $$
 L(\pi, \mu, \Sigma \mid X) = \prod_{i=1}^{n} \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k).
-$$
-Bezpośrednia maksymalizacja tej funkcji jest trudna, ponieważ zawiera sumę w logarytmie. Z tego powodu stosuje się algorytm EM (*Expectation–Maximization*), który iteracyjnie przybliża rozwiązanie.
+$$ Bezpośrednia maksymalizacja tej funkcji jest trudna, z tego powodu stosuje się algorytm EM (*Expectation–Maximization*),
+który iteracyjnie przybliża rozwiązanie.
 
-4. Algorytm EM dla GMM
+4.  Algorytm EM dla GMM
 
-Algorytm EM (Dempster, Laird i Rubin, 1977) składa się z dwóch naprzemiennych etapów:
+Algorytm EM (Dempster, Laird i Rubin, 1977) składa się z dwóch naprzemiennych
+etapów:
 
--  Krok *Expectation* - obliczanie *posterior probabilities* (odpowiedzialności) dla każdego punktu i komponentu
-$$
-\gamma_{ik}^{(t)} =
-\frac{\pi_k^{(t)} \, \mathcal{N}(x_i \mid \mu_k^{(t)}, \Sigma_k^{(t)})}{
-\sum_{j=1}^{K} \pi_j^{(t)} \, \mathcal{N}(x_i \mid \mu_j^{(t)}, \Sigma_j^{(t)}) }.
-$$
-- Krok *Maximization* - aktualizacja parametrów mieszaniny, traktując $\gamma_{ik}$ jako wagi
-$$
-N_k^{(t+1)} = \sum_{i=1}^{n} \gamma_{ik}^{(t)}, \quad
-\pi_k^{(t+1)} = \frac{N_k^{(t+1)}}{n},
-$$
-$$
-\mu_k^{(t+1)} = \frac{1}{N_k^{(t+1)}} \sum_{i=1}^{n} \gamma_{ik}^{(t)} x_i,
-$$
-$$
-\Sigma_k^{(t+1)} = \frac{1}{N_k^{(t+1)}} \sum_{i=1}^{n} \gamma_{ik}^{(t)} (x_i - \mu_k^{(t+1)})(x_i - \mu_k^{(t+1)})^\top.
-$$
-Proces powtarza się aż do zbieżności log-wiarygodności
-$$
-\ell^{(t)} = \sum_{i=1}^{n} \log \left[ \sum_{k=1}^{K} \pi_k^{(t)} \, \mathcal{N}(x_i \mid \mu_k^{(t)}, \Sigma_k^{(t)}) \right].
-$$
-5. Wybór liczby składników $K$
+-   Krok *Expectation* - obliczanie *posterior probabilities*
+    (odpowiedzialności) dla każdego punktu i komponentu $$
+    \gamma_{ik}^{(t)} =
+    \frac{\pi_k^{(t)} \, \mathcal{N}(x_i \mid \mu_k^{(t)}, \Sigma_k^{(t)})}{
+    \sum_{j=1}^{K} \pi_j^{(t)} \, \mathcal{N}(x_i \mid \mu_j^{(t)}, \Sigma_j^{(t)}) }.
+    $$
+-   Krok *Maximization* - aktualizacja parametrów mieszaniny, traktując
+    $\gamma_{ik}$ jako wagi $$
+    N_k^{(t+1)} = \sum_{i=1}^{n} \gamma_{ik}^{(t)}, \quad
+    \pi_k^{(t+1)} = \frac{N_k^{(t+1)}}{n},
+    $$ $$
+    \mu_k^{(t+1)} = \frac{1}{N_k^{(t+1)}} \sum_{i=1}^{n} \gamma_{ik}^{(t)} x_i,
+    $$ $$
+    \Sigma_k^{(t+1)} = \frac{1}{N_k^{(t+1)}} \sum_{i=1}^{n} \gamma_{ik}^{(t)} (x_i - \mu_k^{(t+1)})(x_i - \mu_k^{(t+1)})^\top.
+    $$ Proces powtarza się aż do zbieżności log-wiarygodności $$
+    \ell^{(t)} = \sum_{i=1}^{n} \log \left[ \sum_{k=1}^{K} \pi_k^{(t)} \, \mathcal{N}(x_i \mid \mu_k^{(t)}, \Sigma_k^{(t)}) \right].
+    $$
 
-Liczbę składników mieszaniny (liczbę klastrów) nie określa się z góry, lecz dobiera na podstawie kryteriów informacyjnych, np.:
+5.  Wybór liczby składników $K$
 
-- BIC (*Bayesian Information Criterion*) - $\mathrm{BIC} = -2 \log L_{\max} + p \log n$, gdzie $p$ to liczba parametrów modelu, $n$ liczba obserwacji. Najmniejsza wartość BIC wskazuje najlepszy kompromis między dopasowaniem a złożonością modelu.
-- AIC (*Akaike Information Criterion*) – która mniej penalizuje złożoność $\mathrm{AIC} = -2 \log L_{\max} + 2p.$
+Liczbę składników mieszaniny (liczbę klastrów) nie określa się z góry, lecz
+dobiera na podstawie kryteriów informacyjnych, np.:
 
-6. Struktury kowariancji w GMM
+-   BIC (*Bayesian Information Criterion*) -
+    $\mathrm{BIC} = -2 \log L_{\max} + p \log n$, gdzie $p$ to liczba
+    parametrów modelu, $n$ liczba obserwacji. Najmniejsza wartość BIC wskazuje
+    najlepszy kompromis między dopasowaniem a złożonością modelu.
+-   AIC (*Akaike Information Criterion*) – która mniej penalizuje złożoność
+    $\mathrm{AIC} = -2 \log L_{\max} + 2p.$
 
-Każdy komponent posiada macierz kowariancji $\Sigma_k$, która może mieć różne ograniczenia:
+6.  Struktury kowariancji w GMM
 
-- *spherical* – $\Sigma_k = \sigma^2 I$ - klastry kuliste, identyczne wariancje,
-- *diagonal* – tylko wariancje na przekątnej, brak korelacji między cechami,
-- *ellipsoidal* – pełne macierze kowariancji (dowolne orientacje i rozciągnięcia).
+Każdy komponent posiada macierz kowariancji $\Sigma_k$, która może mieć różne
+ograniczenia:
 
-| Pozycja     | Oznaczenie | Co kontroluje             | Możliwe wartości                                | Znaczenie |
-|--------------|-------------|----------------------------|--------------------------------------------------|------------|
-| 1. litera    | V / E / I   | Objętość (*Volume*)        | V = różna, E = jednakowa, I = jednostkowa       | Jak duży jest klaster – rozmiar elipsoidy |
-| 2. litera    | V / E / I   | Kształt (*Shape*)          | V = różny, E = jednakowy, I = sferyczny         | Proporcje długości osi elipsoidy |
-| 3. litera    | V / E / I   | Orientacja (*Orientation*) | V = różna, E = wspólna, I = brak (sferyczna)    | Ustawienie elipsoidy w przestrzeni |
+-   *spherical* – $\Sigma_k = \sigma^2 I$ - klastry kuliste, identyczne
+    wariancje,
+-   *diagonal* – tylko wariancje na przekątnej, brak korelacji między cechami,
+-   *ellipsoidal* – pełne macierze kowariancji (dowolne orientacje i
+    rozciągnięcia).
 
-7. Ograniczenia i wady
+| Pozycja | Oznaczenie | Co kontroluje | Możliwe wartości | Znaczenie |
+|---------------|---------------|---------------|--------------------|---------------|
+| 1\. litera | V / E / I | Objętość (*Volume*) | V = różna, E = jednakowa, I = jednostkowa | Jak duży jest klaster – rozmiar elipsoidy |
+| 2\. litera | V / E / I | Kształt (*Shape*) | V = różny, E = jednakowy, I = sferyczny | Proporcje długości osi elipsoidy |
+| 3\. litera | V / E / I | Orientacja (*Orientation*) | V = różna, E = wspólna, I = brak (sferyczna) | Ustawienie elipsoidy w przestrzeni |
 
-- Założenie o normalności – każdy klaster ma rozkład Gaussa, co bywa nieadekwatne dla struktur nieregularnych.
-- Wrażliwość na inicjalizację – EM może zbiec do lokalnego maksimum; często używa się wielu startów lub wstępnej inicjalizacji metodą k-means.
-- Brak odporności na odstające obserwacje – skrajne punkty mogą zaburzać estymację kowariancji.
-- Wymóg dodatnio określonych macierzy kowariancji – błędne dane lub współliniowość mogą prowadzić do problemów numerycznych.
+7.  Ograniczenia i wady
 
-:::{$#exm-6}
+-   Założenie o normalności – każdy klaster ma rozkład Gaussa, co bywa
+    nieadekwatne dla struktur nieregularnych.
+-   Wrażliwość na inicjalizację – EM może zbiec do lokalnego maksimum; często
+    używa się wielu startów lub wstępnej inicjalizacji metodą k-means.
+-   Brak odporności na odstające obserwacje – skrajne punkty mogą zaburzać
+    estymację kowariancji.
+-   Wymóg dodatnio określonych macierzy kowariancji – błędne dane lub
+    współliniowość mogą prowadzić do problemów numerycznych.
+
+::: {$#exm-6}
 ```{r}
 # Pakiety
 library(mclust)
