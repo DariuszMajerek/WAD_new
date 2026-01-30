@@ -756,7 +756,7 @@ rdzeniowy $o \in X$ taki, że oba są osiągalne gęstościowo od $o$ $$
 x \leftrightarrow y \quad \Longleftrightarrow \quad \exists_o \in C_{\text{core}}: \ x \overset{}{\leftarrow} o \ \text{i} \ y \overset{}{\leftarrow} o.
 $$ Relacja ta jest symetryczna i służy do definiowania klastrów.
 
-![](images/dens_reach.png){fig-width="70%" width="700"}
+![](images/dbscan_metryki.png){fig-width="70%" width="700"}
 
 5.  Klaster DBSCAN
 
@@ -1130,7 +1130,7 @@ minPts <- 5
 cl <- hdbscan(X4s, minPts = minPts)
 
 # --- Pełne drzewo hierarchii (HDBSCAN*, nieskondensowane) ---
-plot(cl$hc, main = "nieskondensowane drzewo hierarchi gęstości (HDBSCAN*)")
+plot(cl$hc, main = "Nieskondensowane drzewo hierarchii gęstości (HDBSCAN*)")
 
 # --- Skondensowane drzewo hierarchii gęstości ---
 plot(cl, show_flat = TRUE,

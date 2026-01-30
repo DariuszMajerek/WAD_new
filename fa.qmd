@@ -512,7 +512,7 @@ i zasobów zmienności wspólnej.
     minimów. W praktyce wybór metody startowej (np. $R^2$, średnia korelacja,
     ...) ma znaczenie dla szybkości i stabilności algorytmu.
 -   **Możliwość uzyskania ujemnych komunalności** – w niektórych przypadkach
-    iteracje mogą prowadzić do oszacowań $h_j^2 < 0$ (tzw. przypadek Haywooda),
+    iteracje mogą prowadzić do oszacowań $h_j^2 < 0$ (tzw. przypadek Heywooda),
     co jest sprzeczne z definicją wariancji wspólnej. Wówczas konieczne
     stosowanie innych metod estymacji ładunków.
 -   **Mniejsza przydatność przy małych próbach** – ponieważ metoda nie opiera
@@ -523,9 +523,9 @@ i zasobów zmienności wspólnej.
     ML, PAF nie pozwala na formalne testowanie hipotez o liczbie czynników czy
     jakości dopasowania modelu do danych.
 
-### Metoda sładowych głównych (ang. *Principal Component Method*) [@wang2008]
+### Metoda składowych głównych (ang. *Principal Component Method*) [@wang2008]
 
-Metoda sładowych głównych należy do klasy metod wspólnotowych, czyli takich,
+Metoda składowych głównych należy do klasy metod wspólnotowych, czyli takich,
 które zakładają klasyczny model czynnikowy
 
 $$
@@ -598,7 +598,7 @@ własnych pomnożonymi przez odpowiadające im wektory własne.
     własności estymatorów opartych na funkcji wiarygodności (ML).
 -   **Zależność od początkowych oszacowań komunalności** – nieprawidłowy wybór
     startowy może utrudnić uzyskanie sensownych rozwiązań.
--   **Haywood case** – zdarza się, że zasoby zmienności wspólnej mogą
+-   **Heywood case** – zdarza się, że zasoby zmienności wspólnej mogą
     przyjmować wartości ujemne.
 
 ### Metoda minimalizacji reszt (ang. *MINRES*) [@harman1966]
@@ -837,7 +837,7 @@ $$
 h_j^2=\sum_{k=1}^{m}\lambda_{jk}^{2}
 $$ mierzą część wariancji zmiennej $x_j$ wyjaśnioną przez czynniki, bardzo
 niskie $h_j^2$ wskazują słabą reprezentację zmiennej, natomiast bardzo wysokie
-— wraz z ryzykiem ujemnych $\Psi_j$ (przypadki Haywooda) — mogą sygnalizować
+— wraz z ryzykiem ujemnych $\Psi_j$ (przypadki Heywooda) — mogą sygnalizować
 dopasowanie wymuszone lub niewłaściwą liczebność czynników. Sumy kwadratów
 ładunków per czynnik odzwierciedlają wyjaśnioną wspólną wariancję i służą do
 oceny równomierności wkładu czynników.
