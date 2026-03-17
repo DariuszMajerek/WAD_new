@@ -521,7 +521,7 @@ window.Quarto = {
 <div id="lem-1" class="lem theorem lemma page-columns page-full">
 <p><span class="theorem-title"><strong>Lemat 3.1 (Nierówność <strong>Cauchy’ego–Schwarza</strong><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>)</strong></span> Niech <span class="math inline">\(a,b\)</span> będą dwoma wektorami kolumnowymi o wymiarach <span class="math inline">\(p\times 1\)</span>, wówczas</p>
 <div class="no-row-height column-margin column-container"><div id="fn4"><p><sup>4</sup>&nbsp;znanej również jako Cauchy’ego–Buniakowskiego–Schwarza–Bienaymé</p></div></div><p><span class="math display">\[
-(a^\top b)\leq (a^\top a)(b^\top b).
+(a^\top b)^2 \leq (a^\top a)(b^\top b).
 \]</span></p>
 <p>Powyższa nierówność staje się równością jeśli <span class="math inline">\(b=\lambda \cdot a\)</span>, dla pewnej stałej <span class="math inline">\(\lambda\)</span>.</p>
 </div>
@@ -545,7 +545,7 @@ window.Quarto = {
 \]</span> i maksimum osiągane jest dla <span class="math inline">\(\boldsymbol{x} = \boldsymbol{e}_{k+1}\)</span>.</p>
 <p>Twierdzenie to formalizuje intuicję, że <strong>wartości własne</strong> macierzy symetrycznej reprezentują <strong>ekstremalne wartości formy kwadratowej</strong> w kierunkach określonych przez wektory własne.</p>
 </div>
-<p>Oto <strong>matematyczna definicja modelu CCA</strong> oraz <strong>dowód istnienia rozwiązania</strong>, sformułowana ściśle w duchu Twojego tekstu:</p>
+<p>Oto <strong>matematyczna definicja modelu CCA</strong> oraz <strong>dowód istnienia rozwiązania</strong>:</p>
 </section><section id="definicja-modelu" class="level1"><h1>Definicja modelu</h1>
 <p>Niech <span id="eq-normal"><span class="math display">\[
 \begin{pmatrix}
@@ -592,16 +592,16 @@ c=\Sigma_{XX}^{1/2}a,\quad d=\Sigma_{YY}^{1/2}b.
 \bigl(c^\top \mathbf{M}\mathbf{M}^\top c\bigr)^{1/2}\bigl(d^\top d\bigr)^{1/2},
 \quad \text{gdzie }\mathbf{M}=\Sigma_{XX}^{-1/2}\Sigma_{XY}\Sigma_{YY}^{-1/2}.
 \tag{5.1}\]</span></span></p>
-<p>Zatem <span class="math display">\[
+<p>Zatem <span id="eq-cbs2"><span class="math display">\[
 \rho(a,b)^2 \le
 \frac{c^\top\mathbf{M}\mathbf{M}^\top c}{c^\top c}.
-\]</span></p>
+\tag{5.2}\]</span></span></p>
 <p>Ponieważ <span class="math inline">\(\mathbf{M}\mathbf{M}^\top=\Sigma_{XX}^{-1/2}\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}\Sigma_{XX}^{-1/2}\)</span> jest macierzą symetryczną dodatnio określoną, z lematu Rayleigha–Ritza otrzymujemy <span class="math display">\[
 \max_{c\neq 0}\frac{c^\top\mathbf{M}\mathbf{M}^\top c}{c^\top c}=\lambda_1,
 \]</span> gdzie <span class="math inline">\(\lambda_1\)</span> to największa wartość własna tej macierzy, osiągana dla <span class="math inline">\(c=e_1\)</span> – jej wektora własnego.</p>
 <p>Jeśli <span class="math display">\[
 d \propto \Sigma_{YY}^{-1/2}\Sigma_{YX}\Sigma_{XX}^{-1/2}e_1
-\]</span> to <a href="#eq-cbs" class="quarto-xref">Równanie&nbsp;<span>5.1</span></a> staje się równością.</p>
+\]</span> to <a href="#eq-cbs" class="quarto-xref">Równanie&nbsp;<span>5.1</span></a> oraz <a href="#eq-cbs2" class="quarto-xref">Równanie&nbsp;<span>5.2</span></a> staje się równością.</p>
 <p>Wracając do oryginalnych współczynników <span class="math display">\[
 a_1=\Sigma_{XX}^{-1/2}e_1,\quad
 b_1\propto \Sigma_{YY}^{-1/2}\Sigma_{YX}\Sigma_{XX}^{-1/2}e_1.
@@ -706,7 +706,7 @@ X^*=\mathcal{U}^TX+u,\quad Y^*=\mathcal{V}^TY+v \implies
 </section><section id="statystyka-testowa-test-wilka" class="level2"><h2 class="anchored" data-anchor-id="statystyka-testowa-test-wilka">Statystyka testowa – test Wilka</h2>
 <p>W celu przetestowania tej hipotezy, wykorzystuje się statystykę Wilka, która bazuje na iloczynie składników postaci (<span class="math inline">\(1 - \lambda_i\)</span>), gdzie <span class="math inline">\(\lambda_i\)</span> to wartości własne odpowiadające kwadratom korelacji kanonicznych <span class="math display">\[
 \lambda_i = \rho_i^2.
-\]</span> Statystyka Wilkas jest zdefiniowana jako <span class="math display">\[
+\]</span> Statystyka Wilka jest zdefiniowana jako <span class="math display">\[
 \Lambda = \prod_{i=1}^s (1 - \lambda_i).
 \]</span></p>
 <p>Interpretacja - im mniejsze wartości <span class="math inline">\(\Lambda\)</span>, tym większa zależność między zbiorami <span class="math inline">\(X\)</span> i <span class="math inline">\(Y\)</span>. Duże wartości <span class="math inline">\(\lambda_i\)</span> (czyli silne korelacje kanoniczne) powodują, że <span class="math inline">\(\Lambda\)</span> dąży do zera.</p>
@@ -792,7 +792,7 @@ T^2/n = \left|I - S_{YY}^{-1} S_{YX} S_{XX}^{-1} S_{XY} \right| = \prod_{i=1}^s 
 <table class="caption-top table">
 <colgroup>
 <col style="width: 26%">
-<col style="width: 39%">
+<col style="width: 38%">
 <col style="width: 34%">
 </colgroup>
 <thead><tr class="header">
