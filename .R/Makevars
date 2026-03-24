@@ -1,0 +1,7 @@
+FC = /usr/local/bin/gfortran -arch arm64
+F77 = /usr/local/bin/gfortran -arch arm64
+FLIBS = -L/usr/local/gfortran/lib/gcc/aarch64-apple-darwin22/12.2.0 -L/usr/local/gfortran/lib -lemutls_w -lgfortran -lquadmath
+CPPFLAGS += -I/opt/homebrew/opt/libxml2/include/libxml2 -I/opt/homebrew/opt/gettext/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/include/freetype2 -I/opt/homebrew/include/harfbuzz -I/opt/homebrew/include/glib-2.0 -I/opt/homebrew/include/fribidi
+LDFLAGS += -Wl,-rpath,/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libxml2/lib -L/opt/homebrew/opt/gettext/lib -L/usr/local/gfortran/lib/gcc/aarch64-apple-darwin22/12.2.0 -L/usr/local/gfortran/lib -L/opt/homebrew/opt/harfbuzz/lib -L/opt/homebrew/opt/fribidi/lib -L/opt/homebrew/opt/freetype/lib -L/opt/homebrew/opt/libpng/lib -L/opt/homebrew/opt/glib/lib
+PKG_CPPFLAGS += -I/opt/homebrew/opt/libxml2/include/libxml2 -I/opt/homebrew/opt/gettext/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/include/freetype2 -I/opt/homebrew/include/harfbuzz -I/opt/homebrew/include/glib-2.0 -I/opt/homebrew/include/fribidi
+PKG_LIBS += -Wl,-rpath,/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libxml2/lib -L/opt/homebrew/opt/gettext/lib -L/usr/local/gfortran/lib/gcc/aarch64-apple-darwin22/12.2.0 -L/usr/local/gfortran/lib -L/opt/homebrew/opt/harfbuzz/lib -L/opt/homebrew/opt/fribidi/lib -L/opt/homebrew/opt/freetype/lib -L/opt/homebrew/opt/libpng/lib -L/opt/homebrew/opt/glib/lib

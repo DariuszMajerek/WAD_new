@@ -1,0 +1,13 @@
+R_MAKEVARS_USER=/Users/majerek/Desktop/Pollub/wyklady/WAD/WAD_new/.R/Makevars
+PATH=/opt/homebrew/opt/libxml2/bin:/opt/homebrew/bin:/usr/local/bin:${PATH}
+PKG_CONFIG_PATH=/opt/homebrew/opt/libxml2/lib/pkgconfig:/opt/homebrew/opt/harfbuzz/lib/pkgconfig:/opt/homebrew/opt/fribidi/lib/pkgconfig:/opt/homebrew/opt/freetype/lib/pkgconfig:/opt/homebrew/opt/libpng/lib/pkgconfig:/opt/homebrew/opt/glib/lib/pkgconfig
+FC=/usr/local/bin/gfortran -arch arm64
+F77=/usr/local/bin/gfortran -arch arm64
+CPPFLAGS=-I/opt/homebrew/opt/libxml2/include/libxml2 -I/opt/homebrew/opt/gettext/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/include/freetype2 -I/opt/homebrew/include/harfbuzz -I/opt/homebrew/include/glib-2.0 -I/opt/homebrew/include/fribidi
+LDFLAGS=-Wl,-rpath,/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libxml2/lib -L/opt/homebrew/opt/gettext/lib -L/usr/local/gfortran/lib/gcc/aarch64-apple-darwin22/12.2.0 -L/usr/local/gfortran/lib -L/opt/homebrew/opt/harfbuzz/lib -L/opt/homebrew/opt/fribidi/lib -L/opt/homebrew/opt/freetype/lib -L/opt/homebrew/opt/libpng/lib -L/opt/homebrew/opt/glib/lib
+LIBS=-L/opt/homebrew/opt/libxml2/lib -lxml2 -lz -liconv
+LIBRARY_PATH=/opt/homebrew/opt/libomp/lib:/opt/homebrew/opt/libxml2/lib:/opt/homebrew/opt/gettext/lib:/usr/local/gfortran/lib/gcc/aarch64-apple-darwin22/12.2.0:/usr/local/gfortran/lib:/opt/homebrew/opt/harfbuzz/lib:/opt/homebrew/opt/fribidi/lib:/opt/homebrew/opt/freetype/lib:/opt/homebrew/opt/libpng/lib:/opt/homebrew/opt/glib/lib
+CPATH=/opt/homebrew/opt/libxml2/include/libxml2:/opt/homebrew/opt/gettext/include:/opt/homebrew/opt/libomp/include:/opt/homebrew/include/freetype2:/opt/homebrew/include/harfbuzz:/opt/homebrew/include/glib-2.0:/opt/homebrew/include/fribidi
+XML_CONFIG=/opt/homebrew/opt/libxml2/bin/xml2-config
+LIBXML_INCDIR=-I/opt/homebrew/opt/libxml2/include/libxml2
+LIBXML_LIBDIR=-L/opt/homebrew/opt/libxml2/lib
