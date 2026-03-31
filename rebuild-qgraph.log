@@ -1,0 +1,187 @@
+The following package(s) are missing entries in the cache:
+- av
+- candisc
+- collections
+- devtools
+- diffobj
+- dotCall64
+- downlit
+- ellipsis
+- fansi
+- fields
+- flextable
+- fontBitstreamVera
+- fontLiberation
+- fontquiver
+- gdtools
+- gert
+- GGally
+- gganimate
+- ggstats
+- gh
+- gifski
+- gitcreds
+- heplots
+- here
+- hexView
+- Hotelling
+- httpuv
+- httr2
+- ini
+- jose
+- kableExtra
+- languageserver
+- lintr
+- lpSolve
+- miniUI
+- officer
+- packrat
+- pak
+- pkgbuild
+- pkgdown
+- pkgload
+- PKI
+- praise
+- profvis
+- psychTools
+- R.cache
+- rcmdcheck
+- RcppTOML
+- remotes
+- reticulate
+- rex
+- rgl
+- roxygen2
+- rprojroot
+- rsconnect
+- rtf
+- rversions
+- s2
+- sessioninfo
+- sf
+- shiny
+- snowflakeauth
+- sourcetools
+- spam
+- styler
+- svglite
+- testthat
+- transformr
+- units
+- urlchecker
+- usethis
+- waldo
+- whisker
+- wk
+- xdvir
+- xmlparsedata
+- xopen
+These packages will need to be reinstalled.
+
+The following package(s) have broken symlinks into the cache:
+- av
+- candisc
+- collections
+- devtools
+- diffobj
+- dotCall64
+- downlit
+- ellipsis
+- fansi
+- fields
+- flextable
+- fontBitstreamVera
+- fontLiberation
+- fontquiver
+- gdtools
+- gert
+- GGally
+- gganimate
+- ggstats
+- gh
+- gifski
+- gitcreds
+- heplots
+- here
+- hexView
+- Hotelling
+- httpuv
+- httr2
+- ini
+- jose
+- kableExtra
+- languageserver
+- lintr
+- lpSolve
+- miniUI
+- officer
+- packrat
+- pak
+- pkgbuild
+- pkgdown
+- pkgload
+- PKI
+- praise
+- profvis
+- psychTools
+- R.cache
+- rcmdcheck
+- RcppTOML
+- remotes
+- reticulate
+- rex
+- rgl
+- roxygen2
+- rprojroot
+- rsconnect
+- rtf
+- rversions
+- s2
+- sessioninfo
+- sf
+- shiny
+- snowflakeauth
+- sourcetools
+- spam
+- styler
+- svglite
+- testthat
+- transformr
+- units
+- urlchecker
+- usethis
+- waldo
+- whisker
+- wk
+- xdvir
+- xmlparsedata
+- xopen
+Use `renv::repair()` to try and reinstall these packages.
+
+- One or more packages recorded in the lockfile are not installed.
+- Use `renv::status()` for more details.
+* installing *source* package ‘qgraph’ ...
+** this is package ‘qgraph’ version ‘1.9.8’
+** pakiet ‘qgraph’ został pomyślnie rozpakowany oraz sumy MD5 zostały sprawdzone
+** using staged installation
+** libs
+using C++ compiler: ‘Apple clang version 17.0.0 (clang-1700.6.4.2)’
+using SDK: ‘MacOSX26.2.sdk’
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DARMA_DONT_USE_OPENMP -I/opt/homebrew/opt/libxml2/include/libxml2 -I/opt/homebrew/opt/gettext/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/include/freetype2 -I/opt/homebrew/include/harfbuzz -I/opt/homebrew/include/glib-2.0 -I/opt/homebrew/include/fribidi -I'/Users/majerek/Desktop/Pollub/wyklady/WAD/WAD_new/renv/library/macos/R-4.5/aarch64-apple-darwin20/Rcpp/include' -I/opt/R/arm64/include -I/opt/homebrew/opt/libxml2/include/libxml2 -I/opt/homebrew/opt/gettext/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/include/freetype2 -I/opt/homebrew/include/harfbuzz -I/opt/homebrew/include/glib-2.0 -I/opt/homebrew/include/fribidi     -fPIC  -falign-functions=64 -Wall -g -O2   -c RcppExports.cpp -o RcppExports.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DARMA_DONT_USE_OPENMP -I/opt/homebrew/opt/libxml2/include/libxml2 -I/opt/homebrew/opt/gettext/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/include/freetype2 -I/opt/homebrew/include/harfbuzz -I/opt/homebrew/include/glib-2.0 -I/opt/homebrew/include/fribidi -I'/Users/majerek/Desktop/Pollub/wyklady/WAD/WAD_new/renv/library/macos/R-4.5/aarch64-apple-darwin20/Rcpp/include' -I/opt/R/arm64/include -I/opt/homebrew/opt/libxml2/include/libxml2 -I/opt/homebrew/opt/gettext/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/include/freetype2 -I/opt/homebrew/include/harfbuzz -I/opt/homebrew/include/glib-2.0 -I/opt/homebrew/include/fribidi     -fPIC  -falign-functions=64 -Wall -g -O2   -c layout_rcpp.cpp -o layout_rcpp.o
+clang++ -arch arm64 -std=gnu++17 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -L/Library/Frameworks/R.framework/Resources/lib -L/opt/R/arm64/lib -Wl,-rpath,/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libxml2/lib -L/opt/homebrew/opt/gettext/lib -L/usr/local/gfortran/lib/gcc/aarch64-apple-darwin22/12.2.0 -L/usr/local/gfortran/lib -L/opt/homebrew/opt/harfbuzz/lib -L/opt/homebrew/opt/fribidi/lib -L/opt/homebrew/opt/freetype/lib -L/opt/homebrew/opt/libpng/lib -L/opt/homebrew/opt/glib/lib -o qgraph.so RcppExports.o layout_rcpp.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/gfortran/lib/gcc/aarch64-apple-darwin22/12.2.0 -L/usr/local/gfortran/lib -lemutls_w -lgfortran -lquadmath -Wl,-rpath,/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/libxml2/lib -L/opt/homebrew/opt/gettext/lib -L/usr/local/gfortran/lib/gcc/aarch64-apple-darwin22/12.2.0 -L/usr/local/gfortran/lib -L/opt/homebrew/opt/harfbuzz/lib -L/opt/homebrew/opt/fribidi/lib -L/opt/homebrew/opt/freetype/lib -L/opt/homebrew/opt/libpng/lib -L/opt/homebrew/opt/glib/lib -F/Library/Frameworks/R.framework/.. -framework R
+ld: warning: duplicate -rpath '/opt/homebrew/opt/libomp/lib' ignored
+installing to /Users/majerek/Desktop/Pollub/wyklady/WAD/WAD_new/renv/library/macos/R-4.5/aarch64-apple-darwin20/00LOCK-qgraph/00new/qgraph/libs
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+Błąd w poleceniu 'lazyLoadDBinsertVariable(vars[i], from, datafile, ascii, compress, ': 
+  nie można otworzyć pliku '/Users/majerek/Desktop/Pollub/wyklady/WAD/WAD_new/renv/library/macos/R-4.5/aarch64-apple-darwin20/00LOCK-qgraph/00new/qgraph/R/qgraph.rdb': No such file or directory
+Wywołania: <Anonymous> ... code2LazyLoadDB -> makeLazyLoadDB -> lazyLoadDBinsertVariable
+Wykonywanie wstrzymane
+ERROR: lazy loading failed for package ‘qgraph’
+* removing ‘/Users/majerek/Desktop/Pollub/wyklady/WAD/WAD_new/renv/library/macos/R-4.5/aarch64-apple-darwin20/qgraph’
+Komunikat ostrzegawczy:
+W poleceniu 'utils::install.packages(tarball, repos = NULL, type = "source", ':
+  instalacja pakietu ‘/Users/majerek/Desktop/Pollub/wyklady/WAD/WAD_new/repair-tarballs/qgraph_1.9.8.tar.gz’ miała niezerowy status wyjścia

@@ -1,0 +1,4 @@
+Błąd w poleceniu 'loadNamespace("qgraph", lib.loc = lib)': 
+  nie ma pakietu o nazwie ‘qgraph’
+Wywołania: suppressPackageStartupMessages ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Wykonywanie wstrzymane
