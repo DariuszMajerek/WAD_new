@@ -416,8 +416,8 @@ Wartości $R^2$ potwierdzają, że model bardzo dobrze wyjaśnia zmienność `mp
 Modele typu *covariance-based structural equation modeling* (CB-SEM), określane
 po prostu jako SEM, stanowią rozwinięcie i uogólnienie dwóch podejść: analizy
 czynnikowej (CFA) oraz analizy ścieżkowej (*path analysis*). Istota SEM polega
-na tym, że pozwala ono jednocześnie badamy trafność pomiaru zmiennych
-latentnych oraz testujemy hipotezy dotyczące relacji między tymi zmiennymi.
+na tym, że pozwala ono jednocześnie badać trafność pomiaru zmiennych
+latentnych oraz testować hipotezy dotyczące relacji między tymi zmiennymi.
 Dzięki temu SEM stanowi narzędzie integrujące w sobie modelowanie pomiarowe i
 strukturalne, umożliwiając analizę złożonych układów zależności obserwowalnych
 i nieobserwowalnych.

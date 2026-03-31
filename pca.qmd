@@ -454,7 +454,7 @@ Założenia identyfikowalności obejmują liniowość i natychmiastowość miesz
 
 Dobór liczby składowych w ICA nie opiera się na udziale wariancji, jak w PCA, ponieważ ICA nie porządkuje komponentów według wariancji. W praktyce najpierw wybiera się wymiar *whiteningu* $m$ (efektywny rząd sygnału), a następnie ekstrahuje $m$ składowych niezależnych. Kryteria wyboru $m$ obejmują informacyjne miary rzędu macierzy kowariancji, takie jak MDL/BIC dopasowane do modelu składowej szumowej i niezerowych wartości własnych, testy istotności dla wartości własnych po *whiteningu* (warianty analizy równoległej, permutacyjne testy mierzące losowość), walidację na podstawie wiarygodności w modelu ML-ICA z różnymi $m$ oraz kryteria stabilności. Kryteria stabilności polegają na wielokrotnym uruchomieniu algorytmu z różnymi inicjalizacjami i grupowaniu uzyskanych komponentów. Liczba dobrze replikujących się grup daje oszacowanie na $m$. Dodatkowo stosuje się testy resztowej zależności między oszacowanymi źródłami (np. testy niezależności na bazie informacji wzajemnej). Jeśli po dodaniu kolejnej składowej informacja wzajemna między „źródłami” nie maleje, zwiększanie $m$ nie przynosi korzyści. W zastosowaniach z szumem wybieramy $m$ tak, by oddzielać podprzestrzeń sygnałową od szumowej, co praktycznie sprowadza się do analizy spektrum wartości własnych i modelowania ogona jako białego szumu.
 
-Interpretacja wyników ICA różnić się od PCA. Składowe ICA $y_i$ stanowią oceny źródeł o maksymalnej niezależności, a wiersze $W$ definiują filtry demiksujące, podczas gdy kolumny $A$ (przyjmując $A\approx W^{-1}$) reprezentują wzorce mieszania, czyli „mapy obciążenia” źródeł na czujniki/cechy. Skale i znaki składowych są arbitralne, co wymaga interpretować je względnie: znormalizować wariancję lub maksymalną wartość, a znak dobrać tak, by ułatwić opis dziedzinowy[^pca-5]. W przeciwieństwie do PCA, składowe ICA nie muszą być ortogonalne, a ich wariancje nie są uporządkowane[^pca-6].
+Interpretacja wyników ICA różni się od PCA. Składowe ICA $y_i$ stanowią oceny źródeł o maksymalnej niezależności, a wiersze $W$ definiują filtry demiksujące, podczas gdy kolumny $A$ (przyjmując $A\approx W^{-1}$) reprezentują wzorce mieszania, czyli „mapy obciążenia” źródeł na czujniki/cechy. Skale i znaki składowych są arbitralne, co wymaga interpretować je względnie: znormalizować wariancję lub maksymalną wartość, a znak dobrać tak, by ułatwić opis dziedzinowy[^pca-5]. W przeciwieństwie do PCA, składowe ICA nie muszą być ortogonalne, a ich wariancje nie są uporządkowane[^pca-6].
 
 [^pca-5]: Wyobraźmy sobie, że ICA rozdziela dwa źródła dźwięku — skrzypce i fortepian. Jeśli algorytm zwróci sygnał, który jest odwrócony w fazie (czyli pomnożony przez -1), to dźwięk fortepianu jest ten sam fizycznie, tylko wszystkie amplitudy mają odwrotny znak. Dlatego znak (i skala) nie mają znaczenia dla jakości separacji — są arbitralne.
 
@@ -572,7 +572,7 @@ Istnieją dwie podstawowe wersje MDS: metryczna i niemetryczna, różniące się
 
 #### Założenia
 
-Dane wejściowe stanowi ma macierz odległości euklidesowych $$
+Dane wejściowe stanowią macierz odległości euklidesowych $$
 \Delta = [\delta_{ij}]_{n\times n}, \quad \delta_{ij} \ge 0, \quad \delta_{ii}=0, \quad \delta_{ij}=\delta_{ji}.
 $$ Celem jest znalezienie konfiguracji punktów $X \in \mathbb{R}^{n\times p}$, takiej że odległości między punktami $d_{ij}(X) = \|x_i - x_j\|$ są jak najbardziej zbliżone do odległości zadanych $\delta_{ij}.$
 

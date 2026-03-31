@@ -470,18 +470,20 @@ zależności między kategoriami.
 
 Poszczególne elementy modelu mają następujące znaczenie interpretacyjne:
 
-– macierz $P$ - rzeczywista struktura częstości wspólnych badanych kategorii; –
-wektory $r$ i $c$ - „wielkość” kategorii (częstości brzegowe), określające masy
-punktów wierszy i kolumn; – macierz $P - r c^\top$ - odchylenia od modelu
-niezależności; – macierz znormalizowanych reszt $S$ - odchylenia wyrażone w
-jednostkach odpowiadających testowi chi-kwadrat, co umożliwia porównywanie
-kategorii o różnych masach; – wartości własne $\lambda_k$ - wyjaśniana inercja
-wzdłuż kolejnych osi, interpretowana jako siła zróżnicowania struktury
-zależności w tym wymiarze; – wektory własne (kolumny $U$ i $V$) - kierunki
-głównych inercji odpowiednio w przestrzeni wierszy i kolumn; – współrzędne $F$
-i $G$ - położenie kategorii w przestrzeni czynnikowej, wykorzystywane do
-wizualizacji; ich rozrzut wokół środka odzwierciedla strukturę zależności
-między kategoriami.
+- macierz $P$ --- rzeczywista struktura częstości wspólnych badanych kategorii;
+- wektory $r$ i $c$ - „wielkość” kategorii (częstości brzegowe), określające
+masy punktów wierszy i kolumn;
+- macierz $P --- r c^\top$ - odchylenia od modelu niezależności;
+- macierz znormalizowanych reszt $S$ - odchylenia wyrażone w jednostkach
+odpowiadających testowi chi-kwadrat, co umożliwia porównywanie kategorii o
+różnych masach;
+- wartości własne $\lambda_k$ --- wyjaśniana inercja wzdłuż kolejnych osi,
+interpretowana jako siła zróżnicowania struktury zależności w tym wymiarze;
+- wektory własne (kolumny $U$ i $V$) - kierunki głównych inercji odpowiednio w
+przestrzeni wierszy i kolumn;
+- współrzędne $F$ i $G$ --- położenie kategorii w przestrzeni czynnikowej,
+wykorzystywane do wizualizacji; ich rozrzut wokół środka odzwierciedla strukturę
+zależności między kategoriami.
 
 Na mapie czynnikowej kategorie wierszy i kolumn, które leżą blisko siebie,
 interpretuje się jako powiązane: wiersze „preferują” te kolumny (mają
