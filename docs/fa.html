@@ -489,7 +489,7 @@ window.Quarto = {
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Analiza głównych składowych (PCA, <em>Principal Component Analysis</em>) to technika redukcji wymiarowości, która przekształca oryginalne zmienne w nowe, nieskorelowane zmienne (składowe), maksymalizując wariancję. Ta metoda zostanie przedstawiona w następnych rozdziałach.</p></div></div><p>Można wyróżnić dwa podstawowe podejścia do analizy czynnikowej. <strong>Eksploracyjna analiza czynnikowa (EFA, <em>Exploratory Factor Analysis</em>)</strong> jest stosowana, gdy badacz nie ma wcześniej zdefiniowanych hipotez co do liczby czynników czy struktury powiązań między nimi. Jej celem jest odkrycie potencjalnych układów zależności i zidentyfikowanie liczby czynników najlepiej opisujących dane. <strong>Konfirmacyjna analiza czynnikowa (CFA, <em>Confirmatory Factor Analysis</em>)</strong> jest natomiast podejściem dedukcyjnym – badacz z góry formułuje model teoretyczny (np. że pewne zmienne mierzą „pamięć roboczą”, a inne „myślenie abstrakcyjne”) i testuje jego zgodność z danymi empirycznymi. CFA jest szczególnie istotna w kontekście walidacji narzędzi badawczych, np. kwestionariuszy psychologicznych, i stanowi fundament bardziej zaawansowanych modeli strukturalnych (SEM).</p>
 <p>Historia analizy czynnikowej sięga początków XX wieku i jest ściśle związana z psychometrią. Jej pionierem był Charles Spearman, który w 1904 roku zaproponował model jednoczynnikowy, interpretując zmienne poznawcze jako przejawy ogólnego czynnika inteligencji. W kolejnych dekadach metoda była rozwijana przez psychologów, takich jak Thurstone, który wprowadził koncepcję wieloczynnikową oraz przez statystyków, którzy rozwijali formalne podstawy estymacji czynników i rotacji macierzy ładunków. W latach 60. i 70. analiza czynnikowa stała się jedną z najczęściej stosowanych metod w badaniach psychologicznych i społecznych, a wraz z rozwojem informatyki zyskała na popularności także w ekonomii, biologii czy medycynie. Dziś analiza czynnikowa jest narzędziem interdyscyplinarnym, stosowanym zarówno do eksploracji struktur danych, jak i do testowania teorii opartych na zmiennych latentnych.</p>
 <section id="eksploracyjna-analiza-czynnikowa" class="level2"><h2 class="anchored" data-anchor-id="eksploracyjna-analiza-czynnikowa">Eksploracyjna analiza czynnikowa</h2>
-<p>Formalna postać modelu eksploracyjnej analizy czynnikowej (EFA) zakłada, że zmienne obserwowalne <span class="math inline">\(\mathbf{x} = (x_1, x_2, \ldots, x_p)^\top\)</span> można wyrazić jako kombinację liniową czynników latentnych oraz składników specyficznych. Model przyjmuje postać <span class="citation" data-cites="introduc2020">(<a href="#ref-introduc2020" role="doc-biblioref"><span>„Introduction to Factor Analysis”</span> 2020</a>)</span>:</p>
+<p>Formalna postać modelu eksploracyjnej analizy czynnikowej (EFA) zakłada, że zmienne obserwowalne <span class="math inline">\(\mathbf{x} = (x_1, x_2, \ldots, x_p)^\top\)</span> można wyrazić jako kombinację liniową czynników latentnych oraz składników specyficznych. Model przyjmuje postać <span class="citation" data-cites="introduc2020">(<a href="references.html#ref-introduc2020" role="doc-biblioref"><span>„Introduction to Factor Analysis”</span> 2020</a>)</span>:</p>
 <p><span class="math display">\[
 \mathbf{x} = \boldsymbol{\mu} + \Lambda \mathbf{f} + \boldsymbol{\epsilon},
 \]</span></p>
@@ -574,7 +574,7 @@ window.Quarto = {
 </section></section><section id="założenia-dotyczące-danych" class="level2"><h2 class="anchored" data-anchor-id="założenia-dotyczące-danych">Założenia dotyczące danych</h2>
 <p>Aby estymacja modelu eksploracyjnej analizy czynnikowej (EFA) była uzasadniona, dane powinny spełniać szereg założeń teoretycznych i praktycznych.</p>
 <ul>
-<li>Po pierwsze, podstawą jest istnienie istotnej struktury korelacyjnej pomiędzy zmiennymi obserwowalnymi. Jeżeli zmienne są w zasadzie nieskorelowane, nie da się wydzielić wspólnych czynników. Warunek ten weryfikuje się wstępnie testem sferyczności Bartletta <span class="citation" data-cites="bartlett1951">(<a href="#ref-bartlett1951" role="doc-biblioref">Bartlett 1951</a>)</span> oraz miarą adekwatności próby KMO <span class="citation" data-cites="kaiser1970">(<a href="#ref-kaiser1970" role="doc-biblioref">Kaiser 1970</a>)</span>.</li>
+<li>Po pierwsze, podstawą jest istnienie istotnej struktury korelacyjnej pomiędzy zmiennymi obserwowalnymi. Jeżeli zmienne są w zasadzie nieskorelowane, nie da się wydzielić wspólnych czynników. Warunek ten weryfikuje się wstępnie testem sferyczności Bartletta <span class="citation" data-cites="bartlett1951">(<a href="references.html#ref-bartlett1951" role="doc-biblioref">Bartlett 1951</a>)</span> oraz miarą adekwatności próby KMO <span class="citation" data-cites="kaiser1970">(<a href="references.html#ref-kaiser1970" role="doc-biblioref">Kaiser 1970</a>)</span>.</li>
 <li>Po drugie, zakłada się odpowiednią wielkość próby. Choć w literaturze nie istnieje jednoznaczna reguła, rekomenduje się co najmniej 5–10 obserwacji na zmienną oraz łączną liczebność rzędu ≥100–200 jednostek, aby uzyskać stabilne rozwiązania i wiarygodne oszacowania ładunków czynnikowych.</li>
 <li>Po trzecie, dane powinny pochodzić z rozkładu wielowymiarowego normalnego, szczególnie jeżeli korzysta się z estymacji metodą największej wiarygodności. Naruszenia normalności mogą prowadzić do zawyżenia błędów standardowych, problemów z testami istotności oraz błędnych przedziałów ufności.</li>
 <li>Po czwarte, model EFA wymaga, aby zmienne były ciągłe lub co najmniej traktowane jako przybliżenie zmiennych ciągłych. W przypadku zmiennych kategorycznych należy sięgnąć po odpowiednie uogólnienia (np. analizy czynnikowe dla danych porządkowych).</li>
@@ -585,7 +585,7 @@ window.Quarto = {
 </li>
 <li>I na koniec, należy zadbać o brak nadmiernej współliniowości oraz o to, by liczba czynników nie przekraczała liczby zmiennych – w przeciwnym wypadku model byłby nieidentyfikowalny.</li>
 </ul></section><section id="metody-estymacji-ładunków-czynnikowych" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="metody-estymacji-ładunków-czynnikowych">Metody estymacji ładunków czynnikowych</h2>
-<section id="metoda-największej-wiarygodności-ang.-maximum-likelihood-ml-lawley1940" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-największej-wiarygodności-ang.-maximum-likelihood-ml-lawley1940">Metoda największej wiarygodności (ang. <em>Maximum Likelihood, ML</em>) <span class="citation" data-cites="lawley1940">(<a href="#ref-lawley1940" role="doc-biblioref">Lawley 1940</a>)</span>
+<section id="metoda-największej-wiarygodności-ang.-maximum-likelihood-ml-lawley1940" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-największej-wiarygodności-ang.-maximum-likelihood-ml-lawley1940">Metoda największej wiarygodności (ang. <em>Maximum Likelihood, ML</em>) <span class="citation" data-cites="lawley1940">(<a href="references.html#ref-lawley1940" role="doc-biblioref">Lawley 1940</a>)</span>
 </h3>
 <section id="założenia" class="level4"><h4 class="anchored" data-anchor-id="założenia">Założenia</h4>
 <p>Zakładamy, że wektor zmiennych obserwowalnych</p>
@@ -643,7 +643,7 @@ F(\Lambda,\Psi) = \log |\Sigma| + \operatorname{tr}(\Sigma^{-1} S) - \log |S| - 
 <li>Wymagają dużej próby i spełnienia założenia normalności wielowymiarowej.</li>
 <li>Może być numerycznie niestabilne, zwłaszcza gdy liczba czynników jest duża w stosunku do liczby zmiennych.</li>
 <li>Przy małych próbach lub silnym naruszeniu normalności wyniki mogą być obciążone.</li>
-</ul></section></section><section id="metoda-osi-głównych-ang.-principal-axis-factoring-paf-grieder2020" class="level3"><h3 class="anchored" data-anchor-id="metoda-osi-głównych-ang.-principal-axis-factoring-paf-grieder2020">Metoda osi głównych (ang. <em>Principal Axis Factoring, PAF</em>) <span class="citation" data-cites="grieder2020">(<a href="#ref-grieder2020" role="doc-biblioref">Grieder i Steiner 2020</a>)</span>
+</ul></section></section><section id="metoda-osi-głównych-ang.-principal-axis-factoring-paf-grieder2020" class="level3"><h3 class="anchored" data-anchor-id="metoda-osi-głównych-ang.-principal-axis-factoring-paf-grieder2020">Metoda osi głównych (ang. <em>Principal Axis Factoring, PAF</em>) <span class="citation" data-cites="grieder2020">(<a href="references.html#ref-grieder2020" role="doc-biblioref">Grieder i Steiner 2020</a>)</span>
 </h3>
 <section id="idea-metody-paf" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-paf">Idea metody PAF</h4>
 <p>W metodzie PAF znanej również jako metoda czynników głównych, zakładamy klasyczny model czynnikowy</p>
@@ -731,7 +731,7 @@ h_j^2=\frac{r_{jj'}r_{jj''}}{r_{j'j''}}, \quad j\ne j' \ne j''
 <strong>Mniejsza przydatność przy małych próbach</strong> – ponieważ metoda nie opiera się na pełnym modelu statystycznym, jej własności są mniej stabilne przy niewielkich licznościach obserwacji. Wyniki mogą być wówczas silnie zależne od przypadkowych fluktuacji w danych.</li>
 <li>
 <strong>Brak testów statystycznych dopasowania modelu</strong> – w odróżnieniu od metody ML, PAF nie pozwala na formalne testowanie hipotez o liczbie czynników czy jakości dopasowania modelu do danych.</li>
-</ul></section></section><section id="metoda-składowych-głównych-ang.-principal-component-method-wang2008" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-składowych-głównych-ang.-principal-component-method-wang2008">Metoda składowych głównych (ang. <em>Principal Component Method</em>) <span class="citation" data-cites="wang2008">(<a href="#ref-wang2008" role="doc-biblioref">Wang i in. 2008</a>)</span>
+</ul></section></section><section id="metoda-składowych-głównych-ang.-principal-component-method-wang2008" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="metoda-składowych-głównych-ang.-principal-component-method-wang2008">Metoda składowych głównych (ang. <em>Principal Component Method</em>) <span class="citation" data-cites="wang2008">(<a href="references.html#ref-wang2008" role="doc-biblioref">Wang i in. 2008</a>)</span>
 </h3>
 <p>Metoda składowych głównych należy do klasy metod wspólnotowych, czyli takich, które zakładają klasyczny model czynnikowy</p>
 <p><span class="math display">\[
@@ -781,7 +781,7 @@ h_j^2 = 1, \quad j=1,\ldots,p.
 <strong>Brak optymalności statystycznej</strong> – podobnie jak PAF, metoda nie ma własności estymatorów opartych na funkcji wiarygodności (ML).</li>
 <li>
 <strong>Niezgodność z modelem czynnikowym</strong> – ponieważ PCM nie rozróżnia wariancji wspólnej i specyficznej (<span class="math inline">\(\Psi = \mathbf{0}\)</span>), uzyskane ładunki nie odpowiadają ściśle modelowi <span class="math inline">\(\Sigma = \Lambda\Lambda^\top + \Psi\)</span>. PCM jest raczej algebraiczną aproksymacją niż estymacją parametrów modelu czynnikowego.</li>
-</ul></section></section><section id="metoda-minimalizacji-reszt-ang.-minres-harman1966" class="level3"><h3 class="anchored" data-anchor-id="metoda-minimalizacji-reszt-ang.-minres-harman1966">Metoda minimalizacji reszt (ang. <em>MINRES</em>) <span class="citation" data-cites="harman1966">(<a href="#ref-harman1966" role="doc-biblioref">Harman i Jones 1966</a>)</span>
+</ul></section></section><section id="metoda-minimalizacji-reszt-ang.-minres-harman1966" class="level3"><h3 class="anchored" data-anchor-id="metoda-minimalizacji-reszt-ang.-minres-harman1966">Metoda minimalizacji reszt (ang. <em>MINRES</em>) <span class="citation" data-cites="harman1966">(<a href="references.html#ref-harman1966" role="doc-biblioref">Harman i Jones 1966</a>)</span>
 </h3>
 <section id="idea-metody-minres" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-minres">Idea metody MINRES</h4>
 <p>W modelu czynnikowym przyjmujemy, że macierz kowariancji (lub korelacji) ma postać <span class="math display">\[
@@ -823,7 +823,7 @@ F(\Lambda) = \| \mathbf{R} - \Lambda \Lambda^\top \|^2_{off},
 <em>MINRES</em> skupia się tylko na korelacjach pomiędzy zmiennymi, ignorując elementy diagonalne – co sprawia, że estymacja jest mniej wrażliwa na problem ujemnych komunalności (tzw. <em>Heywood cases</em>).</li>
 <li>Metoda jest relatywnie stabilna numerycznie i dobrze sprawdza się przy dużej liczbie zmiennych.</li>
 <li>Ograniczeniem jest to, że wynik zależy od jakości początkowych oszacowań zasobów zmienności wspólnej. Przy złym wyborze startu możliwa jest wolna zbieżność albo zbieżność do lokalnego minimum.</li>
-</ul></section></section><section id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls-jöreskog1972" class="level3"><h3 class="anchored" data-anchor-id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls-jöreskog1972">Metoda uogólnionych najmniejszych kwadratów (ang. <em>Generalized Least Squares, GLS</em>) <span class="citation" data-cites="jöreskog1972">(<a href="#ref-j%C3%B6reskog1972" role="doc-biblioref">Jöreskog i Goldberger 1972</a>)</span>
+</ul></section></section><section id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls-jöreskog1972" class="level3"><h3 class="anchored" data-anchor-id="metoda-uogólnionych-najmniejszych-kwadratów-ang.-generalized-least-squares-gls-jöreskog1972">Metoda uogólnionych najmniejszych kwadratów (ang. <em>Generalized Least Squares, GLS</em>) <span class="citation" data-cites="jöreskog1972">(<a href="references.html#ref-j%C3%B6reskog1972" role="doc-biblioref">Jöreskog i Goldberger 1972</a>)</span>
 </h3>
 <section id="idea-metody-1" class="level4"><h4 class="anchored" data-anchor-id="idea-metody-1">Idea metody</h4>
 <p>GLS, podobnie jak MINRES czy ML, polega na porównaniu macierzy obserwowanej <span class="math inline">\(\mathbf{S}\)</span> (kowariancji lub korelacji) z macierzą odtworzoną przez model czynnikowy <span class="math inline">\(\hat{\Sigma} = \Lambda \Lambda^\top + \Psi.\)</span> Różnica w stosunku do MINRES polega na tym, że w <strong>GLS ważymy reszty</strong>, czyli błędy odwzorowania poszczególnych elementów macierzy <span class="math inline">\(\mathbf{S}\)</span>.</p>
@@ -858,7 +858,7 @@ Adnotacja
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Istnieją również inne metody estymacji ładunków czynnikowych, jak metody bayesowskie <span class="citation" data-cites="lu2016">(<a href="#ref-lu2016" role="doc-biblioref">Lu, Chow, i Loken 2016</a>)</span>, czy metody z regularyzacją LASSO ale nie są one częścią tego opracowania <span class="citation" data-cites="jacobucci2018">(<a href="#ref-jacobucci2018" role="doc-biblioref">Jacobucci i Grimm 2018</a>)</span>.</p>
+<p>Istnieją również inne metody estymacji ładunków czynnikowych, jak metody bayesowskie <span class="citation" data-cites="lu2016">(<a href="references.html#ref-lu2016" role="doc-biblioref">Lu, Chow, i Loken 2016</a>)</span>, czy metody z regularyzacją LASSO ale nie są one częścią tego opracowania <span class="citation" data-cites="jacobucci2018">(<a href="references.html#ref-jacobucci2018" role="doc-biblioref">Jacobucci i Grimm 2018</a>)</span>.</p>
 </div>
 </div>
 </section></section></section><section id="oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynników" class="level2"><h2 class="anchored" data-anchor-id="oceny-dopasowania-modelu-i-kryteria-doboru-liczby-czynników">Oceny dopasowania modelu i kryteria doboru liczby czynników</h2>
@@ -887,17 +887,17 @@ h_j^2=\sum_{k=1}^{m}\lambda_{jk}^{2}
 \]</span> mierzą część wariancji zmiennej <span class="math inline">\(x_j\)</span> wyjaśnioną przez czynniki, bardzo niskie <span class="math inline">\(h_j^2\)</span> wskazują słabą reprezentację zmiennej, natomiast bardzo wysokie — wraz z ryzykiem ujemnych <span class="math inline">\(\Psi_j\)</span> (przypadki Haywooda) — mogą sygnalizować dopasowanie wymuszone lub niewłaściwą liczebność czynników. Sumy kwadratów ładunków per czynnik odzwierciedlają wyjaśnioną wspólną wariancję i służą do oceny równomierności wkładu czynników.</p>
 <p>W rozwiązaniach dopuszczających korelacje pomiędzy czynnikami dodatkowym aspektem dopasowania jest macierz korelacji czynników <span class="math inline">\(\Phi\)</span>. Bardzo wysokie korelacje między czynnikami sugerują nadmiarowość i potencjalne przeparametryzowanie. Wówczas warto rozważyć redukcję liczby czynników lub alternatywne struktury.</p>
 <p>Najbardziej znane kryteria doboru liczby czynników to:</p>
-</section><section id="kryterium-wykresu-osypiska-scree-plot-cattell1966" class="level3"><h3 class="anchored" data-anchor-id="kryterium-wykresu-osypiska-scree-plot-cattell1966">Kryterium wykresu osypiska (Scree plot, <span class="citation" data-cites="cattell1966">Cattell (<a href="#ref-cattell1966" role="doc-biblioref">1966</a>)</span>)</h3>
+</section><section id="kryterium-wykresu-osypiska-scree-plot-cattell1966" class="level3"><h3 class="anchored" data-anchor-id="kryterium-wykresu-osypiska-scree-plot-cattell1966">Kryterium wykresu osypiska (Scree plot, <span class="citation" data-cites="cattell1966">Cattell (<a href="references.html#ref-cattell1966" role="doc-biblioref">1966</a>)</span>)</h3>
 <p>Na osi poziomej odkładamy kolejne wartości własne, a na pionowej ich wielkość. Punktem granicznym jest miejsce, gdzie wykres „załamuje się” i przechodzi w „osypisko” – od tego miejsca czynniki interpretowane są jako szum.</p>
 <ul>
 <li>Zalety: wizualna intuicja, łatwe zastosowanie.</li>
 <li>Wady: często subiektywność w określeniu miejsca „łokcia”, szczególnie gdy krzywa nie ma wyraźnego załamania.</li>
-</ul></section><section id="analiza-równoległa-parallel-analysis-horn1965" class="level3"><h3 class="anchored" data-anchor-id="analiza-równoległa-parallel-analysis-horn1965">Analiza równoległa (Parallel analysis, <span class="citation" data-cites="horn1965">Horn (<a href="#ref-horn1965" role="doc-biblioref">1965</a>)</span>)</h3>
+</ul></section><section id="analiza-równoległa-parallel-analysis-horn1965" class="level3"><h3 class="anchored" data-anchor-id="analiza-równoległa-parallel-analysis-horn1965">Analiza równoległa (Parallel analysis, <span class="citation" data-cites="horn1965">Horn (<a href="references.html#ref-horn1965" role="doc-biblioref">1965</a>)</span>)</h3>
 <p>Polega na porównaniu wartości własnych dla danych empirycznych z wartościami własnymi uzyskanymi dla danych losowych o tej samej strukturze (ta sama liczba zmiennych i obserwacji). Zatrzymuje się te czynniki, których wartości własne przewyższają np. 95. percentyl rozkładu wartości losowych.</p>
 <ul>
 <li>Zalety: jedna z najbardziej rekomendowanych metod, dobrze sprawdza się w praktyce.</li>
 <li>Wady: wymaga procedur symulacyjnych, większej mocy obliczeniowej.</li>
-</ul></section><section id="kryterium-map-minimum-average-partial-velicer1976" class="level3"><h3 class="anchored" data-anchor-id="kryterium-map-minimum-average-partial-velicer1976">Kryterium MAP (Minimum Average Partial, <span class="citation" data-cites="velicer1976">Velicer (<a href="#ref-velicer1976" role="doc-biblioref">1976</a>)</span>)</h3>
+</ul></section><section id="kryterium-map-minimum-average-partial-velicer1976" class="level3"><h3 class="anchored" data-anchor-id="kryterium-map-minimum-average-partial-velicer1976">Kryterium MAP (Minimum Average Partial, <span class="citation" data-cites="velicer1976">Velicer (<a href="references.html#ref-velicer1976" role="doc-biblioref">1976</a>)</span>)</h3>
 <p>Opiera się na analizie korelacji cząstkowych. Stopniowo usuwa się kolejne czynniki, a następnie oblicza średnią wartość kwadratu korelacji cząstkowych. Liczba czynników odpowiadająca minimum tej wartości uznawana jest za optymalną.</p>
 <ul>
 <li>Zalety: metoda oparta na minimalizacji resztowych zależności, obiektywna.</li>
@@ -930,7 +930,7 @@ h_j^2=\sum_{k=1}^{m}\lambda_{jk}^{2}
 <p>W przypadku rotacji ortogonalnych macierz <span class="math inline">\(T\)</span> jest macierzą ortogonalną, czyli spełnia warunek: <span class="math display">\[T^\top T = TT^\top = I_m.\]</span> Oznacza to, że czynniki po rotacji pozostają nieskorelowane (<span class="math inline">\(\Phi = I_m\)</span>).</p>
 <p>Najważniejsze rodzaje rotacji ortogonalnych:</p>
 <ul>
-<li><p><em>Varimax</em> <span class="citation" data-cites="kaiser1958">(<a href="#ref-kaiser1958" role="doc-biblioref">Kaiser 1958</a>)</span> - najczęściej stosowana rotacja ortogonalna. Maksymalizuje wariancję kwadratów ładunków w ramach każdego czynnika. Prowadzi do tego, że każda zmienna ma wysokie ładunki tylko na jednym czynniku, a bliskie zeru na pozostałych. Funkcja celu <span class="math display">\[
+<li><p><em>Varimax</em> <span class="citation" data-cites="kaiser1958">(<a href="references.html#ref-kaiser1958" role="doc-biblioref">Kaiser 1958</a>)</span> - najczęściej stosowana rotacja ortogonalna. Maksymalizuje wariancję kwadratów ładunków w ramach każdego czynnika. Prowadzi do tego, że każda zmienna ma wysokie ładunki tylko na jednym czynniku, a bliskie zeru na pozostałych. Funkcja celu <span class="math display">\[
 V = \sum_{j=1}^m \left[ \frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*4} - \left(\frac{1}{p} \sum_{i=1}^p \lambda_{ij}^{*2}\right)^2 \right].
 \]</span></p></li>
 <li><p><em>Quartimax</em> - minimalizuje liczbę czynników potrzebnych do opisania każdej zmiennej, upraszczając wiersze macierzy ładunków. Funkcja celu <span class="math display">\[
@@ -948,23 +948,23 @@ T^\top T \neq I_m.
 \]</span> W efekcie rotowane czynniki mogą być skorelowane, a macierz korelacji czynników <span class="math inline">\(\Phi\)</span> przyjmuje ogólną postać dodatnio określoną.</p>
 <p>Podstawowe rodzaje:</p>
 <ul>
-<li><p><em>Oblimin</em> <span class="citation" data-cites="jennrich1966">(<a href="#ref-jennrich1966" role="doc-biblioref">Jennrich i Sampson 1966</a>)</span> - rodzina rotacji z parametrem <span class="math inline">\(\gamma\)</span>, który reguluje stopień skośności. Dla <span class="math inline">\(\gamma = 0\)</span> rozwiązanie staje się <em>direct quartimin</em> (skośnym odpowiednikiem <em>quartimax</em>), a większe <span class="math inline">\(\gamma\)</span> prowadzą do większej korelacji czynników. Funkcja celu <span class="math display">\[
+<li><p><em>Oblimin</em> <span class="citation" data-cites="jennrich1966">(<a href="references.html#ref-jennrich1966" role="doc-biblioref">Jennrich i Sampson 1966</a>)</span> - rodzina rotacji z parametrem <span class="math inline">\(\gamma\)</span>, który reguluje stopień skośności. Dla <span class="math inline">\(\gamma = 0\)</span> rozwiązanie staje się <em>direct quartimin</em> (skośnym odpowiednikiem <em>quartimax</em>), a większe <span class="math inline">\(\gamma\)</span> prowadzą do większej korelacji czynników. Funkcja celu <span class="math display">\[
 F(\Lambda^*) = \sum_{i=1}^p \sum_{j=1}^m \left(\lambda_{ij}^{*2} - \gamma \frac{\sum_{k=1}^m \lambda_{ik}^{*2}}{m}\right)^2.
 \]</span></p></li>
-<li><p><em>Promax</em> <span class="citation" data-cites="hendrickson1964">(<a href="#ref-hendrickson1964" role="doc-biblioref">Hendrickson i White 1964</a>)</span> - rotacja skośna oparta na prostym podejściu dwustopniowym. Najpierw stosuje się rotację ortogonalną (najczęściej <em>varimax</em>), następnie ładunki są podnoszone do potęgi <span class="math inline">\(k\)</span> (zwykle 3 lub 4), aby wymusić prostą strukturę, i ponownie dopasowywane przy użyciu metody najmniejszych kwadratów <span class="math display">\[
+<li><p><em>Promax</em> <span class="citation" data-cites="hendrickson1964">(<a href="references.html#ref-hendrickson1964" role="doc-biblioref">Hendrickson i White 1964</a>)</span> - rotacja skośna oparta na prostym podejściu dwustopniowym. Najpierw stosuje się rotację ortogonalną (najczęściej <em>varimax</em>), następnie ładunki są podnoszone do potęgi <span class="math inline">\(k\)</span> (zwykle 3 lub 4), aby wymusić prostą strukturę, i ponownie dopasowywane przy użyciu metody najmniejszych kwadratów <span class="math display">\[
 \tilde{\lambda}_{jk} = \text{sign}(\lambda^*_{jk}) \cdot |\lambda^*_{jk}|^k.
 \]</span> Rotacja <em>promax</em> pozwala uzyskać bardziej realistyczne struktury, gdy czynniki są rzeczywiście skorelowane.</p></li>
-<li><p>Geomin <span class="citation" data-cites="everitt1989">(<a href="#ref-everitt1989" role="doc-biblioref">Everitt i Yates 1989</a>)</span> - minimalizuje średnią geometryczną kwadratów ładunków, co prowadzi do sytuacji, w której każda zmienna ma niewiele istotnych ładunków. Funkcja celu <span class="math display">\[
+<li><p>Geomin <span class="citation" data-cites="everitt1989">(<a href="references.html#ref-everitt1989" role="doc-biblioref">Everitt i Yates 1989</a>)</span> - minimalizuje średnią geometryczną kwadratów ładunków, co prowadzi do sytuacji, w której każda zmienna ma niewiele istotnych ładunków. Funkcja celu <span class="math display">\[
 G(\Lambda^*) = \sum_{i=1}^p \left( \prod_{j=1}^m (\lambda_{ij}^{*2} + \epsilon) \right)^{1/m},
 \]</span> gdzie <span class="math inline">\(\epsilon\)</span> to mały parametr stabilizujący.</p></li>
-<li><p>Simplimax <span class="citation" data-cites="kiers1994">(<a href="#ref-kiers1994" role="doc-biblioref">Kiers 1994</a>)</span> - uogólnienie kryteriów upraszczających jak <em>varimax</em> czy <em>quartimax</em>, które minimalizuje liczbę dużych i małych ładunków w macierzy, pozwalając użytkownikowi sterować liczbą „prostych” elementów.</p></li>
+<li><p>Simplimax <span class="citation" data-cites="kiers1994">(<a href="references.html#ref-kiers1994" role="doc-biblioref">Kiers 1994</a>)</span> - uogólnienie kryteriów upraszczających jak <em>varimax</em> czy <em>quartimax</em>, które minimalizuje liczbę dużych i małych ładunków w macierzy, pozwalając użytkownikowi sterować liczbą „prostych” elementów.</p></li>
 </ul></section><section id="wybór-rodzaju-rotacji" class="level3"><h3 class="anchored" data-anchor-id="wybór-rodzaju-rotacji">Wybór rodzaju rotacji</h3>
 <ul>
 <li>Rotacje ortogonalne są preferowane, gdy zakładamy, że czynniki powinny być niezależne teoretycznie.</li>
 <li>Rotacje skośne stosuje się, gdy istnieje uzasadnienie, że czynniki mogą być skorelowane (co jest częste w naukach społecznych, psychologii czy biologii).</li>
 </ul>
 <div id="exm-1" class="theorem example">
-<p><span class="theorem-title"><strong>Przykład 3.1</strong></span> Na potrzeby ilustracji budowy modelu EFA wykorzystamy dane z pakietu <code>psych</code>, które zawierają wyniki różnych testów poznawczych <span class="citation" data-cites="horn1969">(<a href="#ref-horn1969" role="doc-biblioref">Horn 1969</a>)</span>. Dane te są często używane jako przykład w literaturze dotyczącej analizy czynnikowej.</p>
+<p><span class="theorem-title"><strong>Przykład 3.1</strong></span> Na potrzeby ilustracji budowy modelu EFA wykorzystamy dane z pakietu <code>psych</code>, które zawierają wyniki różnych testów poznawczych <span class="citation" data-cites="horn1969">(<a href="references.html#ref-horn1969" role="doc-biblioref">Horn 1969</a>)</span>. Dane te są często używane jako przykład w literaturze dotyczącej analizy czynnikowej.</p>
 <div class="cell">
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
 <span></span>
@@ -1372,23 +1372,23 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 <details open="" class="code-fold"><summary>Kod</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
-<div id="ukprwaciee" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ukprwaciee table {
+<div id="uofxgkuzsv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uofxgkuzsv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ukprwaciee thead, #ukprwaciee tbody, #ukprwaciee tfoot, #ukprwaciee tr, #ukprwaciee td, #ukprwaciee th {
+#uofxgkuzsv thead, #uofxgkuzsv tbody, #uofxgkuzsv tfoot, #uofxgkuzsv tr, #uofxgkuzsv td, #uofxgkuzsv th {
   border-style: none;
 }
 
-#ukprwaciee p {
+#uofxgkuzsv p {
   margin: 0;
   padding: 0;
 }
 
-#ukprwaciee .gt_table {
+#uofxgkuzsv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1414,12 +1414,12 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-left-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_caption {
+#uofxgkuzsv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ukprwaciee .gt_title {
+#uofxgkuzsv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1431,7 +1431,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-width: 0;
 }
 
-#ukprwaciee .gt_subtitle {
+#uofxgkuzsv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1443,7 +1443,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-width: 0;
 }
 
-#ukprwaciee .gt_heading {
+#uofxgkuzsv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1455,13 +1455,13 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_bottom_border {
+#uofxgkuzsv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_col_headings {
+#uofxgkuzsv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1476,7 +1476,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_col_heading {
+#uofxgkuzsv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1496,7 +1496,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#ukprwaciee .gt_column_spanner_outer {
+#uofxgkuzsv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1508,15 +1508,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 4px;
 }
 
-#ukprwaciee .gt_column_spanner_outer:first-child {
+#uofxgkuzsv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ukprwaciee .gt_column_spanner_outer:last-child {
+#uofxgkuzsv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ukprwaciee .gt_column_spanner {
+#uofxgkuzsv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1528,11 +1528,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   width: 100%;
 }
 
-#ukprwaciee .gt_spanner_row {
+#uofxgkuzsv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ukprwaciee .gt_group_heading {
+#uofxgkuzsv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1558,7 +1558,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   text-align: left;
 }
 
-#ukprwaciee .gt_empty_group_heading {
+#uofxgkuzsv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1573,15 +1573,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: middle;
 }
 
-#ukprwaciee .gt_from_md > :first-child {
+#uofxgkuzsv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ukprwaciee .gt_from_md > :last-child {
+#uofxgkuzsv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ukprwaciee .gt_row {
+#uofxgkuzsv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1600,7 +1600,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#ukprwaciee .gt_stub {
+#uofxgkuzsv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1613,7 +1613,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ukprwaciee .gt_stub_row_group {
+#uofxgkuzsv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1627,15 +1627,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: top;
 }
 
-#ukprwaciee .gt_row_group_first td {
+#uofxgkuzsv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ukprwaciee .gt_row_group_first th {
+#uofxgkuzsv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ukprwaciee .gt_summary_row {
+#uofxgkuzsv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1645,16 +1645,16 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ukprwaciee .gt_first_summary_row {
+#uofxgkuzsv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_first_summary_row.thick {
+#uofxgkuzsv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ukprwaciee .gt_last_summary_row {
+#uofxgkuzsv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1664,7 +1664,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_grand_summary_row {
+#uofxgkuzsv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1674,7 +1674,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ukprwaciee .gt_first_grand_summary_row {
+#uofxgkuzsv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1684,7 +1684,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_last_grand_summary_row_top {
+#uofxgkuzsv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1694,11 +1694,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_striped {
+#uofxgkuzsv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ukprwaciee .gt_table_body {
+#uofxgkuzsv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1707,7 +1707,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_footnotes {
+#uofxgkuzsv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1721,7 +1721,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_footnote {
+#uofxgkuzsv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1730,7 +1730,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ukprwaciee .gt_sourcenotes {
+#uofxgkuzsv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1744,7 +1744,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#ukprwaciee .gt_sourcenote {
+#uofxgkuzsv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1752,72 +1752,72 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ukprwaciee .gt_left {
+#uofxgkuzsv .gt_left {
   text-align: left;
 }
 
-#ukprwaciee .gt_center {
+#uofxgkuzsv .gt_center {
   text-align: center;
 }
 
-#ukprwaciee .gt_right {
+#uofxgkuzsv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ukprwaciee .gt_font_normal {
+#uofxgkuzsv .gt_font_normal {
   font-weight: normal;
 }
 
-#ukprwaciee .gt_font_bold {
+#uofxgkuzsv .gt_font_bold {
   font-weight: bold;
 }
 
-#ukprwaciee .gt_font_italic {
+#uofxgkuzsv .gt_font_italic {
   font-style: italic;
 }
 
-#ukprwaciee .gt_super {
+#uofxgkuzsv .gt_super {
   font-size: 65%;
 }
 
-#ukprwaciee .gt_footnote_marks {
+#uofxgkuzsv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ukprwaciee .gt_asterisk {
+#uofxgkuzsv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ukprwaciee .gt_indent_1 {
+#uofxgkuzsv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ukprwaciee .gt_indent_2 {
+#uofxgkuzsv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ukprwaciee .gt_indent_3 {
+#uofxgkuzsv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ukprwaciee .gt_indent_4 {
+#uofxgkuzsv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ukprwaciee .gt_indent_5 {
+#uofxgkuzsv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ukprwaciee .katex-display {
+#uofxgkuzsv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ukprwaciee div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uofxgkuzsv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2078,23 +2078,23 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
 <span><span class="fu">model_parameters</span><span class="op">(</span><span class="va">fa_model_5</span>, sort <span class="op">=</span> <span class="cn">TRUE</span>, threshold <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://easystats.github.io/insight/reference/display.html">print_html</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
-<div id="ogoynrtccg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ogoynrtccg table {
+<div id="zwbdmxtmva" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zwbdmxtmva table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ogoynrtccg thead, #ogoynrtccg tbody, #ogoynrtccg tfoot, #ogoynrtccg tr, #ogoynrtccg td, #ogoynrtccg th {
+#zwbdmxtmva thead, #zwbdmxtmva tbody, #zwbdmxtmva tfoot, #zwbdmxtmva tr, #zwbdmxtmva td, #zwbdmxtmva th {
   border-style: none;
 }
 
-#ogoynrtccg p {
+#zwbdmxtmva p {
   margin: 0;
   padding: 0;
 }
 
-#ogoynrtccg .gt_table {
+#zwbdmxtmva .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2120,12 +2120,12 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-left-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_caption {
+#zwbdmxtmva .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ogoynrtccg .gt_title {
+#zwbdmxtmva .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2137,7 +2137,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-width: 0;
 }
 
-#ogoynrtccg .gt_subtitle {
+#zwbdmxtmva .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2149,7 +2149,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-width: 0;
 }
 
-#ogoynrtccg .gt_heading {
+#zwbdmxtmva .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2161,13 +2161,13 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_bottom_border {
+#zwbdmxtmva .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_col_headings {
+#zwbdmxtmva .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2182,7 +2182,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_col_heading {
+#zwbdmxtmva .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2202,7 +2202,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#ogoynrtccg .gt_column_spanner_outer {
+#zwbdmxtmva .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2214,15 +2214,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 4px;
 }
 
-#ogoynrtccg .gt_column_spanner_outer:first-child {
+#zwbdmxtmva .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ogoynrtccg .gt_column_spanner_outer:last-child {
+#zwbdmxtmva .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ogoynrtccg .gt_column_spanner {
+#zwbdmxtmva .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2234,11 +2234,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   width: 100%;
 }
 
-#ogoynrtccg .gt_spanner_row {
+#zwbdmxtmva .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ogoynrtccg .gt_group_heading {
+#zwbdmxtmva .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2264,7 +2264,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   text-align: left;
 }
 
-#ogoynrtccg .gt_empty_group_heading {
+#zwbdmxtmva .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2279,15 +2279,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: middle;
 }
 
-#ogoynrtccg .gt_from_md > :first-child {
+#zwbdmxtmva .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ogoynrtccg .gt_from_md > :last-child {
+#zwbdmxtmva .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ogoynrtccg .gt_row {
+#zwbdmxtmva .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2306,7 +2306,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   overflow-x: hidden;
 }
 
-#ogoynrtccg .gt_stub {
+#zwbdmxtmva .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2319,7 +2319,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ogoynrtccg .gt_stub_row_group {
+#zwbdmxtmva .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2333,15 +2333,15 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   vertical-align: top;
 }
 
-#ogoynrtccg .gt_row_group_first td {
+#zwbdmxtmva .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ogoynrtccg .gt_row_group_first th {
+#zwbdmxtmva .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ogoynrtccg .gt_summary_row {
+#zwbdmxtmva .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2351,16 +2351,16 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ogoynrtccg .gt_first_summary_row {
+#zwbdmxtmva .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_first_summary_row.thick {
+#zwbdmxtmva .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ogoynrtccg .gt_last_summary_row {
+#zwbdmxtmva .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2370,7 +2370,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_grand_summary_row {
+#zwbdmxtmva .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2380,7 +2380,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ogoynrtccg .gt_first_grand_summary_row {
+#zwbdmxtmva .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2390,7 +2390,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-top-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_last_grand_summary_row_top {
+#zwbdmxtmva .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2400,11 +2400,11 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_striped {
+#zwbdmxtmva .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ogoynrtccg .gt_table_body {
+#zwbdmxtmva .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2413,7 +2413,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-bottom-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_footnotes {
+#zwbdmxtmva .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2427,7 +2427,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_footnote {
+#zwbdmxtmva .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2436,7 +2436,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ogoynrtccg .gt_sourcenotes {
+#zwbdmxtmva .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2450,7 +2450,7 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   border-right-color: #D3D3D3;
 }
 
-#ogoynrtccg .gt_sourcenote {
+#zwbdmxtmva .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2458,72 +2458,72 @@ Minimum correlation of possible factor scores     0.73 0.52 0.66 0.36</code></pr
   padding-right: 5px;
 }
 
-#ogoynrtccg .gt_left {
+#zwbdmxtmva .gt_left {
   text-align: left;
 }
 
-#ogoynrtccg .gt_center {
+#zwbdmxtmva .gt_center {
   text-align: center;
 }
 
-#ogoynrtccg .gt_right {
+#zwbdmxtmva .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ogoynrtccg .gt_font_normal {
+#zwbdmxtmva .gt_font_normal {
   font-weight: normal;
 }
 
-#ogoynrtccg .gt_font_bold {
+#zwbdmxtmva .gt_font_bold {
   font-weight: bold;
 }
 
-#ogoynrtccg .gt_font_italic {
+#zwbdmxtmva .gt_font_italic {
   font-style: italic;
 }
 
-#ogoynrtccg .gt_super {
+#zwbdmxtmva .gt_super {
   font-size: 65%;
 }
 
-#ogoynrtccg .gt_footnote_marks {
+#zwbdmxtmva .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ogoynrtccg .gt_asterisk {
+#zwbdmxtmva .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ogoynrtccg .gt_indent_1 {
+#zwbdmxtmva .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ogoynrtccg .gt_indent_2 {
+#zwbdmxtmva .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ogoynrtccg .gt_indent_3 {
+#zwbdmxtmva .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ogoynrtccg .gt_indent_4 {
+#zwbdmxtmva .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ogoynrtccg .gt_indent_5 {
+#zwbdmxtmva .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ogoynrtccg .katex-display {
+#zwbdmxtmva .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ogoynrtccg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zwbdmxtmva div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2810,7 +2810,7 @@ Wskazówka
 <p>Na temat konfirmacyjnej analizy czynnikowej (CFA) zostanie poświęcony kolejny rozdział.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-bartlett1951" class="csl-entry" role="listitem">
 Bartlett, M. S. 1951. <span>„The Effect of Standardization on a χ 2 Approximation in Factor Analysis”</span>. <em>Biometrika</em> 38 (3/4): 337. <a href="https://doi.org/10.2307/2332580">https://doi.org/10.2307/2332580</a>.
 </div>
