@@ -10,121 +10,33 @@ editor_options:
 
 ## Rys historyczny
 
-Analiza skupień, znana również jako *cluster analysis*, ma swoje korzenie w
-połowie XX wieku, choć jej podstawy koncepcyjne pojawiły się znacznie wcześniej
-w statystyce i biologii systematycznej. Jej rozwój przebiegał równolegle w
-kilku dziedzinach, w tym w psychologii, biologii, socjologii i informatyce, a z
-czasem stała się jednym z fundamentalnych narzędzi eksploracyjnej analizy
-danych. Pierwsze idee grupowania obiektów o podobnych cechach można odnaleźć
-już w XVIII i XIX wieku w klasyfikacji biologicznej. Carl Linneusz wprowadził
-system binominalny oparty na cechach morfologicznych organizmów, co stanowiło
-wczesny przykład klasyfikacji hierarchicznej. Współczesne podejście
-matematyczne do analizy skupień zaczęło się jednak kształtować dopiero w XX
-wieku wraz z rozwojem metod statystycznych i koncepcji odległości w przestrzeni
-wielowymiarowej. Za właściwy początek analizy skupień w sensie statystycznym
-uznaje się lata 30. i 40. XX wieku. W 1939 roku Tryon wprowadził pojęcie
-analizy grupowej (*cluster analysis*) w psychologii, stosując ją do
-klasyfikacji zmiennych i jednostek na podstawie macierzy podobieństw. W latach
-50. i 60. intensywny rozwój metod klasyfikacji hierarchicznej był związany z
-rozwojem biologii numerycznej (*numerical taxonomy*), głównie dzięki pracom
-Sokal’a i Sneath’a, którzy w latach 60. zaproponowali formalne podstawy
-taksonomii numerycznej opartej na macierzach podobieństw między organizmami.
-Lata 60. i 70. XX wieku przyniosły znaczący rozwój metod niehierarchicznych, w
-tym przede wszystkim metody *k-means*, zaproponowanej przez MacQueena w 1967
-roku. Algorytm ten stał się jednym z najczęściej stosowanych narzędzi w
-analizie skupień dzięki swojej prostocie, interpretowalności i efektywności
-obliczeniowej. W tym samym okresie rozwijano również metody oparte na gęstości
-(np. późniejszy DBSCAN), metody probabilistyczne (modele mieszanek Gaussa) oraz
-techniki optymalizacyjne pozwalające na automatyczne wyznaczanie liczby
-skupień. W latach 80. i 90. wraz z rozwojem informatyki oraz eksploracji danych
-(data mining), analiza skupień zaczęła być szeroko stosowana w zastosowaniach
-praktycznych – od segmentacji rynku, przez rozpoznawanie obrazów, po
-bioinformatykę. Pojawiły się również metody adaptacyjne i oparte na uczeniu
-nienadzorowanym, w tym sieci neuronowe typu *self-organizing maps* (SOM)
-opracowane przez Kohonena. W XXI wieku analiza skupień stała się kluczowym
-elementem nauki o danych (*data science*). Współczesne metody integrują
-klasyczne podejścia statystyczne z algorytmami uczenia maszynowego. Opracowano
-wiele nowych technik, takich jak metody oparte na gęstości (DBSCAN, OPTICS),
-metody spektralne wykorzystujące wartości własne macierzy podobieństwa, czy
-algorytmy głębokiego grupowania (*deep clustering*) bazujące na sieciach
-neuronowych. Równocześnie rozwinięto teoretyczne podstawy walidacji skupień,
-takie jak współczynniki *silhouette*, indeks Calinskiego-Harabasza czy
-Davies-Bouldin, umożliwiające obiektywną ocenę jakości grupowania.
+Analiza skupień, znana również jako *cluster analysis*, ma swoje korzenie w połowie XX wieku, choć jej podstawy koncepcyjne pojawiły się znacznie wcześniej w statystyce i biologii systematycznej. Jej rozwój przebiegał równolegle w kilku dziedzinach, w tym w psychologii, biologii, socjologii i informatyce, a z czasem stała się jednym z fundamentalnych narzędzi eksploracyjnej analizy danych. Pierwsze idee grupowania obiektów o podobnych cechach można odnaleźć już w XVIII i XIX wieku w klasyfikacji biologicznej. Carl Linneusz wprowadził system binominalny oparty na cechach morfologicznych organizmów, co stanowiło wczesny przykład klasyfikacji hierarchicznej. Współczesne podejście matematyczne do analizy skupień zaczęło się jednak kształtować dopiero w XX wieku wraz z rozwojem metod statystycznych i koncepcji odległości w przestrzeni wielowymiarowej. Za właściwy początek analizy skupień w sensie statystycznym uznaje się lata 30. i 40. XX wieku. W 1939 roku Tryon wprowadził pojęcie analizy grupowej (*cluster analysis*) w psychologii, stosując ją do klasyfikacji zmiennych i jednostek na podstawie macierzy podobieństw. W latach 50. i 60. intensywny rozwój metod klasyfikacji hierarchicznej był związany z rozwojem biologii numerycznej (*numerical taxonomy*), głównie dzięki pracom Sokal’a i Sneath’a, którzy w latach 60. zaproponowali formalne podstawy taksonomii numerycznej opartej na macierzach podobieństw między organizmami. Lata 60. i 70. XX wieku przyniosły znaczący rozwój metod niehierarchicznych, w tym przede wszystkim metody *k-means*, zaproponowanej przez MacQueena w 1967 roku. Algorytm ten stał się jednym z najczęściej stosowanych narzędzi w analizie skupień dzięki swojej prostocie, interpretowalności i efektywności obliczeniowej. W tym samym okresie rozwijano również metody oparte na gęstości (np. późniejszy DBSCAN), metody probabilistyczne (modele mieszanek Gaussa) oraz techniki optymalizacyjne pozwalające na automatyczne wyznaczanie liczby skupień. W latach 80. i 90. wraz z rozwojem informatyki oraz eksploracji danych (data mining), analiza skupień zaczęła być szeroko stosowana w zastosowaniach praktycznych – od segmentacji rynku, przez rozpoznawanie obrazów, po bioinformatykę. Pojawiły się również metody adaptacyjne i oparte na uczeniu nienadzorowanym, w tym sieci neuronowe typu *self-organizing maps* (SOM) opracowane przez Kohonena. W XXI wieku analiza skupień stała się kluczowym elementem nauki o danych (*data science*). Współczesne metody integrują klasyczne podejścia statystyczne z algorytmami uczenia maszynowego. Opracowano wiele nowych technik, takich jak metody oparte na gęstości (DBSCAN, OPTICS), metody spektralne wykorzystujące wartości własne macierzy podobieństwa, czy algorytmy głębokiego grupowania (*deep clustering*) bazujące na sieciach neuronowych. Równocześnie rozwinięto teoretyczne podstawy walidacji skupień, takie jak współczynniki *silhouette*, indeks Calinskiego-Harabasza czy Davies-Bouldin, umożliwiające obiektywną ocenę jakości grupowania.
 
 ## Podział metod analizy skupień
 
-Metody analizy skupień można klasyfikować według różnych kryteriów, takich jak
-sposób tworzenia skupień, założenia o strukturze danych, rodzaj miary
-podobieństwa czy sposób reprezentacji wyników. Najczęściej przyjmuje się
-podział taksonomiczny oparty na sposobie grupowania obiektów, który pozwala
-wyróżnić cztery główne klasy metod: hierarchiczne, niehierarchiczne, oparte na
-gęstości i oparte na modelach probabilistycznych.
+Metody analizy skupień można klasyfikować według różnych kryteriów, takich jak sposób tworzenia skupień, założenia o strukturze danych, rodzaj miary podobieństwa czy sposób reprezentacji wyników. Najczęściej przyjmuje się podział taksonomiczny oparty na sposobie grupowania obiektów, który pozwala wyróżnić cztery główne klasy metod: hierarchiczne, niehierarchiczne, oparte na gęstości i oparte na modelach probabilistycznych.
 
-Pierwszą i jedną z najstarszych kategorii są metody hierarchiczne. Ich istotą
-jest budowa dendrogramu odzwierciedlającego stopniowe łączenie (lub
-rozdzielanie) obiektów w skupienia. Wyróżnia się dwa podejścia: aglomeracyjne,
-które rozpoczynają od traktowania każdego obiektu jako odrębnego skupienia i
-następnie łączą je zgodnie z określoną miarą odległości (np. metoda
-pojedynczego, pełnego lub średniego wiązania), oraz dzielące, które zaczynają
-od jednego skupienia zawierającego wszystkie obiekty i w kolejnych krokach
-dokonują jego podziału. Metody hierarchiczne mają tę zaletę, że nie wymagają
-wcześniejszego określenia liczby skupień, lecz ich wadą jest wysoka złożoność
-obliczeniowa i wrażliwość na szumy.
+Pierwszą i jedną z najstarszych kategorii są metody hierarchiczne. Ich istotą jest budowa dendrogramu odzwierciedlającego stopniowe łączenie (lub rozdzielanie) obiektów w skupienia. Wyróżnia się dwa podejścia: aglomeracyjne, które rozpoczynają od traktowania każdego obiektu jako odrębnego skupienia i następnie łączą je zgodnie z określoną miarą odległości (np. metoda pojedynczego, pełnego lub średniego wiązania), oraz dzielące, które zaczynają od jednego skupienia zawierającego wszystkie obiekty i w kolejnych krokach dokonują jego podziału. Metody hierarchiczne mają tę zaletę, że nie wymagają wcześniejszego określenia liczby skupień, lecz ich wadą jest wysoka złożoność obliczeniowa i wrażliwość na szumy.
 
-Drugą grupę stanowią metody niehierarchiczne, wśród których najbardziej znane
-są algorytmy typu *k-means* oraz *k-medoids*. Ich celem jest bezpośrednie
-przypisanie każdego obiektu do jednego z ustalonej liczby skupień na podstawie
-minimalizacji sumy kwadratów odległości wewnątrzgrupowych. Metoda *k-means*
-jest szybka i skuteczna przy danych o wyraźnie kulistych skupieniach, natomiast
-*k-medoids* (np. algorytm PAM) jest bardziej odporna na wartości odstające. Do
-tej kategorii należą również algorytmy optymalizacyjne, takie jak *k-means++*
-czy *mini-batch k-means*, dostosowane do dużych zbiorów danych.
+Drugą grupę stanowią metody niehierarchiczne, wśród których najbardziej znane są algorytmy typu *k-means* oraz *k-medoids*. Ich celem jest bezpośrednie przypisanie każdego obiektu do jednego z ustalonej liczby skupień na podstawie minimalizacji sumy kwadratów odległości wewnątrzgrupowych. Metoda *k-means* jest szybka i skuteczna przy danych o wyraźnie kulistych skupieniach, natomiast *k-medoids* (np. algorytm PAM) jest bardziej odporna na wartości odstające. Do tej kategorii należą również algorytmy optymalizacyjne, takie jak *k-means++* czy *mini-batch k-means*, dostosowane do dużych zbiorów danych.
 
-Trzecią kategorię tworzą metody oparte na gęstości, w których skupienia
-definiuje się jako obszary przestrzeni danych o wysokim zagęszczeniu punktów
-oddzielone obszarami o niskiej gęstości. Klasycznym przykładem jest algorytm
-DBSCAN, który wykrywa skupienia dowolnego kształtu i pozwala automatycznie
-identyfikować punkty szumu. Udoskonaloną wersją tej metody jest OPTICS,
-umożliwiająca hierarchiczne przedstawienie struktur gęstościowych. Metody tego
-typu są szczególnie użyteczne przy analizie danych przestrzennych oraz w
-sytuacjach, gdy skupienia nie mają regularnego kształtu.
+Trzecią kategorię tworzą metody oparte na gęstości, w których skupienia definiuje się jako obszary przestrzeni danych o wysokim zagęszczeniu punktów oddzielone obszarami o niskiej gęstości. Klasycznym przykładem jest algorytm DBSCAN, który wykrywa skupienia dowolnego kształtu i pozwala automatycznie identyfikować punkty szumu. Udoskonaloną wersją tej metody jest OPTICS, umożliwiająca hierarchiczne przedstawienie struktur gęstościowych. Metody tego typu są szczególnie użyteczne przy analizie danych przestrzennych oraz w sytuacjach, gdy skupienia nie mają regularnego kształtu.
 
-Czwartą grupą są metody oparte na modelach probabilistycznych. Zakładają one,
-że dane pochodzą z mieszaniny rozkładów (najczęściej wielowymiarowych
-normalnych), a zadaniem algorytmu jest estymacja parametrów tych rozkładów oraz
-przypisanie obiektów do skupień na podstawie maksymalnego prawdopodobieństwa.
-Do tej kategorii należą modele mieszanek Gaussa (GMM) estymowane metodą EM
-(*Expectation–Maximization*), które umożliwiają probabilistyczne przypisanie
-obiektów do wielu skupień z różnym stopniem przynależności.
+Czwartą grupą są metody oparte na modelach probabilistycznych. Zakładają one, że dane pochodzą z mieszaniny rozkładów (najczęściej wielowymiarowych normalnych), a zadaniem algorytmu jest estymacja parametrów tych rozkładów oraz przypisanie obiektów do skupień na podstawie maksymalnego prawdopodobieństwa. Do tej kategorii należą modele mieszanek Gaussa (GMM) estymowane metodą EM (*Expectation–Maximization*), które umożliwiają probabilistyczne przypisanie obiektów do wielu skupień z różnym stopniem przynależności.
 
-Poza głównymi czterema klasami wyróżnia się również metody hybrydowe i
-współczesne podejścia uczenia nienadzorowanego. Przykładem są metody
-spektralne, które wykorzystują analizę wartości własnych macierzy podobieństwa,
-oraz metody głębokiego grupowania (*deep clustering*), integrujące sieci
-neuronowe autoenkoderowe z klasycznymi procedurami klastrowania[^cluster-1].
+Poza głównymi czterema klasami wyróżnia się również metody hybrydowe i współczesne podejścia uczenia nienadzorowanego. Przykładem są metody spektralne, które wykorzystują analizę wartości własnych macierzy podobieństwa, oraz metody głębokiego grupowania (*deep clustering*), integrujące sieci neuronowe autoenkoderowe z klasycznymi procedurami klastrowania[^cluster-1].
+
+[^cluster-1]: Ten rodzaj klastrowania nie będzie przedmiotem tego rozdziału ponieważ wykracza poza klasyczne podejście statystyczne i wymaga wiedzy na temat sieci neuronowych, która pojawia się na późniejszych semestrach.
 
 ![Podział metod grupowania](images/clust1.png)
 
-[^cluster-1]: Ten rodzaj klastrowania nie będzie przedmiotem tego rozdziału
-    ponieważ wykracza poza klasyczne podejście statystyczne i wymaga wiedzy na
-    temat sieci neuronowych, która pojawia się na późniejszych semestrach.
-
 ## Metody hierarchiczne
 
-Metody hierarchiczne w analizie skupień opierają się na iteracyjnym łączeniu
-lub dzieleniu obiektów w sposób odzwierciedlający ich podobieństwo, prowadząc
-do utworzenia struktury drzewiastej (dendrogramu). Struktura ta ukazuje
-hierarchiczne relacje między obiektami – od indywidualnych elementów aż po
-jedną nadrzędną grupę lub odwrotnie. Wyróżnia się dwa główne podejścia: metody
-aglomeracyjne oraz deglomeracyjne (dzielące).
+Metody hierarchiczne w analizie skupień opierają się na iteracyjnym łączeniu lub dzieleniu obiektów w sposób odzwierciedlający ich podobieństwo, prowadząc do utworzenia struktury drzewiastej (dendrogramu). Struktura ta ukazuje hierarchiczne relacje między obiektami – od indywidualnych elementów aż po jedną nadrzędną grupę lub odwrotnie. Wyróżnia się dwa główne podejścia: metody aglomeracyjne oraz deglomeracyjne (dzielące).
 
 ### Metody aglomeracyjne
 
-W podejściu aglomeracyjnym proces rozpoczyna się od traktowania każdego obiektu
-jako odrębnego skupienia jednoelementowego. Następnie w kolejnych krokach łączy
-się dwa najbardziej podobne skupienia, aż do momentu uzyskania jednego
-skupienia zawierającego wszystkie obiekty. Proces ten można formalnie zapisać
-następująco
+W podejściu aglomeracyjnym proces rozpoczyna się od traktowania każdego obiektu jako odrębnego skupienia jednoelementowego. Następnie w kolejnych krokach łączy się dwa najbardziej podobne skupienia, aż do momentu uzyskania jednego skupienia zawierającego wszystkie obiekty. Proces ten można formalnie zapisać następująco
 
 1.  Niech zbiór danych składa się z $n$ obiektów $$
     X = \{x_1, x_2, \ldots, x_n\},
@@ -132,79 +44,49 @@ następująco
 2.  Początkowo każdy obiekt stanowi odrębne skupienie $$
     C_i^{(0)} = \{x_i\} \quad \text{dla}\quad i = 1, \ldots, n.
     $$
-3.  Definiuje się macierz odległości $D = [d(x_i, x_j)]$, gdzie funkcja
-    $d(\cdot, \cdot)$ określa miarę odległości (np. euklidesową, Mahalanobisa,
-    Manhattan).
-4.  Na każdym kroku $t$ wyszukuje się dwa skupienia $C_p^{(t)}$ i $C_q^{(t)}$,
-    które są najbliższe względem przyjętej miary odległości między skupieniami
-    $D(C_p, C_q)$. Następnie łączy się je w jedno nowe skupienie $$
+3.  Definiuje się macierz odległości $D = [d(x_i, x_j)]$, gdzie funkcja $d(\cdot, \cdot)$ określa miarę odległości (np. euklidesową, Mahalanobisa, Manhattan).
+4.  Na każdym kroku $t$ wyszukuje się dwa skupienia $C_p^{(t)}$ i $C_q^{(t)}$, które są najbliższe względem przyjętej miary odległości między skupieniami $D(C_p, C_q)$. Następnie łączy się je w jedno nowe skupienie $$
     C_{pq}^{(t+1)} = C_p^{(t)} \cup C_q^{(t)}.
     $$
-5.  Odległości między nowo utworzonym skupieniem a pozostałymi aktualizuje się
-    zgodnie z przyjętą regułą wiązania (*linkage criterion*). Niech
-    $D(C_i,C_j)$ oznacza odległość klaster–klaster, $d(x,y)$ bazową odległość
-    punkt–punkt, $|C_i|=n_i$ liczność klastra $C_i$, $\bar x_i$ centroid $C_i$.
-    Reguła aglomeracji w postaci rekurencji Lance’a–Williamsa przyjmuje wówczas
-    postać $$
+5.  Odległości między nowo utworzonym skupieniem a pozostałymi aktualizuje się zgodnie z przyjętą regułą wiązania (*linkage criterion*). Niech $D(C_i,C_j)$ oznacza odległość klaster–klaster, $d(x,y)$ bazową odległość punkt–punkt, $|C_i|=n_i$ liczność klastra $C_i$, $\bar x_i$ centroid $C_i$. Reguła aglomeracji w postaci rekurencji Lance’a–Williamsa przyjmuje wówczas postać $$
     D\big((C_i\!\cup\!C_j),C_k\big)=\alpha_i D(C_i,C_k)+\alpha_j D(C_j,C_k)+\beta D(C_i,C_j)+\gamma\,\big|D(C_i,C_k)-D(C_j,C_k)\big|,
-    $$ z współczynnikami ($\alpha_i,\alpha_j,\beta,\gamma$) zależnymi od
-    wybranego sposobu łączenia. Dla metod centroidowych i Warda inicjalizujemy
-    macierz odległości kwadratami odległości euklidesowych i interpretujemy
-    wyniki jako wartości kwadratowe. Możemy wówczas wyróżnić następujące metody
-    aglomeracji:
+    $$ z współczynnikami ($\alpha_i,\alpha_j,\beta,\gamma$) zależnymi od wybranego sposobu łączenia. Dla metod centroidowych i Warda inicjalizujemy macierz odległości kwadratami odległości euklidesowych i interpretujemy wyniki jako wartości kwadratowe. Możemy wówczas wyróżnić następujące metody aglomeracji:
     -   Metoda pojedynczego wiązania (*single linkage*) $$
         D(C_i,C_j)=\min_{x\in C_i,\,y\in C_j} d(x,y).
         $$ Zbiory łączymy regułą $$
         D\big((C_i\!\cup\!C_j),C_k\big)=\min\!\big(D(C_i,C_k),\,D(C_j,C_k)\big),
-        $$ co odpowiada
-        $\alpha_i=\alpha_j=\tfrac12,\ \beta=0,\ \gamma=-\tfrac12$ przy
-        inicjalizacji $D(\{x\},\{y\})=d(x,y)$.
+        $$ co odpowiada $\alpha_i=\alpha_j=\tfrac12,\ \beta=0,\ \gamma=-\tfrac12$ przy inicjalizacji $D(\{x\},\{y\})=d(x,y)$.
     -   Metoda pełnego wiązania (*complete linkage*) $$
         D(C_i,C_j)=\max_{x\in C_i,\,y\in C_j} d(x,y).
         $$ Zbiory łączymy regułą $$
         D\big((C_i\!\cup\!C_j),C_k\big)=\max\!\big(D(C_i,C_k),\,D(C_j,C_k)\big),
-        $$ czyli $\alpha_i=\alpha_j=\tfrac12,\ \beta=0,\ \gamma=+\tfrac12$, z
-        inicjalizacją $d(x,y)$.
-    -   Metoda średniego wiązania (*average linkage*, UPGMA - *Unweighted Pair
-        Group Method using Arithmetic Averages*) $$
+        $$ czyli $\alpha_i=\alpha_j=\tfrac12,\ \beta=0,\ \gamma=+\tfrac12$, z inicjalizacją $d(x,y)$.
+    -   Metoda średniego wiązania (*average linkage*, UPGMA - *Unweighted Pair Group Method using Arithmetic Averages*) $$
         D(C_i,C_j)=\frac{1}{n_i n_j}\sum_{x\in C_i}\sum_{y\in C_j} d(x,y).
         $$ Zbiory łączymy regułą $$
         D\big((C_i\!\cup\!C_j),C_k\big)=\frac{n_i\,D(C_i,C_k)+n_j\,D(C_j,C_k)}{n_i+n_j},
-        $$ co daje
-        $\alpha_i=\tfrac{n_i}{n_i+n_j},\ \alpha_j=\tfrac{n_j}{n_i+n_j},\ \beta=\gamma=0$.
-    -   Metoda ważonego średniego wiązania (*weighted average linkage*, WPGMA -
-        *Weighted Pair Group Method using Arithmetic Averages*, McQuitty) -
-        zbiory łączymy regułą $$
+        $$ co daje $\alpha_i=\tfrac{n_i}{n_i+n_j},\ \alpha_j=\tfrac{n_j}{n_i+n_j},\ \beta=\gamma=0$.
+    -   Metoda ważonego średniego wiązania (*weighted average linkage*, WPGMA - *Weighted Pair Group Method using Arithmetic Averages*, McQuitty) - zbiory łączymy regułą $$
         D\big((C_i\!\cup\!C_j),C_k\big)=\tfrac12\big(D(C_i,C_k)+D(C_j,C_k)\big),
-        $$ tj. $\alpha_i=\alpha_j=\tfrac12,\ \beta=\gamma=0$, przy
-        inicjalizacji $d(x,y)$.
-    -   Metoda centroidów (*centroid linkage*, UPGMC - *Unweighted Pair Group
-        Method using Centroids*)[^cluster-2] - definicja przez centroidy
-        (wymaga kwadratów odległości euklidesowych) $$
+        $$ tj. $\alpha_i=\alpha_j=\tfrac12,\ \beta=\gamma=0$, przy inicjalizacji $d(x,y)$.
+    -   Metoda centroidów (*centroid linkage*, UPGMC - *Unweighted Pair Group Method using Centroids*)[^cluster-2] - definicja przez centroidy (wymaga kwadratów odległości euklidesowych) $$
         D(C_i,C_j)=\|\bar x_i-\bar x_j\|^2,\qquad \bar x_i=\frac{1}{n_i}\sum_{x\in C_i}x.
         $$ Zbiory łączymy regułą $$
         D\big((C_i\!\cup\!C_j),C_k\big)=\frac{n_i}{n_i+n_j}D(C_i,C_k)+\frac{n_j}{n_i+n_j}D(C_j,C_k)-\frac{n_i n_j}{(n_i+n_j)^2}D(C_i,C_j),
-        $$ co odpowiada
-        $\alpha_i=\tfrac{n_i}{n_i+n_j},\ \alpha_j=\tfrac{n_j}{n_i+n_j},\ \beta=-\tfrac{n_i n_j}{(n_i+n_j)^2},\ \gamma=0$,
-        inicjalizujemy $D(\{x\},\{y\})=\|x-y\|^2$.
-    -   Metoda mediany (*median linkage*, WPGMC - *Weighted Pair Group Method
-        using Centroids*) - centra klastrów aktualizujemy przez punkt środkowy
-        median $m_{i\cup j}=\tfrac12(m_i+m_j).$ Zbiory łączymy regułą $$
+        $$ co odpowiada $\alpha_i=\tfrac{n_i}{n_i+n_j},\ \alpha_j=\tfrac{n_j}{n_i+n_j},\ \beta=-\tfrac{n_i n_j}{(n_i+n_j)^2},\ \gamma=0$, inicjalizujemy $D(\{x\},\{y\})=\|x-y\|^2$.
+    -   Metoda mediany (*median linkage*, WPGMC - *Weighted Pair Group Method using Centroids*) - centra klastrów aktualizujemy przez punkt środkowy median $m_{i\cup j}=\tfrac12(m_i+m_j).$ Zbiory łączymy regułą $$
         D\big((C_i\!\cup\!C_j),C_k\big)=\tfrac12\big(D(C_i,C_k)+D(C_j,C_k)\big)-\tfrac14\,D(C_i,C_j),
-        $$ czyli $\alpha_i=\alpha_j=\tfrac12,\ \beta=-\tfrac14,\ \gamma=0$, z
-        inicjalizacją $D(\{x\},\{y\})=\|x-y\|^2$.
+        $$ czyli $\alpha_i=\alpha_j=\tfrac12,\ \beta=-\tfrac14,\ \gamma=0$, z inicjalizacją $D(\{x\},\{y\})=\|x-y\|^2$.
     -   Metoda Warda (*Ward’s linkage*) $$
         D(C_i,C_j)=\frac{2\,n_i n_j}{n_i+n_j}\,\|\bar x_i-\bar x_j\|^2,
         $$ Zbiory łączymy regułą $$
         D\big((C_i\!\cup\!C_j),C_k\big)=\frac{n_i+n_k}{n_i+n_j+n_k}D(C_i,C_k)+\frac{n_j+n_k}{n_i+n_j+n_k}D(C_j,C_k)-\frac{n_k}{n_i+n_j+n_k}D(C_i,C_j),
         $$ przy inicjalizacji $D(\{x\},\{y\})=\|x-y\|^2$.
-6.  Proces powtarza się do momentu, gdy wszystkie obiekty znajdą się w jednym
-    skupieniu, tworząc hierarchiczny układ połączeń.
+6.  Proces powtarza się do momentu, gdy wszystkie obiekty znajdą się w jednym skupieniu, tworząc hierarchiczny układ połączeń.
 
-Zaletą metod aglomeracyjnych jest to, że nie wymagają a priori określenia
-liczby skupień. Wadą jest natomiast ich nieodwracalność – raz połączone
-skupienia nie mogą zostać rozdzielone, a wynik końcowy jest wrażliwy na wybór
-miary odległości i kryterium wiązania.
+[^cluster-2]: W metodach centroidowych, medianowej i Warda podkreśla się konieczność pracy na kwadratach odległości euklidesowych.
+
+Zaletą metod aglomeracyjnych jest to, że nie wymagają a priori określenia liczby skupień. Wadą jest natomiast ich nieodwracalność – raz połączone skupienia nie mogą zostać rozdzielone, a wynik końcowy jest wrażliwy na wybór miary odległości i kryterium wiązania.
 
 ::: {#exm-1}
 ```{r}
@@ -281,82 +163,40 @@ ggarrange(p_c_single, p_c_complete, p_c_average, p_c_ward, ncol = 2, nrow = 2)
 ```
 :::
 
-[^cluster-2]: W metodach centroidowych, medianowej i Warda podkreśla się
-    konieczność pracy na kwadratach odległości euklidesowych.
-
 ### Metody deglomeracyjne
 
-Metody deglomeracyjne (dzielące) stanowią odwrotność podejścia aglomeracyjnego.
-Zaczyna się od jednego skupienia zawierającego wszystkie obiekty, które
-następnie są iteracyjnie dzielone na mniejsze podzbiory, aż do osiągnięcia
-oczekiwanej liczby skupień lub spełnienia kryterium zatrzymania.
+Metody deglomeracyjne (dzielące) stanowią odwrotność podejścia aglomeracyjnego. Zaczyna się od jednego skupienia zawierającego wszystkie obiekty, które następnie są iteracyjnie dzielone na mniejsze podzbiory, aż do osiągnięcia oczekiwanej liczby skupień lub spełnienia kryterium zatrzymania.
 
 Formalnie proces można przedstawić w postaci
 
 1.  Początkowo przyjmuje się jedno skupienie $$C^{(0)} = X.$$
-2.  W każdym kroku wybiera się skupienie $C_i^{(t)}$, które zostanie
-    podzielone. Wybór ten może wynikać z maksymalnej wariancji
-    wewnątrzgrupowej, liczby elementów lub innych kryteriów jakości skupień.
-3.  Dokonuje się podziału wybranego skupienia na dwa mniejsze, minimalizując
-    błąd wewnątrzgrupowegy lub maksymalizując różnice międzygrupowe.
-    Najczęściej stosuje się algorytm analogiczny do *bisecting k-means* $$
+2.  W każdym kroku wybiera się skupienie $C_i^{(t)}$, które zostanie podzielone. Wybór ten może wynikać z maksymalnej wariancji wewnątrzgrupowej, liczby elementów lub innych kryteriów jakości skupień.
+3.  Dokonuje się podziału wybranego skupienia na dwa mniejsze, minimalizując błąd wewnątrzgrupowegy lub maksymalizując różnice międzygrupowe. Najczęściej stosuje się algorytm analogiczny do *bisecting k-means* $$
     C_i^{(t)} \rightarrow \{C_{i1}^{(t+1)}, C_{i2}^{(t+1)}\},
-    $$ przy czym podział realizuje się poprzez iteracyjne zastosowanie k-means
-    z $k = 2$.
-4.  Proces dzielenia jest powtarzany do momentu uzyskania żądanej liczby
-    skupień lub gdy dalszy podział nie prowadzi do istotnej poprawy jakości.
+    $$ przy czym podział realizuje się poprzez iteracyjne zastosowanie k-means z $k = 2$.
+4.  Proces dzielenia jest powtarzany do momentu uzyskania żądanej liczby skupień lub gdy dalszy podział nie prowadzi do istotnej poprawy jakości.
 
-Metody deglomeracyjne są mniej popularne z powodu wyższego kosztu
-obliczeniowego i konieczności przyjęcia dodatkowych kryteriów decyzyjnych
-dotyczących wyboru skupienia do podziału. Jednak w dużych zbiorach danych mogą
-być efektywniejsze niż aglomeracyjne, szczególnie gdy implementuje się je z
-wykorzystaniem metod heurystycznych.
+Metody deglomeracyjne są mniej popularne z powodu wyższego kosztu obliczeniowego i konieczności przyjęcia dodatkowych kryteriów decyzyjnych dotyczących wyboru skupienia do podziału. Jednak w dużych zbiorach danych mogą być efektywniejsze niż aglomeracyjne, szczególnie gdy implementuje się je z wykorzystaniem metod heurystycznych.
 
 ## Metody niehierarchiczne
 
-Metody niehierarchiczne w analizie skupień koncentrują się na bezpośrednim
-przypisaniu obiektów do określonej liczby skupień bez tworzenia struktury
-hierarchicznej. Najbardziej znane i szeroko stosowane są algorytmy typu
-*k-means* oraz *k-medoids*. Podstawą matematyczną metod niehierarchicznych jest
-minimalizacja pewnej funkcji celu, najczęściej sumy kwadratów odchyleń punktów
-od środków grup, zwanych centroidami. W przeciwieństwie do podejścia
-hierarchicznego, proces ten ma charakter iteracyjny i wymaga wcześniejszego
-określenia liczby klastrów. W efekcie powstaje partycja przestrzeni danych, w
-której każdy obiekt zostaje przypisany do jednego lub kilku klastrów w
-zależności od przyjętej koncepcji przynależności (podział płaski[^cluster-3]).
-W tym kontekście wyróżnia się dwa główne typy podziałów: podział twardy i
-podział rozmyty.
+Metody niehierarchiczne w analizie skupień koncentrują się na bezpośrednim przypisaniu obiektów do określonej liczby skupień bez tworzenia struktury hierarchicznej. Najbardziej znane i szeroko stosowane są algorytmy typu *k-means* oraz *k-medoids*. Podstawą matematyczną metod niehierarchicznych jest minimalizacja pewnej funkcji celu, najczęściej sumy kwadratów odchyleń punktów od środków grup, zwanych centroidami. W przeciwieństwie do podejścia hierarchicznego, proces ten ma charakter iteracyjny i wymaga wcześniejszego określenia liczby klastrów. W efekcie powstaje partycja przestrzeni danych, w której każdy obiekt zostaje przypisany do jednego lub kilku klastrów w zależności od przyjętej koncepcji przynależności (podział płaski[^cluster-3]). W tym kontekście wyróżnia się dwa główne typy podziałów: podział twardy i podział rozmyty.
 
-[^cluster-3]: podział płaski oznacza, że każdy obiekt należy do dokładnie
-    jednej grupy i nie istnieje hierarchia między grupami
+[^cluster-3]: podział płaski oznacza, że każdy obiekt należy do dokładnie jednej grupy i nie istnieje hierarchia między grupami
 
 ### Podział twardy
 
-Podział twardy opiera się na jednoznacznym przypisaniu każdego obiektu do
-dokładnie jednego klastra. W ujęciu matematycznym przyjmuje się, że dla zbioru
-obserwacji $X = \{x_1, x_2, \ldots, x_n\}$ oraz ustalonej liczby klastrów $K$,
-istnieje macierz przynależności $U = [u_{ik}]$, w której każdy element
-przyjmuje wartość 0 lub 1. Wartość $u_{ik} = 1$ oznacza, że obiekt $x_i$ należy
-do klastra $k$, natomiast $u_{ik} = 0$ – że do niego nie należy.
+Podział twardy opiera się na jednoznacznym przypisaniu każdego obiektu do dokładnie jednego klastra. W ujęciu matematycznym przyjmuje się, że dla zbioru obserwacji $X = \{x_1, x_2, \ldots, x_n\}$ oraz ustalonej liczby klastrów $K$, istnieje macierz przynależności $U = [u_{ik}]$, w której każdy element przyjmuje wartość 0 lub 1. Wartość $u_{ik} = 1$ oznacza, że obiekt $x_i$ należy do klastra $k$, natomiast $u_{ik} = 0$ – że do niego nie należy.
 
-Pierwszym warunkiem podziału twardego jest to, że każdy obiekt musi należeć
-dokładnie do jednej grupy. Oznacza to, że dla każdego obiektu suma
-przynależności po wszystkich klastrach równa się jeden $$
+Pierwszym warunkiem podziału twardego jest to, że każdy obiekt musi należeć dokładnie do jednej grupy. Oznacza to, że dla każdego obiektu suma przynależności po wszystkich klastrach równa się jeden $$
 \sum_{k=1}^{K} u_{ik} = 1, \quad \forall i \in \{1, 2, \ldots, n\}.
-$$ Z kolei każdy klaster powinien zawierać przynajmniej jeden element, co można
-zapisać jako $$
+$$ Z kolei każdy klaster powinien zawierać przynajmniej jeden element, co można zapisać jako $$
 1 \leq \sum_{i=1}^{n} u_{ik}, \quad \forall k \in \{1, 2, \ldots, K\}.
-$$ Wynika z tego, że nie dopuszcza się powstawania pustych grup. Kolejnym
-warunkiem jest binarność przypisań, czyli $$
+$$ Wynika z tego, że nie dopuszcza się powstawania pustych grup. Kolejnym warunkiem jest binarność przypisań, czyli $$
 u_{ik} \in \{0, 1\}, \quad \forall i, k.
-$$ Przynależność obiektu do klastra jest zatem całkowita i nie dopuszcza stanów
-pośrednich. Wreszcie, formalnym celem podziału twardego jest minimalizacja
-funkcji błędu, która określa sumę kwadratów odchyleń poszczególnych obiektów od
-centroidów klastrów, do których zostały przypisane $$
+$$ Przynależność obiektu do klastra jest zatem całkowita i nie dopuszcza stanów pośrednich. Wreszcie, formalnym celem podziału twardego jest minimalizacja funkcji błędu, która określa sumę kwadratów odchyleń poszczególnych obiektów od centroidów klastrów, do których zostały przypisane $$
 J = \sum_{k=1}^{K} \sum_{i=1}^{n} u_{ik} \, \|x_i - \mu_k\|^2,
-$$ gdzie $\mu_k$ oznacza środek klastra $k$, a $\|\cdot\|$ jest najczęściej
-normą euklidesową. Każdy obiekt powinien zostać przypisany do tego klastra,
-którego centroid jest najbliższy, czyli $$
+$$ gdzie $\mu_k$ oznacza środek klastra $k$, a $\|\cdot\|$ jest najczęściej normą euklidesową. Każdy obiekt powinien zostać przypisany do tego klastra, którego centroid jest najbliższy, czyli $$
 u_{ik} =
 \begin{cases}
 1, & \text{jeśli } k = \arg \min_{j} \|x_i - \mu_j\|, \\
@@ -366,78 +206,39 @@ $$
 
 ### Podział rozmyty
 
-Podział rozmyty (ang. *fuzzy clustering*) stanowi uogólnienie klasycznego,
-twardego podejścia do grupowania, w którym dopuszcza się możliwość częściowej
-przynależności obiektu do więcej niż jednego klastra. Zamiast przypisywać każdy
-element jednoznacznie do jednej grupy, wprowadza się pojęcie stopnia
-przynależności, który przyjmuje wartości z przedziału $[0,1]$. W ten sposób
-odzwierciedla się niepewność lub płynność granic między grupami, co czyni tę
-metodę bardziej elastyczną i lepiej dostosowaną do danych o niejednoznacznej
-strukturze.
+Podział rozmyty (ang. *fuzzy clustering*) stanowi uogólnienie klasycznego, twardego podejścia do grupowania, w którym dopuszcza się możliwość częściowej przynależności obiektu do więcej niż jednego klastra. Zamiast przypisywać każdy element jednoznacznie do jednej grupy, wprowadza się pojęcie stopnia przynależności, który przyjmuje wartości z przedziału $[0,1]$. W ten sposób odzwierciedla się niepewność lub płynność granic między grupami, co czyni tę metodę bardziej elastyczną i lepiej dostosowaną do danych o niejednoznacznej strukturze.
 
-Matematycznie, dla zbioru obserwacji $X = \{x_1, x_2, \ldots, x_n\}$ oraz
-ustalonej liczby klastrów $K$, definiuje się macierz przynależności
-$U = [u_{ik}]$, gdzie każdy element $u_{ik}$ oznacza stopień, w jakim obiekt
-$x_i$ należy do klastra $k$. W odróżnieniu od podziału twardego, tutaj
-$u_{ik} \in [0,1]$, a nie tylko $\{0,1\}$. Zachowany zostaje jednak warunek, że
-suma stopni przynależności danego obiektu do wszystkich klastrów musi być równa
-jeden $$
+Matematycznie, dla zbioru obserwacji $X = \{x_1, x_2, \ldots, x_n\}$ oraz ustalonej liczby klastrów $K$, definiuje się macierz przynależności $U = [u_{ik}]$, gdzie każdy element $u_{ik}$ oznacza stopień, w jakim obiekt $x_i$ należy do klastra $k$. W odróżnieniu od podziału twardego, tutaj $u_{ik} \in [0,1]$, a nie tylko $\{0,1\}$. Zachowany zostaje jednak warunek, że suma stopni przynależności danego obiektu do wszystkich klastrów musi być równa jeden $$
 \sum_{k=1}^{K} u_{ik} = 1, \quad \forall i \in \{1, 2, \ldots, n\}.
-$$ Warunek ten oznacza, że przynależności mają charakter względny – im
-silniejszy związek obiektu z jednym klastrem, tym słabszy z innymi.
+$$ Warunek ten oznacza, że przynależności mają charakter względny – im silniejszy związek obiektu z jednym klastrem, tym słabszy z innymi.
 
-Podział rozmyty opiera się na minimalizacji rozmytej funkcji celu, znanej z
-algorytmu *Fuzzy c-means* $$
+Podział rozmyty opiera się na minimalizacji rozmytej funkcji celu, znanej z algorytmu *Fuzzy c-means* $$
 J_m = \sum_{k=1}^{K} \sum_{i=1}^{n} (u_{ik})^m \, \|x_i - \mu_k\|^2,
-$$ gdzie $\mu_k$ oznacza centroid klastra $k$, a parametr $m > 1$ kontroluje
-poziom rozmycia. Im większa wartość $m$, tym bardziej rozmyty staje się
-podział, ponieważ różnice pomiędzy wartościami przynależności poszczególnych
-obiektów do klastrów ulegają spłaszczeniu. W praktyce najczęściej przyjmuje się
-$m = 2$. Optymalizacja funkcji celu prowadzi do następujących warunków
-aktualizacji. Stopnie przynależności obliczane są według wzoru $$
+$$ gdzie $\mu_k$ oznacza centroid klastra $k$, a parametr $m > 1$ kontroluje poziom rozmycia. Im większa wartość $m$, tym bardziej rozmyty staje się podział, ponieważ różnice pomiędzy wartościami przynależności poszczególnych obiektów do klastrów ulegają spłaszczeniu. W praktyce najczęściej przyjmuje się $m = 2$. Optymalizacja funkcji celu prowadzi do następujących warunków aktualizacji. Stopnie przynależności obliczane są według wzoru $$
 u_{ik} = \frac{1}{\sum_{j=1}^{K} \left( \frac{\|x_i - \mu_k\|}{\|x_i - \mu_j\|} \right)^{\frac{2}{m-1}}},
-$$ natomiast nowe położenie centroidów wyznacza się jako ważoną średnią
-punktów, gdzie wagi stanowią stopnie przynależności podniesione do potęgi $m$
-$$
+$$ natomiast nowe położenie centroidów wyznacza się jako ważoną średnią punktów, gdzie wagi stanowią stopnie przynależności podniesione do potęgi $m$ $$
 \mu_k = \frac{\sum_{i=1}^{n} (u_{ik})^m x_i}{\sum_{i=1}^{n} (u_{ik})^m}.
-$$ Proces ten przebiega iteracyjnie – w każdej iteracji obliczane są nowe
-wartości $u_{ik}$ i $\mu_k$, aż do osiągnięcia zbieżności funkcji celu $J_m$.
+$$ Proces ten przebiega iteracyjnie – w każdej iteracji obliczane są nowe wartości $u_{ik}$ i $\mu_k$, aż do osiągnięcia zbieżności funkcji celu $J_m$.
 
 ### Metoda k-średnich (*k-means*)
 
-Algorytm *k-means* wynika z problemu minimalizacji sumy kwadratów odchyleń
-punktów od reprezentantów grup w metryce euklidesowej. Niech dany będzie zbiór
-obserwacji $X=\{x_1,\dots,x_n\}\subset\mathbb{R}^p$ oraz liczba klastrów $K$.
-Celem jest znalezienie partycji danych i wektorów
-$\mu_1,\dots,\mu_K\in\mathbb{R}^p$ minimalizujących funkcję celu $$
+Algorytm *k-means* wynika z problemu minimalizacji sumy kwadratów odchyleń punktów od reprezentantów grup w metryce euklidesowej. Niech dany będzie zbiór obserwacji $X=\{x_1,\dots,x_n\}\subset\mathbb{R}^p$ oraz liczba klastrów $K$. Celem jest znalezienie partycji danych i wektorów $\mu_1,\dots,\mu_K\in\mathbb{R}^p$ minimalizujących funkcję celu $$
 J(U,\mu)=\sum_{k=1}^K\sum_{i=1}^n u_{ik}\,\|x_i-\mu_k\|^2,
-$$ gdzie $U=[u_{ik}]$ jest macierzą przypisań spełniającą warunki podziału
-twardego $u_{ik}\in\{0,1\}$, $\sum_{k=1}^K u_{ik}=1$ dla każdego $i$, a
-$\sum_{i=1}^n u_{ik}\ge 1$ dla każdego $k$.
+$$ gdzie $U=[u_{ik}]$ jest macierzą przypisań spełniającą warunki podziału twardego $u_{ik}\in\{0,1\}$, $\sum_{k=1}^K u_{ik}=1$ dla każdego $i$, a $\sum_{i=1}^n u_{ik}\ge 1$ dla każdego $k$.
 
-Wyprowadzenie algorytmu polega na zastosowaniu naprzemiennej minimalizacji
-względem $U$ i $\mu$, ponieważ jednoczesna minimalizacja jest problemem
-kombinatorycznym trudnym obliczeniowo. Rozważmy najpierw minimalizację względem
-centroidów przy ustalonych przypisaniach. Dla danego $k$ rozważmy funkcję $$
+Wyprowadzenie algorytmu polega na zastosowaniu naprzemiennej minimalizacji względem $U$ i $\mu$, ponieważ jednoczesna minimalizacja jest problemem kombinatorycznym trudnym obliczeniowo. Rozważmy najpierw minimalizację względem centroidów przy ustalonych przypisaniach. Dla danego $k$ rozważmy funkcję $$
 J_k(\mu_k)=\sum_{i=1}^n u_{ik}\,\|x_i-\mu_k\|^2.
 $$ Jest to funkcja kwadratowa ściśle wypukła w $\mu_k$. Obliczamy gradient $$
 \nabla_{\mu_k}J_k(\mu_k)=2\sum_{i=1}^n u_{ik}\,(\mu_k-x_i)=2\left(\Big(\sum_{i}u_{ik}\Big)\mu_k-\sum_{i}u_{ik}x_i\right).
 $$ Warunek $\nabla_{\mu_k}J_k(\mu_k)=0$ daje $$
 \mu_k^\star=\frac{\sum_{i=1}^n u_{ik}x_i}{\sum_{i=1}^n u_{ik}},
-$$ czyli optymalny centroid jest średnią arytmetyczną punktów przypisanych do
-klastra. Wypukłość zapewnia, że jest to minimum globalne względem $\mu_k$.
-Zatem przy ustalonych $U$ krok aktualizacji centroidów ma postać średniej
-ważonej ze wskaźnikami $u_{ik}$.
+$$ czyli optymalny centroid jest średnią arytmetyczną punktów przypisanych do klastra. Wypukłość zapewnia, że jest to minimum globalne względem $\mu_k$. Zatem przy ustalonych $U$ krok aktualizacji centroidów ma postać średniej ważonej ze wskaźnikami $u_{ik}$.
 
-Następnie dokonujemy minimalizacji względem przypisań przy ustalonych
-centroidach. Dla każdego obiektu $x_i$ problem redukuje się do $$
+Następnie dokonujemy minimalizacji względem przypisań przy ustalonych centroidach. Dla każdego obiektu $x_i$ problem redukuje się do $$
 \min_{u_{i1},\dots,u_{iK}} \sum_{k=1}^K u_{ik}\,\|x_i-\mu_k\|^2\quad \text{przy}\quad u_{ik}\in\{0,1\},\ \sum_k u_{ik}=1.
-$$ Ponieważ wyrażenie jest liniowe w $u_{ik}$, optimum osiąga się, wybierając
-$u_{ik}=1$ dla indeksu $k$ minimalizującego odległość euklidesową $$
+$$ Ponieważ wyrażenie jest liniowe w $u_{ik}$, optimum osiąga się, wybierając $u_{ik}=1$ dla indeksu $k$ minimalizującego odległość euklidesową $$
 u_{ik}=\mathbf{1}_\left\{k=\operatorname{argmin}_{j\in\{1,\dots,K\}}\|x_i-\mu_j\|^2\right\}.
-$$ Wynika stąd reguła „przypisz do najbliższego centroidu”, co geometrycznie
-odpowiada podziałowi przestrzeni na komórki Woronoja wyznaczone przez
-$\{\mu_k\}$.
+$$ Wynika stąd reguła „przypisz do najbliższego centroidu”, co geometrycznie odpowiada podziałowi przestrzeni na komórki Woronoja wyznaczone przez $\{\mu_k\}$.
 
 ![](images/kmeans_animation-ezgif.com-speed.gif)
 
@@ -446,112 +247,52 @@ Złożenie obu kroków prowadzi do procedury znanej jako *Lloyd’s algorithm*:
 1.  Startujemy od wstępnych centroidów $\mu^{(0)}$.
 2.  Naprzemiennie wykonujemy przypisanie do najbliższego centroidu.
 3.  Przeprowadzamy aktualizację centroidów jako średnich.
-4.  Wykonujemy kroki 2-3 aż do osiągnięcia zbieżności (punkty nie zmieniają
-    swoich skupień).
+4.  Wykonujemy kroki 2-3 aż do osiągnięcia zbieżności (punkty nie zmieniają swoich skupień).
 
-Każdy z kroków 2-3 nie zwiększa funkcji celu, bo przy ustalonych centroidach
-wybór najbliższego centroidu minimalizuje składnik $\|x_i-\mu_k\|^2$ dla
-każdego $i$, więc $J$ maleje lub pozostaje stała, a przy ustalonych
-przypisaniach do klastrów wybór średniej minimalizuje sumę kwadratów, więc $J$
-również maleje lub pozostaje stała. Ponieważ istnieje skończona liczba
-możliwych partycji i $J\ge 0$, monotonicznie niemalejąca sekwencja wartości
-funkcji celu musi zatrzymać się w skończonej liczbie kroków na punkcie
-stacjonarnym, czyli minimum lokalnym problemu z ograniczeniami twardych
-przypisań.
+Każdy z kroków 2-3 nie zwiększa funkcji celu, bo przy ustalonych centroidach wybór najbliższego centroidu minimalizuje składnik $\|x_i-\mu_k\|^2$ dla każdego $i$, więc $J$ maleje lub pozostaje stała, a przy ustalonych przypisaniach do klastrów wybór średniej minimalizuje sumę kwadratów, więc $J$ również maleje lub pozostaje stała. Ponieważ istnieje skończona liczba możliwych partycji i $J\ge 0$, monotonicznie niemalejąca sekwencja wartości funkcji celu musi zatrzymać się w skończonej liczbie kroków na punkcie stacjonarnym, czyli minimum lokalnym problemu z ograniczeniami twardych przypisań.
 
-Warto zauważyć, że równoważnie można interpretować cel jako minimalizację
-wariancji wewnątrzklastrowej. W klasycznej dekompozycji SST $$
+Warto zauważyć, że równoważnie można interpretować cel jako minimalizację wariancji wewnątrzklastrowej. W klasycznej dekompozycji SST $$
 \underbrace{\sum_{i=1}^n \|x_i-\bar{x}\|^2}_{\text{SST}}=\underbrace{\sum_{k=1}^K\sum_{i=1}^n u_{ik}\|x_i-\mu_k\|^2}_{\text{WSS}}+\underbrace{\sum_{k=1}^K n_k\|\mu_k-\bar{x}\|^2}_{\text{BSS}},
-$$ gdzie $\bar{x}$ jest średnią globalną, a $n_k=\sum_i u_{ik}$. Minimalizacja
-WSS (ang. *within-cluster sum of squares*) przy zadanym $K$ jest równoważna
-maksymalizacji BSS, czyli maksymalizacji separacji centroidów względem średniej
-globalnej, co formalnie uzasadnia intuicję „maksymalizować jednorodność
-wewnątrz klastrów i różnice między klastrami”.
+$$ gdzie $\bar{x}$ jest średnią globalną, a $n_k=\sum_i u_{ik}$. Minimalizacja WSS (ang. *within-cluster sum of squares*) przy zadanym $K$ jest równoważna maksymalizacji BSS, czyli maksymalizacji separacji centroidów względem średniej globalnej, co formalnie uzasadnia intuicję „maksymalizować jednorodność wewnątrz klastrów i różnice między klastrami”.
 
 ::: callout-note
 ## *k-means++*
 
-Zastosowanie inicjalizacji *k-means++* polega na losowaniu początków z
-uprzywilejowaniem punktów odległych od już wybranych centroidów, co w sensie
-teoretycznym daje gwarancje aproksymacyjne rzędu $O(\log K)$ względem optimum
-oczekiwanego, a w praktyce istotnie poprawia jakość minimum lokalnego.
+Zastosowanie inicjalizacji *k-means++* polega na losowaniu początków z uprzywilejowaniem punktów odległych od już wybranych centroidów, co w sensie teoretycznym daje gwarancje aproksymacyjne rzędu $O(\log K)$ względem optimum oczekiwanego, a w praktyce istotnie poprawia jakość minimum lokalnego.
 :::
 
 ::: callout-warning
 ## Warunki stacjonarności otrzymanego rozwiązania
 
-Para $(U^\star,\mu^\star)$ jest punktem stałym algorytmu wtedy i tylko wtedy,
-gdy spełnia jednocześnie dwa warunki: po pierwsze $\mu_k^\star$ są średnimi
-swoich klastrów, po drugie przypisania $U^\star$ są zgodne z najbliższymi
-centroidami $\mu^\star.$ Takie rozwiązanie spełnia warunki optymalności
-pierwszego rzędu względem naprzemiennych bloków zmiennych i stanowi minimum
-lokalne funkcji $J$ na zbiorze dopuszczalnych rozwiązań wyznaczonych z
-ograniczeniami twardych przypisań.
+Para $(U^\star,\mu^\star)$ jest punktem stałym algorytmu wtedy i tylko wtedy, gdy spełnia jednocześnie dwa warunki: po pierwsze $\mu_k^\star$ są średnimi swoich klastrów, po drugie przypisania $U^\star$ są zgodne z najbliższymi centroidami $\mu^\star.$ Takie rozwiązanie spełnia warunki optymalności pierwszego rzędu względem naprzemiennych bloków zmiennych i stanowi minimum lokalne funkcji $J$ na zbiorze dopuszczalnych rozwiązań wyznaczonych z ograniczeniami twardych przypisań.
 :::
 
 ### Metoda k-medoidów (*k-medoids*)
 
-Metoda k-medoid (ang. *k-medoids*) stanowi bliski odpowiednik klasycznej metody
-*k-means*, lecz wprowadza zasadniczą zmianę w sposobie definiowania
-reprezentanta klastra. Zamiast centroidu obliczanego jako średnia arytmetyczna
-wszystkich punktów w danym klastrze, metoda k-medoid wykorzystuje medoid, czyli
-rzeczywisty punkt ze zbioru danych, który minimalizuje sumę odległości do
-pozostałych elementów tego samego klastra. Dzięki temu metoda ta jest bardziej
-odporna na obserwacje odstające oraz umożliwia zastosowanie dowolnej miary
-odległości, nie tylko euklidesowej.
+Metoda k-medoid (ang. *k-medoids*) stanowi bliski odpowiednik klasycznej metody *k-means*, lecz wprowadza zasadniczą zmianę w sposobie definiowania reprezentanta klastra. Zamiast centroidu obliczanego jako średnia arytmetyczna wszystkich punktów w danym klastrze, metoda k-medoid wykorzystuje medoid, czyli rzeczywisty punkt ze zbioru danych, który minimalizuje sumę odległości do pozostałych elementów tego samego klastra. Dzięki temu metoda ta jest bardziej odporna na obserwacje odstające oraz umożliwia zastosowanie dowolnej miary odległości, nie tylko euklidesowej.
 
-Niech dany będzie zbiór obserwacji
-$X = \{x_1, x_2, \ldots, x_n\} \subset \mathbb{R}^p$ oraz liczba klastrów $K$.
-Celem jest podział zbioru $X$ na $K$ grup w taki sposób, aby suma odległości
-pomiędzy punktami a reprezentantami ich klastrów była minimalna. Funkcję celu
-można zapisać jako $$
+Niech dany będzie zbiór obserwacji $X = \{x_1, x_2, \ldots, x_n\} \subset \mathbb{R}^p$ oraz liczba klastrów $K$. Celem jest podział zbioru $X$ na $K$ grup w taki sposób, aby suma odległości pomiędzy punktami a reprezentantami ich klastrów była minimalna. Funkcję celu można zapisać jako $$
 J(M, U) = \sum_{k=1}^{K} \sum_{i=1}^{n} u_{ik} \, d(x_i, m_k),
-$$ gdzie $M = \{m_1, m_2, \ldots, m_K\} \subset X$ to zbiór medoidów,
-$U = [u_{ik}]$ to macierz przypisań punktów do klastrów, a $d(x_i, m_k)$
-oznacza wybraną miarę odległości. Dla każdego obiektu zachodzi warunek
-$u_{ik} \in \{0,1\}$ oraz $\sum_{k=1}^{K} u_{ik} = 1$, co oznacza, że każdy
-punkt należy dokładnie do jednego klastra. Medoid klastra definiuje się jako
-punkt $m_k \in X$, który minimalizuje sumę odległości do wszystkich pozostałych
-punktów tego klastra $$
+$$ gdzie $M = \{m_1, m_2, \ldots, m_K\} \subset X$ to zbiór medoidów, $U = [u_{ik}]$ to macierz przypisań punktów do klastrów, a $d(x_i, m_k)$ oznacza wybraną miarę odległości. Dla każdego obiektu zachodzi warunek $u_{ik} \in \{0,1\}$ oraz $\sum_{k=1}^{K} u_{ik} = 1$, co oznacza, że każdy punkt należy dokładnie do jednego klastra. Medoid klastra definiuje się jako punkt $m_k \in X$, który minimalizuje sumę odległości do wszystkich pozostałych punktów tego klastra $$
 m_k = \operatorname{argmin}_{x_j \in X_k} \sum_{x_i \in X_k} d(x_i, x_j),
 $$ gdzie $X_k = \{x_i : u_{ik} = 1\}$.
 
-W praktyce metoda realizowana jest iteracyjnie, analogicznie do *k-means*, ale
-z innym sposobem aktualizacji reprezentantów. Najbardziej znanym algorytmem
-implementującym tę ideę jest PAM (*Partitioning Around Medoids*). Procedura ta
-obejmuje następujące kroki. Po pierwsze, inicjalizuje się losowo $K$ punktów
-jako początkowe medoidy. Następnie każdy obiekt przypisywany jest do
-najbliższego medoidu, zgodnie z regułą $$
+W praktyce metoda realizowana jest iteracyjnie, analogicznie do *k-means*, ale z innym sposobem aktualizacji reprezentantów. Najbardziej znanym algorytmem implementującym tę ideę jest PAM (*Partitioning Around Medoids*). Procedura ta obejmuje następujące kroki. Po pierwsze, inicjalizuje się losowo $K$ punktów jako początkowe medoidy. Następnie każdy obiekt przypisywany jest do najbliższego medoidu, zgodnie z regułą $$
 u_{ik} = \mathbf{1}_\left\{\,k = \operatorname{argmin}_{j} d(x_i, m_j)\right\}.
-$$ W ten sposób powstaje podział przestrzeni na obszary przypominające komórki
-Woronoja. W kolejnym kroku, dla każdego klastra wybiera się nowy medoid, czyli
-punkt, który minimalizuje sumę odległości do pozostałych punktów w tym
-klastrze. Algorytm powtarza naprzemienne kroki przypisania i aktualizacji aż do
-momentu, gdy zestaw medoidów przestaje się zmieniać lub wartość funkcji celu
-stabilizuje się.
+$$ W ten sposób powstaje podział przestrzeni na obszary przypominające komórki Woronoja. W kolejnym kroku, dla każdego klastra wybiera się nowy medoid, czyli punkt, który minimalizuje sumę odległości do pozostałych punktów w tym klastrze. Algorytm powtarza naprzemienne kroki przypisania i aktualizacji aż do momentu, gdy zestaw medoidów przestaje się zmieniać lub wartość funkcji celu stabilizuje się.
 
-Metoda k-medoid jest blisko spokrewniona z metodą k-means, która minimalizuje
-sumę kwadratów odległości euklidesowych $$
+Metoda k-medoid jest blisko spokrewniona z metodą k-means, która minimalizuje sumę kwadratów odległości euklidesowych $$
 J_{\text{k-means}} = \sum_{k=1}^{K}\sum_{i=1}^{n} u_{ik}\,\|x_i - \mu_k\|^2,
-$$ gdzie $\mu_k$ oznacza centroid klastra. W k-medoid zamiast średniej stosuje
-się rzeczywisty punkt danych, a w funkcji celu pojawia się bezpośrednia
-odległość, nie jej kwadrat. W konsekwencji metoda k-means jest szybsza, lecz
-wrażliwa na wartości odstające i ograniczona do przestrzeni euklidesowych,
-natomiast k-medoid jest bardziej odporna i umożliwia pracę z dowolnymi
-macierzami odległości, także nieliczbowymi.
+$$ gdzie $\mu_k$ oznacza centroid klastra. W k-medoid zamiast średniej stosuje się rzeczywisty punkt danych, a w funkcji celu pojawia się bezpośrednia odległość, nie jej kwadrat. W konsekwencji metoda k-means jest szybsza, lecz wrażliwa na wartości odstające i ograniczona do przestrzeni euklidesowych, natomiast k-medoid jest bardziej odporna i umożliwia pracę z dowolnymi macierzami odległości, także nieliczbowymi.
 
 ::: callout-warning
-Warto odróżnić metodę k-medoid od metody k-median. W k-medoid reprezentantem
-klastra jest rzeczywisty punkt ze zbioru danych, natomiast w k-median mediana
-klastra może znajdować się w dowolnym miejscu przestrzeni. Funkcja celu w
-k-median minimalizuje sumę odległości w sensie L1 (Manhattan) $$
+Warto odróżnić metodę k-medoid od metody k-median. W k-medoid reprezentantem klastra jest rzeczywisty punkt ze zbioru danych, natomiast w k-median mediana klastra może znajdować się w dowolnym miejscu przestrzeni. Funkcja celu w k-median minimalizuje sumę odległości w sensie L1 (Manhattan) $$
 J_{\text{k-median}} = \sum_{k=1}^{K}\sum_{i=1}^{n} u_{ik} \, \|x_i - m_k\|_1.
-$$ Zatem k-median stanowi ciągły odpowiednik metody k-medoid, podobnie jak
-k-means jest wersją ciągłą dla odległości euklidesowych w kwadracie.
+$$ Zatem k-median stanowi ciągły odpowiednik metody k-medoid, podobnie jak k-means jest wersją ciągłą dla odległości euklidesowych w kwadracie.
 :::
 
 | Cechy | k-means | k-median | k-medoid |
-|:-------------------|:-------------------|:-------------------|:-------------------|
+|:-----------------|:-----------------|:-----------------|:-----------------|
 | Reprezentant | średnia arytmetyczna (punkt w ℝᵖ) | mediana geometryczna (punkt w ℝᵖ) | rzeczywisty punkt danych |
 | Miara odległości | kwadrat euklidesowej | Manhattan (L1) | dowolna miara |
 | Odporność na odstające | niska | średnia | wysoka |
@@ -559,77 +300,39 @@ k-means jest wersją ciągłą dla odległości euklidesowych w kwadracie.
 
 ### CLARA i CLARANS
 
-Algorytmy CLARA i CLARANS stanowią rozwinięcia metody k-medoid, opracowane w
-celu rozwiązania problemu wysokiej złożoności obliczeniowej klasycznego
-algorytmu PAM. Oba podejścia zachowują tę samą ideę — minimalizację sumy
-odległości punktów do reprezentantów (medoidów) — lecz różnią się strategią
-poszukiwania najlepszego zbioru medoidów w dużych zbiorach danych.
+Algorytmy CLARA i CLARANS stanowią rozwinięcia metody k-medoid, opracowane w celu rozwiązania problemu wysokiej złożoności obliczeniowej klasycznego algorytmu PAM. Oba podejścia zachowują tę samą ideę — minimalizację sumy odległości punktów do reprezentantów (medoidów) — lecz różnią się strategią poszukiwania najlepszego zbioru medoidów w dużych zbiorach danych.
 
 #### Algorytm CLARA (*Clustering LARge Applications*)
 
-Algorytm CLARA został zaproponowany przez Kaufmana i Rousseeuwa (1990) jako
-metoda przybliżona dla k-medoids, umożliwiająca efektywne działanie przy dużej
-liczbie obserwacji. Kluczową ideą CLARA jest ograniczenie pełnych obliczeń do
-próbek danych, zamiast całego zbioru.
+Algorytm CLARA został zaproponowany przez Kaufmana i Rousseeuwa (1990) jako metoda przybliżona dla k-medoids, umożliwiająca efektywne działanie przy dużej liczbie obserwacji. Kluczową ideą CLARA jest ograniczenie pełnych obliczeń do próbek danych, zamiast całego zbioru.
 
 Procedura przebiega w kilku etapach:
 
-1.  Losowanie próbki - z całego zbioru danych $X$ losuje się podzbiór
-    $S \subset X$ o umiarkowanej liczności (np. 5–10% wszystkich obserwacji).
-2.  Zastosowanie algorytmu PAM - na wylosowanej próbce $S$ przeprowadza się
-    pełną procedurę PAM w celu wyznaczenia $K$ medoidów
-    $M_S = \{m_1, \ldots, m_K\}$.
-3.  Ocena jakości podziału - uzyskane medoidy testuje się na całym zbiorze
-    danych, obliczając wartość funkcji kosztu $$
+1.  Losowanie próbki - z całego zbioru danych $X$ losuje się podzbiór $S \subset X$ o umiarkowanej liczności (np. 5–10% wszystkich obserwacji).
+2.  Zastosowanie algorytmu PAM - na wylosowanej próbce $S$ przeprowadza się pełną procedurę PAM w celu wyznaczenia $K$ medoidów $M_S = \{m_1, \ldots, m_K\}$.
+3.  Ocena jakości podziału - uzyskane medoidy testuje się na całym zbiorze danych, obliczając wartość funkcji kosztu $$
     J(M_S) = \sum_{i=1}^{n} \min_{m_k \in M_S} d(x_i, m_k),
     $$ czyli sumę odległości każdego punktu do najbliższego medoidu.
-4.  Powtórzenia i wybór najlepszego rozwiązania - proces losowania próbki i
-    przeprowadzania PAM powtarza się kilka razy (np. 5–10), a końcowy wynik
-    wybiera się na podstawie minimalnej wartości funkcji celu $J(M_S)$.
+4.  Powtórzenia i wybór najlepszego rozwiązania - proces losowania próbki i przeprowadzania PAM powtarza się kilka razy (np. 5–10), a końcowy wynik wybiera się na podstawie minimalnej wartości funkcji celu $J(M_S)$.
 
-Zaletą CLARA jest znaczne obniżenie kosztów obliczeniowych w porównaniu z PAM,
-którego złożoność wynosi $O(k(n-k)^2)$. W CLARA złożoność zależy od rozmiaru
-próbki, a nie całego zbioru, co umożliwia stosowanie metody na dużych danych.
-Wadą jest jednak możliwość utraty jakości rozwiązania, jeśli próbka nie jest
-reprezentatywna — w szczególności, jeśli pomija mniejsze skupienia obecne w
-zbiorze danych.
+Zaletą CLARA jest znaczne obniżenie kosztów obliczeniowych w porównaniu z PAM, którego złożoność wynosi $O(k(n-k)^2)$. W CLARA złożoność zależy od rozmiaru próbki, a nie całego zbioru, co umożliwia stosowanie metody na dużych danych. Wadą jest jednak możliwość utraty jakości rozwiązania, jeśli próbka nie jest reprezentatywna — w szczególności, jeśli pomija mniejsze skupienia obecne w zbiorze danych.
 
 #### Algorytm CLARANS (*Clustering Large Applications based on RANdomized Search*)
 
-Algorytm CLARANS, opracowany przez Ng i Hana (1994), stanowi dalsze rozwinięcie
-CLARA i PAM, oparte na losowym przeszukiwaniu przestrzeni możliwych zbiorów
-medoidów. Jego działanie inspirowane jest technikami heurystycznymi, takimi jak
-*local search* lub *simulated annealing*. CLARANS traktuje przestrzeń
-wszystkich możliwych zestawów medoidów jako graf, w którym każdy wierzchołek
-odpowiada pewnemu zestawowi $K$ medoidów, a krawędzie łączą wierzchołki
-różniące się jednym medoidem. Poszukiwanie najlepszego rozwiązania odbywa się
-przez losowe przechodzenie po tym grafie, przy czym zmiany medoidów dokonuje
-się tylko wtedy, gdy poprawiają funkcję celu.
+Algorytm CLARANS, opracowany przez Ng i Hana (1994), stanowi dalsze rozwinięcie CLARA i PAM, oparte na losowym przeszukiwaniu przestrzeni możliwych zbiorów medoidów. Jego działanie inspirowane jest technikami heurystycznymi, takimi jak *local search* lub *simulated annealing*. CLARANS traktuje przestrzeń wszystkich możliwych zestawów medoidów jako graf, w którym każdy wierzchołek odpowiada pewnemu zestawowi $K$ medoidów, a krawędzie łączą wierzchołki różniące się jednym medoidem. Poszukiwanie najlepszego rozwiązania odbywa się przez losowe przechodzenie po tym grafie, przy czym zmiany medoidów dokonuje się tylko wtedy, gdy poprawiają funkcję celu.
 
 Schemat działania można opisać następująco:
 
 1.  Inicjalizacja - losowo wybrać zestaw $K$ medoidów $M$.
-2.  Losowa eksploracja sąsiedztwa - spośród wszystkich możliwych „zamian”
-    jednego medoidu $m \in M$ na punkt niebędący medoidem
-    $x \in X \setminus M$, losowo wybrać kilka par kandydatów (tzw.
-    *neighbors*).
+2.  Losowa eksploracja sąsiedztwa - spośród wszystkich możliwych „zamian” jednego medoidu $m \in M$ na punkt niebędący medoidem $x \in X \setminus M$, losowo wybrać kilka par kandydatów (tzw. *neighbors*).
 3.  Ocena sąsiadów - dla każdego kandydata obliczyć zmianę funkcji celu $$
     \Delta J = J(M’) - J(M),
     $$ gdzie $M’$ to nowy zestaw medoidów po zamianie.
-4.  Krok optymalizacyjny - jeśli znajdzie się sąsiad z mniejszą wartością
-    funkcji kosztu, przyjąć go jako nowy zestaw medoidów $M \leftarrow M’$.
-5.  Kontynuacja - powtarzać losowe przeszukiwanie do osiągnięcia lokalnego
-    minimum (brak poprawiających się sąsiadów) lub do wyczerpania limitu
-    iteracji.
-6.  Powtórzenia - dla zwiększenia szansy znalezienia rozwiązania globalnego,
-    procedurę powtarza się kilka razy z różnymi początkowymi zestawami
-    medoidów.
+4.  Krok optymalizacyjny - jeśli znajdzie się sąsiad z mniejszą wartością funkcji kosztu, przyjąć go jako nowy zestaw medoidów $M \leftarrow M’$.
+5.  Kontynuacja - powtarzać losowe przeszukiwanie do osiągnięcia lokalnego minimum (brak poprawiających się sąsiadów) lub do wyczerpania limitu iteracji.
+6.  Powtórzenia - dla zwiększenia szansy znalezienia rozwiązania globalnego, procedurę powtarza się kilka razy z różnymi początkowymi zestawami medoidów.
 
-CLARANS jest więc algorytmem probabilistycznym, który w każdym kroku dokonuje
-losowej eksploracji przestrzeni możliwych rozwiązań. W przeciwieństwie do CLARA
-nie ogranicza się do jednej próbki danych, lecz do ograniczonej liczby losowo
-sprawdzanych sąsiadów, co pozwala zachować kompromis między dokładnością a
-szybkością.
+CLARANS jest więc algorytmem probabilistycznym, który w każdym kroku dokonuje losowej eksploracji przestrzeni możliwych rozwiązań. W przeciwieństwie do CLARA nie ogranicza się do jednej próbki danych, lecz do ograniczonej liczby losowo sprawdzanych sąsiadów, co pozwala zachować kompromis między dokładnością a szybkością.
 
 ::: {#exm-2}
 ```{r}
@@ -665,51 +368,15 @@ ggarrange(p_kmeans, p_pam, p_clara, p_clarans, ncol = 2, nrow = 2)
 
 ## Metody oparte na gęstości
 
-Metody oparte na gęstości traktują klaster jako obszar przestrzeni cech, w
-którym punkty występują gęściej niż w otoczeniu. Zamiast narzucać kuliste
-kształty lub minimalizować wariancję, jak w metodach centroidowych,
-identyfikuje się spójne „wyspy” wysokiej gęstości oddzielone obszarami niskiej
-gęstości. Kluczową konsekwencją jest naturalna obsługa szumu: punkty w rzadkich
-rejonach pozostają nieprzypisane, co sprzyja detekcji anomalii. Klasyczny
-przedstawiciel, czyli DBSCAN (ang. *Density-Based Spatial Clustering of
-Applications with Noise*), definiuje gęstość lokalnie przez promień
-$\varepsilon$ oraz próg liczności *MinPts*. Punkt rdzeniowy (ang. *core point*)
-to taki, który ma co najmniej *MinPts* sąsiadów w kuli o promieniu
-$\varepsilon$. Punkty w zasięgu rdzeniowych tworzą łańcuchy dostępności
-gęstościowej, a maksymalne zbiory tak połączone stanowią klastry. Punkty w
-zasięgu $\varepsilon$, które same nie są rdzeniowe, traktujemy jako brzegowe i
-dołączamy do pobliskich klastrów; pozostałe uznajemy za szum. Zaletą jest
-możliwość wykrywania klastrów o dowolnym kształcie, odporność na pojedyncze
-wartości odstające i brak konieczności z góry podawania liczby klastrów.
+Metody oparte na gęstości traktują klaster jako obszar przestrzeni cech, w którym punkty występują gęściej niż w otoczeniu. Zamiast narzucać kuliste kształty lub minimalizować wariancję, jak w metodach centroidowych, identyfikuje się spójne „wyspy” wysokiej gęstości oddzielone obszarami niskiej gęstości. Kluczową konsekwencją jest naturalna obsługa szumu: punkty w rzadkich rejonach pozostają nieprzypisane, co sprzyja detekcji anomalii. Klasyczny przedstawiciel, czyli DBSCAN (ang. *Density-Based Spatial Clustering of Applications with Noise*), definiuje gęstość lokalnie przez promień $\varepsilon$ oraz próg liczności *MinPts*. Punkt rdzeniowy (ang. *core point*) to taki, który ma co najmniej *MinPts* sąsiadów w kuli o promieniu $\varepsilon$. Punkty w zasięgu rdzeniowych tworzą łańcuchy dostępności gęstościowej, a maksymalne zbiory tak połączone stanowią klastry. Punkty w zasięgu $\varepsilon$, które same nie są rdzeniowe, traktujemy jako brzegowe i dołączamy do pobliskich klastrów; pozostałe uznajemy za szum. Zaletą jest możliwość wykrywania klastrów o dowolnym kształcie, odporność na pojedyncze wartości odstające i brak konieczności z góry podawania liczby klastrów.
 
-Głównym ograniczeniem DBSCAN jest konieczność ustalenia globalnego parametr
-$\varepsilon$: przy zróżnicowanej gęstości danych jedno ustawienie nie
-odzwierciedla wszystkich struktur (dla małego $\varepsilon$ drobne, gęste
-klastry są poprawne, ale rzadkie są traktowane rozłącznie; dla dużego
-$\varepsilon$ rzadkie się łączą, a gęste zlewają). Problem może łagodzić metoda
-OPTICS (ang. *Ordering Points To Identify the Clustering Structure*). W
-metodzie OPTICS pojęcia *core-distance* i *reachability-distance* służą do
-opisania lokalnej gęstości punktów w sposób ciągły, bez potrzeby ustalania z
-góry jednego progu $\varepsilon$, jak w klasycznym DBSCAN.
+Głównym ograniczeniem DBSCAN jest konieczność ustalenia globalnego parametr $\varepsilon$: przy zróżnicowanej gęstości danych jedno ustawienie nie odzwierciedla wszystkich struktur (dla małego $\varepsilon$ drobne, gęste klastry są poprawne, ale rzadkie są traktowane rozłącznie; dla dużego $\varepsilon$ rzadkie się łączą, a gęste zlewają). Problem może łagodzić metoda OPTICS (ang. *Ordering Points To Identify the Clustering Structure*). W metodzie OPTICS pojęcia *core-distance* i *reachability-distance* służą do opisania lokalnej gęstości punktów w sposób ciągły, bez potrzeby ustalania z góry jednego progu $\varepsilon$, jak w klasycznym DBSCAN.
 
-Algorytm HDBSCAN (ang. *Hierarchical Density-Based Spatial Clustering of
-Applications with Noise*) jest uogólnieniem metody DBSCAN do jej
-hierarchicznego rozwinięcia. Główna idea polega na tym, by nie wybierać z góry
-jednego progu gęstości (czyli parametru $\varepsilon$), lecz analizować
-strukturę skupień w szerokim zakresie poziomów gęstości i budować ich
-hierarchię. W klasycznym DBSCAN wynik zależy od jednego promienia
-$\varepsilon$: jeśli dane zawierają obszary o różnej gęstości, trudno dobrać
-jedną wartość odpowiednią dla wszystkich. HDBSCAN eliminuje tę słabość,
-zastępując stałe $\varepsilon$ ciągłym parametrem opisującym zmienność gęstości
-i tworząc dendrogram gęstości – czyli hierarchiczne drzewo pokazujące, jak
-klastry pojawiają się i łączą przy stopniowym „rozluźnianiu” kryterium
-gęstości.
+Algorytm HDBSCAN (ang. *Hierarchical Density-Based Spatial Clustering of Applications with Noise*) jest uogólnieniem metody DBSCAN do jej hierarchicznego rozwinięcia. Główna idea polega na tym, by nie wybierać z góry jednego progu gęstości (czyli parametru $\varepsilon$), lecz analizować strukturę skupień w szerokim zakresie poziomów gęstości i budować ich hierarchię. W klasycznym DBSCAN wynik zależy od jednego promienia $\varepsilon$: jeśli dane zawierają obszary o różnej gęstości, trudno dobrać jedną wartość odpowiednią dla wszystkich. HDBSCAN eliminuje tę słabość, zastępując stałe $\varepsilon$ ciągłym parametrem opisującym zmienność gęstości i tworząc dendrogram gęstości – czyli hierarchiczne drzewo pokazujące, jak klastry pojawiają się i łączą przy stopniowym „rozluźnianiu” kryterium gęstości.
 
 ### Algorytm DBSCAN
 
-Niech $X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p$ oznaczać zbiór
-obserwacji, a $d(\cdot,\cdot)$ dowolną metrykę w tej przestrzeni (np.
-euklidesową). Algorytm DBSCAN opiera się na dwóch parametrach:
+Niech $X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p$ oznaczać zbiór obserwacji, a $d(\cdot,\cdot)$ dowolną metrykę w tej przestrzeni (np. euklidesową). Algorytm DBSCAN opiera się na dwóch parametrach:
 
 -   promieniu sąsiedztwa $\varepsilon > 0$,
 -   minimalnej liczbie punktów w sąsiedztwie $\text{MinPts} \in \mathbb{N}$.
@@ -718,17 +385,13 @@ Na tej podstawie definiuje się następujące pojęcia:
 
 1.  $\varepsilon$-sąsiedztwo punktu
 
-Dla każdego punktu $x \in X$ definiuje się jego sąsiedztwo w promieniu
-$\varepsilon$ $$
+Dla każdego punktu $x \in X$ definiuje się jego sąsiedztwo w promieniu $\varepsilon$ $$
 \mathcal{N}_\varepsilon(x) = \{ y \in X : d(x,y) \le \varepsilon \}.
-$$ Liczność tego zbioru, oznaczona jako
-$|\mathcal{N}_\varepsilon(x)| = \rho_\varepsilon(x)$, stanowi miarę lokalnej
-gęstości wokół punktu $x$.
+$$ Liczność tego zbioru, oznaczona jako $|\mathcal{N}_\varepsilon(x)| = \rho_\varepsilon(x)$, stanowi miarę lokalnej gęstości wokół punktu $x$.
 
 2.  Punkt rdzeniowy (*core point*)
 
-Punkt $x \in X$ nazywamy rdzeniowym, jeśli liczba punktów w jego sąsiedztwie
-jest co najmniej równa progowi gęstości $$
+Punkt $x \in X$ nazywamy rdzeniowym, jeśli liczba punktów w jego sąsiedztwie jest co najmniej równa progowi gęstości $$
 x \ \text{jest rdzeniowy} \quad \Longleftrightarrow \quad |\mathcal{N}_\varepsilon(x)| \ge \text{MinPts}.
 $$ Zbiór wszystkich punktów rdzeniowych oznaczamy jako $$
 C_{\text{core}} = \{x \in X : |\mathcal{N}_\varepsilon(x)| \ge \text{MinPts}\}.
@@ -736,23 +399,19 @@ $$
 
 3.  Osiągalność gęstościowa (*density reachability*)
 
-Punkt $y \in X$ jest bezpośrednio osiągalny gęstościowo z punktu rdzeniowego
-$x$, jeśli $$
+Punkt $y \in X$ jest bezpośrednio osiągalny gęstościowo z punktu rdzeniowego $x$, jeśli $$
 y \in \mathcal{N}_\varepsilon(x) \quad \text{i} \quad x \in C_{\text{core}}.
 $$ Oznaczamy tę relację jako $y \leftarrow x$.
 
-Punkt $y$ jest osiągalny gęstościowo z $x$, jeśli istnieje ciąg punktów
-$(x_1, x_2, \dots, x_m) \subset X$ taki, że $$
+Punkt $y$ jest osiągalny gęstościowo z $x$, jeśli istnieje ciąg punktów $(x_1, x_2, \dots, x_m) \subset X$ taki, że $$
 x_1 = x, \quad x_m = y, \quad \text{oraz} \quad x_{i+1} \leftarrow x_i \ \text{dla każdego } i=1,\dots,m-1.
 $$ Zapisujemy wtedy $y \overset{*}{\leftarrow} x$.
 
-Relacja osiągalności gęstościowej jest przechodnia, lecz nie jest symetryczna,
-ponieważ ostatni punkt łańcucha nie musi być rdzeniowy.
+Relacja osiągalności gęstościowej jest przechodnia, lecz nie jest symetryczna, ponieważ ostatni punkt łańcucha nie musi być rdzeniowy.
 
 4.  Połączenie gęstościowe (*density connectivity*)
 
-Dwa punkty $x, y \in X$ są połączone gęstościowo, jeśli istnieje punkt
-rdzeniowy $o \in X$ taki, że oba są osiągalne gęstościowo od $o$ $$
+Dwa punkty $x, y \in X$ są połączone gęstościowo, jeśli istnieje punkt rdzeniowy $o \in X$ taki, że oba są osiągalne gęstościowo od $o$ $$
 x \leftrightarrow y \quad \Longleftrightarrow \quad \exists_o \in C_{\text{core}}: \ x \overset{}{\leftarrow} o \ \text{i} \ y \overset{}{\leftarrow} o.
 $$ Relacja ta jest symetryczna i służy do definiowania klastrów.
 
@@ -760,12 +419,9 @@ $$ Relacja ta jest symetryczna i służy do definiowania klastrów.
 
 5.  Klaster DBSCAN
 
-Klaster jest maksymalnym względem inkluzji zbiorem punktów, w którym wszystkie
-punkty są połączone gęstościowo $$
+Klaster jest maksymalnym względem inkluzji zbiorem punktów, w którym wszystkie punkty są połączone gęstościowo $$
 C = \{ x \in X : \exists o \in C_{\text{core}} \ \text{takie, że} \ x \overset{*}{\leftarrow} o \}.
-$$ Zbiory $C_1, C_2, \dots, C_K$ tworzą nieprzecinający się podział punktów
-rdzeniowych i brzegowych (tych osiągalnych od rdzeniowych), a pozostałe punkty
-$$
+$$ Zbiory $C_1, C_2, \dots, C_K$ tworzą nieprzecinający się podział punktów rdzeniowych i brzegowych (tych osiągalnych od rdzeniowych), a pozostałe punkty $$
 N = X \setminus \bigcup_{k=1}^K C_k
 $$ traktujemy jako szum lub punkty odosobnione (*noise*).
 
@@ -822,32 +478,22 @@ fviz_cluster(
 
 ### Algorytm OPTICS
 
-Niech $X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p$ oznacza zbiór
-obserwacji, a $d(\cdot,\cdot)$ — dowolną metrykę w tej przestrzeni (np.
-euklidesową). Algorytm OPTICS (*Ordering Points To Identify the Clustering
-Structure*) stanowi uogólnienie DBSCAN, którego celem nie jest bezpośrednie
-wyznaczenie klastrów dla jednej skali gęstości, lecz rekonstrukcja struktury
-klastrowej w szerokim zakresie gęstości.
+Niech $X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^p$ oznacza zbiór obserwacji, a $d(\cdot,\cdot)$ — dowolną metrykę w tej przestrzeni (np. euklidesową). Algorytm OPTICS (*Ordering Points To Identify the Clustering Structure*) stanowi uogólnienie DBSCAN, którego celem nie jest bezpośrednie wyznaczenie klastrów dla jednej skali gęstości, lecz rekonstrukcja struktury klastrowej w szerokim zakresie gęstości.
 
 W tym celu algorytm wprowadza dwa parametry:
 
 -   maksymalny promień sąsiedztwa $\varepsilon_{\max} > 0$,
 -   minimalną liczbę punktów w sąsiedztwie $\text{MinPts} \in \mathbb{N}$.
 
-Parametr $\varepsilon_{\max}$ ogranicza zakres lokalnych obliczeń, natomiast
-$\text{MinPts}$ definiuje pojęcie lokalnej gęstości, analogicznie jak w DBSCAN.
+Parametr $\varepsilon_{\max}$ ogranicza zakres lokalnych obliczeń, natomiast $\text{MinPts}$ definiuje pojęcie lokalnej gęstości, analogicznie jak w DBSCAN.
 
 1.  Maksymalne sąsiedztwo punktu
 
-Dla każdego punktu $x \in X$ definiuje się jego maksymalne sąsiedztwo jako
-$\mathcal{N}_{\varepsilon_{\max}}(x) = \{ y \in X : d(x,y) \le \varepsilon_{\max} \}$.
-Jest to zbiór punktów branych pod uwagę przy wyznaczaniu lokalnych miar
-gęstości oraz relacji osiągalności.
+Dla każdego punktu $x \in X$ definiuje się jego maksymalne sąsiedztwo jako $\mathcal{N}_{\varepsilon_{\max}}(x) = \{ y \in X : d(x,y) \le \varepsilon_{\max} \}$. Jest to zbiór punktów branych pod uwagę przy wyznaczaniu lokalnych miar gęstości oraz relacji osiągalności.
 
 2.  Odległość rdzeniowa (*core-distance*)
 
-Jeżeli punkt $x$ posiada w swoim sąsiedztwie co najmniej $\text{MinPts}$
-punktów, to jego odległość rdzeniowa definiowana jest jako
+Jeżeli punkt $x$ posiada w swoim sąsiedztwie co najmniej $\text{MinPts}$ punktów, to jego odległość rdzeniowa definiowana jest jako
 
 $$
 \text{core-dist}(x) =
@@ -855,82 +501,51 @@ $$
 d(x, x_{(\text{MinPts})}), & \text{jeśli } |\mathcal{N}_{\varepsilon_{\max}}(x)| \ge \text{MinPts}, \\[6pt]
 \text{niezdefiniowana}, & \text{w przeciwnym razie.}
 \end{cases}
-$$ gdzie $x_{(\text{MinPts})}$ oznacza $\text{MinPts}$-ty najbliższy punkt
-względem $x$ w zbiorze $\mathcal{N}_{\varepsilon_{\max}}(x)$.
+$$ gdzie $x_{(\text{MinPts})}$ oznacza $\text{MinPts}$-ty najbliższy punkt względem $x$ w zbiorze $\mathcal{N}_{\varepsilon_{\max}}(x)$.
 
-Wielkość $\text{core-dist}(x)$ stanowi lokalną miarę gęstości: im mniejsza jej
-wartość, tym gęstszy jest obszar wokół punktu $x$.
+Wielkość $\text{core-dist}(x)$ stanowi lokalną miarę gęstości: im mniejsza jej wartość, tym gęstszy jest obszar wokół punktu $x$.
 
 ![](images/core_dist.png)
 
 3.  Odległość osiągalności (*reachability-distance*)
 
-Dla punktu $y \in \mathcal{N}_{\varepsilon_{\max}}(x)$, gdzie $x$ jest punktem
-rdzeniowym, definiuje się warunkową odległość osiągalności $$
+Dla punktu $y \in \mathcal{N}_{\varepsilon_{\max}}(x)$, gdzie $x$ jest punktem rdzeniowym, definiuje się warunkową odległość osiągalności $$
 \text{reach-dist}(y \mid x) = \max\{\text{core-dist}(x),\, d(x,y)\}.
 $$
 
-Wartość ta opisuje minimalną skalę odległości, przy której punkt $y$ może
-zostać „dołączony” do struktury gęstości reprezentowanej przez punkt rdzeniowy
-$x$. Łączy ona informację o lokalnej gęstości (poprzez $\text{core-dist}(x)$)
-oraz o faktycznej odległości geometrycznej. W algorytmie OPTICS każdemu
-punktowi $y$ przypisywana jest jedna aktualna wartość $\text{reach-dist}(y)$,
-rozumiana jako minimum po wszystkich dotychczas rozważanych punktach
-rdzeniowych, z których $y$ jest osiągalny.
+Wartość ta opisuje minimalną skalę odległości, przy której punkt $y$ może zostać „dołączony” do struktury gęstości reprezentowanej przez punkt rdzeniowy $x$. Łączy ona informację o lokalnej gęstości (poprzez $\text{core-dist}(x)$) oraz o faktycznej odległości geometrycznej. W algorytmie OPTICS każdemu punktowi $y$ przypisywana jest jedna aktualna wartość $\text{reach-dist}(y)$, rozumiana jako minimum po wszystkich dotychczas rozważanych punktach rdzeniowych, z których $y$ jest osiągalny.
 
 4.  Kolejka priorytetowa (*SeedList*)
 
-W trakcie działania algorytmu utrzymywana jest kolejka priorytetowa *SeedList*,
-zawierająca punkty nieodwiedzone, które są osiągalne z już przetworzonych
-punktów rdzeniowych. Priorytetem punktu $y$ w tej kolejce jest jego aktualna
-wartość $\text{reach-dist}(y)$. Mechanizm ten powoduje, że algorytm eksploruje
-przestrzeń danych w kolejności rosnącej odległości osiągalności, czyli od
-regionów najbardziej gęstych do coraz rzadszych.
+W trakcie działania algorytmu utrzymywana jest kolejka priorytetowa *SeedList*, zawierająca punkty nieodwiedzone, które są osiągalne z już przetworzonych punktów rdzeniowych. Priorytetem punktu $y$ w tej kolejce jest jego aktualna wartość $\text{reach-dist}(y)$. Mechanizm ten powoduje, że algorytm eksploruje przestrzeń danych w kolejności rosnącej odległości osiągalności, czyli od regionów najbardziej gęstych do coraz rzadszych.
 
 5.  Kolejność przetwarzania punktów
 
 Algorytm działa iteracyjnie według następującego schematu:
 
--   Jeśli *SeedList* jest pusta, wybiera się dowolny nieodwiedzony punkt
-    $x_i \in X$ jako nowy punkt startowy.
+-   Jeśli *SeedList* jest pusta, wybiera się dowolny nieodwiedzony punkt $x_i \in X$ jako nowy punkt startowy.
 -   Punkt $x_i$ oznacza się jako odwiedzony i dodaje do listy *OrderList*.
 -   Oblicza się $\mathcal{N}_{\varepsilon_{\max}}(x_i)$.
 -   Jeżeli $x_i$ jest punktem rdzeniowym, to:
     -   oblicza się $\text{core-dist}(x_i)$,
-    -   dla każdego nieodwiedzonego punktu
-        $y \in \mathcal{N}_{\varepsilon_{\max}}(x_i)$ wyznacza się kandydacką
-        wartość
-        $\text{reach-dist}(y \mid x_i) = \max\{\text{core-dist}(x_i), d(x_i,y)\}$
-    -   aktualizuje się
-        $\text{reach-dist}(y) = \min\bigl(\text{reach-dist}(y),\ \text{reach-dist}(y \mid x_i)\bigr)$,
-        przy czym dla punktów nowo napotkanych $\text{reach-dist}(y)$
-        inicjalizuje się wartością $+\infty,$
-    -   punkt $y$ umieszcza się (lub aktualizuje) w *SeedList* z priorytetem
-        równym jego aktualnej wartości $\text{reach-dist}(y)$.
--   Jeżeli *SeedList* nie jest pusta, wybiera się z niej punkt o najmniejszej
-    wartości $\text{reach-dist}$ i powtarza powyższy proces.
+    -   dla każdego nieodwiedzonego punktu $y \in \mathcal{N}_{\varepsilon_{\max}}(x_i)$ wyznacza się kandydacką wartość $\text{reach-dist}(y \mid x_i) = \max\{\text{core-dist}(x_i), d(x_i,y)\}$
+    -   aktualizuje się $\text{reach-dist}(y) = \min\bigl(\text{reach-dist}(y),\ \text{reach-dist}(y \mid x_i)\bigr)$, przy czym dla punktów nowo napotkanych $\text{reach-dist}(y)$ inicjalizuje się wartością $+\infty,$
+    -   punkt $y$ umieszcza się (lub aktualizuje) w *SeedList* z priorytetem równym jego aktualnej wartości $\text{reach-dist}(y)$.
+-   Jeżeli *SeedList* nie jest pusta, wybiera się z niej punkt o najmniejszej wartości $\text{reach-dist}$ i powtarza powyższy proces.
 
 6.  Wynik algorytmu
 
 Po przetworzeniu wszystkich punktów algorytm zwraca:
 
-- uporządkowaną listę punktów $\text{OrderList} = (x_{i_1}, x_{i_2}, \dots, x_{i_n}),$
-- odpowiadające im wartości osiągalności $R(x_{i_j}) =
-\text{reach-dist}(x_{i_j})$.
+-   uporządkowaną listę punktów $\text{OrderList} = (x_{i_1}, x_{i_2}, \dots, x_{i_n}),$
+-   odpowiadające im wartości osiągalności $R(x_{i_j}) =
+    \text{reach-dist}(x_{i_j})$.
 
-Na tej podstawie konstruuje się wykres osiągalności (*reachability plot*), gdzie
-oś pozioma odpowiada kolejności punktów w *OrderList*, a oś pionowa wartościom
-$R(x)$. Lokalne minima wykresu (doliny) odpowiadają klastrom o wysokiej gęstości,
-natomiast wysokie wartości sygnalizują granice klastrów lub obszary szumu.
+Na tej podstawie konstruuje się wykres osiągalności (*reachability plot*), gdzie oś pozioma odpowiada kolejności punktów w *OrderList*, a oś pionowa wartościom $R(x)$. Lokalne minima wykresu (doliny) odpowiadają klastrom o wysokiej gęstości, natomiast wysokie wartości sygnalizują granice klastrów lub obszary szumu.
 
 7.  Relacja z DBSCAN
 
-Na podstawie wyników OPTICS można odtworzyć rozwiązania DBSCAN dla dowolnego
-progu gęstości $\varepsilon \le \varepsilon_{\max}$, wybierając punkty
-spełniające $C_k(\varepsilon) = { x \in X : R(x) \le \varepsilon }.$ W przeciwieństwie do DBSCAN, który generuje jeden podział danych dla ustalonej wartości $\varepsilon$, OPTICS ujawnia strukturę klastrów w sposób wieloskalowy,
-umożliwiając analizę gęstości na ciągłym spektrum parametrów.
-
-
+Na podstawie wyników OPTICS można odtworzyć rozwiązania DBSCAN dla dowolnego progu gęstości $\varepsilon \le \varepsilon_{\max}$, wybierając punkty spełniające $C_k(\varepsilon) = { x \in X : R(x) \le \varepsilon }.$ W przeciwieństwie do DBSCAN, który generuje jeden podział danych dla ustalonej wartości $\varepsilon$, OPTICS ujawnia strukturę klastrów w sposób wieloskalowy, umożliwiając analizę gęstości na ciągłym spektrum parametrów.
 
 ::: {$#exm-4}
 ```{r}
@@ -1032,16 +647,9 @@ print(p_db)
 ```
 :::
 
-[^cluster-4]: Jeśli punkt $y$ nie był jeszcze w *SeedList*, to jego wartość
-    $\text{reach-dist}(y)$ jest inicjalizowana na nieskończoność przed
-    aktualizacją.
-
 ### Algorytm HDBSCAN
 
-Przymijmy metrykę $d(\cdot, \cdot)$, zbiór danych
-$X=\{x_1,\dots,x_n\}\subset\mathbb{R}^p$ oraz parametry minimalny rozmiar
-klastra $m_c$ i opcjonalnie minimalną wielkość klastra $m_s$ (gdy brak —
-przyjmujemy $m_s=m_c$).
+Przymijmy metrykę $d(\cdot, \cdot)$, zbiór danych $X=\{x_1,\dots,x_n\}\subset\mathbb{R}^p$ oraz parametry minimalny rozmiar klastra $m_c$ i opcjonalnie minimalną wielkość klastra $m_s$ (gdy brak — przyjmujemy $m_s=m_c$).
 
 1.  Definicje i wielkości pomocnicze
 
@@ -1049,64 +657,37 @@ Określmy sąsiedztwo w promieniu $\varepsilon$ $$
 \mathcal{N}_\varepsilon(x)=\{y\in X:\ d(x,y)\le \varepsilon\}.
 $$ Odległość rdzeniowa (*core-distance*) dla zadanego $m_s$ określamy jako $$
 \operatorname{core-dist}(x)=d\!\big(x,\ x_{(m_s)}\big),
-$$ gdzie $x_{(k)}$ oznacza $k$-tego najbliższego sąsiada $x$. Odległość
-wzajemnej osiągalności (*mutual reachability distance*)[^d_mreach] określamy jako $$
+$$ gdzie $x_{(k)}$ oznacza $k$-tego najbliższego sąsiada $x$. Odległość wzajemnej osiągalności (*mutual reachability distance*)[^cluster-4] określamy jako $$
 d_{\text{mreach}}(x,y)=\max\big\{\operatorname{core-dist}(x),\ \operatorname{core-dist}(y),\ d(x,y)\big\}.
 $$
 
-[^d_mreach]: $d_{\text{mreach}}(x,y)$ nie mierzy „jak daleko” leżą punkty w sensie geometrycznym, lecz raczej „jak trudno” jest je połączyć w strukturze gęstościowej. Jeżeli oba punkty leżą w gęstym regionie i są blisko siebie, wówczas wszystkie trzy składniki maksimum są małe i $d_{\text{mreach}}(x,y)$ również jest mała. Jeżeli jednak choć jeden z punktów znajduje się w obszarze rzadkim (ma dużą $\operatorname{core-dist}$) lub punkty są geometrycznie daleko od siebie, wówczas $d_{\text{mreach}}(x,y)$ przyjmuje dużą wartość.
+[^cluster-4]: $d_{\text{mreach}}(x,y)$ nie mierzy „jak daleko” leżą punkty w sensie geometrycznym, lecz raczej „jak trudno” jest je połączyć w strukturze gęstościowej. Jeżeli oba punkty leżą w gęstym regionie i są blisko siebie, wówczas wszystkie trzy składniki maksimum są małe i $d_{\text{mreach}}(x,y)$ również jest mała. Jeżeli jednak choć jeden z punktów znajduje się w obszarze rzadkim (ma dużą $\operatorname{core-dist}$) lub punkty są geometrycznie daleko od siebie, wówczas $d_{\text{mreach}}(x,y)$ przyjmuje dużą wartość.
 
-Następnie dokonujemy transformacji
-gęstościowej $$
+Następnie dokonujemy transformacji gęstościowej $$
 \lambda(x,y)=\frac{1}{d_{\text{mreach}}(x,y)}\quad(\text{większa } \lambda \Rightarrow \text{większa gęstość}).
-$$ 
+$$
 
-2. Graf sąsiedztwa i drzewo minimalnego rozpinającego
+2.  Graf sąsiedztwa i drzewo minimalnego rozpinającego
 
-Budujemy graf sąsiedztwa nad $X$ z wagami $d_{\text{mreach}}(\cdot,\cdot)$. W
-praktyce stosujemy graf k-NN (z $k=m_s$ lub większym) w celu ograniczenia
-liczby krawędzi. Następnie obliczamy *minimum spanning tree* (MST) wagi
-$d_{\text{mreach}}$. Drzewo MST koduje „najtańsze” (najgęstsze) połączenia
-między punktami — z nim powiązana jest hierarchia klastrów.
+Budujemy graf sąsiedztwa nad $X$ z wagami $d_{\text{mreach}}(\cdot,\cdot)$. W praktyce stosujemy graf k-NN (z $k=m_s$ lub większym) w celu ograniczenia liczby krawędzi. Następnie obliczamy *minimum spanning tree* (MST) wagi $d_{\text{mreach}}$. Drzewo MST koduje „najtańsze” (najgęstsze) połączenia między punktami — z nim powiązana jest hierarchia klastrów.
 
 3.  Tworzenie hierarchii klastrów gęstości
 
-Najczęściej stosując metodę *single linkage*, przechodzimy po krawędziach MST w
-kolejności rosnących wag $d_{\text{mreach}}$ (czyli malejących $\lambda$),
-łącząc punkty/klastry w miarę obniżania progu gęstości. W wyniku powstaje
-hierarchia klastrów gęstości — drzewo, w którym każdy poziom odpowiada pewnemu
-progowi gęstości $\lambda$ (lub $d_{\text{mreach}}$), a gałęzie reprezentują
-klastry pojawiające się i łączące w miarę zmiany tego progu.
+Najczęściej stosując metodę *single linkage*, przechodzimy po krawędziach MST w kolejności rosnących wag $d_{\text{mreach}}$ (czyli malejących $\lambda$), łącząc punkty/klastry w miarę obniżania progu gęstości. W wyniku powstaje hierarchia klastrów gęstości — drzewo, w którym każdy poziom odpowiada pewnemu progowi gęstości $\lambda$ (lub $d_{\text{mreach}}$), a gałęzie reprezentują klastry pojawiające się i łączące w miarę zmiany tego progu.
 
 4.  Kondensacja drzewa (*condensed cluster tree*)
 
-Przechodzimy po drzewie klastrów gęstości od najwyższego poziomu (gęstości) w
-dół, usuwając gałęzie o liczności mniejszej niż $m_c$. W efekcie powstaje
-skondensowane drzewo, w którym każda gałąź reprezentuje klaster o co najmniej
-$m_c$ punktach, a zmiany liczności są rejestrowane na poziomach gęstości, przy
-których klastry się łączą lub rozszczepiają.
+Przechodzimy po drzewie klastrów gęstości od najwyższego poziomu (gęstości) w dół, usuwając gałęzie o liczności mniejszej niż $m_c$. W efekcie powstaje skondensowane drzewo, w którym każda gałąź reprezentuje klaster o co najmniej $m_c$ punktach, a zmiany liczności są rejestrowane na poziomach gęstości, przy których klastry się łączą lub rozszczepiają.
 
 5.  Miara stabilności klastra i wybór podziału
 
-Dla każdej gałęzi (klastra) $C$ w skondensowanym drzewie definiujemy miarę
-stabilności jako $$
+Dla każdej gałęzi (klastra) $C$ w skondensowanym drzewie definiujemy miarę stabilności jako $$
 \mathrm{Stab}(C) = \sum_{x_i \in C} \big(\lambda_{\text{death}}(x_i) - \lambda_{\text{birth}}(C)\big),
-$$ gdzie $\lambda_{\text{birth}}(C)$ to poziom gęstości, przy którym klaster
-$C$ się pojawia (rodzi), a $\lambda_{\text{death}}(x_i)$ to poziom, przy którym
-punkt $x_i$ opuszcza klaster (gdy $C$ się rozszczepia lub znika). Intuicyjnie,
-stabilność mierzy „czas życia” punktów w klastrze ważony przez gęstość.
-Następnie wybieramy zbiór gałęzi maksymalizujący łączną stabilność, przy czym
-gałęzie nie mogą się nakładać (rodzic-potomkowie). Ten zbiór stanowi ostateczny
-podział danych na klastry.
+$$ gdzie $\lambda_{\text{birth}}(C)$ to poziom gęstości, przy którym klaster $C$ się pojawia (rodzi), a $\lambda_{\text{death}}(x_i)$ to poziom, przy którym punkt $x_i$ opuszcza klaster (gdy $C$ się rozszczepia lub znika). Intuicyjnie, stabilność mierzy „czas życia” punktów w klastrze ważony przez gęstość. Następnie wybieramy zbiór gałęzi maksymalizujący łączną stabilność, przy czym gałęzie nie mogą się nakładać (rodzic-potomkowie). Ten zbiór stanowi ostateczny podział danych na klastry.
 
 6.  Przypisanie punktów i „miękkie” przynależności
 
-Punkty należące do wybranych gałęzi otrzymują etykiety klastrów. Punkty
-nieprzypisane traktujemy jako szum. Opcjonalnie można obliczyć „miękkie”
-przynależności do klastrów na podstawie stabilności oraz odległości do
-klastrów, a także wskaźnik *outlier score* opisujący stopień bycia punktem
-odstającym.
-
+Punkty należące do wybranych gałęzi otrzymują etykiety klastrów. Punkty nieprzypisane traktujemy jako szum. Opcjonalnie można obliczyć „miękkie” przynależności do klastrów na podstawie stabilności oraz odległości do klastrów, a także wskaźnik *outlier score* opisujący stopień bycia punktem odstającym.
 
 ::: {$#exm-5}
 ```{r}
@@ -1208,67 +789,46 @@ print(p_hdb)
 
 ### Model mieszanin Gaussowskich (GMM)
 
-Model mieszanek Gaussa (ang. *Gaussian Mixture Model*, GMM) jest jednym z
-klasycznych probabilistycznych modeli klasteryzacyjnych. W przeciwieństwie do
-metod geometrycznych, takich jak k-means czy DBSCAN, które dzielą przestrzeń na
-obszary na podstawie odległości, GMM opisuje rozkład danych jako kombinację
-(mieszaninę) wielu rozkładów normalnych. Dzięki temu umożliwia modelowanie
-złożonych, nakładających się struktur oraz ocenę niepewności przypisań punktów
-do klastrów.
+Model mieszanek Gaussa (ang. *Gaussian Mixture Model*, GMM) jest jednym z klasycznych probabilistycznych modeli klasteryzacyjnych. W przeciwieństwie do metod geometrycznych, takich jak k-means czy DBSCAN, które dzielą przestrzeń na obszary na podstawie odległości, GMM opisuje rozkład danych jako kombinację (mieszaninę) wielu rozkładów normalnych. Dzięki temu umożliwia modelowanie złożonych, nakładających się struktur oraz ocenę niepewności przypisań punktów do klastrów.
 
 1.  Idea modelu mieszanek Gaussa
 
-Zakłada się, że populacja danych pochodzi z mieszaniny $K$ rozkładów
-normalnych, z których każdy odpowiada jednemu klastrowi. Dla obserwacji
-$x_i \in \mathbb{R}^d$ zakłada się $$
+Zakłada się, że populacja danych pochodzi z mieszaniny $K$ rozkładów normalnych, z których każdy odpowiada jednemu klastrowi. Dla obserwacji $x_i \in \mathbb{R}^d$ zakłada się $$
 p(x_i) = \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k)
 $$ gdzie
 
--   $\pi_k$ – waga (udział) $k$-tej składowej, $\pi_k \ge 0$ i
-    $\sum_{k=1}^{K} \pi_k = 1$,
+-   $\pi_k$ – waga (udział) $k$-tej składowej, $\pi_k \ge 0$ i $\sum_{k=1}^{K} \pi_k = 1$,
 -   $\mu_k$ – wektor średnich (centrum) $k$-tej składowej,
 -   $\Sigma_k$ – macierz kowariancji $k$-tej składowej,
--   $\mathcal{N}(x_i \mid \mu_k, \Sigma_k)$ – gęstość wielowymiarowego rozkładu
-    normalnego $$
+-   $\mathcal{N}(x_i \mid \mu_k, \Sigma_k)$ – gęstość wielowymiarowego rozkładu normalnego $$
     \mathcal{N}(x \mid \mu, \Sigma) = \frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}} \exp\!\left[-\frac{1}{2}(x-\mu)^\top \Sigma^{-1}(x-\mu)\right].
-    $$ W ten sposób model GMM stanowi probabilistyczną wersję klasteryzacji, w
-    której każdy punkt może należeć do kilku klastrów z określonymi
-    prawdopodobieństwami.
+    $$ W ten sposób model GMM stanowi probabilistyczną wersję klasteryzacji, w której każdy punkt może należeć do kilku klastrów z określonymi prawdopodobieństwami.
 
 2.  Zmienne ukryte i interpretacja probabilistyczna
 
-Wprowadza się zmienną ukrytą $z_i \in \{1, \dots, K\}$, oznaczającą, z którego
-składnika mieszaniny pochodzi obserwacja $x_i$. Model przyjmuje wtedy postać $$
+Wprowadza się zmienną ukrytą $z_i \in \{1, \dots, K\}$, oznaczającą, z którego składnika mieszaniny pochodzi obserwacja $x_i$. Model przyjmuje wtedy postać $$
 P(x_i, z_i = k) = \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k).
-$$ Dla każdego punktu oblicza się *posterior probability* (prawdopodobieństwo
-przynależności do klastra) $$
+$$ Dla każdego punktu oblicza się *posterior probability* (prawdopodobieństwo przynależności do klastra) $$
 \gamma_{ik} = P(z_i = k \mid x_i) =
 \frac{\pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k)}{\sum_{j=1}^{K} \pi_j \, \mathcal{N}(x_i \mid \mu_j, \Sigma_j)}.
-$$ Wartość $\gamma_{ik}$ mieści się w przedziale $[0,1]$ i można ją
-interpretować jako miękkie przypisanie punktu do klastra. W przeciwieństwie do
-k-means, które wymusza jednoznaczne etykiety, GMM dopuszcza probabilistyczne
-przypisania.
+$$ Wartość $\gamma_{ik}$ mieści się w przedziale $[0,1]$ i można ją interpretować jako miękkie przypisanie punktu do klastra. W przeciwieństwie do k-means, które wymusza jednoznaczne etykiety, GMM dopuszcza probabilistyczne przypisania.
 
 3.  Funkcja wiarygodności
 
 Zadaniem estymacji parametrów jest maksymalizacja funkcji wiarygodności $$
 L(\pi, \mu, \Sigma \mid X) = \prod_{i=1}^{n} \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x_i \mid \mu_k, \Sigma_k).
-$$ Bezpośrednia maksymalizacja tej funkcji jest trudna, z tego powodu stosuje się algorytm EM (*Expectation–Maximization*),
-który iteracyjnie przybliża rozwiązanie.
+$$ Bezpośrednia maksymalizacja tej funkcji jest trudna, z tego powodu stosuje się algorytm EM (*Expectation–Maximization*), który iteracyjnie przybliża rozwiązanie.
 
 4.  Algorytm EM dla GMM
 
-Algorytm EM (Dempster, Laird i Rubin, 1977) składa się z dwóch naprzemiennych
-etapów:
+Algorytm EM (Dempster, Laird i Rubin, 1977) składa się z dwóch naprzemiennych etapów:
 
--   Krok *Expectation* - obliczanie *posterior probabilities*
-    (odpowiedzialności) dla każdego punktu i komponentu $$
+-   Krok *Expectation* - obliczanie *posterior probabilities* (odpowiedzialności) dla każdego punktu i komponentu $$
     \gamma_{ik}^{(t)} =
     \frac{\pi_k^{(t)} \, \mathcal{N}(x_i \mid \mu_k^{(t)}, \Sigma_k^{(t)})}{
     \sum_{j=1}^{K} \pi_j^{(t)} \, \mathcal{N}(x_i \mid \mu_j^{(t)}, \Sigma_j^{(t)}) }.
     $$
--   Krok *Maximization* - aktualizacja parametrów mieszaniny, traktując
-    $\gamma_{ik}$ jako wagi $$
+-   Krok *Maximization* - aktualizacja parametrów mieszaniny, traktując $\gamma_{ik}$ jako wagi $$
     N_k^{(t+1)} = \sum_{i=1}^{n} \gamma_{ik}^{(t)}, \quad
     \pi_k^{(t+1)} = \frac{N_k^{(t+1)}}{n},
     $$ $$
@@ -1281,43 +841,31 @@ etapów:
 
 5.  Wybór liczby składników $K$
 
-Liczbę składników mieszaniny (liczbę klastrów) nie określa się z góry, lecz
-dobiera na podstawie kryteriów informacyjnych, np.:
+Liczbę składników mieszaniny (liczbę klastrów) nie określa się z góry, lecz dobiera na podstawie kryteriów informacyjnych, np.:
 
--   BIC (*Bayesian Information Criterion*) -
-    $\mathrm{BIC} = -2 \log L_{\max} + p \log n$, gdzie $p$ to liczba
-    parametrów modelu, $n$ liczba obserwacji. Najmniejsza wartość BIC wskazuje
-    najlepszy kompromis między dopasowaniem a złożonością modelu.
--   AIC (*Akaike Information Criterion*) – która mniej penalizuje złożoność
-    $\mathrm{AIC} = -2 \log L_{\max} + 2p.$
+-   BIC (*Bayesian Information Criterion*) - $\mathrm{BIC} = -2 \log L_{\max} + p \log n$, gdzie $p$ to liczba parametrów modelu, $n$ liczba obserwacji. Najmniejsza wartość BIC wskazuje najlepszy kompromis między dopasowaniem a złożonością modelu.
+-   AIC (*Akaike Information Criterion*) – która mniej penalizuje złożoność $\mathrm{AIC} = -2 \log L_{\max} + 2p.$
 
 6.  Struktury kowariancji w GMM
 
-Każdy komponent posiada macierz kowariancji $\Sigma_k$, która może mieć różne
-ograniczenia:
+Każdy komponent posiada macierz kowariancji $\Sigma_k$, która może mieć różne ograniczenia:
 
--   *spherical* – $\Sigma_k = \sigma^2 I$ - klastry kuliste, identyczne
-    wariancje,
+-   *spherical* – $\Sigma_k = \sigma^2 I$ - klastry kuliste, identyczne wariancje,
 -   *diagonal* – tylko wariancje na przekątnej, brak korelacji między cechami,
--   *ellipsoidal* – pełne macierze kowariancji (dowolne orientacje i
-    rozciągnięcia).
+-   *ellipsoidal* – pełne macierze kowariancji (dowolne orientacje i rozciągnięcia).
 
 | Pozycja | Oznaczenie | Co kontroluje | Możliwe wartości | Znaczenie |
-|---------------|---------------|---------------|--------------------|---------------|
+|---------------|---------------|---------------|---------------|---------------|
 | 1\. litera | V / E / I | Objętość (*Volume*) | V = różna, E = jednakowa, I = jednostkowa | Jak duży jest klaster – rozmiar elipsoidy |
 | 2\. litera | V / E / I | Kształt (*Shape*) | V = różny, E = jednakowy, I = sferyczny | Proporcje długości osi elipsoidy |
 | 3\. litera | V / E / I | Orientacja (*Orientation*) | V = różna, E = wspólna, I = brak (sferyczna) | Ustawienie elipsoidy w przestrzeni |
 
 7.  Ograniczenia i wady
 
--   Założenie o normalności – każdy klaster ma rozkład Gaussa, co bywa
-    nieadekwatne dla struktur nieregularnych.
--   Wrażliwość na inicjalizację – EM może zbiec do lokalnego maksimum; często
-    używa się wielu startów lub wstępnej inicjalizacji metodą k-means.
--   Brak odporności na odstające obserwacje – skrajne punkty mogą zaburzać
-    estymację kowariancji.
--   Wymóg dodatnio określonych macierzy kowariancji – błędne dane lub
-    współliniowość mogą prowadzić do problemów numerycznych.
+-   Założenie o normalności – każdy klaster ma rozkład Gaussa, co bywa nieadekwatne dla struktur nieregularnych.
+-   Wrażliwość na inicjalizację – EM może zbiec do lokalnego maksimum; często używa się wielu startów lub wstępnej inicjalizacji metodą k-means.
+-   Brak odporności na odstające obserwacje – skrajne punkty mogą zaburzać estymację kowariancji.
+-   Wymóg dodatnio określonych macierzy kowariancji – błędne dane lub współliniowość mogą prowadzić do problemów numerycznych.
 
 ::: {$#exm-6}
 ```{r}

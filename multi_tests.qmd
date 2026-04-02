@@ -989,19 +989,24 @@ Manova(mod, test = "Hotelling") %>%
   parameters() %>% 
   print_html()
 
-# model bez obserawcji odstającej
+# model bez obserwacji odstającej
 mod2 <- manova(cbind(Actions, Thoughts)~Group, data = dane[-26,])
 Manova(mod2) %>% 
   parameters() %>%
   print_html()
 ```
 
-Analizują wszystkie rodzaje testów Manova, widzimy, że jedynie test
-Hotellinga-Laweya nie daje podstaw do odrzucenia hipotezy o równości
-wektorów średnich. Natomiast ponieważ co najmniej jeden z nich wskazał
-istotność różnic, to przyjmujemy, że są podstawy aby odrzucić hipotezę o
-równości wektorów średnich pomiędzy grupami. Test wykluczający
-obserwację odstającą również każe odrzucić hipotezę $H_0$.
+Analizując wyniki MANOVA, nie należy przyjmować reguły, że wystarczy
+istotność dowolnej statystyki testowej. Statystyki Pillai’a, Wilksa,
+Hotellinga-Lawleya i Roya są alternatywnymi sposobami testowania tej samej
+hipotezy o równości wektorów średnich, a ich rozbieżności należy
+interpretować w świetle spełnienia założeń. Ponieważ wcześniej stwierdzono
+naruszenie wielowymiarowej normalności, najbezpieczniej oprzeć główny wniosek
+na śladzie Pillai’a, który jest zwykle najbardziej odporny na takie
+odchylenia. Jeżeli ten test wskazuje istotność, istnieją podstawy do
+odrzucenia hipotezy $H_0$ o równości wektorów średnich pomiędzy grupami.
+Analiza po wyłączeniu obserwacji odstającej prowadzi do tego samego wniosku,
+co zwiększa wiarygodność rezultatu.
 
 Przeprowadzimy zatem analizę brzegową.
 

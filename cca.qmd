@@ -372,7 +372,7 @@ Każda obserwacja powinna pochodzić od innej jednostki (brak powtórzeń pomiar
 
 # Implementacje CCA w R
 
-Istnieje wiele bibliotek w języku R umożliwiających wykonanie analizy kanonicznej. Wśród najbardziej znanych są: `CCA::cc()`, `stats::cancor()`), `yacca::cca()` oraz w wersji regularyzowanej `mixOmics::rcc()`.
+Istnieje wiele bibliotek w języku R umożliwiających wykonanie analizy kanonicznej. Wśród najbardziej znanych są: `CCA::cc()`, `stats::cancor()`, `yacca::cca()` oraz w wersji regularyzowanej `mixOmics::rcc()`.
 
 ::: exm-1
 Oszacujemy związek między dwoma zestawami zmiennych w zbiorze `mtcars` przy użyciu funkcji `cca()` z pakietu `yacca`.
@@ -443,7 +443,7 @@ Jednocześnie ładunki strukturalne pokazują, że
 
 `CV 2` odzwierciedla typ skrzyni biegów i dynamikę pojazdu. Samochody z większą liczbą biegów i skrzynią manualną mają inne cechy napędu niż te z automatem[^cca-7].
 
-Interpretację pozostałych par kanonicznych pominięto, ze wzgledu na brak istotności statystycznej.
+Interpretację pozostałych par kanonicznych pominięto, ze względu na brak istotności statystycznej.
 
 Interpretacja adekwatności zmiennych kanonicznych (ang. *Canonical Variate Adequacies*) polega na ocenie, w jakim stopniu każda z kanonicznych zmiennych $U_k$ i $V_k$ wyjaśnia wariancję oryginalnych zmiennych w swoim zbiorze (odpowiednio: $X$ lub $Y$). Wskaźniki te są interpretowane jako miara „reprezentatywności” danej zmiennej kanonicznej względem zmiennych pierwotnych.
 
